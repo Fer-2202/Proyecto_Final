@@ -1,17 +1,12 @@
 from django.db import models
+from django.conf import settings
+from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group, User, Permission
 
 #Sections
 class Sections (models.Model):
     name = models.CharField(max_length=30, null=False)
     num_habitats = models.IntegerField(null=False)
-
-    def __str__(self):
-        return self.name
-
-
-#roles
-class Roles (models.Model):
-    name = models.CharField(max_length=30, null=False)
 
     def __str__(self):
         return self.name
@@ -39,22 +34,6 @@ class Conservation_Status (models.Model):
 
     def __str__(self):
         return self.name
-
-
-#usuarios
-class Users (models.Model):
-    first_name = models.CharField(max_length=30, null=False)
-    last_name = models.CharField(max_length=30, null=False)
-    telephone = models.IntegerField(null=False,max_digits=15) 
-    ced_or_passport = models.CharField(max_length=30, null=False)
-    email = models.CharField(max_length=60, null=False, unique=True)
-    birth_date = models.DateField(max_length=10)
-    address = models.CharField(max_length=60, null=False)
-    id_role = models.ForeignKey(Roles,on_delete=models.CASCADE, related_name='users')
-    id_provinces = models.ForeignKey(Provinces,on_delete=models.CASCADE, related_name='users')
-
-    def __str__(self):
-        return self.first_name
 
 
 #Tickets
@@ -87,7 +66,7 @@ class Purchase_Orders(models.Model):
     quantity = models.IntegerField(null=False)
     qr_image = models.CharField(max_length=50, null=False)
     id_visit = models.ForeignKey(Visits, on_delete=models.CASCADE, related_name='purchase_orders')
-    id_user = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='purchase_orders')
+    id_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='purchase_orders')
 
     def __str__(self):
         return f"Purchase Order by {self.email} on {self.order_date.strftime('%Y-%m-%d')}"
@@ -121,3 +100,27 @@ class Animals (models.Model):
 
     def __str__(self):
         return self.name
+
+
+#usuarios
+class UsersProfile (models.Model):
+    phone = models.CharField(max_length=20, blank=True, null=False) 
+    address = models.CharField(max_length=255, null=False)
+    birth_date = models.DateField(null=False, blank=True)
+    ced_or_passport = models.CharField(max_length=30, null=False)
+    email = models.EmailField(max_length=254, blank=True, null=False, unique=True)
+    profile_picture = models.ImageField(upload_to='profile_pics/',
+    null=True, blank=True)
+    bio = models.TextField(blank=True, null=True)
+    create_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateField(auto_now_add=True)
+    id_user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='UsersProfile')
+    id_role = models.ManyToManyField(Group, blank=True, related_name='UsersProfile')
+    id_provinces = models.ForeignKey(Provinces,on_delete=models.CASCADE, related_name='UsersProfile')
+
+    class Meta:
+        verbose_name = "User Profile"
+        verbose_name_plural = "User Profiles"
+
+    def __str__(self):
+        return self.first_name
