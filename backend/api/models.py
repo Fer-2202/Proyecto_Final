@@ -1,51 +1,53 @@
 from django.db import models
-from django.conf import settings
+from django.conf import settings # Import settings
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group, User, Permission
 
 #Sections
-class Sections (models.Model):
-    name = models.CharField(max_length=30, null=False, verbose_name="Section Name")
-    num_habitats = models.IntegerField(null=False, verbose_name="Number of Habitats")
+class Sections(models.Model):
+    name = models.CharField(max_length=30, unique=True, null=False, verbose_name="Section Name")
+    num_habitats = models.PositiveIntegerField(null=False, verbose_name="Number of Habitats")
 
     class Meta:
         verbose_name = "Section"
         verbose_name_plural = "Sections"
-        ordering = ['name']
-        
+        ordering = ["name"]
+
     def __str__(self):
         return self.name
 
 
+
+
 #province
-class Provinces (models.Model):
-    name = models.CharField(max_length=30, null=False, verbose_name="Province Name")
+class Provinces(models.Model):
+    name = models.CharField(max_length=30, unique=True, null=False, verbose_name="Province Name")
 
     class Meta:
         verbose_name = "Province"
         verbose_name_plural = "Provinces"
-        ordering = ['name']
-        
+        ordering = ["name"]
+
     def __str__(self):
         return self.name
 
 
 #stecions
-class Species (models.Model):
-    name = models.CharField(max_length=30, null=False, unique=True, verbose_name="Species Name")
+class Species(models.Model):
+    name = models.CharField(max_length=30, unique=True, null=False, verbose_name="Species Name")
 
     class Meta:
         verbose_name = "Species"
         verbose_name_plural = "Species"
-        ordering = ['name']
-        
+        ordering = ["name"]
+
     def __str__(self):
         return self.name
-
+  
 
 #conservation_status
-class Conservation_Status (models.Model):
-    STATUS_CHOICES = (
+class ConservationStatus(models.Model):
+    STATUS_CHOICES = [
         ("LC", "Least Concern"),
         ("NT", "Near Threatened"),
         ("VU", "Vulnerable"),
@@ -53,32 +55,33 @@ class Conservation_Status (models.Model):
         ("CR", "Critically Endangered"),
         ("EW", "Extinct in the Wild"),
         ("EX", "Extinct"),
-    )
-    name = models.CharField(max_length=2, choices=STATUS_CHOICES, null=False, unique=True, verbose_name="Conservation Status")
+    ]
+    name = models.CharField(max_length=30, choices=STATUS_CHOICES, null=False, unique=True, verbose_name="Conservation Status")
 
     class Meta:
         verbose_name = "Conservation Status"
-        verbose_name_plural = "Conservation Status"
-        ordering = ['name']
-        
+        verbose_name_plural = "Conservation Statuses"
+        ordering = ["name"]
+
     def __str__(self):
         return self.get_name_display()
 
 
+
+
 #Tickets
-class Tickets (models.Model):
-    price = models.DecimalField(max_digits=20, decimal_places=2, null=False, verbose_name="Ticket Price")
-    name = models.CharField(max_length=30, null=False, unique=True, verbose_name="Ticket Name")
-    description = models.CharField(max_length=50, null=False, verbose_name="Description")
-    
+class Tickets(models.Model):
+    price = models.DecimalField(max_digits=10, decimal_places=2, null=False, verbose_name="Ticket Price")
+    name = models.CharField(max_length=30, unique=True, null=False, verbose_name="Ticket Name")
+    description = models.CharField(max_length=100, null=False, verbose_name="Description")
+
     class Meta:
         verbose_name = "Ticket"
         verbose_name_plural = "Tickets"
-        ordering = ['name']
+        ordering = ["name"]
 
     def __str__(self):
         return self.name
-
 
 #visits
 class Visits(models.Model):
@@ -95,8 +98,10 @@ class Visits(models.Model):
     def __str__(self):
         return self.day.strftime('%Y-%m-%d')
 
+
+
 #Purchase_orders
-class Purchase_Orders(models.Model):
+class PurchaseOrders(models.Model):
     order_date = models.DateField(auto_now_add=True, null=False)
     total_amount = models.DecimalField(max_digits=12, decimal_places=2, null=False)
     email = models.EmailField(max_length=50, null=False)
@@ -115,8 +120,8 @@ class Purchase_Orders(models.Model):
     def __str__(self):
         return f"Purchase Order by {self.email} on {self.order_date.strftime('%Y-%m-%d')}"
 
-
-class Tickets_Purchase_Order(models.Model):
+# tickets_purchase_order
+class TicketsPurchaseOrder(models.Model):
     amount = models.PositiveIntegerField(null=False)
     id_ticket = models.ForeignKey('Tickets', on_delete=models.CASCADE, related_name='tickets_purchase_order')
     id_purchase_order = models.ForeignKey('PurchaseOrders', on_delete=models.CASCADE, related_name='tickets_purchase_order')
@@ -126,6 +131,7 @@ class Tickets_Purchase_Order(models.Model):
         verbose_name_plural = "Tickets Purchase Orders"
         unique_together = ("id_ticket", "id_purchase_order")
 
+    
 
 #habitats
 class Habitats(models.Model):
@@ -144,19 +150,24 @@ class Habitats(models.Model):
 
 
 #animals
-class Animals (models.Model):
-    name = models.CharField(max_length=30, null=False)
-    age = models.IntegerField(null=False)
-    id_species = models.ForeignKey(Species, on_delete=models.CASCADE, related_name='animals')
-    id_conservation_status = models.ForeignKey(Conservation_Status, on_delete=models.CASCADE, related_name='animals')
-    id_habitats = models.ForeignKey(Habitats, on_delete=models.CASCADE, related_name='animals')
+class Animals(models.Model):
+    name = models.CharField(max_length=30, null=False, verbose_name="Animal Name")
+    age = models.PositiveIntegerField(null=False, verbose_name="Age")
+    id_species = models.ForeignKey('Species', on_delete=models.CASCADE, related_name='animals')
+    id_conservation_status = models.ForeignKey('ConservationStatus', on_delete=models.CASCADE, related_name='animals')
+    id_habitats = models.ForeignKey('Habitats', on_delete=models.CASCADE, related_name='animals')
+
+    class Meta:
+        verbose_name = "Animal"
+        verbose_name_plural = "Animals"
+        ordering = ["name"]
 
     def __str__(self):
         return self.name
 
 
 # User Profile model to extend the built-in User model
-class User_Profile(models.Model):
+class UserProfile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='profile')
     phone = models.CharField(max_length=20, blank=True, null=True)
     address = models.CharField(max_length=255, blank=True, null=True)
@@ -176,5 +187,3 @@ class User_Profile(models.Model):
     def __str__(self):
         return f'{self.user.username} Profile'
 
-    def get_full_name(self):
-        return self.user.get_full_name()
