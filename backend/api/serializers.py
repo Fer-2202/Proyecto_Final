@@ -76,7 +76,7 @@ class Animals_Serializer(serializers.ModelSerializer):
 #UsersProfile
 class UsersProfile_Serializer(serializers.ModelSerializer):
     class Meta:
-        model= UsersProfile
+        model= User_Profile
         fields= ['phone', 'address','birth_date', 'profile_picture','bio', 'role', 'province', 'created_at', 'update_at']
         extra_kwargs = {
             'phone': {'requiered': False},
@@ -103,14 +103,14 @@ class Register_Serializers(serializers.ModelSerializer):
             profile_data = validated_data.pop('profile', None)
             user = User.objects.create_user(**validated_data)
             if profile_data:
-                UsersProfile.objects.get_or_create(user=user, defaults=profile_data)
+                User_Profile.objects.get_or_create(user=user, defaults=profile_data)
             return user
 
 
 #Profile
 class Profile_Serializer(serializers.ModelSerializer):
     class Meta: 
-        model = UsersProfile
+        model = User_Profile
         fields = ['phone', 'address', 'birth_date', 'profile_picture', 'bio', 'role', 'province']
         extra_kwargs ={
             'phone': {'required': False},
@@ -138,7 +138,7 @@ class User_Serializer(serializers.ModelSerializer):
 
         if profile_data:
 
-            UsersProfile.objects.get_or_create(user=user,defaults=profile_data)
+            User_Profile.objects.get_or_create(user=user,defaults=profile_data)
         
         return user
     

@@ -1,15 +1,30 @@
-import React from 'react';
-import './App.css';
-import AppRouting from './routes/AppRouting';
+import React from 'react'
+import './App.css'
+import AppRouting from './routes/AppRouting.jsx'
+import { Theme, ThemePanel } from "@radix-ui/themes";
+import { AuthProvider } from './context/AuthContext.jsx';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 function App() {
 
+
   return (
     <>
-      <AppRouting /> 
+    <Theme accentColor="jade" grayColor="gray" panelBackground="solid" radius="small" scaling="90%">
+        <AuthProvider>
+          <ToastContainer  />
+          <AppRouting />
+          
+          
+          
+        </AuthProvider>
+      </Theme> 
     </>
   )
 }
 
 export default App
+
+
