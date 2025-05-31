@@ -1,7 +1,7 @@
-import { useCarousel } from "../components/Carrousel/hooks/useCarousel";
+import { useCarousel } from "../Carrousel/hooks/useCarousel";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import "keen-slider/keen-slider.min.css";
-import placeholder from "../assets/placeholder.svg";
+import placeholder from "../../assets/placeholder.svg";
 
 const testimonials = [
   {

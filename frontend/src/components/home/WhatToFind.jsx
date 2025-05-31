@@ -7,7 +7,7 @@ import { Fish, Turtle, Globe, BookOpen } from "lucide-react";
 import "swiper/css";
 import "swiper/css/navigation";
 
-import placeholder from "../assets/placeholder.svg";
+import placeholder from "../../assets/placeholder.svg";
 
 const exhibits = [
   {
