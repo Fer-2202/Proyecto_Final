@@ -18,12 +18,22 @@ export const AuthProvider = ({ children }) => {
       if (storedToken) {
         setToken(storedToken);
         setIsAuthenticated(true);
+
+        /* Verificamos el token guardado en el localStorage */
+        const payload = parseJwt(storedToken);
+        if (payload && payload.user_id) {
+          try {
+            const profileData = await getUserProfileById(payload.user_id);
+            setUser({ ...profileData, id: payload.user_id });
+          } catch {
+            setUser(null);
+          }
+        } else {
+          setUser(null);
+        }
       }
 
-      // Simular una espera mínima de 2 segundos (2000 ms)
-      setTimeout(() => {
-        setLoading(false);
-      }, 3000);
+      setLoading(false);
     };
 
     initializeAuth();

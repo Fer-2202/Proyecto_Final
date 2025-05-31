@@ -1,9 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Loader2 } from "lucide-react";
 import logo from "./../assets/img/LOGO.webp";
 
 export default function Loading({ isVisible = true, text = "Preparando tu experiencia marina..." }) {
+  // Bloquear scroll mientras está visible
+  useEffect(() => {
+    if (isVisible) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isVisible]);
+
   return (
     <AnimatePresence>
       {isVisible && (
@@ -15,7 +27,6 @@ export default function Loading({ isVisible = true, text = "Preparando tu experi
           exit={{ opacity: 0 }}
           transition={{ duration: 0.6 }}
         >
-          {/* Logo flotante */}
           <motion.img
             src={logo}
             alt="Logo"
@@ -23,8 +34,6 @@ export default function Loading({ isVisible = true, text = "Preparando tu experi
             animate={{ y: [0, -10, 0] }}
             transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
           />
-
-          {/* Loader girando */}
           <motion.div
             className="text-[#1CB6B0]"
             animate={{ rotate: 360 }}
@@ -32,8 +41,6 @@ export default function Loading({ isVisible = true, text = "Preparando tu experi
           >
             <Loader2 className="w-10 h-10" />
           </motion.div>
-
-          {/* Texto */}
           <motion.p
             className="mt-4 text-sm text-gray-600 tracking-wide font-medium"
             initial={{ opacity: 0, y: 10 }}
@@ -43,9 +50,9 @@ export default function Loading({ isVisible = true, text = "Preparando tu experi
             {text}
           </motion.p>
 
-          {/* 🌊 Olas dobles animadas */}
+          {/* Olas animadas */}
           <div className="absolute bottom-0 w-full h-40 overflow-hidden">
-            {/* Ola lenta (fondo) */}
+            {/* Ola lenta */}
             <motion.div
               className="absolute w-[200%] h-full"
               animate={{ x: ["0%", "-50%"] }}
@@ -60,7 +67,7 @@ export default function Loading({ isVisible = true, text = "Preparando tu experi
               </svg>
             </motion.div>
 
-            {/* Ola rápida (frente) */}
+            {/* Ola rápida */}
             <motion.div
               className="absolute w-[200%] h-full"
               animate={{ x: ["0%", "-50%"] }}
@@ -76,7 +83,7 @@ export default function Loading({ isVisible = true, text = "Preparando tu experi
             </motion.div>
           </div>
 
-          {/* 🫧 Burbujas flotantes */}
+          {/* Burbujas flotantes */}
           {Array.from({ length: 20 }).map((_, index) => {
             const size = Math.random() * 20 + 20;
             return (

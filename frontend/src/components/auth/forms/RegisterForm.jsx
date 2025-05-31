@@ -5,46 +5,62 @@ import { registerYupSchema } from '../schemas/YupRegisterSchema'; // Assuming yo
 import { registerZodSchema } from '../schemas/ZodRegisterSchema'; // Assuming you have this schema
 import { toast } from 'react-hot-toast'; // Import toast for feedback
 import { getProvinces } from '../../../api/provinces'; // Import the new API function
+import { getRoles } from '../../../api/roles'; // Import roles API
 
 function RegisterForm() {
-  const [provinces, setProvinces] = useState([]); // State to store provinces
+  const [provinces, setProvinces] = useState([]);
+  const [roles, setRoles] = useState([]); // State to store roles
 
   useEffect(() => {
     const fetchProvinces = async () => {
       try {
         const data = await getProvinces();
-        setProvinces(data); // Set the fetched provinces
+        setProvinces(data);
       } catch (error) {
-        toast.error('Error al cargar las provincias.'); // Show error toast
+        toast.error('Error al cargar las provincias.');
       }
     };
-
+    const fetchRoles = async () => {
+      try {
+        const data = await getRoles();
+        setRoles(data);
+      } catch (error) {
+        toast.error('Error al cargar los roles.');
+      }
+    };
     fetchProvinces();
-  }, []); // Empty dependency array means this runs once on mount
+    fetchRoles();
+  }, []);
 
-  const handleSubmit = async (values, { setSubmitting, setErrors }) => {
-    console.log('handleSubmit called with values:', values); // Log when handleSubmit is called
+  const handleSubmit = async (values, { setSubmitting }) => {
+    // Log the payload to inspect what is being sent
+    console.log("Registration payload:", values);
     try {
-      // Ensure the role is set to 'client' before sending to backend
-      // Corrected field name from id_role to role
-      const valuesWithClientRole = { ...values, profile: { ...values.profile, role: 'client' } }; // Set role to 'client'
-      console.log('Values with client role:', valuesWithClientRole); // Log values before sending
-      registerZodSchema.parse(valuesWithClientRole); // Validate with Zod
-      console.log('Zod validation successful.'); // Log after successful Zod validation
-
-      // Use the registration endpoint
-      console.log('Attempting to post to /api/register/'); // Log before API call
-      const response = await axiosInstance.post('/api/register/', valuesWithClientRole); // Assuming a registration endpoint at /api/register/
-      console.log('API response received:', response); // Log the API response
-
-      if (response.status === 201) { // Check for successful creation status
-        toast.success('Registro exitoso! Ahora puedes iniciar sesión.'); // Use toast for success
-        // Optionally redirect to login page
+      // Prepare payload: send role at root, profile fields inside profile
+      const payload = {
+        username: values.username,
+        email: values.email,
+        password: values.password,
+        first_name: values.first_name,
+        last_name: values.last_name,
+        profile: {
+          phone: values.profile.phone,
+          address: values.profile.address,
+          birth_date: values.profile.birth_date,
+          profile_picture: values.profile.profile_picture,
+          bio: values.profile.bio,
+          province: values.profile.id_provinces ? values.profile.id_provinces : null,
+          roles: values.profile.roles ? [parseInt(values.profile.roles)] : []
+        }
+      };
+      console.log("Payload sent to backend:", payload);
+      registerZodSchema.parse(payload);
+      const response = await axiosInstance.post('/api/register/', payload);
+      if (response.status === 201) {
+        toast.success('Registro exitoso! Ahora puedes iniciar sesión.');
       } else {
-        // Handle other successful but unexpected responses
-        console.error('Registration response unexpected:', response.data);
         setErrors({ general: 'Error en el registro. Inténtalo de nuevo.' });
-        toast.error('Error en el registro. Inténtalo de nuevo.'); // Use toast for general error
+        toast.error('Error en el registro. Inténtalo de nuevo.');
       }
     } catch (err) {
       console.error('Error during registration:', err); // Log the error object
@@ -83,7 +99,6 @@ function RegisterForm() {
         toast.error('Error en el registro. Inténtalo de nuevo.'); // Use toast for other errors
       }
     } finally {
-      console.log('handleSubmit finished.'); // Log when handleSubmit finishes
       setSubmitting(false);
     }
   };
@@ -98,17 +113,17 @@ function RegisterForm() {
           password: '',
           first_name: '',
           last_name: '',
-          profile: { // Nested profile object
+          profile: {
             phone: '',
             address: '',
             birth_date: '',
-            profile_picture: null, // Assuming file input or similar
+            profile_picture: null,
             bio: '',
-            role: 'client', // Set initial value to 'client'
-            id_provinces: null // Change initial value to null
+            roles: '', // Will hold selected role ID
+            id_provinces: null
           }
-        }} // Update initial values to match backend UserSerializer
-        validationSchema={registerYupSchema} // Use your Yup schema
+        }}
+        validationSchema={registerYupSchema}
         onSubmit={handleSubmit}
       >
         {({ isSubmitting, errors, setFieldValue }) => (
@@ -140,11 +155,16 @@ function RegisterForm() {
               <Field name="profile.birth_date" type="date" className="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#26b7ad]" />
               <ErrorMessage name="profile.birth_date" component="div" className="text-red-500 text-sm mt-1" />
             </div>
-            {/* Role field - set to 'client' and read-only */}
+            {/* Role field - dynamic select */}
             <div>
-              <label htmlFor="profile.role" className="block text-sm font-medium text-gray-700">Rol</label>
-              <Field name="profile.role" type="text" value="Client" readOnly className="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none bg-gray-100 cursor-not-allowed" />
-              <ErrorMessage name="profile.role" component="div" className="text-red-500 text-sm mt-1" />
+              <label htmlFor="profile.roles" className="block text-sm font-medium text-gray-700">Rol</label>
+              <Field name="profile.roles" as="select" className="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#26b7ad]" onChange={e => setFieldValue('profile.roles', e.target.value)}>
+                <option value="">Seleccione un rol</option>
+                {roles.map(role => (
+                  <option key={role.id} value={role.id}>{role.name}</option>
+                ))}
+              </Field>
+              <ErrorMessage name="profile.roles" component="div" className="text-red-500 text-sm mt-1" />
             </div>
             {/* You'll need to fetch provinces to populate this field */}
             <div>
@@ -176,7 +196,7 @@ function RegisterForm() {
               <Field name="profile.bio" as="textarea" className="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#26b7ad]" />
               <ErrorMessage name="profile.bio" component="div" className="text-red-500 text-sm mt-1" />
             </div>
-             {/* Add field for profile picture if needed */}
+            
             <div>
               <label htmlFor="password" className="block text-sm font-medium text-gray-700">Contraseña</label>
               <Field name="password" type="password" className="mt-1 block w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#26b7ad]" />
