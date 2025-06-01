@@ -3,6 +3,7 @@ import { getUserProfileById, updateUserProfile } from '../api/userProfile';
 import { useAuth } from '../context/AuthContext';
 import Loading from '../pages/Loading';
 import { AnimatePresence, motion } from 'framer-motion';
+import { getRoleById } from '../api/roles';
 import { LogOut, User, Shield, SlidersHorizontal, Ticket } from 'lucide-react';
 
 export default function Profile() {
@@ -12,8 +13,10 @@ export default function Profile() {
   const [error, setError] = useState(null);
   const [activeTab, setActiveTab] = useState('personal');
   const [isEditing, setIsEditing] = useState(false);
+  const [roleNames, setRoleNames] = useState([]);
 
   console.log(profileData);
+  console.log(user);
 
   const tabs = [
     { key: 'personal', label: 'Personal', icon: <User size={16} /> },
@@ -29,6 +32,8 @@ export default function Profile() {
   const handleSaveProfile = async () => {
     try {
       const updatedData = {
+        first_name: profileData.first_name,
+        last_name: profileData.last_name,
         phone: profileData.phone,
         address: profileData.address,
         birth_date: profileData.birth_date
@@ -51,6 +56,20 @@ export default function Profile() {
         const data = await getUserProfileById(user.id);
         setLoading(false);
         setProfileData(data);
+        // Fetch role names if roles exist
+        if (data.roles && data.roles.length > 0) {
+          const names = await Promise.all(data.roles.map(async (roleId) => {
+            try {
+              const role = await getRoleById(roleId);
+              return role.name;
+            } catch {
+              return roleId;
+            }
+          }));
+          setRoleNames(names);
+        } else {
+          setRoleNames([]);
+        }
       } catch (err) {
         console.error(err);
         setError('Error al cargar el perfil.');
@@ -78,7 +97,9 @@ export default function Profile() {
               </div>
               <h2 className="text-lg font-bold">{user.first_name} {user.last_name}</h2>
               <p className="text-sm text-gray-400">{user.email}</p>
-              <p className="text-xs text-gray-500">Administrador</p>
+              <p className="text-xs text-gray-500">{
+                (roleNames && roleNames.length > 0) ? roleNames.join(', ') : 'Sin rol asignado'
+              }</p>
             </div>
 
             <nav className="flex flex-col space-y-2">
