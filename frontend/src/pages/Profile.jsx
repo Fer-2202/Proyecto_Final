@@ -81,7 +81,7 @@ export default function Profile() {
     fetchProfile();
   }, [isAuthenticated, user]);
 
- /*  if (loading) return <Loading isVisible={true} text="Cargando tu perfil..." />; */
+  if (loading) return <Loading isVisible={true} text="Cargando tu perfil..." />;
   if (error) return <div className="min-h-screen flex items-center justify-center text-red-600 text-lg font-semibold">{error}</div>;
   if (!isAuthenticated || !profileData) return <div className="min-h-screen flex items-center justify-center text-gray-500 text-lg">Inicia sesión para ver tu perfil.</div>;
 

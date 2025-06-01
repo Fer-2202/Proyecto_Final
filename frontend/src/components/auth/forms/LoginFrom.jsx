@@ -41,7 +41,7 @@ function LoginForm() {
         pauseOnHover
         theme="colored"
       />
-      <div className="flex flex-col items-center mb-6">
+      <div className="flex flex-col items-center mb-6 mt-20">
         <h1 className="text-3xl font-bold mb-2 text-gray-900">Iniciar Sesión</h1>
         <p className="text-gray-500 text-base">¿No tienes una cuenta? <a href="/register" className="text-[#26b7ad] hover:underline">Regístrate</a></p>
       </div>

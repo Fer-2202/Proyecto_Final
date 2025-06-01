@@ -108,7 +108,7 @@ class PurchaseOrders(models.Model):
     total_price = models.DecimalField(max_digits=10, decimal_places=2, null=False)
     purchase_date = models.DateField(auto_now_add=True, null=False)
     quantity = models.PositiveIntegerField(null=False)
-    qr_image = models.CharField(max_length=100, null=False)
+    qr_image = models.ImageField(upload_to='qr_codes/', blank=True, null=True)
     id_visit = models.ForeignKey('Visits', on_delete=models.CASCADE, related_name='purchase_orders')
     id_user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name='purchase_orders')
 
