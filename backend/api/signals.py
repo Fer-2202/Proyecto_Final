@@ -8,7 +8,7 @@ from .utils import generate_qr_code
 
 @receiver(post_save , sender=PurchaseOrders)
 def  created (sender, instance, created, **kwargs):
-  if created and not instance.qr_images:
+  if created and not instance.qr_image:
     generate_qr_code(instance)
 
 @receiver(post_save, sender=User)

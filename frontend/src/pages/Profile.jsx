@@ -14,6 +14,11 @@ export default function Profile() {
   const [activeTab, setActiveTab] = useState('personal');
   const [isEditing, setIsEditing] = useState(false);
   const [roleNames, setRoleNames] = useState([]);
+  const [userRoles, setUserRoles] = useState([]);
+
+  // Helper to check roles
+  const isCliente = roleNames.includes('cliente');
+  const isAdmin = roleNames.includes('admin');
 
   console.log(profileData);
   console.log(user);
@@ -202,12 +207,12 @@ export default function Profile() {
 
                   <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {[
-                      { label: 'Nombre completo', value: `${user.first_name} ${user.last_name || ''}`, disabled: !isEditing },
-                      { label: 'Nombre', value: profileData.first_name || '', disabled: !isEditing },
+                      { label: 'Nombre completo', value: `${user.first_name} ${user.last_name || ''}`, disabled: true },
+                      { label: 'Nombre', value: profileData.first_name || '', disabled: isCliente || !isEditing },
                       { label: 'Email', value: user.email, disabled: true },
-                      { label: 'Teléfono', value: profileData.phone || '', disabled: !isEditing, field: 'phone' },
-                      { label: 'Fecha de nacimiento', value: profileData.birth_date ? new Date(profileData.birth_date).toLocaleDateString('es-ES') : '', disabled: !isEditing, field: 'birth_date' },
-                      { label: 'Dirección', value: profileData.address || '', disabled: !isEditing, full: true, field: 'address' }
+                      { label: 'Teléfono', value: profileData.phone || '', disabled: isCliente || !isEditing, field: 'phone' },
+                      { label: 'Fecha de nacimiento', value: profileData.birth_date ? new Date(profileData.birth_date).toLocaleDateString('es-ES') : '', disabled: isCliente || !isEditing, field: 'birth_date' },
+                      { label: 'Dirección', value: profileData.address || '', disabled: isCliente || !isEditing, full: true, field: 'address' }
                     ].map((field, idx) => (
                       <div key={idx} className={field.full ? 'md:col-span-2' : ''}>
                         <label className="block text-sm font-medium text-gray-700 mb-1">{field.label}</label>
@@ -216,7 +221,7 @@ export default function Profile() {
                           disabled={field.disabled}
                           value={field.value}
                           onChange={(e) => {
-                            if (field.field) {
+                            if (field.field && !field.disabled) {
                               setProfileData({
                                 ...profileData,
                                 [field.field]: e.target.value
@@ -232,6 +237,21 @@ export default function Profile() {
                         />
                       </div>
                     ))}
+                    {/* Admin can edit roles */}
+                    {isAdmin && isEditing && (
+                      <div className="md:col-span-2">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Rol</label>
+                        <select
+                          value={roleNames[0] || ''}
+                          onChange={e => setRoleNames([e.target.value])}
+                          className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500"
+                        >
+                          <option value="cliente">Cliente</option>
+                          <option value="admin">Admin</option>
+                          <option value="otro">Otro</option>
+                        </select>
+                      </div>
+                    )}
                   </form>
                 </div>
               )}

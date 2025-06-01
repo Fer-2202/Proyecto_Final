@@ -41,11 +41,14 @@ export default function Avatar({ user, size = 40, className = "", onLogout }) {
 
   return (
     <div className="relative" ref={dropdownRef}>
-      <button
-        className={`flex items-center gap-2 focus:outline-none ${className}`}
+      <div
+        className={`flex items-center gap-2 focus:outline-none cursor-pointer ${className}`}
         onClick={() => setShowDropdown((prev) => !prev)}
         aria-haspopup="true"
         aria-expanded={showDropdown ? "true" : "false"}
+        tabIndex={0}
+        role="button"
+        onKeyDown={e => { if (e.key === 'Enter' || e.key === ' ') setShowDropdown(prev => !prev); }}
       >
         {user?.profile_picture ? (
           <img
@@ -63,8 +66,7 @@ export default function Avatar({ user, size = 40, className = "", onLogout }) {
             {initials || <span>U</span>}
           </div>
         )}
-        
-      </button>
+      </div>
 
       <AnimatePresence>
         {showDropdown && (
@@ -77,7 +79,8 @@ export default function Avatar({ user, size = 40, className = "", onLogout }) {
           >
             <Link
               to="/admin/dashboard"
-             className="flex items-center px-5 py-3 text-sm text-gray-800 hover:bg-[#e6f7f6] hover:text-[#1cb6b0] transition">
+              className="flex items-center px-5 py-3 text-sm text-gray-800 hover:bg-[#e6f7f6] hover:text-[#1cb6b0] transition"
+            >
               <LayoutDashboard className="w-4 h-4 mr-2" /> Dashboard
             </Link>
             <Link
@@ -85,7 +88,6 @@ export default function Avatar({ user, size = 40, className = "", onLogout }) {
               className="flex items-center px-5 py-3 text-sm text-gray-800 hover:bg-[#e6f7f6] hover:text-[#1cb6b0] transition"
               onClick={() => setShowDropdown(false)}
             >
-              
               <User className="w-4 h-4 mr-2" /> Perfil de usuario
             </Link>
             <button
