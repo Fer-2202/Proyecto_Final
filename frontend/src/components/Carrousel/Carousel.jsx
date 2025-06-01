@@ -19,7 +19,7 @@ function Carousel() {
 
   return (
     <div
-      className="relative max-w-full mx-auto overflow-hidden mt-23 h-[500px]"
+      className="relative max-w-full mx-auto overflow-hidden mt-23 h-125"
       onMouseEnter={handlePause}
       onMouseLeave={handleResume}
       onFocus={handlePause}

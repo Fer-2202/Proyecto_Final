@@ -11,7 +11,7 @@ function PublicLayout() {
   return (
     <div>
       <Navbar />
-      <main className='min-h-screen'>
+      <main className='min-h-screen bg-[#fafbfc]'>
         <Outlet />
       </main>
       <Footer />

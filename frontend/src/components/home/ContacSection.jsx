@@ -81,7 +81,7 @@ export default function ContactSection() {
               <textarea
                 placeholder="Mensaje"
                 rows="4"
-                className="w-full border rounded-md px-4 py-2 text-sm outline-[#1CB6B0]"
+                className="w-full h-60 border rounded-md px-4 py-2 text-sm outline-[#1CB6B0]"
               ></textarea>
               <button
                 type="submit"

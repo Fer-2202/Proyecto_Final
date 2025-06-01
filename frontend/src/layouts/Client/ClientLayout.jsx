@@ -14,7 +14,7 @@ function ClientLayout() {
   return (
     <div>
       <Navbar />
-      <main className="min-h-screen bg-[#f3f4f6] mt-24 w-full">
+      <main className="min-h-screen bg-[#fafbfc] mt-24 w-full">
         {isTransitioning ? (
           <Loading text="Cargando panel de cliente..." />
         ) : (
