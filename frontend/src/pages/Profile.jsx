@@ -81,7 +81,7 @@ export default function Profile() {
     fetchProfile();
   }, [isAuthenticated, user]);
 
-  if (loading) return <Loading isVisible={true} text="Cargando tu perfil..." />;
+ /*  if (loading) return <Loading isVisible={true} text="Cargando tu perfil..." />; */
   if (error) return <div className="min-h-screen flex items-center justify-center text-red-600 text-lg font-semibold">{error}</div>;
   if (!isAuthenticated || !profileData) return <div className="min-h-screen flex items-center justify-center text-gray-500 text-lg">Inicia sesión para ver tu perfil.</div>;
 
@@ -203,6 +203,7 @@ export default function Profile() {
                   <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {[
                       { label: 'Nombre completo', value: `${user.first_name} ${user.last_name || ''}`, disabled: !isEditing },
+                      { label: 'Nombre', value: profileData.first_name || '', disabled: !isEditing },
                       { label: 'Email', value: user.email, disabled: true },
                       { label: 'Teléfono', value: profileData.phone || '', disabled: !isEditing, field: 'phone' },
                       { label: 'Fecha de nacimiento', value: profileData.birth_date ? new Date(profileData.birth_date).toLocaleDateString('es-ES') : '', disabled: !isEditing, field: 'birth_date' },

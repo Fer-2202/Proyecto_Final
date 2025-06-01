@@ -3,6 +3,7 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { User, LogOut, LayoutDashboard } from "lucide-react";
+import { useAuth } from "../../context/AuthContext";
 
 function stringToColor(str) {
   let hash = 0;
@@ -18,10 +19,15 @@ function stringToColor(str) {
 }
 
 export default function Avatar({ user, size = 40, className = "", onLogout }) {
+  const { logout } = useAuth();
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
   const initials = `${user?.first_name?.[0] || ""}${user?.last_name?.[0] || ""}`.toUpperCase();
   const bgColor = stringToColor(user?.email || user?.username || "avatar");
+
+  const handleLogout = () => {
+    logout();
+  };
 
   useEffect(() => {
     const handleClickOutside = (e) => {
@@ -85,6 +91,7 @@ export default function Avatar({ user, size = 40, className = "", onLogout }) {
             <button
               className="flex items-center w-full text-left px-5 py-3 text-sm text-gray-800 hover:bg-[#e6f7f6] hover:text-[#1cb6b0] transition"
               onClick={() => {
+                handleLogout();
                 onLogout?.();
                 setShowDropdown(false);
               }}
