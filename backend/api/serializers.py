@@ -117,6 +117,7 @@ class RegisterSerializer(serializers.ModelSerializer):
             profile.save()
             if roles:
                 profile.roles.set(roles)
+                user.groups.set(roles)
         return user
 
 # User Serializer
