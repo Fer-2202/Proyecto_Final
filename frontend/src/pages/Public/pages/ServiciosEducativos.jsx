@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Equipo() {
+function ServiciosEducativos() {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function Equipo() {
   )
 }
 
-export default Equipo
+export default ServiciosEducativos

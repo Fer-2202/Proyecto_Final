@@ -1,6 +1,7 @@
 import React, { Suspense } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
+
 /* Layout Publico */
 const PublicLayout = React.lazy(() => import('../layouts/Public/PublicLayout.jsx'));
 const Home = React.lazy(() => import('../pages/Public/Home.jsx'));
@@ -24,42 +25,74 @@ const Profile = React.lazy(() => import('../pages/Profile.jsx'));
 const Loading = React.lazy(() => import('../pages/Loading.jsx'));
 const InfoInstitucional = React.lazy(() => import('../pages/Public/pages/InfoInstitucional.jsx'));
 
+/* quienes-somos */
+const Historia = React.lazy(() => import('../pages/Public/pages/Historia.jsx'));
+const Equipo = React.lazy(() => import('../pages/Public/pages/Equipo.jsx'));
+const TransparenciaInstitucional = React.lazy(() => import('../pages/Public/pages/TransparenciaInstitucional.jsx'));
+
+/* exhibiciones-y-servicios */
+const Exhibiciones = React.lazy(() => import('../pages/Public/pages/Exhibiciones.jsx'));
+const ServiciosEducativos = React.lazy(() => import('../pages/Public/pages/ServiciosEducativos.jsx'));
+const VisitasGuiadas = React.lazy(() => import('../pages/Public/pages/VisitasGuiadas.jsx'));
+
+/* acuicultura-y-biotecnologia-marina */
+const AcuiculturaYBiotecnologiaMarina = React.lazy(() => import('../pages/Public/pages/AcuiculturaYBiotecnologiaMarina.jsx'));
+const CentroDeRescateYRehabilitacion = React.lazy(() => import('../pages/Public/pages/CentroDeRescateYRehabilitacion.jsx'));
+const Investigacion = React.lazy(() => import('../pages/Public/pages/investigacion.jsx'));
+const Proyectos = React.lazy(() => import('../pages/Public/pages/Proyectos.jsx'));
+
+
+
 function AppRouting() {
   return (
     <BrowserRouter>
       <Suspense fallback={<Loading/>}>
         <Routes>
 
-          {/* Rutas Publicas */}
-          <Route element={<PublicLayout />}>
-            <Route path="/" element={<Home />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/register" element={<Register />} />
-            <Route path="/forgot-password" element={<ForgotPassword />} />
-            <Route path="/quienes-somos/informacion-institucional" element={<InfoInstitucional />} />
-          </Route>
+        {/* Rutas Publicas */}
+        <Route element={<PublicLayout />}>
+          <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
+          <Route path="/forgot-password" element={<ForgotPassword />} />
 
-          {/* Rutas Privadas Cliente */}
-          <Route element={
-            <PrivateRoute>
-              <ClientLayout />
-            </PrivateRoute>
-          }>
-            <Route path="/Client_Dashboard" element={<ClientHome />} />
-            <Route path="/profile" element={<Profile />} />
-          </Route>
+          <Route path="/quienes-somos/informacion-institucional" element={<InfoInstitucional />} />
+          <Route path="/quienes-somos/historia" element={<Historia />} />
+          <Route path="/quienes-somos/equipo" element={<Equipo />} />
+          <Route path="/quienes-somos/transparencia-institucional" element={<TransparenciaInstitucional />} />
 
-          {/* Rutas Privadas Admin */}
-          <Route element={
-            <PrivateRoute>
-              <AdminLayout />
-            </PrivateRoute>
-          }>
-            <Route path="/admin/dashboard" element={<DashboardAdmin />} />
-          </Route>
+          <Route path="/exhibiciones-y-servicios/exhibiciones" element={<Exhibiciones />} />
+          <Route path="/exhibiciones-y-servicios/servicios-educativos" element={<ServiciosEducativos />} />
+          <Route path="/exhibiciones-y-servicios/visitas-guiadas" element={<VisitasGuiadas />} />
 
-          {/* Loading */}
-          <Route path="/loading" element={<Loading />} />
+          <Route path="/investigacion-y-conservacion/acuicultura-y-biotecnologia-marina" element={<AcuiculturaYBiotecnologiaMarina />} />
+          <Route path="/investigacion-y-conservacion/centro-de-rescate-y-rehabilitacion" element={<CentroDeRescateYRehabilitacion />} />
+          <Route path="/investigacion-y-conservacion/investigacion" element={<Investigacion />} />
+          <Route path="/investigacion-y-conservacion/Proyectos" element={<Proyectos />} />
+
+        </Route>
+
+        {/* Rutas Privadas Cliente */}
+        <Route element={
+          <PrivateRoute>
+            <ClientLayout />
+          </PrivateRoute>
+        }>
+          <Route path="/Client_Dashboard" element={<ClientHome />} />
+          <Route path="/profile" element={<Profile />} />
+        </Route>
+
+        {/* Rutas Privadas Admin */}
+        <Route element={
+          <PrivateRoute>
+            <AdminLayout />
+          </PrivateRoute>
+        }>
+          <Route path="/admin/dashboard" element={<DashboardAdmin />} />
+        </Route>
+
+        {/* Loading */}
+        <Route path="/loading" element={<Loading />} />
 
         </Routes>
       </Suspense>
