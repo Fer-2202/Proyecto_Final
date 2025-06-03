@@ -45,6 +45,10 @@ const Proyectos = React.lazy(() => import('../pages/Public/pages/Proyectos.jsx')
 const Voluntariado = React.lazy(() => import('../pages/Public/pages/Voluntariado.jsx'));
 const Donaciones = React.lazy(() => import('../pages/Public/pages/Donaciones.jsx'));
 
+/* /purchase-form */
+const Ticketera = React.lazy(() => import('../pages/Public/pages/Ticketera.jsx'));
+
+
 function AppRouting() {
   return (
   <BrowserRouter>
@@ -75,7 +79,7 @@ function AppRouting() {
         <Route path="/apoyo/voluntariado" element={<Voluntariado />} />
         <Route path="/apoyo/donaciones" element={<Donaciones />} />
 
-
+        <Route path="/purchase-form/ticketera" element={<Ticketera />} />
 
         </Route>
 

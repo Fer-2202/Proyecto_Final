@@ -62,7 +62,7 @@ const links = [
 
 const ticketLink = {
   name: "Ticketera",
-  href: "/purchase-form",
+  href: "/purchase-form/ticketera",
   isButton: true,
 };
 
