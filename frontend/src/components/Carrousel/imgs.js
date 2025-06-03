@@ -10,7 +10,7 @@ const images = [
       alt: "Imagen de ejemplo",
       cta: {
         label: "ver mas",
-        link: "https://www.google.com/"
+        link: "/quienes-somos/informacion-institucional"
       }
     },
     {

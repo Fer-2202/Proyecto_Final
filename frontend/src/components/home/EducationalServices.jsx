@@ -1,4 +1,5 @@
 import placeholder from "../../assets/placeholder.svg";
+import { Link } from "react-router-dom";
 
 const services = [
   {
@@ -66,8 +67,8 @@ export default function EducationalServices() {
         </div>
 
         <div className="mt-12">
-          <a
-            href="/servicios-educativos"
+          <Link
+            to="/exhibiciones-y-servicios/servicios-educativos"
             className="inline-flex items-center gap-2 px-6 py-2 text-[#1CB6B0] border border-[#1CB6B0] rounded-md hover:bg-[#e6f7f6] transition text-sm font-medium"
           >
             Ver todos los servicios educativos
@@ -80,7 +81,7 @@ export default function EducationalServices() {
             >
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
     </section>
