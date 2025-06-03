@@ -1,5 +1,6 @@
 import React from 'react'
 import { Facebook, Youtube, Instagram } from 'lucide-react'
+import {Link} from 'react-router-dom'
 
 function TopBarRedes() {
   return (
@@ -11,15 +12,16 @@ function TopBarRedes() {
             <a key={i} href="#" className="hover:scale-110 transition" aria-label="Red social">
               <Icon className="w-4 h-4" />
             </a>
+            
           ))}
         </div>
 
         <div className="flex gap-3 font-semibold">
-          <a href="/register" className="hover:underline">Registrarse</a>
+          <Link to="/register" className="hover:underline">Registrarse</Link>
           <span>|</span>
-          <a href="/login" className="hover:underline">Iniciar Sesión</a>
+          <Link to="/login" className="hover:underline">Iniciar Sesión</Link>
           <span>|</span>
-          <a href="/donar" className="hover:underline">Donar</a>
+          <Link to="/apoyo/donaciones" className="hover:underline">Donar</Link>
         </div>
       </div>
     </>

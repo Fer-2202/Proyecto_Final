@@ -41,34 +41,41 @@ const CentroDeRescateYRehabilitacion = React.lazy(() => import('../pages/Public/
 const Investigacion = React.lazy(() => import('../pages/Public/pages/investigacion.jsx'));
 const Proyectos = React.lazy(() => import('../pages/Public/pages/Proyectos.jsx'));
 
-
+/* apoyo */
+const Voluntariado = React.lazy(() => import('../pages/Public/pages/Voluntariado.jsx'));
+const Donaciones = React.lazy(() => import('../pages/Public/pages/Donaciones.jsx'));
 
 function AppRouting() {
   return (
-    <BrowserRouter>
-      <Suspense fallback={<Loading/>}>
-        <Routes>
+  <BrowserRouter>
+    <Suspense fallback={<Loading/>}>
+      <Routes>
 
         {/* Rutas Publicas */}
         <Route element={<PublicLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
-          <Route path="/quienes-somos/informacion-institucional" element={<InfoInstitucional />} />
-          <Route path="/quienes-somos/historia" element={<Historia />} />
-          <Route path="/quienes-somos/equipo" element={<Equipo />} />
-          <Route path="/quienes-somos/transparencia-institucional" element={<TransparenciaInstitucional />} />
+        <Route path="/quienes-somos/informacion-institucional" element={<InfoInstitucional />} />
+        <Route path="/quienes-somos/historia" element={<Historia />} />
+        <Route path="/quienes-somos/equipo" element={<Equipo />} />
+        <Route path="/quienes-somos/transparencia-institucional" element={<TransparenciaInstitucional />} />
 
-          <Route path="/exhibiciones-y-servicios/exhibiciones" element={<Exhibiciones />} />
-          <Route path="/exhibiciones-y-servicios/servicios-educativos" element={<ServiciosEducativos />} />
-          <Route path="/exhibiciones-y-servicios/visitas-guiadas" element={<VisitasGuiadas />} />
+        <Route path="/exhibiciones-y-servicios/exhibiciones" element={<Exhibiciones />} />
+        <Route path="/exhibiciones-y-servicios/servicios-educativos" element={<ServiciosEducativos />} />
+        <Route path="/exhibiciones-y-servicios/visitas-guiadas" element={<VisitasGuiadas />} />
 
-          <Route path="/investigacion-y-conservacion/acuicultura-y-biotecnologia-marina" element={<AcuiculturaYBiotecnologiaMarina />} />
-          <Route path="/investigacion-y-conservacion/centro-de-rescate-y-rehabilitacion" element={<CentroDeRescateYRehabilitacion />} />
-          <Route path="/investigacion-y-conservacion/investigacion" element={<Investigacion />} />
-          <Route path="/investigacion-y-conservacion/Proyectos" element={<Proyectos />} />
+        <Route path="/investigacion-y-conservacion/acuicultura-y-biotecnologia-marina" element={<AcuiculturaYBiotecnologiaMarina />} />
+        <Route path="/investigacion-y-conservacion/centro-de-rescate-y-rehabilitacion" element={<CentroDeRescateYRehabilitacion />} />
+        <Route path="/investigacion-y-conservacion/investigacion" element={<Investigacion />} />
+        <Route path="/investigacion-y-conservacion/proyectos" element={<Proyectos />} />
+
+        <Route path="/apoyo/voluntariado" element={<Voluntariado />} />
+        <Route path="/apoyo/donaciones" element={<Donaciones />} />
+
+
 
         </Route>
 
@@ -94,9 +101,9 @@ function AppRouting() {
         {/* Loading */}
         <Route path="/loading" element={<Loading />} />
 
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
+      </Routes>
+    </Suspense>
+  </BrowserRouter>
   );
 }
 

@@ -7,6 +7,7 @@ import {
   Phone,
   Mail
 } from "lucide-react";
+import {Link} from 'react-router-dom'
 
 export default function Footer() {
   return (
@@ -43,15 +44,14 @@ export default function Footer() {
           <ul className="space-y-2 text-sm text-gray-200">
             {[
               ["Quienes somos", "/quienes-somos"],
-              ["Exhibiciones", "/exhibiciones"],
-              ["Servicios Educativos", "/servicios-educativos"],
-              ["Centro de Rescate", "/centro-de-rescate"],
-              ["Donar", "/donar"],
+              ["Exhibiciones", "/exhibiciones-y-servicios/exhibiciones"],
+              ["Servicios Educativos", "/exhibiciones-y-servicios/servicios-educativos"],
+              ["Centro de Rescate", "/investigacion-y-conservacion/centro-de-rescate-y-rehabilitacion"],
+              ["Donar", "/apoyo/donaciones"],
             ].map(([label, href]) => (
               <li key={href}>
-                <a href={href} className="hover:text-white transition">
-                  {label}
-                </a>
+                  <Link to={href} className="hover:text-white transition">
+                  {label}</Link>
               </li>
             ))}
           </ul>
@@ -89,7 +89,7 @@ export default function Footer() {
             </li>
             <li className="flex items-start gap-3">
               <Mail className="w-4 h-4 mt-1 text-[#1CB6B0]" />
-              <span>info@parquemarino.co.cr</span>
+              <Link to="mailto"></Link>
             </li>
           </ul>
         </div>
