@@ -5,8 +5,46 @@ import {
   Youtube,
   MapPin,
   Phone,
+  Linkedin,
   Mail
 } from "lucide-react";
+import { FaFacebook, FaTwitter, FaInstagram, FaYoutube, FaLinkedin } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+
+const socialLinks = [
+  {
+    name: 'Facebook',
+    url: 'https://facebook.com/parquemarino',
+    icon: Facebook,
+    color: 'hover:text-blue-600'
+  },
+  {
+    name: 'Twitter',
+    url: 'https://twitter.com/parquemarino',
+    icon: Twitter,
+    color: 'hover:text-blue-400'
+  },
+  {
+    name: 'Instagram',
+    url: 'https://instagram.com/parquemarino',
+    icon: Instagram,
+    color: 'hover:text-pink-600'
+  },
+  {
+    name: 'YouTube',
+    url: 'https://youtube.com/parquemarino',
+    icon: Youtube,
+    color: 'hover:text-red-600'
+  },
+  {
+    name: 'LinkedIn',
+    url: 'https://linkedin.com/company/parquemarino',
+    icon: Linkedin,
+    color: 'hover:text-blue-800'
+  }
+];
+
+
 
 export default function Footer() {
   return (
@@ -24,16 +62,21 @@ export default function Footer() {
             Conservando la biodiversidad marina de Costa Rica a través de la educación, investigación y conservación.
           </p>
           <div className="flex gap-4 text-white/80">
-            {[Facebook, Instagram, Twitter, Youtube].map((Icon, i) => (
-              <a
-                key={i}
-                href="#"
-                className="hover:text-white transition"
-                aria-label={`Red social ${Icon.name}`}
-              >
-                <Icon className="w-5 h-5" />
-              </a>
-            ))}
+          {socialLinks.map((social) => {
+                const Icon = social.icon;
+                return (
+                  <a
+                    key={social.name}
+                    href={social.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`text-2xl ${social.color} transition-colors duration-300`}
+                    aria-label={`Visitar ${social.name}`}
+                  >
+                    <Icon />
+                  </a>
+                );
+              })}
           </div>
         </div>
 
@@ -98,12 +141,12 @@ export default function Footer() {
       {/* Pie de página inferior */}
       <div className="mt-10 flex flex-col md:flex-row justify-between items-center text-xs text-gray-300 gap-4">
         <p className="text-center md:text-left">
-          © 2025 Parque Marino Central del Pacífico Sur. Todos los derechos reservados.
+          &copy; {new Date().getFullYear()} Parque Marino Central del Pacífico Sur. Todos los derechos reservados.
         </p>
         <div className="flex gap-4">
           <a href="/privacidad" className="hover:underline">Política de Privacidad</a>
           <a href="/terminos" className="hover:underline">Términos y Condiciones</a>
-          <a href="/sitemap" className="hover:underline">Mapa del Sitio</a>
+          {/* <a href="/sitemap" className="hover:underline">Mapa del Sitio</a> */}
         </div>
       </div>
     </footer>
