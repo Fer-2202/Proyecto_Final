@@ -13,7 +13,7 @@ export default function DashboardAdmin() {
   const handleLogout = () => {
     logout();
   }
- 
+
   
   const [activeTab, setActiveTab] = useState("Entradas");
 
@@ -33,32 +33,32 @@ export default function DashboardAdmin() {
           <h2 className="text-xl font-bold mb-6">Panel de Control</h2>
           <p className="text-sm text-gray-500 mb-8">Bienvenido, Admin User</p>
           <nav className="flex flex-col space-y-4">
-            <a href="#" className="flex items-center gap-3 text-gray-700 font-medium hover:text-teal-600">
+            <Link to="#" className="flex items-center gap-3 text-gray-700 font-medium hover:text-teal-600">
               <LayoutDashboard size={18} /> Dashboard
-            </a>
-            <a href="#" className="flex items-center gap-3 text-gray-700 font-medium hover:text-teal-600">
+            </Link>
+            <Link to="#" className="flex items-center gap-3 text-gray-700 font-medium hover:text-teal-600">
               <Users size={18} /> Usuarios
-            </a>
-            <a href="#" className="flex items-center gap-3 text-gray-700 font-medium hover:text-teal-600">
+            </Link>
+            <Link to="#" className="flex items-center gap-3 text-gray-700 font-medium hover:text-teal-600">
               <Ticket size={18} /> Entradas
-            </a>
-            <a href="#" className="flex items-center gap-3 text-gray-700 font-medium hover:text-teal-600">
+            </Link>
+            <Link to="#" className="flex items-center gap-3 text-gray-700 font-medium hover:text-teal-600">
               <Calendar size={18} /> Eventos
-            </a>
-            <a href="#" className="flex items-center gap-3 text-gray-700 font-medium hover:text-teal-600">
+            </Link>
+            <Link to="#" className="flex items-center gap-3 text-gray-700 font-medium hover:text-teal-600">
               <Settings size={18} /> Configuración
-            </a>
+            </Link>
           </nav>
         </div>
         <div className="flex flex-col space-y-3">
-          <a href="#" className="flex items-center gap-3 text-gray-700 font-medium hover:text-teal-600">
+          <Link to="#" className="flex items-center gap-3 text-gray-700 font-medium hover:text-teal-600">
             <Eye size={18} /> Ver sitio
-          </a>
+          </Link>
           {/* <a href="#" className="flex items-center gap-3 text-red-500 font-medium hover:text-red-600">
             <LogOut size={18} /> Cerrar sesión
           </a> */}
           <button className="flex items-center gap-3 text-red-500 font-medium hover:text-red-600"
-           onClick={handleLogout}>
+            onClick={handleLogout}>
             <LogOut size={18} /> Cerrar sesión
           </button>
         </div>

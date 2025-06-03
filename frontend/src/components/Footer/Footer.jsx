@@ -9,7 +9,7 @@ import {
   Mail
 } from "lucide-react";
 
-
+import { PiTiktokLogo } from "react-icons/pi";
 
 import { FaFacebook, FaTwitter, FaInstagram, FaYoutube, FaLinkedin } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
@@ -17,32 +17,32 @@ import { Link } from 'react-router-dom';
 const socialLinks = [
   {
     name: 'Facebook',
-    url: 'https://facebook.com/parquemarino',
+    url: 'https://www.facebook.com/parquemarinodelpacifico',
     icon: Facebook,
     color: 'hover:text-blue-600'
   },
-  {
+  /*  {
     name: 'Twitter',
     url: 'https://twitter.com/parquemarino',
     icon: Twitter,
     color: 'hover:text-blue-400'
-  },
+  }, */
   {
     name: 'Instagram',
-    url: 'https://instagram.com/parquemarino',
+    url: 'https://www.instagram.com/parque.marino.del.pacifico',
     icon: Instagram,
     color: 'hover:text-pink-600'
   },
   {
     name: 'YouTube',
-    url: 'https://youtube.com/parquemarino',
+    url: 'https://www.youtube.com/@ParqueMarino',
     icon: Youtube,
     color: 'hover:text-red-600'
   },
   {
-    name: 'LinkedIn',
-    url: 'https://linkedin.com/company/parquemarino',
-    icon: Linkedin,
+    name: 'Tiktok',
+    url: 'https://www.tiktok.com/@parquemarinodelpacifico',
+    icon: PiTiktokLogo,
     color: 'hover:text-blue-800'
   }
 ];
@@ -69,16 +69,17 @@ export default function Footer() {
           {socialLinks.map((social) => {
                 const Icon = social.icon;
                 return (
-                  <a
+                  <Link
                     key={social.name}
-                    href={social.url}
+                    to={social.url}
                     target="_blank"
                     rel="noopener noreferrer"
                     className={`text-2xl ${social.color} transition-colors duration-300`}
                     aria-label={`Visitar ${social.name}`}
                   >
                     <Icon />
-                  </a>
+                  </Link>
+                  
                 );
               })}
           </div>
@@ -89,7 +90,7 @@ export default function Footer() {
           <h5 className="text-lg font-semibold mb-4 border-b border-[#1CB6B0] pb-1 w-fit">Enlaces Rápidos</h5>
           <ul className="space-y-2 text-sm text-gray-200">
             {[
-              ["Quienes somos", "/quienes-somos"],
+              /* ["Quienes somos", "/quienes-somos"], */
               ["Exhibiciones", "/exhibiciones-y-servicios/exhibiciones"],
               ["Servicios Educativos", "/exhibiciones-y-servicios/servicios-educativos"],
               ["Centro de Rescate", "/investigacion-y-conservacion/centro-de-rescate-y-rehabilitacion"],
@@ -135,7 +136,7 @@ export default function Footer() {
             </li>
             <li className="flex items-start gap-3">
               <Mail className="w-4 h-4 mt-1 text-[#1CB6B0]" />
-              <Link to="mailto"></Link>
+              <Link to="mailto:info@parquemarino.org">info@parquemarino.org</Link>
             </li>
           </ul>
         </div>
