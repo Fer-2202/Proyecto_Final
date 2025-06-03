@@ -25,28 +25,36 @@ const Profile = React.lazy(() => import('../pages/Profile.jsx'));
 const Loading = React.lazy(() => import('../pages/Loading.jsx'));
 const InfoInstitucional = React.lazy(() => import('../pages/Public/pages/InfoInstitucional.jsx'));
 
-/* quienes-somos */
+/* /quienes-somos */
 const Historia = React.lazy(() => import('../pages/Public/pages/Historia.jsx'));
 const Equipo = React.lazy(() => import('../pages/Public/pages/Equipo.jsx'));
 const TransparenciaInstitucional = React.lazy(() => import('../pages/Public/pages/TransparenciaInstitucional.jsx'));
 
-/* exhibiciones-y-servicios */
+/* /exhibiciones-y-servicios */
 const Exhibiciones = React.lazy(() => import('../pages/Public/pages/Exhibiciones.jsx'));
 const ServiciosEducativos = React.lazy(() => import('../pages/Public/pages/ServiciosEducativos.jsx'));
 const VisitasGuiadas = React.lazy(() => import('../pages/Public/pages/VisitasGuiadas.jsx'));
 
-/* acuicultura-y-biotecnologia-marina */
+/* /acuicultura-y-biotecnologia-marina */
 const AcuiculturaYBiotecnologiaMarina = React.lazy(() => import('../pages/Public/pages/AcuiculturaYBiotecnologiaMarina.jsx'));
 const CentroDeRescateYRehabilitacion = React.lazy(() => import('../pages/Public/pages/CentroDeRescateYRehabilitacion.jsx'));
 const Investigacion = React.lazy(() => import('../pages/Public/pages/investigacion.jsx'));
 const Proyectos = React.lazy(() => import('../pages/Public/pages/Proyectos.jsx'));
 
-/* apoyo */
+/* /apoyo */
 const Voluntariado = React.lazy(() => import('../pages/Public/pages/Voluntariado.jsx'));
 const Donaciones = React.lazy(() => import('../pages/Public/pages/Donaciones.jsx'));
 
 /* /purchase-form */
 const Ticketera = React.lazy(() => import('../pages/Public/pages/Ticketera.jsx'));
+
+/* /terminos-y-condiciones */
+const Terminos = React.lazy(() => import('../pages/Public/pages/Terminos.jsx'));
+
+/* /privacidad */
+const PoliticaDePrivacidad = React.lazy(() => import('../pages/Public/pages/PoliticaDePrivacidad.jsx'))
+
+
 
 
 function AppRouting() {
@@ -80,6 +88,10 @@ function AppRouting() {
         <Route path="/apoyo/donaciones" element={<Donaciones />} />
 
         <Route path="/purchase-form/ticketera" element={<Ticketera />} />
+
+        <Route path="/terminos-y-condiciones/terminos" element={<Terminos />} />
+
+        <Route path="/privacidad/politica-de-privicidad" element={<PoliticaDePrivacidad />} />
 
         </Route>
 

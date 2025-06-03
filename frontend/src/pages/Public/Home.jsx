@@ -9,7 +9,7 @@ import CallToAction from "../../components/home/CallToAction"
 import ContactSection from "../../components/home/ContacSection"
 import Newsletter from "../../components/home/Newsletter"
 import { Calendar, Users, ShoppingCart, Fish, Award, BookOpen } from "lucide-react"
-
+import { Link } from "react-router-dom"
 
 
 
@@ -56,7 +56,7 @@ function Home() {
             description={<>
               <p className="text-gray-500 text-sm mb-2.5">Adquiere tus entradas en línea y evita filas</p>
               <button className="w-full bg-teal-500 text-white py-1.5 px-4 rounded hover:bg-teal-600 transition-colors text-sm">
-                Comprar Ahora
+                <Link to="/purchase-form/ticketera"> Comprar Ahora</Link>
               </button>
             </>}
           />

@@ -43,7 +43,7 @@ const socialLinks = [
     name: 'Tiktok',
     url: 'https://www.tiktok.com/@parquemarinodelpacifico',
     icon: PiTiktokLogo,
-    color: 'hover:text-blue-800'
+    color: 'hover:text-purple-800'
   }
 ];
 
@@ -148,8 +148,8 @@ export default function Footer() {
           &copy; {new Date().getFullYear()} Parque Marino Central del Pacífico Sur. Todos los derechos reservados.
         </p>
         <div className="flex gap-4">
-          <a href="/privacidad" className="hover:underline">Política de Privacidad</a>
-          <a href="/terminos" className="hover:underline">Términos y Condiciones</a>
+          <Link to="/privacidad/politica-de-privicidad" className="hover:underline">Política de Privacidad</Link>
+          <Link to="/terminos-y-condiciones/terminos" className="hover:underline">Términos y Condiciones</Link>
           {/* <a href="/sitemap" className="hover:underline">Mapa del Sitio</a> */}
         </div>
       </div>

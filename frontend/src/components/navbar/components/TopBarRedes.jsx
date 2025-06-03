@@ -1,43 +1,43 @@
 import React from 'react'
 import { Facebook, Youtube, Instagram } from 'lucide-react'
-import { FaFacebook, FaTwitter, FaInstagram, FaYoutube, FaLinkedin } from 'react-icons/fa';
+import { FaFacebook, FaTwitter, FaInstagram, FaYoutube, FaLinkedin, FaTiktok } from 'react-icons/fa';
 import {Link} from 'react-router-dom'
 
 const socialNetworks = [
   {
     id: 1,
     name: 'Facebook',
-    url: 'https://facebook.com/parquemarino',
+    url: 'https://www.facebook.com/parquemarinodelpacifico',
     icon: FaFacebook,
     color: 'hover:text-blue-600'
   },
-  {
+  /* {
     id: 2,
     name: 'Twitter',
     url: 'https://twitter.com/parquemarino',
     icon: FaTwitter,
     color: 'hover:text-blue-400'
-  },
+  }, */
   {
     id: 3,
     name: 'Instagram',
-    url: 'https://instagram.com/parquemarino',
+    url: 'https://www.instagram.com/parque.marino.del.pacifico',
     icon: FaInstagram,
     color: 'hover:text-pink-600'
   },
   {
     id: 4,
     name: 'YouTube',
-    url: 'https://youtube.com/parquemarino',
+    url: 'https://www.youtube.com/@ParqueMarino',
     icon: FaYoutube,
     color: 'hover:text-red-600'
   },
   {
     id: 5,
-    name: 'LinkedIn',
-    url: 'https://linkedin.com/company/parquemarino',
-    icon: FaLinkedin,
-    color: 'hover:text-blue-800'
+    name: 'Tiktok',
+    url: 'https://www.tiktok.com/@parquemarinodelpacifico',
+    icon: FaTiktok,
+    color: 'hover:text-purple-800'
   }
 ]
 
