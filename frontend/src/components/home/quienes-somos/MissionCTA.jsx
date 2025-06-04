@@ -1,4 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
+
+const links = [
+  { label: 'Ser Voluntario', href: '/apoyo/voluntariado' },
+  { label: 'Hacer una Donación', href: '/donar' },
+  { label: 'Programas Educativos', href: '/programas' },
+]
 
 function MissionCTA() {
   return (
@@ -8,15 +15,16 @@ function MissionCTA() {
         Ayúdanos a conservar la biodiversidad marina de Costa Rica. Puedes colaborar como voluntario, realizar una donación o participar en nuestros programas educativos.
       </p>
       <div className="flex justify-center gap-4">
-        <button className="bg-white text-teal-600 py-2 px-4 rounded hover:bg-gray-100 transition">
-          Ser Voluntario
-        </button>
-        <button className="bg-white text-teal-600 py-2 px-4 rounded hover:bg-gray-100 transition">
-          Hacer una Donación
-        </button>
-        <button className="bg-white text-teal-600 py-2 px-4 rounded hover:bg-gray-100 transition">
-          Programas Educativos
-        </button>
+        {links.map((link, index) => (
+          <Link
+            key={index}
+            to={link.href}
+            className="bg-white text-teal-600 font-semibold rounded-md px-4 py-2 hover:bg-gray-100 transition duration-300" 
+          >
+            {link.label}
+          </Link> 
+        ))}
+        
       </div>
     </section>
   )

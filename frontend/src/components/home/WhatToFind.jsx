@@ -4,6 +4,8 @@ import { Navigation } from "swiper/modules";
 import { motion } from "framer-motion";
 import { Fish, Turtle, Globe, BookOpen } from "lucide-react";
 
+import { Link } from "react-router-dom";
+
 import "swiper/css";
 import "swiper/css/navigation";
 
@@ -15,6 +17,12 @@ const exhibits = [
     description: "Conoce a nuestros manatíes rescatados y aprende sobre su conservación.",
     image: placeholder,
     icon: <Fish className="text-[#1CB6B0] w-8 h-8 mb-2" />,
+    links: [
+      {
+        title: "Manatíes",
+        link: "/manaties",
+      },
+    ]
   },
   {
     title: "Área de Reptiles",
@@ -89,9 +97,18 @@ export default function WhatToFindCarousel() {
                   {item.icon}
                   <h3 className="text-[#1CB6B0] font-bold text-lg mb-1">{item.title}</h3>
                   <p className="text-gray-600 text-sm mb-4">{item.description}</p>
-                  <button className="bg-[#1CB6B0] text-white text-sm px-4 py-2 rounded-md hover:bg-[#139a95] transition font-medium">
-                    VER MÁS
-                  </button>
+                  {/* className="bg-[#1CB6B0] text-white text-sm px-4 py-2 rounded-md hover:bg-[#139a95] transition font-medium" */}
+                  {item.links && item.links.length > 0 && (
+                    item.links.map((link, linkIndex) => (
+                      <Link
+                        key={linkIndex}
+                        to={link.link}
+                        className="bg-[#1CB6B0] text-white text-sm px-4 py-2 rounded-md hover:bg-[#139a95] transition font-medium"
+                      >
+                        {link.title}
+                      </Link>
+                    ))
+                  )}
                 </div>
               </motion.div>
             </SwiperSlide>
@@ -114,6 +131,7 @@ export default function WhatToFindCarousel() {
           </button>
         </div>
       </div>
+      
     </section>
   );
 }

@@ -4,12 +4,13 @@ import AboutSection from '../../../components/home/quienes-somos/AboutSection'
 import TeamMembers from '../../../components/home/quienes-somos/TeamMembers'
 import Valores from '../../../components/home/quienes-somos/Valores'
 import MissionCTA from '../../../components/home/quienes-somos/MissionCTA'
+import IMG_INFO from '../../../assets/img/Tanque.jpeg'
 
 function InfoInstitucional() {
   return (
     <>
       <div className='flex flex-col items-center justify-center mt-23'>
-      <QuienesSomos />
+      <QuienesSomos title={"Información Institucional"} description={"Conoce nuestra historia, misión, visión y valores."} img={IMG_INFO} alt={"Información Institucional"} />
       <AboutSection />
       <TeamMembers />
       <Valores />
