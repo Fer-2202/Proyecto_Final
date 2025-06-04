@@ -39,6 +39,52 @@ export const AuthProvider = ({ children }) => {
     initializeAuth();
   }, []);
 
+  // -- Refrescar token automáticamente cada 4 minutos (240000 ms) --
+  useEffect(() => {
+    if (!token) return; // Si no hay token, no refrescamos
+
+    const refreshToken = async () => {
+      const refresh = localStorage.getItem('refreshToken');
+      if (!refresh) {
+        logout(); // si no hay refresh token, cerramos sesión
+        return;
+      }
+
+      try {
+        const response = await axiosInstance.post('/api/token/refresh/', { refresh });
+        if (response.status === 200) {
+          const { access } = response.data;
+          localStorage.setItem('accessToken', access);
+          setToken(access);
+          setIsAuthenticated(true);
+          // Opcional: actualizar perfil si quieres
+          const payload = parseJwt(access);
+          if (payload && payload.user_id) {
+            try {
+              const profileData = await getUserProfileById(payload.user_id);
+              setUser({ ...profileData, id: payload.user_id });
+            } catch {
+              setUser(null);
+            }
+          }
+        } else {
+          logout();
+        }
+      } catch (error) {
+        console.error('Error refreshing token:', error);
+        logout();
+      }
+    };
+
+    // Set interval para refrescar token cada 4 minutos
+    const interval = setInterval(() => {
+      refreshToken();
+    }, 240000);
+
+    // Limpiar el interval cuando el componente se desmonta o cambia el token
+    return () => clearInterval(interval);
+  }, [token]);
+
   const parseJwt = (token) => {
     try {
       const base64Url = token.split('.')[1];
@@ -104,6 +150,11 @@ export const AuthProvider = ({ children }) => {
   const getProfile = async () => {
     try {
       const storedToken = localStorage.getItem('accessToken');
+      const storedRefreshToken = localStorage.getItem('refreshToken');
+      if (!storedToken || !storedRefreshToken) {
+        setUser(null);
+        return null;
+      }
       const payload = parseJwt(storedToken);
       if (payload && payload.user_id) {
         try {

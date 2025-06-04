@@ -13,7 +13,7 @@ export default function CallToAction() {
       </p>
       <div className="flex justify-center gap-4 flex-wrap">
         <Link
-          to="/donar"
+          to="/apoyo/donaciones"
           className="bg-white text-[#1CB6B0] font-semibold px-6 py-3 rounded-md shadow hover:bg-gray-100 transition"
         >
           Hacer una Donación

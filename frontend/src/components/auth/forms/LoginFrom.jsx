@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { useAuth } from '../../../context/AuthContext';
 import { loginYupSchema } from '../schemas/YupLoginSchema';
 import { ToastContainer, toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 function LoginForm() {
   const { login } = useAuth();
@@ -72,7 +73,7 @@ function LoginForm() {
                 </button>
                 <ErrorMessage name="password" component="div" className="text-red-500 text-sm mt-1" />
                 <div className="flex justify-end mt-1">
-                  <a href="/forgot-password" className="text-[#26b7ad] text-sm hover:underline">¿Olvidaste tu contraseña?</a>
+                  <Link to="/forgot-password" className="text-[#26b7ad] text-sm hover:underline">¿Olvidaste tu contraseña?</Link>
                 </div>
               </div>
               <button
@@ -84,8 +85,8 @@ function LoginForm() {
                 {isSubmitting ? 'Iniciando sesión...' : 'Iniciar Sesión'}
               </button>
               <div className="text-xs text-gray-500 text-center mt-4">
-                Al iniciar sesión, aceptas nuestros <a href="/terms" className="text-[#26b7ad] hover:underline">Términos y Condiciones</a> y <a href="/privacy" className="text-[#26b7ad] hover:underline">Política de Privacidad</a>
-              </div>
+                Al iniciar sesión, aceptas nuestros <Link to="/terminos-y-condiciones/terminos" className="text-[#26b7ad] hover:underline">Términos y Condiciones</Link> y <Link to="/privacidad/politica-de-privicidad" className="text-[#26b7ad] hover:underline">Política de Privacidad</Link>
+              </div>{/* Meter page terminos */}
             </Form>
           )}
         </Formik>

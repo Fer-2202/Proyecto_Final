@@ -25,50 +25,73 @@ const Profile = React.lazy(() => import('../pages/Profile.jsx'));
 const Loading = React.lazy(() => import('../pages/Loading.jsx'));
 const InfoInstitucional = React.lazy(() => import('../pages/Public/pages/InfoInstitucional.jsx'));
 
-/* quienes-somos */
+/* /quienes-somos */
 const Historia = React.lazy(() => import('../pages/Public/pages/Historia.jsx'));
 const Equipo = React.lazy(() => import('../pages/Public/pages/Equipo.jsx'));
 const TransparenciaInstitucional = React.lazy(() => import('../pages/Public/pages/TransparenciaInstitucional.jsx'));
 
-/* exhibiciones-y-servicios */
+/* /exhibiciones-y-servicios */
 const Exhibiciones = React.lazy(() => import('../pages/Public/pages/Exhibiciones.jsx'));
 const ServiciosEducativos = React.lazy(() => import('../pages/Public/pages/ServiciosEducativos.jsx'));
 const VisitasGuiadas = React.lazy(() => import('../pages/Public/pages/VisitasGuiadas.jsx'));
 
-/* acuicultura-y-biotecnologia-marina */
+/* /acuicultura-y-biotecnologia-marina */
 const AcuiculturaYBiotecnologiaMarina = React.lazy(() => import('../pages/Public/pages/AcuiculturaYBiotecnologiaMarina.jsx'));
 const CentroDeRescateYRehabilitacion = React.lazy(() => import('../pages/Public/pages/CentroDeRescateYRehabilitacion.jsx'));
 const Investigacion = React.lazy(() => import('../pages/Public/pages/investigacion.jsx'));
 const Proyectos = React.lazy(() => import('../pages/Public/pages/Proyectos.jsx'));
 
+/* /apoyo */
+const Voluntariado = React.lazy(() => import('../pages/Public/pages/Voluntariado.jsx'));
+const Donaciones = React.lazy(() => import('../pages/Public/pages/Donaciones.jsx'));
+
+/* /purchase-form */
+const Ticketera = React.lazy(() => import('../pages/Public/pages/Ticketera.jsx'));
+
+/* /terminos-y-condiciones */
+const Terminos = React.lazy(() => import('../pages/Public/pages/Terminos.jsx'));
+
+/* /privacidad */
+const PoliticaDePrivacidad = React.lazy(() => import('../pages/Public/pages/PoliticaDePrivacidad.jsx'))
+
+
 
 
 function AppRouting() {
   return (
-    <BrowserRouter>
-      <Suspense fallback={<Loading/>}>
-        <Routes>
+  <BrowserRouter>
+    <Suspense fallback={<Loading/>}>
+      <Routes>
 
         {/* Rutas Publicas */}
         <Route element={<PublicLayout />}>
-          <Route path="/" element={<Home />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-          <Route path="/forgot-password" element={<ForgotPassword />} />
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/forgot-password" element={<ForgotPassword />} />
 
-          <Route path="/quienes-somos/informacion-institucional" element={<InfoInstitucional />} />
-          <Route path="/quienes-somos/historia" element={<Historia />} />
-          <Route path="/quienes-somos/equipo" element={<Equipo />} />
-          <Route path="/quienes-somos/transparencia-institucional" element={<TransparenciaInstitucional />} />
+        <Route path="/quienes-somos/informacion-institucional" element={<InfoInstitucional />} />
+        <Route path="/quienes-somos/historia" element={<Historia />} />
+        <Route path="/quienes-somos/equipo" element={<Equipo />} />
+        <Route path="/quienes-somos/transparencia-institucional" element={<TransparenciaInstitucional />} />
 
-          <Route path="/exhibiciones-y-servicios/exhibiciones" element={<Exhibiciones />} />
-          <Route path="/exhibiciones-y-servicios/servicios-educativos" element={<ServiciosEducativos />} />
-          <Route path="/exhibiciones-y-servicios/visitas-guiadas" element={<VisitasGuiadas />} />
+        <Route path="/exhibiciones-y-servicios/exhibiciones" element={<Exhibiciones />} />
+        <Route path="/exhibiciones-y-servicios/servicios-educativos" element={<ServiciosEducativos />} />
+        <Route path="/exhibiciones-y-servicios/visitas-guiadas" element={<VisitasGuiadas />} />
 
-          <Route path="/investigacion-y-conservacion/acuicultura-y-biotecnologia-marina" element={<AcuiculturaYBiotecnologiaMarina />} />
-          <Route path="/investigacion-y-conservacion/centro-de-rescate-y-rehabilitacion" element={<CentroDeRescateYRehabilitacion />} />
-          <Route path="/investigacion-y-conservacion/investigacion" element={<Investigacion />} />
-          <Route path="/investigacion-y-conservacion/Proyectos" element={<Proyectos />} />
+        <Route path="/investigacion-y-conservacion/acuicultura-y-biotecnologia-marina" element={<AcuiculturaYBiotecnologiaMarina />} />
+        <Route path="/investigacion-y-conservacion/centro-de-rescate-y-rehabilitacion" element={<CentroDeRescateYRehabilitacion />} />
+        <Route path="/investigacion-y-conservacion/investigacion" element={<Investigacion />} />
+        <Route path="/investigacion-y-conservacion/proyectos" element={<Proyectos />} />
+
+        <Route path="/apoyo/voluntariado" element={<Voluntariado />} />
+        <Route path="/apoyo/donaciones" element={<Donaciones />} />
+
+        <Route path="/purchase-form/ticketera" element={<Ticketera />} />
+
+        <Route path="/terminos-y-condiciones/terminos" element={<Terminos />} />
+
+        <Route path="/privacidad/politica-de-privicidad" element={<PoliticaDePrivacidad />} />
 
         </Route>
 
@@ -94,9 +117,9 @@ function AppRouting() {
         {/* Loading */}
         <Route path="/loading" element={<Loading />} />
 
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
+      </Routes>
+    </Suspense>
+  </BrowserRouter>
   );
 }
 
