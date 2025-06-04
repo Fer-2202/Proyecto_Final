@@ -3,8 +3,17 @@ import { LayoutDashboard, Users, Ticket, Calendar, Settings, LogOut, Eye } from 
 import { Link } from "react-router-dom";
 import { Pencil2Icon } from "@radix-ui/react-icons";
 import { useAuth } from "../../context/AuthContext";
+import ButtonGroup from '@mui/material/ButtonGroup'
+import Button from '@mui/material/Button'
 
 export default function DashboardAdmin() {
+  const { logout, user } = useAuth();
+
+  console.log(user)
+
+  const handleLogout = () => {
+    logout();
+  }
  
   
   const [activeTab, setActiveTab] = useState("Entradas");
@@ -46,9 +55,13 @@ export default function DashboardAdmin() {
           <a href="#" className="flex items-center gap-3 text-gray-700 font-medium hover:text-teal-600">
             <Eye size={18} /> Ver sitio
           </a>
-          <a href="#" className="flex items-center gap-3 text-red-500 font-medium hover:text-red-600">
+          {/* <a href="#" className="flex items-center gap-3 text-red-500 font-medium hover:text-red-600">
             <LogOut size={18} /> Cerrar sesión
-          </a>
+          </a> */}
+          <button className="flex items-center gap-3 text-red-500 font-medium hover:text-red-600"
+           onClick={handleLogout}>
+            <LogOut size={18} /> Cerrar sesión
+          </button>
         </div>
       </aside>
 

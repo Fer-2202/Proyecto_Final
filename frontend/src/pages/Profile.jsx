@@ -34,6 +34,17 @@ export default function Profile() {
     logout();
   };
 
+  const handleChangeImg = async () => {
+    try {
+      const updatedImg = {
+        profile_picture: profileData.profile_picture
+      };
+      await updateUserProfile(user.id, updatedImg);
+
+    } catch (error) {
+      console.error("No se pudo actualizar la imagen de perfil del usuario")
+    }
+  }
   const handleSaveProfile = async () => {
     try {
       const updatedData = {
@@ -98,7 +109,7 @@ export default function Profile() {
           <div>
             <div className="flex flex-col items-center text-center space-y=2 mb-6 group">
               <div className="w-20 h-20 rounded-full bg-blue=600 text-white flex items-center justify-center text-3xl font-bold transition-transform group-hover:scale-105">
-                {user.first_name?.[0]}{user.last_name?.[0] || 'U'}
+                <img src={user.profile_picture} alt="" onClick={handleChangeImg} />
               </div>
               <h2 className="text-lg font-bold">{user.first_name} {user.last_name}</h2>
               <p className="text-sm text-gray-400">{user.email}</p>

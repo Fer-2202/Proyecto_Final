@@ -10,6 +10,7 @@ import axiosInstance from '../../../api/axiosInstance';
 import { registerYupSchema } from '../schemas/YupRegisterSchema';
 import { getProvinces } from '../../../api/provinces';
 import { getRoles } from '../../../api/roles';
+import { useAuth } from "../../../context/AuthContext"
 
 export default function RegisterForm() {
   const [provinces, setProvinces] = useState([]);
@@ -43,6 +44,7 @@ export default function RegisterForm() {
         birth_date: values.profile.birth_date,
         province: values.profile.id_provinces,
         roles: values.profile.roles ? [values.profile.roles] : [],
+        profile_picture: values.profile.profile_picture,
         bio: values.profile.bio
       }
     };
@@ -90,7 +92,7 @@ export default function RegisterForm() {
               phone: '',
               address: '',
               birth_date: '',
-              profile_picture: null, // No se envía en este POST
+              profile_picture: "", 
               bio: '',
               roles: roles.find(r => r.name.toLowerCase() === 'client')?.id || '',
               id_provinces: null,
