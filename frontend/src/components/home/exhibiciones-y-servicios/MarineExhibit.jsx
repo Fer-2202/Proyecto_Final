@@ -1,15 +1,20 @@
 // src/components/MarineExhibit.jsx
 
 import * as Tabs from '@radix-ui/react-tabs';
+import ReptileImage from './../../../assets/img/_MG_0086.jpg';
+import IslaDelCocoImage from './../../../assets/img/_MG_0086.jpg';
+import AquariumImage from './../../../assets/img/_MG_0086.jpg';
+import RayImage from './../../../assets/img/_MG_0086.jpg';
+import TurtleImage from './../../../assets/img/_MG_0086.jpg';
+import SharkImage from './../../../assets/img/_MG_0086.jpg';
 
 export default function MarineExhibit() {
   return (
     <div className="max-w-6xl mx-auto p-6 font-sans">
       {/* Tabs */}
-      <Tabs.Root defaultValue="manatees">
+      <Tabs.Root defaultValue="reptiles">
         <Tabs.List className="flex flex-wrap gap-4 border-b border-gray-200 mb-6 text-gray-600">
           {[
-            ['manatees', 'Manatíes'],
             ['reptiles', 'Reptiles'],
             ['isla-del-coco', 'Isla del Coco'],
             ['acuarios', 'Acuarios'],
@@ -27,24 +32,6 @@ export default function MarineExhibit() {
           ))}
         </Tabs.List>
 
-        {/* Manatíes */}
-        <Tabs.Content value="manatees">
-          <Section
-            title="Exhibición de Manatíes"
-            description={[
-              'Nuestra exhibición de manatíes es una de las más populares del parque. Estos gentiles gigantes, también conocidos como "vacas marinas", son mamíferos acuáticos en peligro de extinción.',
-              'En el Parque Marino, contamos con un programa de rescate y rehabilitación de manatíes, y nuestra exhibición alberga ejemplares que han sido rescatados y no pueden ser reintroducidos en su hábitat natural debido a lesiones o enfermedades.',
-              'Aprende sobre su comportamiento, alimentación y los esfuerzos de conservación que realizamos para proteger a esta especie emblemática.',
-            ]}
-            facts={[
-              'Los manatíes pueden vivir hasta 60 años en cautiverio.',
-              'Se alimentan principalmente de plantas acuáticas.',
-              'Pueden consumir hasta el 10% de su peso corporal en vegetación al día.',
-              'Son parientes cercanos de los elefantes.',
-            ]}
-          />
-        </Tabs.Content>
-
         {/* Reptiles */}
         <Tabs.Content value="reptiles">
           <Section
@@ -58,6 +45,7 @@ export default function MarineExhibit() {
               'Las iguanas verdes son excelentes trepadoras.',
               'Los cocodrilos tienen la mordida más potente del reino animal.',
             ]}
+            image={ReptileImage}
           />
         </Tabs.Content>
 
@@ -74,6 +62,7 @@ export default function MarineExhibit() {
               'Es un sitio clave para la investigación marina.',
               'Sus aguas son hogar de tiburones martillo y mantarrayas gigantes.',
             ]}
+            image={IslaDelCocoImage}
           />
         </Tabs.Content>
 
@@ -89,6 +78,7 @@ export default function MarineExhibit() {
               'Albergan más de 50 especies de peces.',
               'Contamos con programas de reproducción en cautiverio.',
             ]}
+            image={AquariumImage}
           />
         </Tabs.Content>
 
@@ -105,6 +95,7 @@ export default function MarineExhibit() {
               'Algunas especies son venenosas.',
               'Su esqueleto está formado por cartílago, no huesos.',
             ]}
+            image={RayImage}
           />
         </Tabs.Content>
 
@@ -121,6 +112,7 @@ export default function MarineExhibit() {
               'Las crías enfrentan numerosos depredadores.',
               'Varias especies están en peligro crítico de extinción.',
             ]}
+            image={TurtleImage}
           />
         </Tabs.Content>
 
@@ -137,6 +129,7 @@ export default function MarineExhibit() {
               'Algunas especies nunca dejan de nadar.',
               'Son clave para mantener el equilibrio de los ecosistemas marinos.',
             ]}
+            image={SharkImage}
           />
         </Tabs.Content>
       </Tabs.Root>
@@ -145,12 +138,12 @@ export default function MarineExhibit() {
 }
 
 // Reusable Section component
-function Section({ title, description, facts }) {
+function Section({ title, description, facts, image }) {
   return (
     <div className="flex flex-col md:flex-row gap-6">
-      {/* Image placeholder */}
+      {/* Image */}
       <div className="flex-1 bg-gray-100 h-64 flex items-center justify-center rounded-md border border-gray-300">
-        <span className="text-gray-400">Imagen no disponible</span>
+        <img src={image} alt={title} className="object-cover h-full w-full rounded-md" />
       </div>
 
       {/* Text content */}
