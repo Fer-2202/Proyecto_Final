@@ -1,6 +1,6 @@
 import React from 'react'
 
-function VisitasGuiadas() {
+function Donacion() {
   return (
     <div>
       
@@ -8,4 +8,5 @@ function VisitasGuiadas() {
   )
 }
 
-export default VisitasGuiadas
+export default Donacion
+

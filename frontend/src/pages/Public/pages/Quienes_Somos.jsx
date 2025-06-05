@@ -1,6 +1,6 @@
 import React from 'react'
 
-function ServiciosEducativos() {
+function Quienes_Somos() {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function ServiciosEducativos() {
   )
 }
 
-export default ServiciosEducativos
+export default Quienes_Somos

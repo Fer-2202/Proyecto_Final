@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Terminos() {
+function Servicio_Educativo() {
   return (
     <div>
       
@@ -8,4 +8,4 @@ function Terminos() {
   )
 }
 
-export default Terminos
+export default Servicio_Educativo

@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Exhibiciones() {
+function Visita_Guiada() {
   return (
     <div>
       
@@ -8,4 +8,5 @@ function Exhibiciones() {
   )
 }
 
-export default Exhibiciones
+export default Visita_Guiada
+

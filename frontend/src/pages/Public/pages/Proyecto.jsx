@@ -1,6 +1,6 @@
 import React from 'react'
 
-function Donaciones() {
+function Proyecto() {
   return (
     <div>
       
@@ -8,4 +8,5 @@ function Donaciones() {
   )
 }
 
-export default Donaciones
+export default Proyecto
+
