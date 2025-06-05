@@ -25,8 +25,6 @@ const Profile = React.lazy(() => import('../pages/Profile.jsx'));
 const Loading = React.lazy(() => import('../pages/Loading.jsx'));
 const InfoInstitucional = React.lazy(() => import('./../pages/Public/pages/Quienes_Somos/Pages/Info_Institucional.jsx'));
 
-
-
 /* /quienes-somos */
 const Historia = React.lazy(() => import('./../pages/Public/pages/Quienes_Somos/Pages/Historia.jsx'));
 const Equipo = React.lazy(() => import('./../pages/Public/pages/Quienes_Somos/Pages/Equipo.jsx'));
@@ -39,24 +37,25 @@ const ServiciosEducativos = React.lazy(() => import('../pages/Public/pages/Exhib
 const VisitasGuiadas = React.lazy(() => import('../pages/Public/pages/Exhibiciones_Y_Servicios/Pages/Visita_Guiada.jsx'));
 
 /* /acuicultura-y-biotecnologia-marina */
-const AcuiculturaYBiotecnologiaMarina = React.lazy(() => import('../pages/Public/pages/AcuiculturaYBiotecnologiaMarina.jsx'));
-const CentroDeRescateYRehabilitacion = React.lazy(() => import('../pages/Public/pages/CentroDeRescateYRehabilitacion.jsx'));
-const Investigacion = React.lazy(() => import('../pages/Public/pages/investigacion.jsx'));
-const Proyectos = React.lazy(() => import('../pages/Public/pages/Proyectos.jsx'));
+const AcuiculturaYBiotecnologiaMarina = React.lazy(() => import('../pages/Public/pages/Investigacion_Y_Conservacion/Pages/Acuicultura_Y_Biotecnologia_Marina.jsx'));
+const CentroDeRescateYRehabilitacion = React.lazy(() => import('../pages/Public/pages/Investigacion_Y_Conservacion/Pages/Centro_De_Rescate_Y_Rehabilitacion.jsx'));
+const Investigacion = React.lazy(() => import('../pages/Public/pages/Investigacion_Y_Conservacion/Pages/Investigacion.jsx'));
+const Proyectos = React.lazy(() => import('../pages/Public/pages/Investigacion_Y_Conservacion/Pages/Proyecto.jsx'));
+
 
 /* /apoyo */
-const Voluntariado = React.lazy(() => import('../pages/Public/pages/Voluntariado.jsx'));
-const Donaciones = React.lazy(() => import('../pages/Public/pages/Donaciones.jsx'));
+const Voluntariado = React.lazy(() => import('../pages/Public/pages/Apoyo/Pages/Voluntariado.jsx'));
+const Donacion = React.lazy(() => import('../pages/Public/pages/Apoyo/Pages/Donacion.jsx'));
+
 
 /* /purchase-form */
 const Ticketera = React.lazy(() => import('../pages/Public/pages/Ticketera.jsx'));
 
 /* /terminos-y-condiciones */
-const Terminos = React.lazy(() => import('../pages/Public/pages/Terminos.jsx'));
+const Terminos = React.lazy(() => import('../pages/Public/pages/Termino_Y_Condiciones.jsx'));
 
 /* /privacidad */
-const PoliticaDePrivacidad = React.lazy(() => import('../pages/Public/pages/PoliticaDePrivacidad.jsx'))
-
+const PoliticaDePrivacidad = React.lazy(() => import('../pages/Public/pages/Politica_De_Privacidad.jsx'))
 
 
 
@@ -88,7 +87,7 @@ function AppRouting() {
         <Route path="/investigacion-y-conservacion/proyectos" element={<Proyectos />} />
 
         <Route path="/apoyo/voluntariado" element={<Voluntariado />} />
-        <Route path="/apoyo/donaciones" element={<Donaciones />} />
+        <Route path="/apoyo/donaciones" element={<Donacion />} />
 
         <Route path="/purchase-form/ticketera" element={<Ticketera />} />
 
