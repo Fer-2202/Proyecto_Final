@@ -1,0 +1,13 @@
+Error creating user profile: {'province': [ErrorDetail(string='Tipo incorrecto. Se esperaba valor de clave primaria y se recibió Provinces.', code='incorrect_type')]}
+Error creating user profile: {'province': [ErrorDetail(string='Tipo incorrecto. Se esperaba valor de clave primaria y se recibió Provinces.', code='incorrect_type')]}
+Error creating user profile: {'province': [ErrorDetail(string='Tipo incorrecto. Se esperaba valor de clave primaria y se recibió Provinces.', code='incorrect_type')]}
+Error creating user profile: {'profile': {'province': [ErrorDetail(string='Tipo incorrecto. Se esperaba valor de clave primaria y se recibió Provinces.', code='incorrect_type')]}}
+Error creating user profile: {'profile': {'province': [ErrorDetail(string='Tipo incorrecto. Se esperaba valor de clave primaria y se recibió Provinces.', code='incorrect_type')]}}
+Error creating user profile: {'profile': {'province': [ErrorDetail(string='Tipo incorrecto. Se esperaba valor de clave primaria y se recibió Provinces.', code='incorrect_type')]}}
+Error creating user profile: {'profile': {'province': [ErrorDetail(string='Tipo incorrecto. Se esperaba valor de clave primaria y se recibió Provinces.', code='incorrect_type')]}}
+Error creating user profile: {'profile': {'province': [ErrorDetail(string='Tipo incorrecto. Se esperaba valor de clave primaria y se recibió Provinces.', code='incorrect_type')]}}
+Error creating user profile: (1062, "Duplicate entry '36' for key 'api_userprofile.user_id'")
+Error creating user profile: (1062, "Duplicate entry '37' for key 'api_userprofile.user_id'")
+Error creating user profile: (1062, "Duplicate entry '38' for key 'api_userprofile.user_id'")
+Error creating user profile: 'User' object has no attribute 'userprofile'
+Error updating user profile: 'User' object has no attribute 'userprofile'

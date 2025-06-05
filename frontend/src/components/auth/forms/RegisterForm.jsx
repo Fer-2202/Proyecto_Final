@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Formik, Form, ErrorMessage } from 'formik';
 import { TextInputField } from './TextInputField';
 import { PasswordInputField } from './PasswordInputField';
@@ -32,28 +32,35 @@ export default function RegisterForm() {
 
   const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     // Construir payload JSON (sin profile_picture porque es un archivo)
-    const payload = {
-      username: values.username,
-      email: values.email,
-      password: values.password,
-      first_name: values.first_name,
-      last_name: values.last_name,
-      profile: {
-        phone: values.profile.phone,
-        address: values.profile.address,
-        birth_date: values.profile.birth_date,
-        province: values.profile.id_provinces,
-        roles: values.profile.roles ? [values.profile.roles] : [],
-        profile_picture: values.profile.profile_picture,
-        bio: values.profile.bio
-      }
-    };
+    const formData = new FormData();
+    formData.append('username', values.username);
+    formData.append('email', values.email);
+    formData.append('password', values.password);
+    formData.append('first_name', values.first_name);
+    formData.append('last_name', values.last_name);
+
+    // Append profile data
+    if (values.profile.phone) formData.append('profile.phone', values.profile.phone);
+    if (values.profile.address) formData.append('profile.address', values.profile.address);
+    if (values.profile.birth_date) formData.append('profile.birth_date', values.profile.birth_date);
+    if (values.profile.id_provinces) formData.append('profile.province', values.profile.id_provinces);
+    if (values.profile.roles && values.profile.roles.length > 0) {
+      values.profile.roles.forEach(role => formData.append('profile.roles', role));
+    }
+    if (values.profile.bio) formData.append('profile.bio', values.profile.bio);
+
+    // Append profile picture if available
+    if (values.profile.profile_picture) {
+      formData.append('profile.profile_picture', values.profile.profile_picture);
+    }
+
+
 
     try {
-      const response = await axiosInstance.post('/api/register/', payload, {
+      const response = await axiosInstance.post('/api/register/', formData, {
         headers: {
-          'Content-Type': 'application/json'
-        }
+          'Content-Type': 'multipart/form-data',
+        },
       });
 
       if (response.status === 201) {
@@ -65,11 +72,24 @@ export default function RegisterForm() {
       }
     } catch (err) {
       console.error(err);
-      toast.error('Error en el registro.');
+      if (err.response && err.response.data) {
+        console.log('Detalles del error del backend:', err.response.data);
+        toast.error('Error en el registro: ' + JSON.stringify(err.response.data));
+      } else {
+        toast.error('Error en el registro.');
+      }
+
     } finally {
       setSubmitting(false);
     }
   };
+
+  const { isAuthenticated } = useAuth();
+
+  if (isAuthenticated) {
+    window.location.href = '/';
+    return null;
+  }
 
   return (
     <div className="flex flex-col items-center justify-center bg-[#fafbfc] min-h-screen py-12">
@@ -122,19 +142,22 @@ export default function RegisterForm() {
                 <ProvinceSelect
                   provinces={provinces}
                   value={values.profile.id_provinces ? String(values.profile.id_provinces) : ''}
-                  onChange={val => setFieldValue('profile.id_provinces', parseInt(val))}
+                  onChange={val => {
+                    setFieldValue('profile.id_provinces', parseInt(val));
+                  }}
                 />
                 <TextInputField label="Teléfono" name="profile.phone" />
                 <TextInputField label="Dirección" name="profile.address" />
+
                 <div className="flex flex-col space-y-2 md:col-span-2">
-                  <label className="text-sm font-medium text-gray-700">Foto de Perfil (se sube después)</label>
+                  <label className="text-sm font-medium text-gray-700">Foto de Perfil</label>
                   <input
                     type="file"
                     accept="image/*"
                     onChange={e => setFieldValue('profile.profile_picture', e.target.files[0])}
                     className="border border-gray-300 rounded px-3 py-2 focus:outline-none focus:ring-2 focus:ring-[#26b7ad]"
                   />
-                  <small className="text-gray-500">Esta imagen no se envía en este paso. Puedes subirla después en tu perfil.</small>
+                  <ErrorMessage name="profile.profile_picture" component="div" className="text-red-500 text-sm" />
                 </div>
                 <div className="flex flex-col space-y-2 md:col-span-2">
                   <label className="text-sm font-medium text-gray-700">Bio</label>

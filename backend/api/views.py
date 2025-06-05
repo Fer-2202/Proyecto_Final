@@ -180,6 +180,8 @@ class UserProfileListCreateView(generics.ListCreateAPIView):
 
 class UserProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = UserProfile.objects.all()
+    lookup_field = 'user__id'
+    lookup_url_kwarg = 'pk'
     serializer_class = UserProfileSerializer
     permission_classes = [IsAuthenticatedAndRole]
 
@@ -196,6 +198,11 @@ class GroupDetailView(generics.RetrieveUpdateDestroyAPIView):
 class RegisterView(generics.CreateAPIView):
     queryset = User.objects.all()
     serializer_class = RegisterSerializer
+
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context
 
 class GroupListCreateView(generics.ListCreateAPIView):
     queryset = Group.objects.all()

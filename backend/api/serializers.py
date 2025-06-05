@@ -75,20 +75,46 @@ class UserProfileSerializer(serializers.ModelSerializer):
     first_name = serializers.CharField(source='user.first_name', read_only=True)
     last_name = serializers.CharField(source='user.last_name', read_only=True)
 
+    # Add writable fields for profile creation/update
+    phone = serializers.CharField(required=False, allow_blank=True)
+    address = serializers.CharField(required=False, allow_blank=True)
+    birth_date = serializers.DateField(required=False, allow_null=True)
+    profile_picture = serializers.ImageField(required=False, allow_null=True)
+    bio = serializers.CharField(required=False, allow_blank=True)
+    roles = serializers.PrimaryKeyRelatedField(many=True, queryset=Group.objects.all(), required=False)
+    province = serializers.PrimaryKeyRelatedField(queryset=Provinces.objects.all(), required=False, allow_null=True)
+
     class Meta:
         model = UserProfile
         fields = ['username', 'email', 'first_name', 'last_name', 'phone', 'address', 'birth_date', 'profile_picture', 'bio', 'roles', 'province', 'created_at', 'updated_at']
         extra_kwargs = {
-            'phone': {'required': False},
-            'address': {'required': False},
-            'birth_date': {'required': False},
-            'profile_picture': {'required': False},
-            'bio': {'required': False},
-            'roles': {'required': False},
-            'province': {'required': False},
             'created_at': {'read_only': True},
             'updated_at': {'read_only': True}
         }
+
+    def to_internal_value(self, data):
+        ret = super().to_internal_value(data)
+
+        if 'province' in data and data['province'] is not None:
+            province_val = data['province']
+            if isinstance(province_val, str):
+                if province_val.isdigit():
+                    ret['province'] = int(province_val)
+                else:
+                    from .models import Provinces
+                    try:
+                        province_instance = Provinces.objects.get(name=province_val)
+                        ret['province'] = province_instance.id
+                    except Provinces.DoesNotExist:
+                        raise serializers.ValidationError({'province': 'Provincia no encontrada.'})
+            elif isinstance(province_val, dict) and 'id' in province_val:
+                ret['province'] = province_val['id']
+        else:
+            ret['province'] = None
+
+        return ret
+
+
 
 # Register Serializer
 class RegisterSerializer(serializers.ModelSerializer):
@@ -99,6 +125,7 @@ class RegisterSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
+
         profile_data = validated_data.pop('profile', None)
         first_name = validated_data.pop('first_name', '')
         last_name = validated_data.pop('last_name', '')
@@ -107,17 +134,22 @@ class RegisterSerializer(serializers.ModelSerializer):
         user.last_name = last_name
         user.save()
         if profile_data:
-            roles = profile_data.pop('roles', [])
-            province = profile_data.pop('province', None)
-            profile, created = UserProfile.objects.get_or_create(user=user)
-            for attr, value in profile_data.items():
-                setattr(profile, attr, value)
-            if province:
-                profile.province = province
-            profile.save()
-            if roles:
-                profile.roles.set(roles)
-                user.groups.set(roles)
+          # The profile_data should already be a dictionary containing the profile fields.
+            # If 'profile_picture' is a string (e.g., a file path), ensure it's handled correctly.
+            # If 'province' is an object, convert it to its ID.
+            profile_fields = profile_data
+
+
+
+            # Ensure the UserProfile exists before attempting to update it
+            # The signal should create it, but this provides a fallback and ensures we have the instance.
+            user_profile, created = UserProfile.objects.get_or_create(user=user)
+
+            # Update the user profile using the serializer
+            profile_serializer = UserProfileSerializer(instance=user_profile, data=profile_fields, partial=True, context={'request': self.context.get('request')})
+            if not profile_serializer.is_valid():
+                raise serializers.ValidationError({'profile': profile_serializer.errors})
+            profile_serializer.save()
         return user
 
 # User Serializer
@@ -145,6 +177,7 @@ class UserSerializer(serializers.ModelSerializer):
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
+
         profile_data = validated_data.pop('profile', None)
         user = User.objects.create_user(**validated_data)
         
