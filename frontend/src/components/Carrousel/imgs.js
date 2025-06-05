@@ -1,5 +1,5 @@
 import img3 from "./../../assets/img/_MG_0086.jpg"
-import img2 from "./../../assets/img/482218491_1039796928180867_6018018598429211467_n.jpg/"
+import img2 from "./../../assets/img/482961798_1037281651765728_3492099263986454664_n.jpg"
 import img1 from "./../../assets/img/486175245_29175038435443319_583041807967260808_n.jpg"
 
 const images = [

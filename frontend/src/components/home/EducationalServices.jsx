@@ -1,8 +1,14 @@
 import placeholder from "../../assets/placeholder.svg";
+import visitas from "../../assets/img/monitoreo.jpg"
+import charla from "../../assets/img/pul.jpg"
+import taller from "../../assets/img/massi.jpg"
 import { Link } from "react-router-dom";
+
+
 
 const services = [
   {
+    img: visitas,
     title: "Visitas Guiadas",
     description: "Recorridos educativos con guías especializados en biología marina.",
     tag: "Popular",
@@ -11,12 +17,14 @@ const services = [
     detail: "Desde ₡3500",
   },
   {
+    img: charla,
     title: "Charlas Educativas",
     description: "Presentaciones sobre conservación marina y biodiversidad.",
     action: "Más Info",
     detail: "Grupos escolares",
   },
   {
+    img: taller,
     title: "Talleres",
     description: "Actividades prácticas sobre biología marina y conservación.",
     tag: "Nuevo",
@@ -45,7 +53,7 @@ export default function EducationalServices() {
               className="rounded-2xl overflow-hidden bg-white shadow-lg hover:shadow-xl transition border"
             >
               <div className="relative">
-                <img src={placeholder} alt={s.title} className="w-full h-48 object-cover" />
+                <img src={s.img} alt={s.title} className="w-full h-48 object-cover" />
                 {s.tag && (
                   <span
                     className={`absolute top-3 right-3 text-xs px-3 py-1 rounded-full font-semibold ${s.tagColor}`}
