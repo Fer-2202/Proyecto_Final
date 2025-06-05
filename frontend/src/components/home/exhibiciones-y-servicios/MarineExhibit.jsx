@@ -1,6 +1,9 @@
 // src/components/MarineExhibit.jsx
 
 import * as Tabs from '@radix-ui/react-tabs';
+import { Carousel } from 'react-responsive-carousel';
+import 'react-responsive-carousel/lib/styles/carousel.min.css';
+
 import ReptileImage from './../../../assets/img/Figuras_turismo/Figura_turismo_1.jpg';
 import IslaDelCocoImage from './../../../assets/img/Figuras_turismo/Figura_turismo_4.jpg';
 import AquariumImage from './../../../assets/img/Figuras_turismo/Figura_turismo_8.jpeg';
@@ -40,13 +43,13 @@ export default function MarineExhibit() {
               '¡Descubre el fascinante mundo de los reptiles! En esta área podrás conocer sobre cocodrilo, caimán y tortugas terrestres. Aprende sobre sus comportamientos, hábitats naturales y la importante función que cumplen en el ecosistema',
             ]}
             facts={[
-              'En nuestra Área de Reptiles te invitamos a conocer a:' ,
+              'En nuestra Área de Reptiles te invitamos a conocer a:',
               'Morita, un cocodrilo (familia Crocodylidae)',
               'Calipso un curioso caimán (familia Alligatoridae)',
-              'Ambos forman parte de nuestros pacientes residentes del centro de rescate', 
+              'Ambos forman parte de nuestros pacientes residentes del centro de rescate',
               'Podrás observar diferentes especies de tortugas terrestres y así generar conciencia para la tenencia responsable de animales silvestres',
             ]}
-            image={ReptileImage}
+            images={[ReptileImage, ReptileImage]} // Array
           />
         </Tabs.Content>
 
@@ -63,7 +66,7 @@ export default function MarineExhibit() {
               'Es un sitio clave para la investigación marina.',
               'Sus aguas son hogar de tiburones martillo y mantarrayas gigantes.',
             ]}
-            image={IslaDelCocoImage}
+            images={[IslaDelCocoImage, IslaDelCocoImage]} // Array
           />
         </Tabs.Content>
 
@@ -79,7 +82,7 @@ export default function MarineExhibit() {
               'Albergan más de 50 especies de peces.',
               'Contamos con programas de reproducción en cautiverio.',
             ]}
-            image={AquariumImage}
+            images={[AquariumImage, AquariumImage]} // Array
           />
         </Tabs.Content>
 
@@ -96,7 +99,7 @@ export default function MarineExhibit() {
               'Algunas especies son venenosas.',
               'Su esqueleto está formado por cartílago, no huesos.',
             ]}
-            image={RayImage}
+            images={[RayImage, RayImage]} // Array
           />
         </Tabs.Content>
 
@@ -113,7 +116,7 @@ export default function MarineExhibit() {
               'Las crías enfrentan numerosos depredadores.',
               'Varias especies están en peligro crítico de extinción.',
             ]}
-            image={TurtleImage}
+            images={[TurtleImage, TurtleImage]} // Array
           />
         </Tabs.Content>
 
@@ -130,7 +133,7 @@ export default function MarineExhibit() {
               'Algunas especies nunca dejan de nadar.',
               'Son clave para mantener el equilibrio de los ecosistemas marinos.',
             ]}
-            image={SharkImage}
+            images={[SharkImage, SharkImage]} // Array
           />
         </Tabs.Content>
       </Tabs.Root>
@@ -139,12 +142,33 @@ export default function MarineExhibit() {
 }
 
 // Reusable Section component
-function Section({ title, description, facts, image }) {
+function Section({ title, description, facts, images }) {
+  // If images is not array, convert it
+  const imgs = Array.isArray(images) ? images : [images];
+
   return (
     <div className="flex flex-col md:flex-row gap-6">
-      {/* Image */}
+      {/* Image or Carousel */}
       <div className="flex-1 bg-gray-100 h-64 flex items-center justify-center rounded-md border border-gray-300">
-        <img src={image} alt={title} className="object-cover h-full w-full rounded-md" />
+        {imgs.length > 1 ? (
+          <Carousel showThumbs={false} autoPlay infiniteLoop>
+            {imgs.map((img, index) => (
+              <div key={index}>
+                <img
+                  src={img}
+                  alt={`${title} - Image ${index + 1}`}
+                  className="object-cover h-full w-full rounded-md"
+                />
+              </div>
+            ))}
+          </Carousel>
+        ) : (
+          <img
+            src={imgs[0]}
+            alt={title}
+            className="object-cover h-full w-full rounded-md"
+          />
+        )}
       </div>
 
       {/* Text content */}
