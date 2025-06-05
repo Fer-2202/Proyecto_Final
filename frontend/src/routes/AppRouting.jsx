@@ -28,14 +28,15 @@ const InfoInstitucional = React.lazy(() => import('./../pages/Public/pages/Quien
 
 
 /* /quienes-somos */
-const Historia = React.lazy(() => import('../pages/Public/pages/Historia.jsx'));
-const Equipo = React.lazy(() => import('../pages/Public/pages/Equipo.jsx'));
-const TransparenciaInstitucional = React.lazy(() => import('../pages/Public/pages/TransparenciaInstitucional.jsx'));
+const Historia = React.lazy(() => import('./../pages/Public/pages/Quienes_Somos/Pages/Historia.jsx'));
+const Equipo = React.lazy(() => import('./../pages/Public/pages/Quienes_Somos/Pages/Equipo.jsx'));
+const TransparenciaInstitucional = React.lazy(() => import('./../pages/Public/pages/Quienes_Somos/Pages/Transparencia_Institucional.jsx'));
 
 /* /exhibiciones-y-servicios */
-const Exhibiciones = React.lazy(() => import('../pages/Public/pages/Exhibiciones.jsx'));
-const ServiciosEducativos = React.lazy(() => import('../pages/Public/pages/ServiciosEducativos.jsx'));
-const VisitasGuiadas = React.lazy(() => import('../pages/Public/pages/VisitasGuiadas.jsx'));
+const Exhibiciones = React.lazy(() => import('../pages/Public/pages/Exhibiciones_Y_Servicios/Pages/Exhibiciones.jsx'));
+
+const ServiciosEducativos = React.lazy(() => import('../pages/Public/pages/Exhibiciones_Y_Servicios/Pages/Servicio_Educativo.jsx'));
+const VisitasGuiadas = React.lazy(() => import('../pages/Public/pages/Exhibiciones_Y_Servicios/Pages/Visita_Guiada.jsx'));
 
 /* /acuicultura-y-biotecnologia-marina */
 const AcuiculturaYBiotecnologiaMarina = React.lazy(() => import('../pages/Public/pages/AcuiculturaYBiotecnologiaMarina.jsx'));
