@@ -1,9 +1,9 @@
 // src/components/MarineExhibit.jsx
 
 import * as Tabs from '@radix-ui/react-tabs';
-import ReptileImage from './../../../assets/img/_MG_0086.jpg';
-import IslaDelCocoImage from './../../../assets/img/_MG_0086.jpg';
-import AquariumImage from './../../../assets/img/_MG_0086.jpg';
+import ReptileImage from './../../../assets/img/Figuras_turismo/Figura_turismo_1.jpg';
+import IslaDelCocoImage from './../../../assets/img/Figuras_turismo/Figura_turismo_4.jpg';
+import AquariumImage from './../../../assets/img/Figuras_turismo/Figura_turismo_8.jpeg';
 import RayImage from './../../../assets/img/_MG_0086.jpg';
 import TurtleImage from './../../../assets/img/_MG_0086.jpg';
 import SharkImage from './../../../assets/img/_MG_0086.jpg';
@@ -37,13 +37,14 @@ export default function MarineExhibit() {
           <Section
             title="Exhibición de Reptiles"
             description={[
-              'La zona de reptiles alberga serpientes, iguanas y cocodrilos. Aprende sobre sus adaptaciones, comportamientos y su importancia en el ecosistema.',
-              'Nuestro equipo de cuidadores garantiza ambientes seguros tanto para los animales como para los visitantes.',
+              '¡Descubre el fascinante mundo de los reptiles! En esta área podrás conocer sobre cocodrilo, caimán y tortugas terrestres. Aprende sobre sus comportamientos, hábitats naturales y la importante función que cumplen en el ecosistema',
             ]}
             facts={[
-              'Algunas serpientes pueden vivir más de 20 años en cautiverio.',
-              'Las iguanas verdes son excelentes trepadoras.',
-              'Los cocodrilos tienen la mordida más potente del reino animal.',
+              'En nuestra Área de Reptiles te invitamos a conocer a:' ,
+              'Morita, un cocodrilo (familia Crocodylidae)',
+              'Calipso un curioso caimán (familia Alligatoridae)',
+              'Ambos forman parte de nuestros pacientes residentes del centro de rescate', 
+              'Podrás observar diferentes especies de tortugas terrestres y así generar conciencia para la tenencia responsable de animales silvestres',
             ]}
             image={ReptileImage}
           />

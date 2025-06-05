@@ -6,8 +6,8 @@ import MarineExhibit from './MarineExhibit.jsx'
 function Exhibicion() {
     return (
         <div>
-           <QuienesSomos title={"Exhibicion"} description={"Descubre la biodiversidad de Costa Rica "} img={Tanque} />
-           <MarineExhibit />
+            <QuienesSomos title={"Exhibicion"} description={"Descubre la biodiversidad de Costa Rica "} img={Tanque} />
+            <MarineExhibit />
 
         </div>
     )
