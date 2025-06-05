@@ -49,7 +49,7 @@ export default function MarineExhibit() {
               'Ambos forman parte de nuestros pacientes residentes del centro de rescate',
               'Podrás observar diferentes especies de tortugas terrestres y así generar conciencia para la tenencia responsable de animales silvestres',
             ]}
-            images={[ReptileImage, ReptileImage]} // Array
+            images={[ReptileImage, ReptileImage]}
           />
         </Tabs.Content>
 
@@ -66,7 +66,7 @@ export default function MarineExhibit() {
               'Es un sitio clave para la investigación marina.',
               'Sus aguas son hogar de tiburones martillo y mantarrayas gigantes.',
             ]}
-            images={[IslaDelCocoImage, IslaDelCocoImage]} // Array
+            images={[IslaDelCocoImage, IslaDelCocoImage]}
           />
         </Tabs.Content>
 
@@ -82,7 +82,7 @@ export default function MarineExhibit() {
               'Albergan más de 50 especies de peces.',
               'Contamos con programas de reproducción en cautiverio.',
             ]}
-            images={[AquariumImage, AquariumImage]} // Array
+            images={[AquariumImage, AquariumImage]}
           />
         </Tabs.Content>
 
@@ -99,7 +99,7 @@ export default function MarineExhibit() {
               'Algunas especies son venenosas.',
               'Su esqueleto está formado por cartílago, no huesos.',
             ]}
-            images={[RayImage, RayImage]} // Array
+            images={[RayImage, RayImage]}
           />
         </Tabs.Content>
 
@@ -116,7 +116,7 @@ export default function MarineExhibit() {
               'Las crías enfrentan numerosos depredadores.',
               'Varias especies están en peligro crítico de extinción.',
             ]}
-            images={[TurtleImage, TurtleImage]} // Array
+            images={[TurtleImage, TurtleImage]}
           />
         </Tabs.Content>
 
@@ -133,7 +133,7 @@ export default function MarineExhibit() {
               'Algunas especies nunca dejan de nadar.',
               'Son clave para mantener el equilibrio de los ecosistemas marinos.',
             ]}
-            images={[SharkImage, SharkImage]} // Array
+            images={[SharkImage, SharkImage]}
           />
         </Tabs.Content>
       </Tabs.Root>
@@ -143,32 +143,33 @@ export default function MarineExhibit() {
 
 // Reusable Section component
 function Section({ title, description, facts, images }) {
-  // If images is not array, convert it
   const imgs = Array.isArray(images) ? images : [images];
 
   return (
-    <div className="flex flex-col md:flex-row gap-6">
+    <div className="flex flex-col lg:flex-row gap-8">
       {/* Image or Carousel */}
-      <div className="flex-1 bg-gray-100 h-64 flex items-center justify-center rounded-md border border-gray-300">
-        {imgs.length > 1 ? (
-          <Carousel showThumbs={false} autoPlay infiniteLoop>
-            {imgs.map((img, index) => (
-              <div key={index}>
-                <img
-                  src={img}
-                  alt={`${title} - Image ${index + 1}`}
-                  className="object-cover h-full w-full rounded-md"
-                />
-              </div>
-            ))}
-          </Carousel>
-        ) : (
-          <img
-            src={imgs[0]}
-            alt={title}
-            className="object-cover h-full w-full rounded-md"
-          />
-        )}
+      <div className="flex-1 rounded-md border border-gray-300 overflow-hidden">
+        <div className="aspect-[16/9] bg-gray-100">
+          {imgs.length > 1 ? (
+            <Carousel showThumbs={false} autoPlay infiniteLoop showStatus={false}>
+              {imgs.map((img, index) => (
+                <div key={index}>
+                  <img
+                    src={img}
+                    alt={`${title} - Image ${index + 1}`}
+                    className="object-cover w-full h-full"
+                  />
+                </div>
+              ))}
+            </Carousel>
+          ) : (
+            <img
+              src={imgs[0]}
+              alt={title}
+              className="object-cover w-full h-full"
+            />
+          )}
+        </div>
       </div>
 
       {/* Text content */}
@@ -189,7 +190,7 @@ function Section({ title, description, facts, images }) {
         </div>
 
         {/* Buttons */}
-        <div className="flex gap-4 mt-4">
+        <div className="flex flex-col sm:flex-row gap-4 mt-4">
           <button className="bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700 transition-colors">
             Horarios de Alimentación
           </button>
