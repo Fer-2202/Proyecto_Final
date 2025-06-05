@@ -23,7 +23,9 @@ const PrivateRoute = React.lazy(() => import('./PrivateRoute.jsx'));
 /* Pages */
 const Profile = React.lazy(() => import('../pages/Profile.jsx'));
 const Loading = React.lazy(() => import('../pages/Loading.jsx'));
-const InfoInstitucional = React.lazy(() => import('../pages/Public/pages/InfoInstitucional.jsx'));
+const InfoInstitucional = React.lazy(() => import('./../pages/Public/pages/Quienes_Somos/Pages/Info_Institucional.jsx'));
+
+
 
 /* /quienes-somos */
 const Historia = React.lazy(() => import('../pages/Public/pages/Historia.jsx'));
