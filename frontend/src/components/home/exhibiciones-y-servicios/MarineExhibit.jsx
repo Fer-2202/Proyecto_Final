@@ -27,6 +27,7 @@ export default function MarineExhibit({ data }) {
               description={item.description}
               facts={item.facts}
               images={item.images}
+              buttons={item.buttons} // le pasamos buttons
             />
           </Tabs.Content>
         ))}
@@ -35,7 +36,7 @@ export default function MarineExhibit({ data }) {
   );
 }
 
-function Section({ title, description, facts, images }) {
+function Section({ title, description, facts, images, buttons }) {
   const imgs = Array.isArray(images) ? images : [images];
 
   return (
@@ -68,7 +69,7 @@ function Section({ title, description, facts, images }) {
       {/* Text content */}
       <div className="flex-1 space-y-4 text-gray-700">
         <h2 className="text-2xl font-semibold text-teal-700">{title}</h2>
-        {description.map((para, idx) => (
+        {description?.map((para, idx) => (
           <p key={idx}>{para}</p>
         ))}
 
@@ -76,21 +77,28 @@ function Section({ title, description, facts, images }) {
         <div className="bg-gray-100 p-4 rounded-md border border-gray-200">
           <h3 className="font-semibold text-teal-700 mb-2">Datos Interesantes:</h3>
           <ul className="list-disc list-inside space-y-1 text-sm">
-            {facts.map((fact, idx) => (
+            {facts?.map((fact, idx) => (
               <li key={idx}>{fact}</li>
             ))}
           </ul>
         </div>
 
-        {/* Buttons */}
-        <div className="flex flex-col sm:flex-row gap-4 mt-4">
-          <button className="bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700 transition-colors">
-            Horarios de Alimentación
-          </button>
-          <button className="border border-teal-600 text-teal-600 px-4 py-2 rounded hover:bg-teal-50 transition-colors">
-            Programa de Adopción
-          </button>
-        </div>
+        {/* Buttons (solo si hay buttons definidos) */}
+        {buttons && buttons.length > 0 && (
+          <div className="flex flex-col sm:flex-row gap-4 mt-4">
+            {buttons.map((btn, idx) => (
+              <a
+                key={idx}
+                href={btn.link}
+                className="bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700 transition-colors text-center"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                {btn.label}
+              </a>
+            ))}
+          </div>
+        )}
       </div>
     </div>
   );
