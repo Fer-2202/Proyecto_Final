@@ -32,7 +32,7 @@ const exhibitsData = [
     ],
     images: [Cocodrilo, Caiman, Tortuga_T],
     buttons: [
-      { label: 'Horario de Alimento', link: '/horario-alimento' }
+      { label: 'Visita nuestra exhicion de reptiles', link: '/horario-alimento' }
     ],
   },
   {
@@ -65,6 +65,9 @@ const exhibitsData = [
       'Nuestro acuario está orientado a la fauna marina, donde se fomente la educación ambiental, la sensibilización y la conservación de la vida silvestre.',
     ],
     images: [Acuario, Acuario2],
+    buttons: [
+      { label: 'Visita nuestra acuarios', link: '/acuarios' }
+    ],
   },
   {
     value: 'rayas',
@@ -79,6 +82,9 @@ const exhibitsData = [
       '¿Sabías que muchas personas confunden a las rayas con las mantarrayas? Aunque a simple vista puedan parecer similares, en realidad son especies diferentes con características únicas.',
     ],
     images: [Raya, Raya2],
+    buttons: [
+      { label: 'Visita nuestra exhibicion de rayas', link: '/exhibicion-rayas' }
+    ],
   },
   {
     value: 'tortugas',
@@ -94,6 +100,9 @@ const exhibitsData = [
       '¡Conoce y aprende cómo podemos protegerlas para garantizar su supervivencia en nuestros océanos!',
     ],
     images: [Tortuga_M2, Tortuga_M],
+    buttons: [
+      { label: 'Visita nuestra exhibicion de tortugas', link: '/exhibicion-tortugas' }
+    ],
   },
   {
     value: 'tiburones',
@@ -108,6 +117,9 @@ const exhibitsData = [
       'Vive en una variedad de hábitat costeros poco profundos como aguas insulares, arrecifes rocosos o coralinos, áreas arenosas, entre otras, desde la zona entre mareas hasta los 15 metros.',
     ],
     images: [Tiburon, Tiburon2],
+    buttons: [
+      { label: 'Visita nuestra exhibicion de tiburones', link: '/exhibicion-tiburones' }
+    ],
   },
 ];
 
