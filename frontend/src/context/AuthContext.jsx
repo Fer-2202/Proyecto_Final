@@ -2,6 +2,7 @@ import { createContext, useContext, useEffect, useState } from 'react';
 import { getUserProfileById } from '../api/userProfile';
 import axiosInstance from '../api/axiosInstance';
 import Loading from './../pages/Loading';
+import Cookies from 'js-cookie';
 
 const AuthContext = createContext();
 
@@ -13,13 +14,13 @@ export const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const initializeAuth = async () => {
-      const storedToken = localStorage.getItem('accessToken');
+      const storedToken = Cookies.get('accessToken');
 
       if (storedToken) {
         setToken(storedToken);
         setIsAuthenticated(true);
 
-        /* Verificamos el token guardado en el localStorage */
+        /* Verificamos el token guardado en las cookies */
         const payload = parseJwt(storedToken);
         if (payload && payload.user_id) {
           try {
@@ -44,7 +45,7 @@ export const AuthProvider = ({ children }) => {
     if (!token) return; // Si no hay token, no refrescamos
 
     const refreshToken = async () => {
-      const refresh = localStorage.getItem('refreshToken');
+      const refresh = Cookies.get('refreshToken');
       if (!refresh) {
         logout(); // si no hay refresh token, cerramos sesión
         return;
@@ -54,7 +55,7 @@ export const AuthProvider = ({ children }) => {
         const response = await axiosInstance.post('/api/token/refresh/', { refresh });
         if (response.status === 200) {
           const { access } = response.data;
-          localStorage.setItem('accessToken', access);
+          Cookies.set('accessToken', access, { expires: 1 });
           setToken(access);
           setIsAuthenticated(true);
           // Opcional: actualizar perfil si quieres
@@ -106,8 +107,8 @@ export const AuthProvider = ({ children }) => {
       const response = await axiosInstance.post('/api/token/', credentials);
       if (response.status === 200) {
         const { access, refresh } = response.data;
-        localStorage.setItem('accessToken', access);
-        localStorage.setItem('refreshToken', refresh);
+        Cookies.set('accessToken', access, { expires: 1 });
+        Cookies.set('refreshToken', refresh, { expires: 7 });
         setToken(access);
         setIsAuthenticated(true);
 
@@ -134,13 +135,13 @@ export const AuthProvider = ({ children }) => {
   const logout = async () => {
     try {
       await axiosInstance.post('/api/logout/', {
-        refresh_token: localStorage.getItem('refreshToken'),
+        refresh_token: Cookies.get('refreshToken'),
       });
     } catch (error) {
       console.error('Error during logout:', error);
     } finally {
-      localStorage.removeItem('accessToken');
-      localStorage.removeItem('refreshToken');
+      Cookies.remove('accessToken');
+      Cookies.remove('refreshToken');
       setIsAuthenticated(false);
       setUser(null);
       setToken(null);
@@ -149,8 +150,8 @@ export const AuthProvider = ({ children }) => {
 
   const getProfile = async () => {
     try {
-      const storedToken = localStorage.getItem('accessToken');
-      const storedRefreshToken = localStorage.getItem('refreshToken');
+      const storedToken = Cookies.get('accessToken');
+      const storedRefreshToken = Cookies.get('refreshToken');
       if (!storedToken || !storedRefreshToken) {
         setUser(null);
         return null;
