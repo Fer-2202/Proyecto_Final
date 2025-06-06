@@ -1,15 +1,15 @@
 // src/components/exhibitsData.js
 
-import Cocodrilo from './../../../assets/img/Figuras_turismo/Figura_turismo_1.jpg';
-import Tortuga_T from './../../../assets/img/Figuras_turismo/Figura_turismo_2.jpg';
-import Caiman from './../../../assets/img/Figuras_turismo/Figura_turismo_3.jpg';
-import IslaDelCoco from './../../../assets/img/Figuras_turismo/Figura_turismo_4.jpg';
-import IslaDelCoco2 from './../../../assets/img/Figuras_turismo/Figura_turismo_5.jpg';
-import IslaDelCoco3 from './../../../assets/img/Figuras_turismo/Figura_turismo_6.jpg';
-import Acuario from './../../../assets/img/Figuras_turismo/Figura_turismo_7.jpeg';
-import Acuario2 from './../../../assets/img/Figuras_turismo/Figura_turismo_8.jpeg';
-import Raya from './../../../assets/img/Figuras_turismo/Figura_turismo_9.jpg';
-import Raya2 from './../../../assets/img/Figuras_turismo/Figura_turismo_10.jpg';
+import pulpo from './../../../assets/img/pul.jpg';
+import pulpo2 from './../../../assets/img/Pulpo.jpg';
+import Contaminacion from './../../../assets/img/conta2.jpg';
+import Contaminacion2 from './../../../assets/img/contaminacion_1.jpg';
+import Julia from './../../../assets/img/julia.jpg';
+import Julia2 from './../../../assets/img/Tjulia.jpg';
+import Monitoreo from './../../../assets/img/monitoreo.jpg';
+import Monitoreo2 from './../../../assets/img/monitoreo_2.jpg';
+import Biologo from './../../../assets/img/massi.jpg';
+import Biologo2 from './../../../assets/img/Pes.jpg';
 import Tortuga_M from './../../../assets/img/Figuras_turismo/Figura_turismo_11.jpg';
 import Tortuga_M2 from './../../../assets/img/Figuras_turismo/Figura_turismo_12.jpg';
 import Tiburon from './../../../assets/img/Figuras_turismo/Figura_turismo_13.jpg';
@@ -17,91 +17,80 @@ import Tiburon2 from './../../../assets/img/Figuras_turismo/Figura_turismo_14.jp
 
 const educationData = [
   {
-    value: 'reptiles',
-    label: 'Reptiles',
-    title: 'Exhibición de Reptiles',
+    value: 'don-pulpo',
+    label: 'Don Pulpo',
+    title: 'Enseñar a los niños sobre características distintivas de los pulpos mediante actividades.',
     description: [
-      '¡Descubre el fascinante mundo de los reptiles! En esta área podrás conocer sobre cocodrilo, caimán y tortugas terrestres. Aprende sobre sus comportamientos, hábitats naturales y la importante función que cumplen en el ecosistema',
+      '',
     ],
     facts: [
-      'En nuestra Área de Reptiles te invitamos a conocer a:',
-      'Morita, un cocodrilo (familia Crocodylidae)',
-      'Calipso un curioso caimán (familia Alligatoridae)',
-      'Ambos forman parte de nuestros pacientes residentes del centro de rescate',
-      'Podrás observar diferentes especies de tortugas terrestres y así generar conciencia para la tenencia responsable de animales silvestres',
+      'Generalidades del pulpo.',
+      'Dirigido para niños de 5 a 6 años.',
+      'Máximo 10 a 15 personas.',
+      'Tiempo:30 minutos.'
     ],
-    images: [Cocodrilo, Caiman, Tortuga_T],
+    images: [pulpo, pulpo2],
   },
   {
-    value: 'isla-del-coco',
-    label: 'Isla del Coco',
-    title: 'Exhibición Isla del Coco',
+    value: 'Contaminación-de-los-océanos',
+    label: 'Contaminación de los océanos',
+    title: 'Enseñar a los niños las consecuencias que traen los desechos sólidos en el océano al no estar clasificados.',
     description: [
-      'Te invitamos a vivir una experiencia única en nuestra exhibición “Travesía por la Isla del Coco”. Explora la riqueza natural y la historia de esta emblemática isla a través de una detallada maqueta y un vídeo que muestra su impresionante biodiversidad.',
+      '',
     ],
     facts: [
-      'Te invitamos a conocer la Isla del Coco, uno de los tesoros naturales más valiosos de Costa Rica',
-      'En nuestra exhibición “Travesía por la Isla del Coco”, descubrirás la extraordinaria biodiversidad de este Parque Nacional',
-      'Declarado Patrimonio Natural de la Humanidad por su importancia ecológica',
-      'A través de una maqueta interactiva, podrás observar cómo transcurre un día y una noche en la isla',
-      'Apreciando sus paisajes y hábitats. Además, un video inmersivo que mostrará las especies más emblemáticas que habitan este paraíso natural',
+      'Animales y mamíferos marinos.',
+      'Estratos del océano.',
+      'Problemática que enfrentan las especies marinas.',
+      'Contaminación de los océanos.',
+      'Clasificación de los desechos sólidos.',
     ],
-    images: [IslaDelCoco, IslaDelCoco2, IslaDelCoco3],
+    images: [Contaminacion, Contaminacion2],
   },
   {
-    value: 'acuarios',
-    label: 'Acuarios',
-    title: 'Acuarios del Parque',
+    value: 'que-paso-con-la-tortuga-julia',
+    label: '¿Qué pasó con la Tortuga Julia?',
+    title: 'Enseñar a niños mediante imágenes y dramatización el ciclo de vida de la tortuga marina.',
     description: [
-      'En nuestro acuario vas a encontrar más de 20 peceras con diferentes especies del Pacifico, además de la pecera de agua salada más grande de Costa Rica en exhibición.',
+      '',
     ],
     facts: [
-      'Nuestro acuario está orientado a la fauna marina, donde se fomente la educación ambiental, la sensibilización y la conservación de la vida silvestre.',
+      'Ciclo de vida de las especies.',
+      'Diferencias entre tortugas marinas de Costa Rica.',
+      'Clasificación de los residuos.',
+      'Formas de reutilizar algunos residuos valorizables.'
     ],
-    images: [Acuario, Acuario2],
+    images: [Julia, Julia2],
   },
   {
-    value: 'rayas',
-    label: 'Rayas',
-    title: 'Exhibición de Rayas',
+    value: 'monitoreo-de-residuos',
+    label: 'Monitoreo de Residuos',
+    title: 'Analizar la contaminación frente a la playa frente al Parque Marino mediante un monitoreo al azar de residuos sólidos con el fin de generar conciencia ambiental.',
     description: [
-      'En nuestro estanque de rayas tendrás la oportunidad única de conocer de cerca a estas asombrosas criaturas marinas. ¿Conoces la diferencia entre rayas y manta rayas?',
+      ''
     ],
     facts: [
-      'Las rayas son animales tranquilos, que se deslizan por el agua con movimientos suaves',
-      'Observarlas de cerca es una experiencia inolvidable, ideal tanto para quienes visitan por primera vez como para amantes del mundo marino',
-      '¿Sabías que muchas personas confunden a las rayas con las mantarrayas? Aunque a simple vista puedan parecer similares, en realidad son especies diferentes con características únicas.',
+      'Recolección de residuos sólidos en la playa.',
+      'Clasificación valorización y no valorizables.',
+      'Ciencia ciudadana.'
     ],
-    images: [Raya, Raya2],
+    images: [Monitoreo, Monitoreo2],
   },
   {
-    value: 'tortugas',
-    label: 'Tortugas',
-    title: 'Exhibición de Tortugas',
+    value: 'biologo-por-un-dia',
+    label: 'Biólogo por un día',
+    title: 'El objetivo de este taller es explicar la diferencia entre un vertebrado e invertebrado también de poder identificar tanto las partes externas como internas de las dos especies que se van a tomar como ejemplo para la disección, además explicar las funciones de las partes de estos animales',
     description: [
-      'Ven a descubrir las tortugas marinas en el Parque Marino del Pacifico.',
+      '',
     ],
     facts: [
-      'Las tortugas marinas son unos de los seres más fascinantes y antiguos de nuestro planeta',
-      'Con sus habilidades excepcionales y su increíble resistencia',
-      'Desde su capacidad para navegar miles de kilómetros hasta su sorprendente longevidad',
-      '¡Conoce y aprende cómo podemos protegerlas para garantizar su supervivencia en nuestros océanos!',
+      'Diferencias entre vertebrados e invertebrados.',
+      'Características generales de un pez.', 
+      'Disección de un atún y calamar.',
+      'Características generales de un molusco.',
+      'Enfermedades comunes de los peces.'
     ],
-    images: [Tortuga_M2, Tortuga_M],
-  },
-  {
-    value: 'tiburones',
-    label: 'Tiburones',
-    title: 'Exhibición de Tiburones',
-    description: [
-      '¡Conoce más sobre los tiburones Nodriza junto a nosotros!',
-    ],
-    facts: [
-      'El Tiburón gata nodriza (Ginglymostoma cirratum) son una especie caracterizada por tener un comportamiento tranquilo',
-      'El nombre "nodriza" se debe a su forma de cuidar a sus crías, y "gata" a las protuberancias en su morro, que recuerdan a los bigotes de un gato',
-      'Vive en una variedad de hábitat costeros poco profundos como aguas insulares, arrecifes rocosos o coralinos, áreas arenosas, entre otras, desde la zona entre mareas hasta los 15 metros.',
-    ],
-    images: [Tiburon, Tiburon2],
+    images: [Biologo, Biologo2],
   },
 ];
 
