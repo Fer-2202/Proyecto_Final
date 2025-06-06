@@ -31,6 +31,9 @@ const exhibitsData = [
       'Podrás observar diferentes especies de tortugas terrestres y así generar conciencia para la tenencia responsable de animales silvestres',
     ],
     images: [Cocodrilo, Caiman, Tortuga_T],
+    buttons: [
+      { label: 'Horario de Alimento', link: '/horario-alimento' }
+    ],
   },
   {
     value: 'isla-del-coco',
@@ -47,6 +50,9 @@ const exhibitsData = [
       'Apreciando sus paisajes y hábitats. Además, un video inmersivo que mostrará las especies más emblemáticas que habitan este paraíso natural',
     ],
     images: [IslaDelCoco, IslaDelCoco2, IslaDelCoco3],
+    buttons: [
+      { label: 'Visita nuestra exhibicion', link: '/exhibicion' }
+    ],
   },
   {
     value: 'acuarios',
