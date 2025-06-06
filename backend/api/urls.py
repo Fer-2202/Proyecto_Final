@@ -69,4 +69,5 @@ urlpatterns = [
     # Roles (Groups)
     path('roles/', GroupListCreateView.as_view(), name='roles-lista'),
     path('roles/<int:pk>/', GroupDetailView.as_view(), name='roles-detalle'),
+    
 ]

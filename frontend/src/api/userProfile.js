@@ -59,8 +59,41 @@ export const getUserProfileWithRetry = async (id, setLoading, maxRetries = 3) =>
   throw new Error(`Failed after ${maxRetries} attempts: ${lastError.message}`);
 };
 
+export const getUserProfile = async (id) => {
+  try {
+    const response = await axiosInstance.get(`/api/user_profile/${id}/`);
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching user profile with ID ${id}:`, error);
+    throw error;
+  }
+};
+
+export const createUserProfile = async (profileData) => {
+  try {
+    const response = await axiosInstance.post('/api/user_profile/', profileData);
+    return response.data;
+  } catch (error) {
+    console.error('Error creating user profile:', error);
+    throw error;
+  }
+};
+
+export const getUsersProfiles = async () => {
+  try {
+    const response = await axiosInstance.get('/api/user_profile/');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching users profiles:', error);
+    throw error;
+  }
+};
+
 export default {
   getUserProfileById,
   updateUserProfile,
   getUserProfileWithRetry,
+  getUserProfile,
+  createUserProfile,
+
 };

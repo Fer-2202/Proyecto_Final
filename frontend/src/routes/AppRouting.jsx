@@ -1,7 +1,6 @@
 import React, { Suspense } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
 
-
 /* Layout Publico */
 const PublicLayout = React.lazy(() => import('../layouts/Public/PublicLayout.jsx'));
 const Home = React.lazy(() => import('../pages/Public/Home.jsx'));
@@ -23,105 +22,112 @@ const PrivateRoute = React.lazy(() => import('./PrivateRoute.jsx'));
 /* Pages */
 const Profile = React.lazy(() => import('../pages/Profile.jsx'));
 const Loading = React.lazy(() => import('../pages/Loading.jsx'));
-const InfoInstitucional = React.lazy(() => import('./../pages/Public/pages/Quienes_Somos/Pages/Info_Institucional.jsx'));
-
-/* /quienes-somos */
-const Historia = React.lazy(() => import('./../pages/Public/pages/Quienes_Somos/Pages/Historia.jsx'));
-const Equipo = React.lazy(() => import('./../pages/Public/pages/Quienes_Somos/Pages/Equipo.jsx'));
-const TransparenciaInstitucional = React.lazy(() => import('./../pages/Public/pages/Quienes_Somos/Pages/Transparencia_Institucional.jsx'));
-
-/* /exhibiciones-y-servicios */
+const InfoInstitucional = React.lazy(() => import('../pages/Public/pages/Quienes_Somos/Pages/Info_Institucional.jsx'));
+const Historia = React.lazy(() => import('../pages/Public/pages/Quienes_Somos/Pages/Historia.jsx'));
+const Equipo = React.lazy(() => import('../pages/Public/pages/Quienes_Somos/Pages/Equipo.jsx'));
+const TransparenciaInstitucional = React.lazy(() => import('../pages/Public/pages/Quienes_Somos/Pages/Transparencia_Institucional.jsx'));
 const Exhibiciones = React.lazy(() => import('../pages/Public/pages/Exhibiciones_Y_Servicios/Pages/Exhibiciones.jsx'));
-
 const ServiciosEducativos = React.lazy(() => import('../pages/Public/pages/Exhibiciones_Y_Servicios/Pages/Servicio_Educativo.jsx'));
 const VisitasGuiadas = React.lazy(() => import('../pages/Public/pages/Exhibiciones_Y_Servicios/Pages/Visita_Guiada.jsx'));
-
-/* /acuicultura-y-biotecnologia-marina */
 const AcuiculturaYBiotecnologiaMarina = React.lazy(() => import('../pages/Public/pages/Investigacion_Y_Conservacion/Pages/Acuicultura_Y_Biotecnologia_Marina.jsx'));
 const CentroDeRescateYRehabilitacion = React.lazy(() => import('../pages/Public/pages/Investigacion_Y_Conservacion/Pages/Centro_De_Rescate_Y_Rehabilitacion.jsx'));
 const Investigacion = React.lazy(() => import('../pages/Public/pages/Investigacion_Y_Conservacion/Pages/Investigacion.jsx'));
 const Proyectos = React.lazy(() => import('../pages/Public/pages/Investigacion_Y_Conservacion/Pages/Proyecto.jsx'));
-
-
-/* /apoyo */
 const Voluntariado = React.lazy(() => import('../pages/Public/pages/Apoyo/Pages/Voluntariado.jsx'));
 const Donacion = React.lazy(() => import('../pages/Public/pages/Apoyo/Pages/Donacion.jsx'));
-
-
-/* /purchase-form */
 const Ticketera = React.lazy(() => import('../pages/Public/pages/Ticketera.jsx'));
-
-/* /terminos-y-condiciones */
 const Terminos = React.lazy(() => import('../pages/Public/pages/Termino_Y_Condiciones.jsx'));
+const PoliticaDePrivacidad = React.lazy(() => import('../pages/Public/pages/Politica_De_Privacidad.jsx'));
 
-/* /privacidad */
-const PoliticaDePrivacidad = React.lazy(() => import('../pages/Public/pages/Politica_De_Privacidad.jsx'))
-
-
+/* Admin Forms */
+const AnimalForm = React.lazy(() => import('../pages/Admin/forms/AnimalForm.jsx'));
+const HabitatForm = React.lazy(() => import('../pages/Admin/forms/HabitatForm.jsx'));
+const TicketForm = React.lazy(() => import('../pages/Admin/forms/TicketForm.jsx'));
+const SectionForm = React.lazy(() => import('../pages/Admin/forms/SectionForm.jsx'));
+const VisitForm = React.lazy(() => import('../pages/Admin/forms/VisitForm.jsx'));
+const PurchaseOrderForm = React.lazy(() => import('../pages/Admin/forms/PurchaseOrderForm.jsx'));
+const SpeciesForm = React.lazy(() => import('../pages/Admin/forms/SpeciesForm.jsx'));
+const ConservationStatusForm = React.lazy(() => import('../pages/Admin/forms/ConservationStatusForm.jsx'));
+const ProvinceForm = React.lazy(() => import('../pages/Admin/forms/ProvinceForm.jsx'));
+const UserProfileForm = React.lazy(() => import('../pages/Admin/forms/UserProfileForm.jsx'));
 
 function AppRouting() {
   return (
-  <BrowserRouter>
-    <Suspense fallback={<Loading/>}>
-      <Routes>
+    <BrowserRouter>
+      <Suspense fallback={<Loading />}>
+        <Routes>
 
-        {/* Rutas Publicas */}
-        <Route element={<PublicLayout />}>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/forgot-password" element={<ForgotPassword />} />
+          {/* Rutas Publicas */}
+          <Route element={<PublicLayout />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/quienes-somos/informacion-institucional" element={<InfoInstitucional />} />
+            <Route path="/quienes-somos/historia" element={<Historia />} />
+            <Route path="/quienes-somos/equipo" element={<Equipo />} />
+            <Route path="/quienes-somos/transparencia-institucional" element={<TransparenciaInstitucional />} />
+            <Route path="/exhibiciones-y-servicios/exhibiciones" element={<Exhibiciones />} />
+            <Route path="/exhibiciones-y-servicios/servicios-educativos" element={<ServiciosEducativos />} />
+            <Route path="/exhibiciones-y-servicios/visitas-guiadas" element={<VisitasGuiadas />} />
+            <Route path="/investigacion-y-conservacion/acuicultura-y-biotecnologia-marina" element={<AcuiculturaYBiotecnologiaMarina />} />
+            <Route path="/investigacion-y-conservacion/centro-de-rescate-y-rehabilitacion" element={<CentroDeRescateYRehabilitacion />} />
+            <Route path="/investigacion-y-conservacion/investigacion" element={<Investigacion />} />
+            <Route path="/investigacion-y-conservacion/proyectos" element={<Proyectos />} />
+            <Route path="/apoyo/voluntariado" element={<Voluntariado />} />
+            <Route path="/apoyo/donaciones" element={<Donacion />} />
+            <Route path="/purchase-form/ticketera" element={<Ticketera />} />
+            <Route path="/terminos-y-condiciones/terminos" element={<Terminos />} />
+            <Route path="/privacidad/politica-de-privicidad" element={<PoliticaDePrivacidad />} />
+          </Route>
 
-        <Route path="/quienes-somos/informacion-institucional" element={<InfoInstitucional />} />
-        <Route path="/quienes-somos/historia" element={<Historia />} />
-        <Route path="/quienes-somos/equipo" element={<Equipo />} />
-        <Route path="/quienes-somos/transparencia-institucional" element={<TransparenciaInstitucional />} />
+          {/* Rutas Privadas Cliente */}
+          <Route element={
+            <PrivateRoute>
+              <ClientLayout />
+            </PrivateRoute>
+          }>
+            <Route path="/Client_Dashboard" element={<ClientHome />} />
+            <Route path="/profile" element={<Profile />} />
+          </Route>
 
-        <Route path="/exhibiciones-y-servicios/exhibiciones" element={<Exhibiciones />} />
-        <Route path="/exhibiciones-y-servicios/servicios-educativos" element={<ServiciosEducativos />} />
-        <Route path="/exhibiciones-y-servicios/visitas-guiadas" element={<VisitasGuiadas />} />
+          {/* Rutas Privadas Admin */}
+          <Route element={
+            <PrivateRoute>
+              <AdminLayout />
+            </PrivateRoute>
+          }>
+            <Route path="/admin/dashboard" element={<DashboardAdmin />} />
 
-        <Route path="/investigacion-y-conservacion/acuicultura-y-biotecnologia-marina" element={<AcuiculturaYBiotecnologiaMarina />} />
-        <Route path="/investigacion-y-conservacion/centro-de-rescate-y-rehabilitacion" element={<CentroDeRescateYRehabilitacion />} />
-        <Route path="/investigacion-y-conservacion/investigacion" element={<Investigacion />} />
-        <Route path="/investigacion-y-conservacion/proyectos" element={<Proyectos />} />
+            {/* CRUD Routes Admin */}
+            <Route path="/admin/animals/new" element={<AnimalForm mode="create" />} />
+            <Route path="/admin/animals/:id/edit" element={<AnimalForm mode="edit" />} />
+            <Route path="/admin/habitats/new" element={<HabitatForm mode="create" />} />
+            <Route path="/admin/habitats/:id/edit" element={<HabitatForm mode="edit" />} />
+            <Route path="/admin/tickets/new" element={<TicketForm mode="create" />} />
+            <Route path="/admin/tickets/:id/edit" element={<TicketForm mode="edit" />} />
+            <Route path="/admin/sections/new" element={<SectionForm mode="create" />} />
+            <Route path="/admin/sections/:id/edit" element={<SectionForm mode="edit" />} />
+            <Route path="/admin/visits/new" element={<VisitForm mode="create" />} />
+            <Route path="/admin/visits/:id/edit" element={<VisitForm mode="edit" />} />
+            <Route path="/admin/orders/new" element={<PurchaseOrderForm mode="create" />} />
+            <Route path="/admin/orders/:id/edit" element={<PurchaseOrderForm mode="edit" />} />
+            <Route path="/admin/species/new" element={<SpeciesForm mode="create" />} />
+            <Route path="/admin/species/:id/edit" element={<SpeciesForm mode="edit" />} />
+            <Route path="/admin/conservation-status/new" element={<ConservationStatusForm mode="create" />} />
+            <Route path="/admin/conservation-status/:id/edit" element={<ConservationStatusForm mode="edit" />} />
+            <Route path="/admin/provinces/new" element={<ProvinceForm mode="create" />} />
+            <Route path="/admin/provinces/:id/edit" element={<ProvinceForm mode="edit" />} />
+            <Route path="/admin/user-profiles/new" element={<UserProfileForm mode="create" />} />
+            <Route path="/admin/user-profiles/:id/edit" element={<UserProfileForm mode="edit" />} />
+          </Route>
 
-        <Route path="/apoyo/voluntariado" element={<Voluntariado />} />
-        <Route path="/apoyo/donaciones" element={<Donacion />} />
+          {/* Loading */}
+          <Route path="/loading" element={<Loading />} />
 
-        <Route path="/purchase-form/ticketera" element={<Ticketera />} />
-
-        <Route path="/terminos-y-condiciones/terminos" element={<Terminos />} />
-
-        <Route path="/privacidad/politica-de-privicidad" element={<PoliticaDePrivacidad />} />
-
-        </Route>
-
-        {/* Rutas Privadas Cliente */}
-        <Route element={
-          <PrivateRoute>
-            <ClientLayout />
-          </PrivateRoute>
-        }>
-          <Route path="/Client_Dashboard" element={<ClientHome />} />
-          <Route path="/profile" element={<Profile />} />
-        </Route>
-
-        {/* Rutas Privadas Admin */}
-        <Route element={
-          <PrivateRoute>
-            <AdminLayout />
-          </PrivateRoute>
-        }>
-          <Route path="/admin/dashboard" element={<DashboardAdmin />} />
-        </Route>
-
-        {/* Loading */}
-        <Route path="/loading" element={<Loading />} />
-
-      </Routes>
-    </Suspense>
-  </BrowserRouter>
+        </Routes>
+      </Suspense>
+    </BrowserRouter>
   );
 }
 

@@ -4,6 +4,8 @@ import Tanque from "./../../../assets/img/Tanque.jpeg"
 import MarineExhibit from './MarineExhibit.jsx'
 import ExhibitIntro from './ExhibitIntro.jsx'
 import exhibitsData from './exhibitsData.js'
+import WorldSpeciesMap from '../../WorldSpeciesMap.jsx'
+import VisitInfoSection from './VisitInfoSection.jsx'
 
 function Exhibicion() {
     return (
@@ -11,7 +13,8 @@ function Exhibicion() {
             <QuienesSomos title={"Exhibicion"} description={"Descubre la biodiversidad de Costa Rica "} img={Tanque} />
             <ExhibitIntro description={"El Parque Marino Central del Pacifico Sur cuenta con diversas exhibiciones que le permitirán conocer las riquezas de la biodiversidad marina de Costa Rica. Desde la fauna marina, pasando por torutgas marinas, tiburones y rayarios, nuestras exhibiciones te ofrecen una experiencia educativa y entretenida."} title={"Nuestras Exhibiciones"} />
             <MarineExhibit data={exhibitsData} />
-
+            <WorldSpeciesMap />
+            <VisitInfoSection />
         </div>
     )
 }

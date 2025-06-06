@@ -8,6 +8,7 @@ import {
   Linkedin,
   Mail
 } from "lucide-react";
+import LOGO from "../../assets/img/LOGO.webp";
 
 import { PiTiktokLogo } from "react-icons/pi";
 
@@ -57,8 +58,8 @@ export default function Footer() {
         {/* Branding */}
         <div>
           <div className="flex items-center gap-3 mb-5">
-            <div className="bg-[#1CB6B0] rounded-full w-10 h-10 flex items-center justify-center font-bold text-base">
-              PM
+            <div className="bg-[#1CB6B0] rounded-full w-14 h-14 flex items-center justify-center font-bold text-base">
+              <img src={LOGO} width={100} height={100} alt="" />
             </div>
             <h4 className="text-xl font-bold tracking-tight">Parque Marino</h4>
           </div>

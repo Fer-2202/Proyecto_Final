@@ -8,7 +8,7 @@ export default function MarineExhibit({ data }) {
   return (
     <div className="max-w-6xl mx-auto p-6 font-sans">
       <Tabs.Root defaultValue={data[0].value}>
-        <Tabs.List className="flex flex-wrap gap-4 border-b border-gray-200 mb-6 text-gray-600">
+        <Tabs.List className="flex flex-wrap gap-4 border-b border-gray-200 mb-4 text-gray-600">
           {data.map((item) => (
             <Tabs.Trigger
               key={item.value}
