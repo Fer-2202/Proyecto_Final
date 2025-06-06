@@ -5,6 +5,8 @@ import ExhibitIntro from './ExhibitIntro'
 import MarineExhibit from './MarineExhibit'
 import educationData from './educationData'
 import EducationPrograms from './EducationPrograms'
+import EducationalMaterials from './EducationalMaterials'
+import materialsData from './materialsData'
 
 function Servicios_Educativos() {
   return (
@@ -13,6 +15,7 @@ function Servicios_Educativos() {
       <ExhibitIntro description={"El Parque Marino ofrece una variedad de talleres educativos diseñados para crear conciencia y promover la protección de los ecosistemas marino-costeros, el objetivo de estos talleres es que los niños y jóvenes aprendan jugando."} title={"Nuestros Servicios Educativos"}/>
       <MarineExhibit data={educationData} />
       <EducationPrograms />
+      <EducationalMaterials data={materialsData} />
     </div>
   )
 }
