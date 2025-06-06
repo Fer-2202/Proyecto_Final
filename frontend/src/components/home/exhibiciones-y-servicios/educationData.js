@@ -42,7 +42,9 @@ const educationData = [
       'Clasificación de los desechos sólidos.'
     ],
     images: [Contaminacion, Contaminacion2],
-    // sin botones (opcional)
+    buttons: [
+      { label: 'Inscribirse', link: '/inscripcion-contaminacion-de-los-oceanos' }
+    ],
   },
   {
     value: 'que-paso-con-la-tortuga-julia',
@@ -71,7 +73,9 @@ const educationData = [
       'Ciencia ciudadana.'
     ],
     images: [Monitoreo, Monitoreo2],
-    // sin botones
+    buttons: [
+      { label: 'Inscribirse', link: '/inscripcion-monitoreo-de-residuos' }
+    ],
   },
   {
     value: 'biologo-por-un-dia',
