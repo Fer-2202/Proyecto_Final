@@ -1,44 +1,7 @@
-// src/components/EducationPrograms.jsx
+import { programs } from './programs';
 
 export default function EducationPrograms() {
-  const programs = [
-    {
-      title: 'Preescolar y Primaria',
-      description:
-        'Programas educativos adaptados para los más pequeños, con actividades lúdicas y experiencias sensoriales que les permiten conocer el mundo marino de manera divertida.',
-      items: [
-        'Visitas guiadas interactivas',
-        'Talleres de manualidades con materiales reciclados',
-        'Cuentacuentos sobre el océano',
-        'Juegos educativos',
-      ],
-      image: '', // Puedes agregar una imagen si quieres
-    },
-    {
-      title: 'Secundaria',
-      description:
-        'Programas educativos que complementan el currículo escolar, con énfasis en biología, ecología y conservación marina, fomentando el pensamiento crítico y la conciencia ambiental.',
-      items: [
-        'Visitas guiadas especializadas',
-        'Talleres prácticos de biología marina',
-        'Charlas sobre conservación',
-        'Proyectos de investigación guiados',
-      ],
-      image: '',
-    },
-    {
-      title: 'Universidad',
-      description:
-        'Programas educativos avanzados para estudiantes universitarios, con énfasis en investigación científica, conservación y gestión de recursos marinos.',
-      items: [
-        'Prácticas profesionales',
-        'Proyectos de investigación',
-        'Talleres especializados',
-        'Pasantías en conservación marina',
-      ],
-      image: '',
-    },
-  ];
+
 
   return (
     <div className="max-w-7xl mx-auto px-6 py-12">
