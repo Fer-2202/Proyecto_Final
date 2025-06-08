@@ -6,49 +6,59 @@ from .serializers import CustomTokenObtainPairSerializer
 urlpatterns = [
 
     # Secciones
-    path('sections/',Sections_LisCreateView.as_view(), name='sections-lista'),
-    path('sections/<int:pk>/',Section_DetailView.as_view(), name='sections-actualizar-editar'),
+    path('sections/', Sections_LisCreateView.as_view(), name='sections-lista'),
+    path('sections/<int:pk>/', Section_DetailView.as_view(), name='sections-actualizar-editar'),
 
-    #Provincias
+    # Provincias
     path('provinces/', Provinces_ListCreateView.as_view(), name='provinces-lista'),
-    path('provinces/<int:pk>/',Provinces_DetailView.as_view(), name='provinces-actualizar-editar'),
+    path('provinces/<int:pk>/', Provinces_DetailView.as_view(), name='provinces-actualizar-editar'),
 
-    #Especies
+    # Especies
     path('species/', Species_ListCreateView.as_view(), name='species-lista'),
-    path('species/<int:pk>/',Species_DetailView.as_view(), name='species-actualizar-editar'),
+    path('species/<int:pk>/', Species_DetailView.as_view(), name='species-actualizar-editar'),
 
-    #Estado de conservacion
+    # Estado de conservacion
     path('conservation_status/', Conservation_Status_ListCreateView.as_view(), name='conservation_status-lista'),
-    path('conservation_status/<int:pk>/',Conservation_Status_DetailView.as_view(), name='conservation_status-actualizar-editar'),
+    path('conservation_status/<int:pk>/', Conservation_Status_DetailView.as_view(), name='conservation_status-actualizar-editar'),
 
-    #Usuarios
+    # Usuarios
     path('users/', Users_ListCreateView.as_view(), name='users-lista'),
-    path('users/<int:pk>/',Users_DetailView.as_view(), name='users-actualizar-editar'),
+    path('users/<int:pk>/', Users_DetailView.as_view(), name='users-actualizar-editar'),
 
-    #Tickets
+    # Tickets
     path('tickets/', Tickets_ListCreateView.as_view(), name='tickets-lista'),
-    path('tickets/<int:pk>/',Tickets_DetailView.as_view(), name='tickets-actualizar-editar'),
-    
-    #Visitas
+    path('tickets/<int:pk>/', Tickets_DetailView.as_view(), name='tickets-actualizar-editar'),
+
+    # Available Tickets
+    path('tickets/available/', AvailableTicketsView.as_view(), name='tickets-available'),
+
+    # Visitas
     path('visits/', Visits_ListCreateView.as_view(), name='visits-lista'),
-    path('visits/<int:pk>/',Visits_DetailView.as_view(), name='visits-actualizar-editar'),
+    path('visits/<int:pk>/', Visits_DetailView.as_view(), name='visits-actualizar-editar'),
 
-    #Roles
+    # Available Visits
+    path('visits/available/', AvailableVisitsView.as_view(), name='visits-available'),
+
+    # Ordenes de Compra
     path('purchase_order/', Purchase_Order_ListCreateView.as_view(), name='purchase_order-lista'),
-    path('purchase_order/<int:pk>/',Purchase_Order_DetailView.as_view(), name='purchase_order-actualizar-editar'),
+    path('purchase_order/<int:pk>/', Purchase_Order_DetailView.as_view(), name='purchase_order-actualizar-editar'),
 
-    #Tickets Orden de Compra
+    # Tickets Orden de Compra
     path('tickets_purchase_order/', Tickets_Purchase_Order_ListCreateView.as_view(), name='tickets_purchase_order-lista'),
-    path('tickets_purchase_order/<int:pk>/',Tickets_Purchase_Order_DetailView.as_view(), name='tickets_purchase_order-actualizar-editar'),
-    
-    #Habitats
+    path('tickets_purchase_order/<int:pk>/', Tickets_Purchase_Order_DetailView.as_view(), name='tickets_purchase_order-actualizar-editar'),
+
+    # Pagos
+    path('payments/', Payment_ListCreateView.as_view(), name='payment-lista'),
+    path('payments/<int:pk>/', Payment_DetailView.as_view(), name='payment-detalle'),
+
+    # Habitats
     path('habitats/', Habitats_ListCreateView.as_view(), name='habitats-lista'),
-    path('habitats/<int:pk>/',Habitats_DetailView.as_view(), name='habitats-actualizar-editar'),
-    
-    #Animales
+    path('habitats/<int:pk>/', Habitats_DetailView.as_view(), name='habitats-actualizar-editar'),
+
+    # Animales
     path('animals/', Animals_ListCreateView.as_view(), name='animals-lista'),
-    path('animals/<int:pk>/',Animals_DetailView.as_view(), name='animals-actualizar-editar'),
-    
+    path('animals/<int:pk>/', Animals_DetailView.as_view(), name='animals-actualizar-editar'),
+
     # Perfil de usuario
     path('user_profile/', UserProfileListCreateView.as_view(), name='user_profile-list-create'),
     path('user_profile/<int:pk>/', UserProfileDetailView.as_view(), name='user_profile-detail'),
@@ -64,10 +74,10 @@ urlpatterns = [
 
     # Password Reset
     path('forgot-password/', ForgotPasswordView.as_view(), name='forgot_password'),
-    path('reset-password/<uidb64>/<token>/', ResetPasswordView.as_view(), name='reset_password'),
     path('reset-password-confirm/', ResetPasswordConfirmView.as_view(), name='reset_password_confirm'),
+
+
     # Roles (Groups)
     path('roles/', GroupListCreateView.as_view(), name='roles-lista'),
     path('roles/<int:pk>/', GroupDetailView.as_view(), name='roles-detalle'),
-    
 ]

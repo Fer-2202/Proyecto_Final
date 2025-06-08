@@ -13,7 +13,6 @@ export const getUserProfileById = async (id, setLoading) => {
   }
 };
 
-
 export const updateUserProfile = async (id, profileData, setLoading) => {
   try {
     if (setLoading) setLoading(true);
@@ -32,7 +31,6 @@ export const updateUserProfile = async (id, profileData, setLoading) => {
     if (!setLoading) setLoading(false);
   }
 };
-
 
 export const getUserProfileWithRetry = async (id, setLoading, maxRetries = 3) => {
   let attempts = 0;
@@ -89,11 +87,21 @@ export const getUsersProfiles = async () => {
   }
 };
 
+export const deleteUserProfile = async (id) => {
+  try {
+    await axiosInstance.delete(`/api/user_profile/${id}/`);
+  } catch (error) {
+    console.error(`Error deleting user profile with ID ${id}:`, error);
+    throw error;
+  }
+};
+
 export default {
   getUserProfileById,
   updateUserProfile,
   getUserProfileWithRetry,
   getUserProfile,
   createUserProfile,
-
+  getUsersProfiles,
+  deleteUserProfile,
 };

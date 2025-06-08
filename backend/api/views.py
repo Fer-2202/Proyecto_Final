@@ -1,66 +1,114 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from .serializers import RegisterSerializer, UserProfileSerializer
-from .models import UserProfile
-from django.contrib.auth.models import User
 from rest_framework import generics
 from django.contrib.auth import authenticate, login, logout
-from .models import Sections, Provinces, Species, ConservationStatus, Tickets, Visits, PurchaseOrders, TicketsPurchaseOrder, Habitats, Animals
-from .serializers import Sections_Serializer, Provinces_Serializer, Species_Serializer, Conservation_Status_Serializer, Tickets_Serializer, Visits_Serializer, Purchase_Orders_Serializer, Tickets_Purchase_Orders_Serializer, Habitats_Serializer, Animals_Serializer
-from django.contrib.auth.models import Group
-from .serializers import GroupSerializer
-from rest_framework.permissions import BasePermission, IsAuthenticated
+from rest_framework.permissions import IsAuthenticated
 from .permissions import IsAuthenticatedAndRole
 
-# Login View
+# Models
+from django.contrib.auth.models import User, Group
+from .models import (
+    Sections, Provinces, Species, ConservationStatus,
+    Tickets, Visits, PurchaseOrders, TicketsPurchaseOrder,
+    Habitats, Animals, UserProfile, Payment
+)
+
+# Serializers
+from .serializers import (
+    RegisterSerializer, UserProfileSerializer, Sections_Serializer,
+    Provinces_Serializer, Species_Serializer, Conservation_Status_Serializer,
+    Tickets_Serializer, Visits_Serializer, Purchase_Orders_Serializer,
+    Tickets_Purchase_Orders_Serializer, Habitats_Serializer, Animals_Serializer,
+    GroupSerializer, PaymentSerializer
+)
+
+# ==================
+# AUTHENTICATION VIEWS
+# ==================
+
 class LoginView(APIView):
     def post(self, request):
         identifier = request.data.get('username')
         password = request.data.get('password')
         user = None
-        # Try to authenticate by username or User.email
+
         try:
             user = User.objects.get(username=identifier)
         except User.DoesNotExist:
             try:
                 user = User.objects.get(email=identifier)
             except User.DoesNotExist:
-                # Try secondary email in UserProfile
                 try:
-                    profile = UserProfile.objects.get(email=identifier)
+                    profile = UserProfile.objects.get(user__email=identifier)
                     user = profile.user
                 except UserProfile.DoesNotExist:
                     user = None
+
         if user and user.check_password(password):
             login(request, user)
             return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
+
         return Response({'error': 'Invalid Credentials'}, status=status.HTTP_400_BAD_REQUEST)
 
-# Logout View
 class LogoutView(APIView):
     def post(self, request):
         logout(request)
         return Response({'message': 'Logout successful'}, status=status.HTTP_200_OK)
 
-# Forgot Password (Placeholder)
-class ForgotPasswordView(APIView):
-    def post(self, request):
-        email = request.data.get('email')
-        
-        return Response({'message': 'Forgot password functionality not yet implemented.'}, status=status.HTTP_200_OK)
+# ==================
+# USERS / PROFILES
+# ==================
 
-# Reset Password View (Placeholder)
-class ResetPasswordView(APIView):
-    def post(self, request, uidb64, token):
-        return Response({'message': 'Reset password functionality not yet implemented.'}, status=status.HTTP_200_OK)
+class RegisterView(generics.CreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = RegisterSerializer
 
-# Reset Password Confirm View (Placeholder)
-class ResetPasswordConfirmView(APIView):
-    def post(self, request):
-        return Response({'message': 'Reset password confirm functionality not yet implemented.'}, status=status.HTTP_200_OK)
+    def get_serializer_context(self):
+        context = super().get_serializer_context()
+        context['request'] = self.request
+        return context
 
-# vista 
+class Users_ListCreateView(generics.ListCreateAPIView):
+    queryset = User.objects.all()
+    serializer_class = RegisterSerializer
+    permission_classes = [IsAuthenticatedAndRole]
+    required_role = 'admin'
+
+class Users_DetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = User.objects.all()
+    serializer_class = RegisterSerializer
+    permission_classes = [IsAuthenticatedAndRole]
+    required_role = 'admin'
+
+class UserProfileListCreateView(generics.ListCreateAPIView):
+    queryset = UserProfile.objects.all()
+    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticatedAndRole]
+
+class UserProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = UserProfile.objects.all()
+    lookup_field = 'user__id'
+    lookup_url_kwarg = 'pk'
+    serializer_class = UserProfileSerializer
+    permission_classes = [IsAuthenticatedAndRole]
+
+# ==================
+# GROUPS
+# ==================
+
+class GroupListCreateView(generics.ListCreateAPIView):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+
+class GroupDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Group.objects.all()
+    serializer_class = GroupSerializer
+
+# ==================
+# SECTIONS / PROVINCES / SPECIES / STATUS
+# ==================
+
 class Sections_LisCreateView(generics.ListCreateAPIView):
     queryset = Sections.objects.all()
     serializer_class = Sections_Serializer
@@ -74,7 +122,6 @@ class Section_DetailView(generics.RetrieveUpdateDestroyAPIView):
 class Provinces_ListCreateView(generics.ListCreateAPIView):
     queryset = Provinces.objects.all()
     serializer_class = Provinces_Serializer
-    
 
 class Provinces_DetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Provinces.objects.all()
@@ -101,17 +148,9 @@ class Conservation_Status_DetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = Conservation_Status_Serializer
     permission_classes = [IsAuthenticatedAndRole]
 
-class Users_ListCreateView(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = RegisterSerializer
-    permission_classes = [IsAuthenticatedAndRole]
-    required_role = 'admin'
-
-class Users_DetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = RegisterSerializer
-    permission_classes = [IsAuthenticatedAndRole]
-    required_role = 'admin'
+# ==================
+# TICKETS / VISITS / PURCHASE ORDERS / PAYMENTS
+# ==================
 
 class Tickets_ListCreateView(generics.ListCreateAPIView):
     queryset = Tickets.objects.all()
@@ -133,6 +172,25 @@ class Visits_DetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = Visits_Serializer
     permission_classes = [IsAuthenticatedAndRole]
 
+# Available Visits View (solo visitas con cupos)
+class AvailableVisitsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        visits = Visits.objects.filter(occupied_slots__lt=models.F('total_slots'))
+        serializer = Visits_Serializer(visits, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+# Available Tickets View (puedes personalizarlo si agregas stock en el futuro)
+class AvailableTicketsView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        tickets = Tickets.objects.all()
+        serializer = Tickets_Serializer(tickets, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
+# Purchase Orders
 class Purchase_Order_ListCreateView(generics.ListCreateAPIView):
     queryset = PurchaseOrders.objects.all()
     serializer_class = Purchase_Orders_Serializer
@@ -143,6 +201,18 @@ class Purchase_Order_DetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = Purchase_Orders_Serializer
     permission_classes = [IsAuthenticatedAndRole]
 
+# Payments
+class Payment_ListCreateView(generics.ListCreateAPIView):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
+    permission_classes = [IsAuthenticatedAndRole]
+
+class Payment_DetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Payment.objects.all()
+    serializer_class = PaymentSerializer
+    permission_classes = [IsAuthenticatedAndRole]
+
+# Tickets Purchase Order
 class Tickets_Purchase_Order_ListCreateView(generics.ListCreateAPIView):
     queryset = TicketsPurchaseOrder.objects.all()
     serializer_class = Tickets_Purchase_Orders_Serializer
@@ -152,6 +222,10 @@ class Tickets_Purchase_Order_DetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = TicketsPurchaseOrder.objects.all()
     serializer_class = Tickets_Purchase_Orders_Serializer
     permission_classes = [IsAuthenticatedAndRole]
+
+# ==================
+# HABITATS / ANIMALS
+# ==================
 
 class Habitats_ListCreateView(generics.ListCreateAPIView):
     queryset = Habitats.objects.all()
@@ -173,41 +247,59 @@ class Animals_DetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = Animals_Serializer
     permission_classes = [IsAuthenticatedAndRole]
 
-class UserProfileListCreateView(generics.ListCreateAPIView):
-    queryset = UserProfile.objects.all()
-    serializer_class = UserProfileSerializer
-    permission_classes = [IsAuthenticatedAndRole]
+# ==================
+# PASSWORD RESET VIEWS (FUNCIONALES)
+# ==================
 
-class UserProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = UserProfile.objects.all()
-    lookup_field = 'user__id'
-    lookup_url_kwarg = 'pk'
-    serializer_class = UserProfileSerializer
-    permission_classes = [IsAuthenticatedAndRole]
+from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
+from django.utils.encoding import force_bytes
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth import get_user_model
 
-class GroupListCreateView(generics.ListCreateAPIView):
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-    
+User = get_user_model()
 
-class GroupDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-    
+class ForgotPasswordView(APIView):
+    def post(self, request):
+        email = request.data.get('email')
+        if not email:
+            return Response({'error': 'Email is required.'}, status=status.HTTP_400_BAD_REQUEST)
 
-class RegisterView(generics.CreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = RegisterSerializer
+        try:
+            user = User.objects.get(email=email)
+        except User.DoesNotExist:
+            return Response({'error': 'No user found with this email.'}, status=status.HTTP_400_BAD_REQUEST)
 
-    def get_serializer_context(self):
-        context = super().get_serializer_context()
-        context['request'] = self.request
-        return context
+        uid = urlsafe_base64_encode(force_bytes(user.pk))
+        token = default_token_generator.make_token(user)
 
-class GroupListCreateView(generics.ListCreateAPIView):
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
+        reset_link = f"/reset-password-confirm/?uid={uid}&token={token}"
 
-class GroupDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
+        return Response({
+            'message': 'Password reset link generated.',
+            'reset_link': reset_link,
+            'uid': uid,
+            'token': token
+        }, status=status.HTTP_200_OK)
+
+class ResetPasswordConfirmView(APIView):
+    def post(self, request):
+        uidb64 = request.data.get('uid')
+        token = request.data.get('token')
+        new_password = request.data.get('new_password')
+
+        if not uidb64 or not token or not new_password:
+            return Response({'error': 'Missing required fields.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            uid = urlsafe_base64_decode(uidb64).decode()
+            user = User.objects.get(pk=uid)
+        except (User.DoesNotExist, ValueError, TypeError, OverflowError):
+            return Response({'error': 'Invalid user.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        if not default_token_generator.check_token(user, token):
+            return Response({'error': 'Invalid or expired token.'}, status=status.HTTP_400_BAD_REQUEST)
+
+        user.set_password(new_password)
+        user.save()
+
+        return Response({'message': 'Password has been reset successfully.'}, status=status.HTTP_200_OK)
