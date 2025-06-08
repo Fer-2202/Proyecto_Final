@@ -1,4 +1,4 @@
-import { programs } from './programs';
+import { programs } from './programs.js';
 
 export default function EducationPrograms() {
 
