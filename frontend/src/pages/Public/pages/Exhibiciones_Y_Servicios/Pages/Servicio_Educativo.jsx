@@ -1,5 +1,5 @@
 import React from 'react'
-import Servicios_Educativos from '../../../../../components/home/exhibiciones-y-servicios/Servicios_Educativos'
+import Servicios_Educativos from '../../../../../components/home/exhibiciones-y-servicios/components/Servicios_Educativos'
 
 function Servicio_Educativo() {
   return (

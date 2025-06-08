@@ -1,4 +1,4 @@
-import { programs } from './programs';
+import { programs } from '../data/programs';
 
 export default function EducationPrograms() {
 
@@ -9,7 +9,7 @@ export default function EducationPrograms() {
         Programas para Centros Educativos
       </h2>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8">
         {programs.map((program, index) => (
           <div
             key={index}
@@ -18,8 +18,7 @@ export default function EducationPrograms() {
             {/* Imagen (opcional) */}
             <div className="h-40 bg-gray-100 flex items-center justify-center rounded mb-4">
               {/* Aquí podrías poner: */}
-              {/* <img src={program.image} alt={program.title} className="object-cover w-full h-full rounded" /> */}
-              <span className="text-gray-400">[Imagen]</span>
+              <img src={program.image} alt={program.title} className="object-cover w-full h-full rounded" />
             </div>
 
             {/* Título */}
