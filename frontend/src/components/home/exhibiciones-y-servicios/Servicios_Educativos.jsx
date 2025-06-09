@@ -1,12 +1,12 @@
 import React from 'react'
-import QuienesSomos from '../../quienes-somos/QuienesSomos'
+import QuienesSomos from '../quienes-somos/QuienesSomos'
 import contaminacion from './../../../assets/img/contaminacion_1.jpg'
-import ExhibitIntro from './ExhibitIntro'
-import MarineExhibit from './MarineExhibit'
-import educationData from '../data/educationData'
-import EducationPrograms from './EducationPrograms'
-import EducationalMaterials from './EducationalMaterials'
-import materialsData from '../data/materialsData'
+import ExhibitIntro from './components/ExhibitIntro'
+import MarineExhibit from './components/MarineExhibit'
+import educationData from './data/educationData'
+import EducationPrograms from './components/EducationPrograms'
+import EducationalMaterials from './components/EducationalMaterials'
+import materialsData from './data/materialsData'
 
 function Servicios_Educativos() {
   return (

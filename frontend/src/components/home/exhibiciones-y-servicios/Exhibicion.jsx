@@ -3,7 +3,7 @@ import QuienesSomos from '../quienes-somos/QuienesSomos'
 import Tanque from "./../../../assets/img/Tanque.jpeg"
 import MarineExhibit from './components/MarineExhibit.jsx'
 import ExhibitIntro from './components/ExhibitIntro.jsx'
-import exhibitsData from './data/exhibitsData.js'
+import exhibitsData from '../exhibiciones-y-servicios/data/exhibitsData.js'
 import WorldSpeciesMap from '../../WorldSpeciesMap.jsx'
 import VisitInfoSection from './components/VisitInfoSection.jsx'
 
