@@ -10,3 +10,7 @@ export * from './species';
 export * from './ticketsPurchaseOrders';
 export * from './purchaseOrders';
 export * from './userProfile';
+export * from './payments';
+export * from './forgotPassword';
+export * from './resetPasswordConfirm';
+

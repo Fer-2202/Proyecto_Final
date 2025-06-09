@@ -36,10 +36,12 @@ export default function UserProfileForm({ mode }) {
 
     if (mode === "edit") {
       const fetchData = async () => {
-        const profile = await getUserProfileById(id);
-        // Ajuste para roles (M2M)
-        profile.roles = profile.roles?.map(role => role.id) || [];
-        setFormData(profile);
+        if (id) { // Only fetch if id is defined
+          const profile = await getUserProfileById(id);
+          // Ajuste para roles (M2M)
+          profile.roles = profile.roles?.map(role => role.id) || [];
+          setFormData(profile);
+        }
       };
       fetchData();
     }

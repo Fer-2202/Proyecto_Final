@@ -3,7 +3,7 @@ import React from 'react';
 
 export default function QuienesSomos({ title: title, description: description,img: img, alt: alt }) {
   return (
-    <div className="relative w-full h-64 flex items-center justify-center bg-gray-400 text-white font-semibold overflow-hidden">
+    <div className="relative w-full h-90 flex items-center justify-center bg-gray-400 text-white font-semibold overflow-hidden mb-10">
       {/* Imagen de fondo */}
       <img
         src={img}
@@ -16,8 +16,8 @@ export default function QuienesSomos({ title: title, description: description,im
 
       {/* Contenido encima */}
       <div className="relative z-10 text-center px-4">
-        <h2 className="text-2xl md:text-4xl font-bold">{title}</h2>
-        <p className="text-base md:text-lg mt-2">{description}</p>
+        <h2 className="text-3xl md:text-5xl font-bold">{title}</h2>
+        <p className="text-base md:text-2xl mt-2">{description}</p>
       </div>
     </div>
   );

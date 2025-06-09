@@ -20,28 +20,7 @@ import {
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
-import {
-  getSections,
-  getHabitats,
-  getAnimals,
-  getTickets,
-  getVisits,
-  getPurchaseOrders,
-  getSpecies,
-  getConservationStatuses,
-  getProvinces,
-  getUsersProfiles,
-  deleteSection,
-  deleteHabitat,
-  deleteAnimal,
-  deleteTicket,
-  deleteVisit,
-  deletePurchaseOrder,
-  deleteSpecies,
-  deleteConservationStatus,
-  deleteProvince,
-  deleteUser
-} from "../../api/api";
+import * as api from "../../api/api";
 
 const CRUD_TABS = [
   { name: "Entradas", key: "tickets", icon: <Ticket size={16} /> },
@@ -102,16 +81,16 @@ export default function DashboardAdmin() {
           provinces,
           userProfiles
         ] = await Promise.all([
-          getSections(),
-          getHabitats(),
-          getAnimals(),
-          getTickets(),
-          getVisits(),
-          getPurchaseOrders(),
-          getSpecies(),
-          getConservationStatuses(),
-          getProvinces(),
-          getUsersProfiles()
+          api.getSections(),
+          api.getHabitats(),
+          api.getAnimals(),
+          api.getTickets(),
+          api.getVisits(),
+          api.getPurchaseOrders(),
+          api.getSpecies(),
+          api.getConservationStatuses(),
+          api.getProvinces(),
+          api.getUsersProfiles()
         ]);
 
         setData({
@@ -140,16 +119,16 @@ export default function DashboardAdmin() {
     const type = typeMap[tabKey];
     try {
       switch(type) {
-        case 'section': await deleteSection(id); break;
-        case 'habitat': await deleteHabitat(id); break;
-        case 'animal': await deleteAnimal(id); break;
-        case 'ticket': await deleteTicket(id); break;
-        case 'visit': await deleteVisit(id); break;
-        case 'purchaseOrder': await deletePurchaseOrder(id); break;
-        case 'species': await deleteSpecies(id); break;
-        case 'conservationStatus': await deleteConservationStatus(id); break;
-        case 'province': await deleteProvince(id); break;
-        case 'userProfile': await deleteUser(id); break;
+        case 'section': await api.deleteSection(id); break;
+        case 'habitat': await api.deleteHabitat(id); break;
+        case 'animal': await api.deleteAnimal(id); break;
+        case 'ticket': await api.deleteTicket(id); break;
+        case 'visit': await api.deleteVisit(id); break;
+        case 'purchaseOrder': await api.deletePurchaseOrder(id); break;
+        case 'species': await api.deleteSpecies(id); break;
+        case 'conservationStatus': await api.deleteConservationStatus(id); break;
+        case 'province': await api.deleteProvince(id); break;
+        case 'userProfile': await api.deleteUser(id); break;
         default: console.error("Delete not implemented for:", type);
       }
 

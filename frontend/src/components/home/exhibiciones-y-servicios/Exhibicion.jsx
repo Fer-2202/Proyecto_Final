@@ -1,11 +1,11 @@
 import React from 'react'
 import QuienesSomos from '../quienes-somos/QuienesSomos'
 import Tanque from "./../../../assets/img/Tanque.jpeg"
-import MarineExhibit from './MarineExhibit.jsx'
-import ExhibitIntro from './ExhibitIntro.jsx'
-import exhibitsData from './exhibitsData.js'
+import MarineExhibit from './components/MarineExhibit.jsx'
+import ExhibitIntro from './components/ExhibitIntro.jsx'
+import exhibitsData from './data/exhibitsData.js'
 import WorldSpeciesMap from '../../WorldSpeciesMap.jsx'
-import VisitInfoSection from './VisitInfoSection.jsx'
+import VisitInfoSection from './components/VisitInfoSection.jsx'
 
 function Exhibicion() {
     return (

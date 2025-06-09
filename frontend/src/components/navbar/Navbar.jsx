@@ -34,8 +34,7 @@ const links = [
     dropdown: true,
     sublinks: [
       { name: "Exhibiciones", href: "/exhibiciones-y-servicios/exhibiciones" },
-      { name: "Servicios Educativos", href: "/exhibiciones-y-servicios/servicios-educativos" },
-      { name: "Visitas Guiadas", href: "/exhibiciones-y-servicios/visitas-guiadas" },
+      { name: "Servicios Educativos", href: "/exhibiciones-y-servicios/servicios-educativos" }
     ],
   },
   {
