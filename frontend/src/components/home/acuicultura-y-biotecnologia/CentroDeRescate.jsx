@@ -6,12 +6,27 @@ import Tanque from "./../../../assets/img/fotos.verticales_(1).jpg"
 import { Link } from 'react-router-dom'
 
 function CentroDeRescate() {
+
+  const workAreas = [
+    "Rescate de fauna marina en peligro",
+    "Atención veterinaria especializada",
+    "Rehabilitación y cuidados intensivos",
+    "Liberación y seguimiento post-liberación",
+    "Investigación aplicada a la conservación",
+    "Educación y sensibilización ambiental"
+  ];
+
+  const handleButtonClick = () => {
+    alert('Botón "Conocer Más" clickeado!');
+  };
+
   return (
     <div className='mt-23'>
-    <QuienesSomos title={"Centro de Rescate y Rehabilitación"} description={"Descubre la biodiversidad de Costa Rica "} />
-    <ExhibitIntro description={"Te invitamos a conocer un poco sobre los inicios del Centro de Rescate y Rehabilitación de Animales Marinos conocido como CRRAM. Un centro de rescate especializado en la atención de tortugas marinas."} title={"Programa Centro de Rescate y Rehabilitación"} />
-    <DescriptionSection /* image={Tanque} */ title={"Rescate y rehabilitacion"} paragraphs={["Te invitamos a conocer un poco sobre los inicios del Centro de Rescate y Rehabilitación de Animales Marinos conocido como CRRAM. Un centro de rescate especializado en la atención de tortugas marinas."]} listTitle={"Beneficios del Centro de Rescate"} listItems={["Rehabilitar mediante un manejo biológico y veterinario los animales que ingresan.", "Poder coordinar su posible liberación al medio silvestre.", "Se procura la liberación de toda tortuga marina, ave o cocodrilo excepto para el caso de aquellos que no se puedan valer por sí mismos", /* "como es el caso de los pelícanos totalmente inhabilitados para volar, o del caso de dos tortugas marinas que por sus condiciones fisiológicas como la pérdida de sus aletas no es posible su liberación.", */ "Estos animales residentes juegan un papel muy importante de educación en los visitantes que llegan al Parque Marino del Pacífico."]} 
-    />
+    <QuienesSomos title={"Centro de Rescate"} description={"Salvando la vida marina del Pacifico Sur"} />
+
+    <ExhibitIntro description={"El Centro de Rescate del Parque Marino Central del Pacífico Sur está dedicado al rescate, rehabilitación y liberación de fauna marina afectada por actividades humanas o eventos naturales. Trabajamos para dar una segunda oportunidad a tortugas marinas, mamíferos marinos, aves costeras y otras especies que necesitan nuestra ayuda."} title={"Programa Centro de Rescate y Rehabilitación"} />
+
+    <DescriptionSection imageSrc={Tanque} title={"Nuestra misión"} paragraphs={["Rescatar, rehabilitar y reintroducir fauna marina en peligro, contribuyendo a la conservación de las especies y sus ecosistemas, mientras generamos conocimiento científico y conciencia ambiental.", "Nuestro centro cuenta con instalaciones especializadas para la atención de diferentes especies marinas, un equipo de profesionales dedicados y una red de voluntarios comprometidos con la conservación marina."]} workAreasTitle={"Nuestros Servicios:"} workAreas={workAreas} buttonText={"Repostar Animal en peligro"} />
 
 
     </div>
