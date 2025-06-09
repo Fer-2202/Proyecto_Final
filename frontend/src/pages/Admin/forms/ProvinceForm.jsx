@@ -33,7 +33,7 @@ export default function ProvinceForm({ mode }) {
     } else {
       await updateProvince(id, formData);
     }
-    navigate("/admin");
+    navigate("/admin/dashboard");
   };
 
   return (

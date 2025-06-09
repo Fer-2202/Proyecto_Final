@@ -34,7 +34,7 @@ export default function SectionForm({ mode }) {
     } else {
       await updateSection(id, formData);
     }
-    navigate("/admin");
+    navigate("/admin/dashboard");
   };
 
   return (

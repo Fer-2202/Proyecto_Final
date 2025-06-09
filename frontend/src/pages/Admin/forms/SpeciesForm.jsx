@@ -33,7 +33,7 @@ export default function SpeciesForm({ mode }) {
     } else {
       await updateSpecies(id, formData);
     }
-    navigate("/admin");
+    navigate("/admin/dashboard");
   };
 
   return (

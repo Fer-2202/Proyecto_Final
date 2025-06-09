@@ -76,7 +76,7 @@ export default function UserProfileForm({ mode }) {
     } else {
       await updateUserProfile(id, dataToSend);
     }
-    navigate("/admin");
+    navigate("/admin/dashboard");
   };
 
   return (
