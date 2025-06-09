@@ -1,15 +1,15 @@
 // src/components/educationData.js
 
-import pulpo from './../../../assets/img/pul.jpg';
-import pulpo2 from './../../../assets/img/Pulpo.jpg';
-import Contaminacion from './../../../assets/img/conta2.jpg';
-import Contaminacion2 from './../../../assets/img/contaminacion_1.jpg';
-import Julia from './../../../assets/img/julia.jpg';
-import Julia2 from './../../../assets/img/Tjulia.jpg';
-import Monitoreo from './../../../assets/img/monitoreo.jpg';
-import Monitoreo2 from './../../../assets/img/monitoreo_2.jpg';
-import Biologo from './../../../assets/img/massi.jpg';
-import Biologo2 from './../../../assets/img/Pes.jpg';
+import pulpo from '../../../../assets/img/pul.jpg';
+import pulpo2 from '../../../../assets/img/Pulpo.jpg';
+import Contaminacion from '../../../../assets/img/conta2.jpg';
+import Contaminacion2 from '../../../../assets/img/contaminacion_1.jpg';
+import Julia from '../../../../assets/img/julia.jpg';
+import Julia2 from '../../../../assets/img/Tjulia.jpg';
+import Monitoreo from '../../../../assets/img/monitoreo.jpg';
+import Monitoreo2 from '../../../../assets/img/monitoreo_2.jpg';
+import Biologo from '../../../../assets/img/massi.jpg';
+import Biologo2 from '../../../../assets/img/Pes.jpg';
 
 const educationData = [
   {

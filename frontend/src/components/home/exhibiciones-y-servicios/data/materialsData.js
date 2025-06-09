@@ -1,9 +1,9 @@
 // src/components/materialsData.js
 
-import guiaImage from './../../../assets/placeholder.svg';
-import librosImage from './../../../assets/placeholder.svg';
-import recursosImage from './../../../assets/placeholder.svg';
-import postersImage from './../../../assets/placeholder.svg';
+import guiaImage from '../../../../assets/placeholder.svg';
+import librosImage from '../../../../assets/placeholder.svg';
+import recursosImage from '../../../../assets/placeholder.svg';
+import postersImage from '../../../../assets/placeholder.svg';
 
 const materialsData = [
   {
