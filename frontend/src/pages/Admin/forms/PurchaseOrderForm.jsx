@@ -61,7 +61,7 @@ export default function PurchaseOrderForm({ mode }) {
     } else {
       await updatePurchaseOrder(id, dataToSend);
     }
-    navigate("/admin");
+    navigate("/admin/dashboard");
   };
 
   return (

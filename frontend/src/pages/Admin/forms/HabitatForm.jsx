@@ -43,7 +43,7 @@ export default function HabitatForm({ mode }) {
     } else {
       await updateHabitat(id, formData);
     }
-    navigate("/admin");
+    navigate("/admin/dashboard");
   };
 
   return (

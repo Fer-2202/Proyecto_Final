@@ -25,7 +25,8 @@ export default function TicketForm({ mode }) {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData(prev => ({ ...prev, [name]: value }));
+    const newValue = name === 'price' ? parseFloat(value) : value;
+    setFormData(prev => ({ ...prev, [name]: newValue }));
   };
 
   const handleSubmit = async (e) => {
@@ -35,7 +36,7 @@ export default function TicketForm({ mode }) {
     } else {
       await updateTicket(id, formData);
     }
-    navigate("/admin");
+    navigate("/admin/dashboard");
   };
 
   return (

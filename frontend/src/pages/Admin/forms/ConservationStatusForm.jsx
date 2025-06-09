@@ -43,7 +43,7 @@ export default function ConservationStatusForm({ mode }) {
     } else {
       await updateConservationStatus(id, formData);
     }
-    navigate("/admin");
+    navigate("/admin/dashboard");
   };
 
   return (

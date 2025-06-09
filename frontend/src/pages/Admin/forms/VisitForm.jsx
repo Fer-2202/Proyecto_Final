@@ -35,7 +35,7 @@ export default function VisitForm({ mode }) {
     } else {
       await updateVisit(id, formData);
     }
-    navigate("/admin");
+    navigate("/admin/dashboard");
   };
 
   return (

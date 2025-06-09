@@ -50,7 +50,7 @@ export default function AnimalForm({ mode }) {
     } else {
       await updateAnimal(id, formData);
     }
-    navigate("/admin");
+    navigate("/admin/dashboard");
   };
 
   return (
