@@ -3,8 +3,8 @@ import { Link } from 'react-router-dom'
 
 const links = [
   { label: 'Ser Voluntario', href: '/apoyo/voluntariado' },
-  { label: 'Hacer una Donación', href: '/donar' },
-  { label: 'Programas Educativos', href: '/programas' },
+  { label: 'Hacer una Donación', href: '/apoyo/donaciones' },
+  { label: 'Servicios Educativos', href: '/exhibiciones-y-servicios/servicios-educativos' },
 ]
 
 function MissionCTA() {
