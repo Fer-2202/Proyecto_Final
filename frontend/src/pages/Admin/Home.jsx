@@ -163,7 +163,7 @@ export default function DashboardAdmin() {
       <aside className="w-64 bg-white border-r px-6 py-8 flex flex-col justify-between">
         <div>
           <h2 className="text-xl font-bold mb-6">Panel de Control</h2>
-          <p className="text-sm text-gray-500 mb-8">Bienvenido, {user?.username || 'Admin'}</p>
+          <p className="text-sm text-gray-500 mb-8">Bienvenido, {user?.username || 'undefined'}</p>
           <nav className="flex flex-col space-y-4">
             {CRUD_TABS.map(tab => (
               <button
