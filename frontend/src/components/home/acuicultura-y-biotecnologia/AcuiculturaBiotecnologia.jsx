@@ -7,6 +7,10 @@ import OurApproach from './components/DescriptionSection'
 import TabsContainer from './components/TabsContainer'
 import SuccessCases from './components/SuccessCases'
 import CallToAction from './components/CallToAction'
+import CultivoTab from './components/tabs/CultivoTab'
+import InvestigacionTab from './components/tabs/InvestigacionTab'
+import TecnologiaTab from './components/tabs/TecnologiaTab'
+import ExtensionTab from './components/tabs/ExtensionTab'
 import { Link } from 'react-router-dom'
 
 function AcuiculturaBiotecnologia() {
@@ -28,12 +32,35 @@ function AcuiculturaBiotecnologia() {
     alert('Botón "Conocer Más" clickeado!');
   };
 
+  const acuiculturaTabs = [
+    {
+      value: "cultivo",
+      label: "Especies en Cultivo",
+      component: <CultivoTab />
+    },
+    {
+      value: "investigacion",
+      label: "Investigación",
+      component: <InvestigacionTab />
+    },
+    {
+      value: "tecnologia",
+      label: "Tecnología e Innovación",
+      component: <TecnologiaTab />
+    },
+    {
+      value: "extension",
+      label: "Extensión y Capacitación",
+      component: <ExtensionTab />
+    }
+  ];
+
   return (
     <div className='flex flex-col items-center mt-23'>
       <QuienesSomos title={"Acuicultura y Biotecnologia"} description={"Descubre la biodiversidad de Costa Rica "} img={Tanque} />
       <ExhibitIntro description={"En el Parque Marino Central del Pacífico Sur desarrollamos investigación aplicada en acuicultura y biotecnología marina, con el objetivo de promover la producción sostenible de recursos marinos, contribuir a la seguridad alimentaria y generar alternativas económicas para las comunidades costeras."} title={"Programa de Acuicultura y Biotecnología"} />
       <OurApproach title={"Nuestro Enfoque"} paragraphs={paragraphs} imageSrc={Tanque} workAreasTitle={"Áreas de Trabajo:"} workAreas={workAreas} buttonText={"Conocer más"} onButtonClick={handleButtonClick} imageAlt={"Img del programa"} />
-      <TabsContainer  />
+      <TabsContainer tabs={acuiculturaTabs} defaultValue="cultivo" />
       <SuccessCases />
       <CallToAction />
     </div>

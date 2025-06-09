@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { createVisit, updateVisit, getVisitById } from "../../../api/visits";
 import FormWrapper from "./FormWrapper";
+import { toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 export default function VisitForm({ mode }) {
   const { id } = useParams();
@@ -30,12 +32,19 @@ export default function VisitForm({ mode }) {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (mode === "create") {
-      await createVisit(formData);
-    } else {
-      await updateVisit(id, formData);
+    try {
+      if (mode === "create") {
+        await createVisit(formData);
+        toast.success('Visita creada exitosamente');
+      } else {
+        await updateVisit(id, formData);
+        toast.success('Visita actualizada exitosamente');
+      }
+      navigate("/admin/dashboard");
+    } catch (error) {
+      console.error('Error:', error);
+      toast.error('Error al procesar la visita');
     }
-    navigate("/admin/dashboard");
   };
 
   return (
