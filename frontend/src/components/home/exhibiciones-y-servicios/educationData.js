@@ -15,7 +15,7 @@ const educationData = [
   {
     value: 'don-pulpo',
     label: 'Don Pulpo',
-    title: '',
+    title: 'Aprende con Don Pulpo',
     description: ['Enseñar a los niños sobre características distintivas de los pulpos mediante actividades.'],
     facts: [
       'Generalidades del pulpo.',
@@ -32,7 +32,7 @@ const educationData = [
   {
     value: 'contaminacion-de-los-oceanos',
     label: 'Contaminación de los océanos',
-    title: '',
+    title: 'Insentivar la conciencia ambiental',
     description: ['Enseñar a los niños las consecuencias que traen los desechos sólidos en el océano al no estar clasificados'],
     facts: [
       'Animales y mamíferos marinos.',
@@ -49,7 +49,7 @@ const educationData = [
   {
     value: 'que-paso-con-la-tortuga-julia',
     label: '¿Qué pasó con la Tortuga Julia?',
-    title: '',
+    title: 'Aprende con la Tortuga Julia',
     description: ['Enseñar a niños mediante imágenes y dramatización el ciclo de vida de la tortuga marina.'],
     facts: [
       'Ciclo de vida de las especies.',
@@ -65,7 +65,7 @@ const educationData = [
   {
     value: 'monitoreo-de-residuos',
     label: 'Monitoreo de Residuos',
-    title: '',
+    title: 'Voluntariado de Monitoreo de Residuos',
     description: ['Analizar la contaminación frente a la playa frente al Parque Marino mediante un monitoreo al azar de residuos sólidos con el fin de generar conciencia ambiental.'],
     facts: [
       'Recolección de residuos sólidos en la playa.',
@@ -80,7 +80,7 @@ const educationData = [
   {
     value: 'biologo-por-un-dia',
     label: 'Biólogo por un día',
-    title: '',
+    title: 'Aprende como ser biólogo',
     description: ['El objetivo de este taller es explicar la diferencia entre un vertebrado e invertebrado también de poder identificar tanto las partes externas como internas de las dos especies que se van a tomar como ejemplo para la disección, además explicar las funciones de las partes de estos animales'],
     facts: [
       'Diferencias entre vertebrados e invertebrados.',
