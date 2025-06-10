@@ -1,24 +1,26 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { createAnimal, updateAnimal, getAnimalById } from "../../../api/animals";
+import { createAnimal, updateAnimal } from "../../../api/animals";
 import { getSpecies } from "../../../api/species";
 import { getConservationStatuses } from "../../../api/conservationStatus";
 import { getHabitats } from "../../../api/habitats";
 import FormWrapper from "./FormWrapper";
 
-export default function AnimalForm({ mode }) {
-  const { id } = useParams();
-  const navigate = useNavigate();
+export default function AnimalForm({
+    mode,
+    initialData,
+    onCreate,
+    onUpdate,
+    onCancel,
+}) {
   const [speciesList, setSpeciesList] = useState([]);
   const [statusList, setStatusList] = useState([]);
   const [habitatsList, setHabitatsList] = useState([]);
-
   const [formData, setFormData] = useState({
     name: "",
     age: "",
     id_species: "",
     id_conservation_status: "",
-    id_habitats: ""
+    id_habitats: "",
   });
 
   useEffect(() => {
@@ -28,15 +30,10 @@ export default function AnimalForm({ mode }) {
       setHabitatsList(await getHabitats());
     };
     fetchOptions();
-
-    if (mode === "edit") {
-      const fetchData = async () => {
-        const animal = await getAnimalById(id);
-        setFormData(animal);
-      };
-      fetchData();
+    if (initialData) {
+      setFormData(initialData);
     }
-  }, [id, mode]);
+  }, [initialData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -46,26 +43,28 @@ export default function AnimalForm({ mode }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (mode === "create") {
-      await createAnimal(formData);
+        onCreate(formData);
     } else {
-      await updateAnimal(id, formData);
+        onUpdate(initialData.id, formData);
     }
-    navigate("/admin/dashboard");
   };
 
   return (
-    <FormWrapper
-      title={mode === "create" ? "Crear Animal" : "Editar Animal"}
-      onSubmit={handleSubmit}
-      formData={formData}
-      onChange={handleChange}
-      fields={[
-        { name: "name", label: "Nombre" },
-        { name: "age", label: "Edad", type: "number" },
-        { name: "id_species", label: "Especie", type: "select", options: speciesList, optionLabel: "name", optionValue: "id" },
-        { name: "id_conservation_status", label: "Estado de conservación", type: "select", options: statusList, optionLabel: "name", optionValue: "id" },
-        { name: "id_habitats", label: "Hábitat", type: "select", options: habitatsList, optionLabel: "name", optionValue: "id" }
-      ]}
-    />
+    <>
+      <FormWrapper
+        title={mode === "create" ? "Crear Animal" : "Editar Animal"}
+        onSubmit={handleSubmit}
+        formData={formData}
+        onChange={handleChange}
+        fields={[
+          { name: "name", label: "Nombre" },
+          { name: "age", label: "Edad", type: "number" },
+          { name: "id_species", label: "Especie", type: "select", options: speciesList, optionLabel: "name", optionValue: "id" },
+          { name: "id_conservation_status", label: "Estado de conservación", type: "select", options: statusList, optionLabel: "name", optionValue: "id" },
+          { name: "id_habitats", label: "Hábitat", type: "select", options: habitatsList, optionLabel: "name", optionValue: "id" }
+        ]}
+      />
+       <button onClick={onCancel}>Cancel</button>
+    </>
   );
 }

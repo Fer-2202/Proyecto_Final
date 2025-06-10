@@ -5,6 +5,10 @@ import TabsContainer from './components/TabsContainer'
 import DescriptionSection from './components/DescriptionSection'
 import Tanque from "./../../../assets/img/fotos.verticales_(1).jpg"
 import { Link } from 'react-router-dom'
+import EspeciesTab from './components/tabs/EspeciesTab'
+import InstalacionesTab from './components/tabs/InstalacionesTab'
+import HistoriasTab from './components/tabs/HistoriasTab'
+import ComoAyudarTab from './components/tabs/ComoAyudarTab'
 
 function CentroDeRescate() {
 
@@ -21,11 +25,28 @@ function CentroDeRescate() {
     alert('Botón "Conocer Más" clickeado!');
   };
 
-  const CentroRescateTabs = [
+const CentroRescateTabs = [
     {
-      
+      value: "especies",
+      label: "Especies en Cultivo",
+      component: <EspeciesTab />
+    },
+    {
+      value: "instalaciones",
+      label: "Nuestras Instalaciones",
+      component: <InstalacionesTab />
+    },
+    {
+      value: "casos-exito",
+      label: "Casos de Exito",
+      component: <HistoriasTab />
+    },
+    {
+      value: "como-ayudar",
+      label: "Como Ayudar",
+      component: <ComoAyudarTab />
     }
-  ]
+  ];
 
   return (
     <div className='mt-23'>

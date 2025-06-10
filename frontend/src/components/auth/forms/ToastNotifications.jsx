@@ -17,3 +17,5 @@ export function ToastNotifications() {
     />
   );
 }
+
+export default ToastNotifications;

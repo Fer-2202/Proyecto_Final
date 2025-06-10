@@ -1,26 +1,24 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { createSection, updateSection, getSectionById } from "../../../api/sections";
+import { createSection, updateSection } from "../../../api/sections";
 import FormWrapper from "./FormWrapper";
 
-export default function SectionForm({ mode }) {
-  const { id } = useParams();
-  const navigate = useNavigate();
-
+export default function SectionForm({
+  mode,
+  initialData,
+  onCreate,
+  onUpdate,
+  onCancel,
+}) {
   const [formData, setFormData] = useState({
     name: "",
-    num_habitats: ""
+    num_habitats: "",
   });
 
   useEffect(() => {
-    if (mode === "edit") {
-      const fetchData = async () => {
-        const section = await getSectionById(id);
-        setFormData(section);
-      };
-      fetchData();
+    if (initialData) {
+      setFormData(initialData);
     }
-  }, [id, mode]);
+  }, [initialData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -30,23 +28,25 @@ export default function SectionForm({ mode }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (mode === "create") {
-      await createSection(formData);
+      onCreate(formData);
     } else {
-      await updateSection(id, formData);
+      onUpdate(initialData.id, formData);
     }
-    navigate("/admin/dashboard");
   };
 
   return (
-    <FormWrapper
-      title={mode === "create" ? "Crear Sección" : "Editar Sección"}
-      onSubmit={handleSubmit}
-      formData={formData}
-      onChange={handleChange}
-      fields={[
-        { name: "name", label: "Nombre" },
-        { name: "num_habitats", label: "Número de Hábitats", type: "number" }
-      ]}
-    />
+    <>
+      <FormWrapper
+        title={mode === "create" ? "Crear Sección" : "Editar Sección"}
+        onSubmit={handleSubmit}
+        formData={formData}
+        onChange={handleChange}
+        fields={[
+          { name: "name", label: "Nombre" },
+          { name: "num_habitats", label: "Número de Hábitats", type: "number" }
+        ]}
+      />
+      <button onClick={onCancel}>Cancel</button>
+    </>
   );
 }

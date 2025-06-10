@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { createTicket, updateTicket, getTicketById } from "../../../api/tickets";
+import { createTicket, updateTicket } from "../../../api/tickets";
 import FormWrapper from "./FormWrapper";
 
-export default function TicketForm({ mode }) {
-  const { id } = useParams();
-  const navigate = useNavigate();
-
+export default function TicketForm({
+    mode,
+    initialData,
+    onCreate,
+    onUpdate,
+    onCancel,
+}) {
   const [formData, setFormData] = useState({
     price: "",
     name: "",
@@ -14,14 +16,10 @@ export default function TicketForm({ mode }) {
   });
 
   useEffect(() => {
-    if (mode === "edit") {
-      const fetchData = async () => {
-        const ticket = await getTicketById(id);
-        setFormData(ticket);
-      };
-      fetchData();
+    if (initialData) {
+      setFormData(initialData);
     }
-  }, [id, mode]);
+  }, [initialData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -32,24 +30,26 @@ export default function TicketForm({ mode }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (mode === "create") {
-      await createTicket(formData);
+        onCreate(formData);
     } else {
-      await updateTicket(id, formData);
+        onUpdate(initialData.id, formData);
     }
-    navigate("/admin/dashboard");
   };
 
   return (
-    <FormWrapper
-      title={mode === "create" ? "Crear Ticket" : "Editar Ticket"}
-      onSubmit={handleSubmit}
-      formData={formData}
-      onChange={handleChange}
-      fields={[
-        { name: "price", label: "Precio", type: "number" },
-        { name: "name", label: "Nombre" },
-        { name: "description", label: "Descripción", type: "textarea" }
-      ]}
-    />
+    <>
+      <FormWrapper
+        title={mode === "create" ? "Crear Ticket" : "Editar Ticket"}
+        onSubmit={handleSubmit}
+        formData={formData}
+        onChange={handleChange}
+        fields={[
+          { name: "price", label: "Precio", type: "number" },
+          { name: "name", label: "Nombre" },
+          { name: "description", label: "Descripción", type: "textarea" }
+        ]}
+      />
+       <button onClick={onCancel}>Cancel</button>
+    </>
   );
 }

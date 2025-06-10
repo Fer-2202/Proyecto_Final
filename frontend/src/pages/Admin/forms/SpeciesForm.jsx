@@ -1,25 +1,23 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { createSpecies, updateSpecies, getSpeciesById } from "../../../api/species";
+import { createSpecies, updateSpecies } from "../../../api/species";
 import FormWrapper from "./FormWrapper";
 
-export default function SpeciesForm({ mode }) {
-  const { id } = useParams();
-  const navigate = useNavigate();
-
+export default function SpeciesForm({
+    mode,
+    initialData,
+    onCreate,
+    onUpdate,
+    onCancel,
+}) {
   const [formData, setFormData] = useState({
     name: ""
   });
 
   useEffect(() => {
-    if (mode === "edit") {
-      const fetchData = async () => {
-        const species = await getSpeciesById(id);
-        setFormData(species);
-      };
-      fetchData();
+    if (initialData) {
+      setFormData(initialData);
     }
-  }, [id, mode]);
+  }, [initialData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,22 +27,24 @@ export default function SpeciesForm({ mode }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (mode === "create") {
-      await createSpecies(formData);
+        onCreate(formData);
     } else {
-      await updateSpecies(id, formData);
+        onUpdate(initialData.id, formData);
     }
-    navigate("/admin/dashboard");
   };
 
   return (
-    <FormWrapper
-      title={mode === "create" ? "Crear Especie" : "Editar Especie"}
-      onSubmit={handleSubmit}
-      formData={formData}
-      onChange={handleChange}
-      fields={[
-        { name: "name", label: "Nombre de la Especie" }
-      ]}
-    />
+    <>
+      <FormWrapper
+        title={mode === "create" ? "Crear Especie" : "Editar Especie"}
+        onSubmit={handleSubmit}
+        formData={formData}
+        onChange={handleChange}
+        fields={[
+          { name: "name", label: "Nombre de la Especie" }
+        ]}
+      />
+       <button onClick={onCancel}>Cancel</button>
+    </>
   );
 }

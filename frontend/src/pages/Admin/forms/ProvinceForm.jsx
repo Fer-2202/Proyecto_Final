@@ -1,25 +1,23 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { createProvince, updateProvince, getProvinceById } from "../../../api/provinces";
+import { createProvince, updateProvince } from "../../../api/provinces";
 import FormWrapper from "./FormWrapper";
 
-export default function ProvinceForm({ mode }) {
-  const { id } = useParams();
-  const navigate = useNavigate();
-
+export default function ProvinceForm({
+    mode,
+    initialData,
+    onCreate,
+    onUpdate,
+    onCancel,
+}) {
   const [formData, setFormData] = useState({
     name: ""
   });
 
   useEffect(() => {
-    if (mode === "edit") {
-      const fetchData = async () => {
-        const province = await getProvinceById(id);
-        setFormData(province);
-      };
-      fetchData();
+    if (initialData) {
+      setFormData(initialData);
     }
-  }, [id, mode]);
+  }, [initialData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -29,22 +27,24 @@ export default function ProvinceForm({ mode }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (mode === "create") {
-      await createProvince(formData);
+        onCreate(formData);
     } else {
-      await updateProvince(id, formData);
+        onUpdate(initialData.id, formData);
     }
-    navigate("/admin/dashboard");
   };
 
   return (
-    <FormWrapper
-      title={mode === "create" ? "Crear Provincia" : "Editar Provincia"}
-      onSubmit={handleSubmit}
-      formData={formData}
-      onChange={handleChange}
-      fields={[
-        { name: "name", label: "Nombre de la Provincia" }
-      ]}
-    />
+    <>
+      <FormWrapper
+        title={mode === "create" ? "Crear Provincia" : "Editar Provincia"}
+        onSubmit={handleSubmit}
+        formData={formData}
+        onChange={handleChange}
+        fields={[
+          { name: "name", label: "Nombre de la Provincia" }
+        ]}
+      />
+       <button onClick={onCancel}>Cancel</button>
+    </>
   );
 }

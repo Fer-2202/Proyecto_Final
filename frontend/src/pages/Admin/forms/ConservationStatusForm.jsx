@@ -1,12 +1,14 @@
 import { useState, useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import { createConservationStatus, updateConservationStatus, getConservationStatusById } from "../../../api/conservationStatus";
+import { createConservationStatus, updateConservationStatus } from "../../../api/conservationStatus";
 import FormWrapper from "./FormWrapper";
 
-export default function ConservationStatusForm({ mode }) {
-  const { id } = useParams();
-  const navigate = useNavigate();
-
+export default function ConservationStatusForm({
+    mode,
+    initialData,
+    onCreate,
+    onUpdate,
+    onCancel,
+}) {
   const STATUS_CHOICES = [
     { value: "LC", label: "Least Concern" },
     { value: "NT", label: "Near Threatened" },
@@ -16,20 +18,15 @@ export default function ConservationStatusForm({ mode }) {
     { value: "EW", label: "Extinct in the Wild" },
     { value: "EX", label: "Extinct" }
   ];
-
   const [formData, setFormData] = useState({
     name: ""
   });
 
   useEffect(() => {
-    if (mode === "edit") {
-      const fetchData = async () => {
-        const status = await getConservationStatusById(id);
-        setFormData(status);
-      };
-      fetchData();
+    if (initialData) {
+      setFormData(initialData);
     }
-  }, [id, mode]);
+  }, [initialData]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -39,29 +36,31 @@ export default function ConservationStatusForm({ mode }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     if (mode === "create") {
-      await createConservationStatus(formData);
+        onCreate(formData);
     } else {
-      await updateConservationStatus(id, formData);
+        onUpdate(initialData.id, formData);
     }
-    navigate("/admin/dashboard");
   };
 
   return (
-    <FormWrapper
-      title={mode === "create" ? "Crear Estado de Conservación" : "Editar Estado de Conservación"}
-      onSubmit={handleSubmit}
-      formData={formData}
-      onChange={handleChange}
-      fields={[
-        {
-          name: "name",
-          label: "Estado de Conservación",
-          type: "select",
-          options: STATUS_CHOICES,
-          optionLabel: "label",
-          optionValue: "value"
-        }
-      ]}
-    />
+    <>
+      <FormWrapper
+        title={mode === "create" ? "Crear Estado de Conservación" : "Editar Estado de Conservación"}
+        onSubmit={handleSubmit}
+        formData={formData}
+        onChange={handleChange}
+        fields={[
+          {
+            name: "name",
+            label: "Estado de Conservación",
+            type: "select",
+            options: STATUS_CHOICES,
+            optionLabel: "label",
+            optionValue: "value"
+          }
+        ]}
+      />
+       <button onClick={onCancel}>Cancel</button>
+    </>
   );
 }
