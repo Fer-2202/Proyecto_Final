@@ -16,7 +16,7 @@ export default function OurApproach({
     <section className="flex flex-col md:flex-row items-start justify-center gap-8 p-8 bg-white rounded-lg shadow-md">
       
       {/* Imagen de la izquierda */}
-      <div className="w-full md:w-1/2 h-64 bg-gray-200 flex items-center justify-center rounded-lg shadow-sm overflow-hidden">
+      <div className="w-[160px] h-[350px] md:w-1/2 bg-gray-200 flex items-center justify-center rounded-lg shadow-sm overflow-hidden">
         {imageSrc ? (
           <img src={imageSrc} alt={imageAlt} className="w-full h-full object-cover" />
         ) : (
