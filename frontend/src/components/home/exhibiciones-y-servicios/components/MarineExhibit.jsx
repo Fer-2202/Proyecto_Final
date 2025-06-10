@@ -6,7 +6,7 @@ import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
 export default function MarineExhibit({ data }) {
   return (
-    <div className="max-w-6xl mx-auto p-6 font-sans">
+    <div className="max-w-6xl  font-sans">
       <Tabs.Root defaultValue={data[0].value}>
         <Tabs.List className="flex flex-wrap gap-4 border-b border-gray-200 mb-4 text-gray-600">
           {data.map((item) => (
@@ -42,16 +42,16 @@ function Section({ title, description, facts, images, buttons }) {
   return (
     <div className="flex flex-col lg:flex-row gap-8">
       {/* Image or Carousel */}
-      <div className="flex-1 rounded-md border border-gray-300 overflow-hidden">
-        <div className="aspect-[16/9] bg-gray-100">
+      <div className="flex-1 lg:flex-0 lg:w-1/2 lg:order-2">
+        <div className="flex flex-col gap-4 lg:gap-8 lg:flex-row lg:items-center lg:justify-between">
           {imgs.length > 1 ? (
             <Carousel showThumbs={false} autoPlay infiniteLoop showStatus={false}>
               {imgs.map((img, index) => (
-                <div key={index}>
+                <div key={index} className="">
                   <img
                     src={img}
                     alt={`${title} - Image ${index + 1}`}
-                    className="object-cover w-full h-full"
+                    className="h-[400px] w-[500px] object-cover"
                   />
                 </div>
               ))}
@@ -60,14 +60,14 @@ function Section({ title, description, facts, images, buttons }) {
             <img
               src={imgs[0]}
               alt={title}
-              className="object-cover w-full h-full"
+              className="h-full w-full object-cover"
             />
           )}
         </div>
       </div>
 
       {/* Text content */}
-      <div className="flex-1 space-y-4 text-gray-700">
+      <div className="flex-1  flex flex-col gap-4">
         <h2 className="text-2xl font-semibold text-teal-700">{title}</h2>
         {description?.map((para, idx) => (
           <p key={idx}>{para}</p>

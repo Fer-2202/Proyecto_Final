@@ -1,20 +1,19 @@
 import { useState, useEffect } from "react";
-import { createUserProfile, updateUserProfile } from "../../../api/userProfile";
+import { useParams, useNavigate } from "react-router-dom";
+import { createUserProfile, updateUserProfile, getUserProfileById } from "../../../api/userProfile";
 import { getProvinces } from "../../../api/provinces";
 import { getRoles } from "../../../api/roles"; // Endpoint para traer los grupos (roles)
 import { getUsers } from "../../../api/users";
 import FormWrapper from "./FormWrapper";
 
-export default function UserProfileForm({
-    mode,
-    initialData,
-    onCreate,
-    onUpdate,
-    onCancel,
-}) {
+export default function UserProfileForm({ mode }) {
+  const { id } = useParams();
+  const navigate = useNavigate();
+
   const [provincesList, setProvincesList] = useState([]);
   const [groupsList, setGroupsList] = useState([]);
   const [usersList, setUsersList] = useState([]);
+
   const [formData, setFormData] = useState({
     user: "",
     phone: "",
@@ -34,10 +33,19 @@ export default function UserProfileForm({
       setUsersList(await getUsers());
     };
     fetchOptions();
-    if (initialData) {
-      setFormData(initialData);
+
+    if (mode === "edit") {
+      const fetchData = async () => {
+        if (id) { // Only fetch if id is defined
+          const profile = await getUserProfileById(id);
+          // Ajuste para roles (M2M)
+          profile.roles = profile.roles?.map(role => role.id) || [];
+          setFormData(profile);
+        }
+      };
+      fetchData();
     }
-  }, [initialData]);
+  }, [id, mode]);
 
   const handleChange = (e) => {
     const { name, value, files } = e.target;
@@ -53,6 +61,7 @@ export default function UserProfileForm({
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+
     const dataToSend = new FormData();
     Object.entries(formData).forEach(([key, value]) => {
       if (key === "roles") {
@@ -61,33 +70,32 @@ export default function UserProfileForm({
         dataToSend.append(key, value);
       }
     });
+
     if (mode === "create") {
-        onCreate(dataToSend);
+      await createUserProfile(dataToSend);
     } else {
-        onUpdate(initialData.id, dataToSend);
+      await updateUserProfile(id, dataToSend);
     }
+    navigate("/admin");
   };
 
   return (
-    <>
-      <FormWrapper
-        title={mode === "create" ? "Crear Perfil de Usuario" : "Editar Perfil de Usuario"}
-        onSubmit={handleSubmit}
-        formData={formData}
-        onChange={handleChange}
-        fields={[
-          { name: "user", label: "Usuario", type: "select", options: usersList, optionLabel: "username", optionValue: "id" },
-          { name: "phone", label: "Teléfono" },
-          { name: "address", label: "Dirección" },
-          { name: "birth_date", label: "Fecha de Nacimiento", type: "date" },
-          { name: "email", label: "Correo", type: "email" },
-          { name: "profile_picture", label: "Foto de Perfil", type: "file" },
-          { name: "bio", label: "Biografía", type: "textarea" },
-          { name: "roles", label: "Roles", type: "multiselect", options: groupsList, optionLabel: "name", optionValue: "id" },
-          { name: "province", label: "Provincia", type: "select", options: provincesList, optionLabel: "name", optionValue: "id" }
-        ]}
-      />
-       <button onClick={onCancel}>Cancel</button>
-    </>
+    <FormWrapper
+      title={mode === "create" ? "Crear Perfil de Usuario" : "Editar Perfil de Usuario"}
+      onSubmit={handleSubmit}
+      formData={formData}
+      onChange={handleChange}
+      fields={[
+        { name: "user", label: "Usuario", type: "select", options: usersList, optionLabel: "username", optionValue: "id" },
+        { name: "phone", label: "Teléfono" },
+        { name: "address", label: "Dirección" },
+        { name: "birth_date", label: "Fecha de Nacimiento", type: "date" },
+        { name: "email", label: "Correo", type: "email" },
+        { name: "profile_picture", label: "Foto de Perfil", type: "file" },
+        { name: "bio", label: "Biografía", type: "textarea" },
+        { name: "roles", label: "Roles", type: "multiselect", options: groupsList, optionLabel: "name", optionValue: "id" },
+        { name: "province", label: "Provincia", type: "select", options: provincesList, optionLabel: "name", optionValue: "id" }
+      ]}
+    />
   );
 }
