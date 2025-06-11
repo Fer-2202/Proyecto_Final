@@ -13,4 +13,5 @@ export * from './userProfile';
 export * from './payments';
 export * from './forgotPassword';
 export * from './resetPasswordConfirm';
+export * from './auditLog'
 

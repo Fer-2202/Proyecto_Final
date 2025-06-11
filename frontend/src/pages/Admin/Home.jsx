@@ -16,7 +16,8 @@ import {
   ShoppingCart,
   UserRound,
   Star,
-  Landmark
+  Landmark,
+  Logs
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
@@ -32,7 +33,8 @@ const CRUD_TABS = [
   { name: "Especies", key: "species", icon: <Star size={16} /> },
   { name: "Estado de conservación", key: "conservation-status", icon: <Settings size={16} /> },
   { name: "Provincias", key: "provinces", icon: <Landmark size={16} /> },
-  { name: "Perfiles de usuario", key: "user-profiles", icon: <Users size={16} /> }
+  { name: "Perfiles de usuario", key: "user-profiles", icon: <Users size={16} /> },
+  { name: "Log de Auditoria", key: "audit-log", icon: <Logs size={16}/>}
 ];
 
 const typeMap = {
@@ -45,7 +47,8 @@ const typeMap = {
   "species": "species",
   "conservation-status": "conservationStatus",
   "provinces": "province",
-  "user-profiles": "userProfile"
+  "user-profiles": "userProfile",
+  "audit-log": "auditLog"
 };
 
 export default function DashboardAdmin() {
@@ -61,7 +64,8 @@ export default function DashboardAdmin() {
     species: [],
     "conservation-status": [],
     provinces: [],
-    "user-profiles": []
+    "user-profiles": [],
+    "audit-log": []
   });
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
@@ -79,7 +83,8 @@ export default function DashboardAdmin() {
           species,
           conservationStatus,
           provinces,
-          userProfiles
+          userProfiles,
+          auditLog
         ] = await Promise.all([
           api.getSections(),
           api.getHabitats(),
@@ -90,7 +95,8 @@ export default function DashboardAdmin() {
           api.getSpecies(),
           api.getConservationStatuses(),
           api.getProvinces(),
-          api.getUsersProfiles()
+          api.getUsersProfiles(),
+          api.getAuditLog()
         ]);
 
         setData({
@@ -103,7 +109,8 @@ export default function DashboardAdmin() {
           species,
           "conservation-status": conservationStatus,
           provinces,
-          "user-profiles": userProfiles
+          "user-profiles": userProfiles,
+          "audit-log": auditLog
         });
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -220,21 +227,31 @@ export default function DashboardAdmin() {
           <table className="min-w-full divide-y divide-gray-200">
             <thead className="bg-gray-50">
               <tr>
-                {Object.keys(data[activeTab][0] || {}).map(key => (
+              {activeTab !== "audit-log" ? (
+                Object.keys(data[activeTab][0] || {}).map(key => (
                   <th 
                     key={key} 
                     className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
                   >
                     {key}
                   </th>
-                ))}
+                ))
+              ) : (
+                // Headers for Audit Log
+                <>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
+                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Timestamp</th>
+                </>
+              )}
                 <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                   Acciones
                 </th>
               </tr>
             </thead>
             <tbody className="bg-white divide-y divide-gray-200">
-              {filteredData().map(item => (
+            {activeTab !== "audit-log" ? (
+              filteredData().map(item => (
                 <tr key={item.id}>
                   {Object.entries(item).map(([key, value]) => (
                     <td key={key} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
@@ -256,7 +273,18 @@ export default function DashboardAdmin() {
                     </button>
                   </td>
                 </tr>
-              ))}
+              ))
+            ) : (
+              // Render Audit Log Data
+              data["audit-log"].map(log => (
+                <tr key={log.id}>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{log.user}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{log.action}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{log.timestamp}</td>
+                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium"></td>
+                </tr>
+              ))
+            )}
             </tbody>
           </table>
         </div>
