@@ -27,7 +27,7 @@ export default function MarineExhibit({ data }) {
               description={item.description}
               facts={item.facts}
               images={item.images}
-              buttons={item.buttons} // le pasamos buttons
+              buttons={item.buttons}
             />
           </Tabs.Content>
         ))}

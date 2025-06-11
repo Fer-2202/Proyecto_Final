@@ -17,7 +17,7 @@ export default function ComoAyudarTab({ ayudas = ayudasDefault }) {
           const Icon = LucideIcons[ayuda.icon] || LucideIcons.HelpCircle;
 
           return (
-            <div key={index} className="bg-white border rounded-lg shadow p-6 flex flex-col justify-between">
+            <div key={index} className="bg-white rounded-lg shadow-sm p-6 flex flex-col justify-between">
               <div>
                 <div className="mb-3 text-teal-600">
                   <Icon size={32} />
@@ -28,7 +28,7 @@ export default function ComoAyudarTab({ ayudas = ayudasDefault }) {
               <div className="mt-4">
                 <button
                   onClick={() => navigate(ayuda.enlace)}
-                  className="w-full bg-teal-500 text-white py-2 rounded hover:bg-teal-600 transition"
+                  className="w-full bg-teal-500 text-white py-2 rounded border hover:bg-teal-600 transition"
                 >
                   {ayuda.boton}
                 </button>

@@ -20,10 +20,10 @@ export default function CultivoTab() {
         {especies.map((especie, index) => (
           <div
             key={index}
-            className="border rounded-lg p-4 shadow-sm bg-white flex flex-col items-start"
+            className="rounded-lg p-4 shadow-sm bg-white flex flex-col items-start"
           >
             <div className="w-full h-32 bg-gray-200 mb-2 flex items-center justify-center rounded">
-              <img src={especie.img} alt="" className='w-full h-full object-cover' />
+              {especie.img ? (<img src={especie.img} alt="" className='w-full h-full object-cover' />):(<span className=''>undefined</span>)}
             </div>
             <h3 className="font-semibold text-teal-600 mb-1">{especie.name}</h3>
             <p className="text-gray-700 text-sm">{especie.desc}</p>

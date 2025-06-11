@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function CallToAction() {
+ function CallToAction() {
   return (
     <section className="py-12 px-6 text-center">
       <h2 className="text-2xl font-bold text-teal-600 mb-4">
@@ -20,3 +20,5 @@ export default function CallToAction() {
     </section>
   );
 }
+
+export default CallToAction;

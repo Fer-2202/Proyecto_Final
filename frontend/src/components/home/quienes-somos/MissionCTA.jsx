@@ -1,19 +1,19 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 
-const links = [
-  { label: 'Ser Voluntario', href: '/apoyo/voluntariado' },
-  { label: 'Hacer una Donación', href: '/apoyo/donaciones' },
-  { label: 'Servicios Educativos', href: '/exhibiciones-y-servicios/servicios-educativos' },
-]
 
-function MissionCTA() {
+
+
+function MissionCTA({ textos, links}) {
   return (
     <section className="bg-teal-600 text-white rounded-md p-8 max-w-7xl mx-auto my-10 text-center">
-      <h2 className="text-xl font-semibold mb-4">¡Únete a Nuestra Misión!</h2>
-      <p className="mb-6 max-w-3xl mx-auto">
-        Ayúdanos a conservar la biodiversidad marina de Costa Rica. Puedes colaborar como voluntario, realizar una donación o participar en nuestros programas educativos.
-      </p>
+      {textos.map((text, index) => (
+        <div key={index} className="mb-4">
+          <h2 className="text-2xl font-bold mb-2">{text.title}</h2>
+          <p className="text-sm">{text.text}</p>
+        </div>       
+      ))}
+      
       <div className="flex justify-center gap-4">
         {links.map((link, index) => (
           <Link

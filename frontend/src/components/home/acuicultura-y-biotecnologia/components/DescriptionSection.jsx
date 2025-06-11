@@ -2,7 +2,7 @@
 
 import React from 'react';
 
-export default function OurApproach({
+ function OurApproach({
   title,
   paragraphs,
   workAreasTitle,
@@ -57,3 +57,5 @@ export default function OurApproach({
     </section>
   );
 }
+
+export default OurApproach;

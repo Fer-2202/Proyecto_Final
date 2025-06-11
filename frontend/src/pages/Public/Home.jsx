@@ -13,6 +13,7 @@ import { Link } from "react-router-dom"
 
 
 
+
 function Home() {
   return (
     <>
@@ -71,7 +72,7 @@ function Home() {
         <EducationalServices />
         <CallToAction />
         <ContactSection />
-        <Newsletter />
+        <Newsletter  />
       </main>
     </>
   )

@@ -45,7 +45,7 @@ export default function ExtensionTab() {
         <h2 className="text-center text-teal-600 text-xl font-bold mb-6">Próximos Cursos y Talleres</h2>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {cursos.map((curso, index) => (
-            <div key={index} className="bg-white border rounded-lg shadow p-6 relative">
+            <div key={index} className="bg-white rounded-lg shadow-sm p-6 relative">
               <div className="absolute top-4 right-4">
                 <span className={`text-xs font-bold px-2 py-1 rounded ${
                   curso.modalidad === 'Presencial' ? 'bg-teal-100 text-teal-700' :

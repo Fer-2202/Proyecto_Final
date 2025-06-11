@@ -5,11 +5,11 @@ import { historias as historiasDefault } from '../../data/historiasData.js';
 
 export default function HistoriasTab({ historias = historiasDefault }) {
   return (
-    <div className="space-y-8">
+    <div className="space-y-8 ">
       <h2 className="text-center text-teal-600 text-xl font-bold">Historias de Éxito</h2>
 
       {historias.map((historia, index) => (
-        <div key={index} className="bg-white border rounded-lg shadow p-6 max-w-4xl mx-auto">
+        <div key={index} className="bg-white rounded-lg shadow-sm p-6 max-w-4xl mx-auto">
           {/* Imagen */}
           <div className="w-full h-64 bg-gray-100 rounded overflow-hidden mb-4 flex items-center justify-center">
             {historia.img ? (

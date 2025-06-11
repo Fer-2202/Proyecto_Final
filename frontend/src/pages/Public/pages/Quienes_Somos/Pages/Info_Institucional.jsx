@@ -5,6 +5,7 @@ import TeamMembers from '../../../../../components/home/quienes-somos/TeamMember
 import Valores from '../../../../../components/home/quienes-somos/Valores'
 import MissionCTA from '../../../../../components/home/quienes-somos/MissionCTA'
 import IMG_INFO from '../../../../../assets/img/486175245_29175038435443319_583041807967260808_n.jpg'
+import { links, textos } from '../../../../../components/home/quienes-somos/misionData'
 
 function InfoInstitucional() {
   return (
@@ -14,7 +15,7 @@ function InfoInstitucional() {
       <AboutSection />
       <TeamMembers />
       <Valores />
-      <MissionCTA />
+      <MissionCTA links={links} textos={textos} />
       </div>
     </>
   )

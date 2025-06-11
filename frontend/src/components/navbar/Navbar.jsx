@@ -45,10 +45,10 @@ const links = [
       { name: "Acuicultura y Biotecnología Marina", href: "/investigacion-y-conservacion/acuicultura-y-biotecnologia-marina" },
       { name: "Centro de Rescate y Rehabilitación", href: "/investigacion-y-conservacion/centro-de-rescate-y-rehabilitacion" },
       { name: "Investigación", href: "/investigacion-y-conservacion/investigacion" },
-      { name: "Proyectos", href: "/investigacion-y-conservacion/proyectos" },
+      /* { name: "Proyectos", href: "/investigacion-y-conservacion/proyectos" }, */
     ],
-  },
-  {
+  }
+/*   {
     name: "Apoyo",
     href: "/apoyo",
     dropdown: true,
@@ -56,7 +56,7 @@ const links = [
       { name: "Voluntariado", href: "/apoyo/voluntariado" },
       { name: "Donaciones", href: "/apoyo/donaciones" },
     ],
-  },
+  }, */
 ];
 
 const ticketLink = {

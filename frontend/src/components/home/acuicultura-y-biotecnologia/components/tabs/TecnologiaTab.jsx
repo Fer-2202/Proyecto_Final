@@ -28,7 +28,7 @@ export default function TecnologiaTab() {
           {tecnologias.map((tec, index) => (
             <div
               key={index}
-              className="bg-white border rounded-lg shadow p-4 flex flex-col items-start"
+              className="bg-white rounded-lg shadow-sm p-4 flex flex-col items-start"
             >
               <div className="w-full h-32 bg-gray-100 mb-4 flex items-center justify-center rounded">
                 <span className="text-gray-400 text-sm">📷 Imagen</span>
@@ -47,7 +47,7 @@ export default function TecnologiaTab() {
           {innovaciones.map((item, index) => (
             <div
               key={index}
-              className="bg-white rounded-lg p-6 shadow border flex flex-col justify-between"
+              className="bg-white rounded-lg p-6 shadow-sm flex flex-col justify-between"
             >
               <div>
                 <h3 className="text-teal-600 text-lg font-semibold mb-2">{item.title}</h3>

@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function SuccessCases() {
+function SuccessCases() {
   const cases = [
     {
       name: 'Cooperativa Marítima de Puntarenas',
@@ -19,13 +19,13 @@ export default function SuccessCases() {
   ];
 
   return (
-    <section className="py-12 px-6 bg-white">
+    <section className="py-12 px-6">
       <h2 className="text-2xl font-bold text-center text-teal-600 mb-10">Casos de Éxito</h2>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
         {cases.map((item, index) => (
           <div
             key={index}
-            className="border rounded-lg p-6 bg-white shadow-sm flex flex-col gap-4"
+            className="rounded-lg p-6 bg-white shadow-sm flex flex-col gap-4"
           >
             <div className="flex items-center gap-4">
               <div className="w-12 h-12 bg-gray-200 rounded-full flex items-center justify-center text-gray-400 text-xl">
@@ -45,3 +45,5 @@ export default function SuccessCases() {
     </section>
   );
 }
+
+export default SuccessCases;

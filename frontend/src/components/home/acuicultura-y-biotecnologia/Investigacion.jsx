@@ -12,10 +12,21 @@ import { proyectos } from './data/proyectosData.js';
 import { publicaciones, publicacionesStats  } from './data/publicacionesData.js';
 import { colaboradores, redes  } from './data/colaboradoresData.js';
 import OportunidadesYCiencia from './components/OportunidadesYCiencia.jsx'
+import MissionCTA from '../quienes-somos/MissionCTA.jsx'
 
 
 
 function Investigacion() {
+
+  const links = [  
+      { label: 'Ser Voluntario', href: '/apoyo/voluntariado' },
+      { label: 'Hacer una Donación', href: '/apoyo/donaciones' },
+      { label: 'Proponer Colaboracion', href: '/exhibiciones-y-servicios/servicios-educativos' },   
+  ]
+
+  const textos = [
+    { title: 'Donaciones', text: 'Haz una donación para apoyar nuestra misión de conservación y educación ambiental.' },
+  ]
 
   const InvestigacionTabs = [
       {
@@ -50,6 +61,8 @@ function Investigacion() {
       <TabsContainer tabs={InvestigacionTabs} />
 
       <OportunidadesYCiencia />
+
+      <MissionCTA links={links} textos={textos} />
       </div>
     </div>
   )

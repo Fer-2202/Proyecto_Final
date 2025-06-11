@@ -16,7 +16,7 @@ export default function InstalacionesTab({
       {/* Hospital y piscinas */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         {[hospitalData, piscinasData].map((section, index) => (
-          <div key={index} className="bg-white border rounded-lg shadow p-6">
+          <div key={index} className="bg-white rounded-lg shadow-sm p-6">
             <div className="w-full h-32 bg-gray-100 mb-4 flex items-center justify-center rounded overflow-hidden">
               {section.img ? (
                 <img src={section.img} alt={section.titulo} className="object-cover w-full h-full" />
@@ -41,8 +41,8 @@ export default function InstalacionesTab({
         {areasData.map((area, index) => {
           const Icon = LucideIcons[area.icon] || LucideIcons.HelpCircle;
           return (
-            <div key={index} className="bg-white border rounded-lg shadow p-4">
-              <div className="mb-3 text-teal-600">
+            <div key={index} className="bg-white rounded-lg shadow-sm p-4">
+              <div className="mb-3 text-teal-600 ">
                 <Icon size={32} />
               </div>
               <h3 className="text-teal-600 font-semibold mb-2">{area.nombre}</h3>

@@ -12,7 +12,7 @@ export default function EspeciesTab({ data = especiesDefault, stats = estadistic
         {data.map((item, index) => (
           <div
             key={index}
-            className="bg-white border rounded-lg shadow p-4 flex flex-col items-start"
+            className="bg-white  rounded-lg shadow-sm p-4 flex flex-col items-start"
           >
             <div className="w-full h-32 mb-3 flex items-center justify-center rounded overflow-hidden bg-gray-100">
               <img
@@ -32,7 +32,7 @@ export default function EspeciesTab({ data = especiesDefault, stats = estadistic
         <h2 className="text-center text-teal-600 text-xl font-bold mb-6">Estadísticas de Rescate</h2>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
           {stats.map((stat, index) => (
-            <div key={index} className="bg-white border rounded-lg shadow p-4">
+            <div key={index} className="bg-white rounded-lg shadow-sm p-4">
               <p className="text-2xl font-bold text-teal-600">{stat.valor}</p>
               <p className="text-sm text-gray-700 mt-1">{stat.etiqueta}</p>
             </div>
