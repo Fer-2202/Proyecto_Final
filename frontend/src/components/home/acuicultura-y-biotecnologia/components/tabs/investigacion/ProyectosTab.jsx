@@ -7,7 +7,7 @@ export default function ProyectosTab({ proyectos = [] }) {
     <div className="space-y-6">
       <h2 className="text-center text-teal-600 text-xl font-bold">Proyectos Actuales</h2>
       {proyectos.map((p, i) => (
-        <div key={i} className="bg-white border rounded-lg shadow p-6 flex flex-col md:flex-row gap-4">
+        <div key={i} className="bg-white  rounded-lg shadow p-6 flex flex-col md:flex-row gap-4">
           <div className="w-full md:w-1/4 h-32 bg-gray-100 flex items-center justify-center rounded">
             {p.img ? <img src={p.img} alt={p.titulo} className="object-cover w-full h-full" /> : <span className="text-gray-400">📷</span>}
           </div>

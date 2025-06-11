@@ -26,7 +26,7 @@ export default function ColaboracionesTab({ colaboradores = [], redes = [] }) {
         <h3 className="text-teal-600 text-lg font-bold text-center">Redes y Consorcios</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           {redes.map((r, i) => (
-            <div key={i} className="bg-white border rounded p-4 shadow flex flex-col justify-between">
+            <div key={i} className="bg-white rounded p-4 shadow flex flex-col justify-between">
               <div>
                 <h4 className="text-teal-600 font-semibold">{r.nombre}</h4>
                 <p className="text-sm text-gray-700 mb-2">{r.descripcion}</p>

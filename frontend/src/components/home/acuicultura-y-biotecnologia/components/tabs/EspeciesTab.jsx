@@ -18,7 +18,7 @@ export default function EspeciesTab({ data = especiesDefault, stats = estadistic
               <img
                 src={item.img}
                 alt={item.nombre}
-                className="object-cover w-full h-full"
+                className="object-cover w-full h-full "
               />
             </div>
             <h3 className="text-teal-600 font-semibold mb-2">{item.nombre}</h3>

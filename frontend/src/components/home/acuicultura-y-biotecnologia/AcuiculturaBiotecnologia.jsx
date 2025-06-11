@@ -59,8 +59,12 @@ function AcuiculturaBiotecnologia() {
     <div className='flex flex-col items-center mt-23'>
       <QuienesSomos title={"Acuicultura y Biotecnologia"} description={"Descubre la biodiversidad de Costa Rica "} img={Tanque} />
       <ExhibitIntro description={"En el Parque Marino Central del Pacífico Sur desarrollamos investigación aplicada en acuicultura y biotecnología marina, con el objetivo de promover la producción sostenible de recursos marinos, contribuir a la seguridad alimentaria y generar alternativas económicas para las comunidades costeras."} title={"Programa de Acuicultura y Biotecnología"} />
-      <OurApproach title={"Nuestro Enfoque"} paragraphs={paragraphs} imageSrc={Tanque} workAreasTitle={"Áreas de Trabajo:"} workAreas={workAreas} buttonText={"Conocer más"} onButtonClick={handleButtonClick} imageAlt={"Img del programa"} />
-      <TabsContainer tabs={acuiculturaTabs} defaultValue="cultivo" />
+      <div className='ml-90 mr-90'>
+        <OurApproach title={"Nuestro Enfoque"} paragraphs={paragraphs} imageSrc={Tanque} workAreasTitle={"Áreas de Trabajo:"} workAreas={workAreas} buttonText={"Conocer más"} onButtonClick={handleButtonClick} imageAlt={"Img del programa"}  />
+      
+      
+        <TabsContainer tabs={acuiculturaTabs} defaultValue="cultivo" />
+      </div>
       <SuccessCases />
       <CallToAction />
     </div>

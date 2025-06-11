@@ -13,7 +13,7 @@ export default function OurApproach({
   imageAlt
 }) {
   return (
-    <section className="flex flex-col md:flex-row items-start justify-center gap-8 p-8 bg-white rounded-lg shadow-md">
+    <section className="flex flex-col md:flex-row items-start justify-center gap-8 p-8">
       
       {/* Imagen de la izquierda */}
       <div className="w-[160px] h-[350px] md:w-1/2 bg-gray-200 flex items-center justify-center rounded-lg shadow-sm overflow-hidden">

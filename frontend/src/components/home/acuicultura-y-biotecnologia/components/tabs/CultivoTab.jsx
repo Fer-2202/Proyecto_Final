@@ -1,10 +1,11 @@
 // src/components/tabs/CultivoTab.jsx
 
 import React from 'react';
+import placeholder from './../../../../../assets/placeholder.svg'
 
 export default function CultivoTab() {
   const especies = [
-    { name: 'Pargo Manchado', desc: 'Especie de alto valor comercial y gastronómico...' },
+    { name: 'Pargo Manchado', desc: 'Especie de alto valor comercial y gastronómico...', img: placeholder  },
     { name: 'Ostra del Pacífico', desc: 'Molusco bivalvo de rápido crecimiento y alta demanda...' },
     { name: 'Corvina Aguada', desc: 'Pez de excelente calidad de carne...' },
     { name: 'Camarón Blanco', desc: 'Sistemas de bajo impacto ambiental y alta eficiencia...' },
@@ -22,7 +23,7 @@ export default function CultivoTab() {
             className="border rounded-lg p-4 shadow-sm bg-white flex flex-col items-start"
           >
             <div className="w-full h-32 bg-gray-200 mb-2 flex items-center justify-center rounded">
-              <span className="text-gray-500">[Imagen]</span>
+              <img src={especie.img} alt="" className='w-full h-full object-cover' />
             </div>
             <h3 className="font-semibold text-teal-600 mb-1">{especie.name}</h3>
             <p className="text-gray-700 text-sm">{especie.desc}</p>

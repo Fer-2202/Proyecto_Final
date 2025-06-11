@@ -19,3 +19,12 @@ export const lineasDeInvestigacion = [
     icon: Fish
   }
 ];
+
+export const areas = [
+   'Ecología y conservación de arrecifes de coral',
+   'Biología y conservación de tortugas marinas',
+   'Ecología de tiburones y rayas',
+   'Monitoreo de ecosistemas costeros',
+   'Impactos del cambio climático en ecosistemas marinos',
+   'Contaminación marina y sus efectos en la biodiversidad'
+]

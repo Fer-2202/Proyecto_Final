@@ -7,7 +7,12 @@ import ColaboracionesTab from './components/tabs/investigacion/ColaboracionesTab
 import InvestigacionTab from './components/tabs/investigacion/InvestigacionTab'
 import ProyectosTab from './components/tabs/investigacion/ProyectosTab'
 import PublicacionesTab from './components/tabs/investigacion/PublicacionesTab'
-import { lineasDeInvestigacion } from './data/lineasDeInvestigacion';
+import { lineasDeInvestigacion, areas } from './data/lineasDeInvestigacion';
+import { proyectos } from './data/proyectosData.js';
+import { publicaciones, publicacionesStats  } from './data/publicacionesData.js';
+import { colaboradores, redes  } from './data/colaboradoresData.js';
+import OportunidadesYCiencia from './components/OportunidadesYCiencia.jsx'
+
 
 
 function Investigacion() {
@@ -16,22 +21,22 @@ function Investigacion() {
       {
         value: "area-investigacion",
         label: "Areas de investigacion",
-        component: <InvestigacionTab lineas={lineasDeInvestigacion} />
+        component: <InvestigacionTab lineas={lineasDeInvestigacion} areas={areas} image={Tanque} />
       },
       {
-        value: "instalaciones",
-        label: "Nuestras Instalaciones",
-        component: <InvestigacionTab />
+        value: "proyectos-actuales",
+        label: "Proyectos Actuales",
+        component: <ProyectosTab proyectos={proyectos} />
       },
       {
-        value: "casos-exito",
-        label: "Casos de Exito",
-        component: <InvestigacionTab />
+        value: "publicaciones",
+        label: "Publicaciones",
+        component: <PublicacionesTab publicaciones={publicaciones} stats={publicacionesStats} />
       },
       {
-        value: "como-ayudar",
-        label: "Como Ayudar",
-        component: <InvestigacionTab />
+        value: "colaboraciones",
+        label: "Colaboraciones",
+        component: <ColaboracionesTab colaboradores={colaboradores} redes={redes} />
       }
     ];
   
@@ -41,7 +46,11 @@ function Investigacion() {
 
       <ExhibitIntro title={"Nuestro Programa de Investigación"} description={"El Parque Marino Central del Pacífico Sur desarrolla investigación científica aplicada a la conservación de los ecosistemas marinos y costeros de Costa Rica. Nuestro equipo de investigadores trabaja en diversos proyectos que generan conocimiento para la toma de decisiones en conservación y manejo sostenible de los recursos marinos."} />
 
+      <div className='ml-90 mr-90'>
       <TabsContainer tabs={InvestigacionTabs} />
+
+      <OportunidadesYCiencia />
+      </div>
     </div>
   )
 }
