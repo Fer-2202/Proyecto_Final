@@ -2,12 +2,14 @@
 
 import React from 'react';
 import * as LucideIcons from 'lucide-react';
-import { hospital, piscinas, areas } from '../../data/instalacionesData';
+import { hospital, piscinas, areas, espacio_Observarcion, lab_Clinico } from '../../data/instalacionesData';
 
 export default function InstalacionesTab({
   hospitalData = hospital,
   piscinasData = piscinas,
-  areasData = areas
+  areasData = areas,
+  espacio_ObservarcionData = espacio_Observarcion,
+  lab_ClinicoData = lab_Clinico
 }) {
   return (
     <div className="space-y-12">
@@ -15,7 +17,7 @@ export default function InstalacionesTab({
 
       {/* Hospital y piscinas */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        {[hospitalData, piscinasData].map((section, index) => (
+        {[hospitalData, piscinasData, espacio_ObservarcionData, lab_ClinicoData].map((section, index) => (
           <div key={index} className="bg-white rounded-lg shadow-sm p-6">
             <div className="w-full h-32 bg-gray-100 mb-4 flex items-center justify-center rounded overflow-hidden">
               {section.img ? (
