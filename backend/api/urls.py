@@ -80,4 +80,10 @@ urlpatterns = [
     # Roles (Groups)
     path('roles/', GroupListCreateView.as_view(), name='roles-lista'),
     path('roles/<int:pk>/', GroupDetailView.as_view(), name='roles-detalle'),
+    path('roles/<int:pk>/permissions/', GroupPermissionsView.as_view(), name='roles-permissions'),
+
+    # Audit Log
+    path('audit_logs/', AuditLogListView.as_view(), name='audit_log-list'),
+    path('audit_logs/<int:pk>/', AuditLogDetailView.as_view(), name='audit_log-detail'),
+
 ]

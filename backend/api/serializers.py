@@ -2,7 +2,7 @@ from .models import *
 from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from django.contrib.auth.models import Group
+from django.contrib.auth.models import Group, Permission
 
 User = get_user_model()
 
@@ -85,7 +85,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
     email = serializers.EmailField(source='user.email', read_only=True)
     first_name = serializers.CharField(source='user.first_name', read_only=True)
     last_name = serializers.CharField(source='user.last_name', read_only=True)
-
+    
     phone = serializers.CharField(required=False, allow_blank=True)
     address = serializers.CharField(required=False, allow_blank=True)
     birth_date = serializers.DateField(required=False, allow_null=True)
@@ -218,3 +218,12 @@ class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = ['id', 'name', 'permissions']
+
+# Group Permissions Serializer
+class GroupPermissionsSerializer(serializers.Serializer):
+    permissions = serializers.PrimaryKeyRelatedField(many=True, queryset=Permission.objects.all())
+
+class AuditLogSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = AuditLog
+        fields = '__all__'

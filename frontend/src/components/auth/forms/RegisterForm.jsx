@@ -68,7 +68,7 @@ export default function RegisterForm() {
       if (response.status === 201) {
         toast.success('¡Usuario creado exitosamente!');
         // Si quieres, aquí puedes redirigir al login:
-        window.location.href = '/login';
+        /* window.location.href = '/login'; */
       } else {
         toast.error('Error en el registro. Inténtalo de nuevo.');
       }

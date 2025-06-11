@@ -11,7 +11,7 @@ from django.contrib.auth.models import User, Group
 from .models import (
     Sections, Provinces, Species, ConservationStatus,
     Tickets, Visits, PurchaseOrders, TicketsPurchaseOrder,
-    Habitats, Animals, UserProfile, Payment
+    Habitats, Animals, UserProfile, Payment, AuditLog
 )
 
 # Serializers
@@ -20,7 +20,7 @@ from .serializers import (
     Provinces_Serializer, Species_Serializer, Conservation_Status_Serializer,
     Tickets_Serializer, Visits_Serializer, Purchase_Orders_Serializer,
     Tickets_Purchase_Orders_Serializer, Habitats_Serializer, Animals_Serializer,
-    GroupSerializer, PaymentSerializer
+    GroupSerializer, PaymentSerializer, GroupPermissionsSerializer, AuditLogSerializer
 )
 
 # ==================
@@ -100,10 +100,29 @@ class UserProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
 class GroupListCreateView(generics.ListCreateAPIView):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+    #permission_classes = [IsAuthenticatedAndRole]
+    #required_role = 'admin'
+
+from django.contrib.auth.models import Permission
 
 class GroupDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
+    #permission_classes = [IsAuthenticatedAndRole]
+    #required_role = 'admin'
+
+class GroupPermissionsView(generics.UpdateAPIView):
+    queryset = Group.objects.all()
+    serializer_class = GroupPermissionsSerializer
+    #permission_classes = [IsAuthenticatedAndRole]
+    #required_role = 'admin'
+
+    def update(self, request, *args, **kwargs):
+        group = self.get_object()
+        serializer = self.get_serializer(group, data=request.data)
+        serializer.is_valid(raise_exception=True)
+        group.permissions.set(serializer.validated_data['permissions'])
+        return Response(GroupSerializer(group).data)
 
 # ==================
 # SECTIONS / PROVINCES / SPECIES / STATUS
@@ -131,12 +150,12 @@ class Provinces_DetailView(generics.RetrieveUpdateDestroyAPIView):
 class Species_ListCreateView(generics.ListCreateAPIView):
     queryset = Species.objects.all()
     serializer_class = Species_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
 
 class Species_DetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Species.objects.all()
     serializer_class = Species_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
 
 class Conservation_Status_ListCreateView(generics.ListCreateAPIView):
     queryset = ConservationStatus.objects.all()
@@ -240,12 +259,12 @@ class Habitats_DetailView(generics.RetrieveUpdateDestroyAPIView):
 class Animals_ListCreateView(generics.ListCreateAPIView):
     queryset = Animals.objects.all()
     serializer_class = Animals_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
 
 class Animals_DetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Animals.objects.all()
     serializer_class = Animals_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
 
 # ==================
 # PASSWORD RESET VIEWS (FUNCIONALES)
@@ -253,6 +272,19 @@ class Animals_DetailView(generics.RetrieveUpdateDestroyAPIView):
 
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
+
+class AuditLogListView(generics.ListAPIView):
+    queryset = AuditLog.objects.all()
+    serializer_class = AuditLogSerializer
+    permission_classes = [IsAuthenticatedAndRole]
+    #required_role = 'admin'
+
+class AuditLogDetailView(generics.RetrieveAPIView):
+    queryset = AuditLog.objects.all()
+    serializer_class = AuditLogSerializer
+    permission_classes = [IsAuthenticatedAndRole]
+    #required_role = 'admin'
+
 from django.contrib.auth.tokens import default_token_generator
 from django.contrib.auth import get_user_model
 
