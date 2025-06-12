@@ -37,7 +37,7 @@ function Investigacion() {
       {
         value: "proyectos-actuales",
         label: "Proyectos Actuales",
-        component: < proyectos={proyectos} />
+        component: < ProyectosTab proyectos={proyectos} />
       },
       {
         value: "publicaciones",
@@ -55,7 +55,7 @@ function Investigacion() {
     <div className='mt-23'>
       <QuienesSomos title={"Investigación"} description={"Generando conocimiento para la conservación marina"} img={Tanque} />
 
-      <ExhibitIntro title={"Nuestro Programa de Investigación"} description={"El Parque Marino Central del Pacífico Sur desarrolla investigación científica aplicada a la conservación de los ecosistemas marinos y costeros de Costa Rica. Nuestro equipo de investigadores trabaja en diversos proyectos que generan conocimiento para la toma de decisiones en conservación y manejo sostenible de los recursos marinos."} />
+      <ExhibitIntro title={"Nuestro Programa de Investigación"} description={"El Parque Marino del Pacífico en Puntarenas, Costa Rica, no es solo un acuario o un centro de exhibición; es una institución dedicada a la investigación aplicada, la conservación y el desarrollo sostenible de los recursos marinos y costeros."} />
 
       <div className='ml-90 mr-90'>
       <TabsContainer tabs={InvestigacionTabs} />

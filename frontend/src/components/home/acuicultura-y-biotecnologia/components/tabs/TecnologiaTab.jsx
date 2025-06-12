@@ -6,16 +6,16 @@ import { innovaciones } from './../../data/innovacionesData.js';
 export default function TecnologiaTab() {
   const tecnologias = [
     {
-      name: 'Sistemas de Recirculación (RAS)',
-      desc: 'Contamos con sistemas de recirculación acuícola de última generación que permiten un uso eficiente del agua y un control preciso de los parámetros de cultivo, reduciendo el impacto ambiental y optimizando la producción.'
+      name: 'Sistemas Biofloc (BFT)',
+      desc: 'Esta es una de las tecnologías más prometedoras y aplicadas en Costa Rica. El BFT busca reducir o eliminar la necesidad de recambios de agua en los sistemas de cultivo, promoviendo la formación de flóculos microbianos.'
     },
     {
-      name: 'Laboratorio de Biotecnología',
-      desc: 'Nuestro laboratorio de biotecnología marina está equipado para realizar análisis genéticos, cultivo de microorganismos, extracción de compuestos bioactivos y desarrollo de productos derivados de organismos marinos.'
+      name: 'Sistemas de Recirculación en Acuicultura (RAS)',
+      desc: 'Aunque pueden ser más costosos de implementar inicialmente, los RAS permiten un control total sobre las condiciones del agua (temperatura, pH, oxígeno, amonio, nitritos, etc.) y una alta densidad de cultivo.'
     },
     {
-      name: 'Monitoreo Automatizado',
-      desc: 'Implementamos sistemas de monitoreo automatizado con sensores y dispositivos IoT que permiten el seguimiento en tiempo real de los parámetros críticos de cultivo, facilitando la toma de decisiones y la respuesta rápida ante emergencias.'
+      name: 'Aquamimicry',
+      desc: 'Esta tecnología busca imitar los procesos naturales de un ecosistema acuático saludable, utilizando microorganismos beneficiosos para mejorar la calidad del agua y la salud de los organismos cultivados.'
     }
   ];
 
