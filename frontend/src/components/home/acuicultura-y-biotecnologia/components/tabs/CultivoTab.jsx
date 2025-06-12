@@ -2,15 +2,23 @@
 
 import React from 'react';
 import placeholder from './../../../../../assets/placeholder.svg'
+import pargo from "../../../../../assets/img/pargo_manchado.jpg"
+import corvina from "../../../../../assets/img/corvina_aguada.jpg"
+import ostra from "../../../../../assets/img/original.jpg"
+import piangua from "../../../../../assets/img/piangua.jpeg"
+import mejillones from "../../../../../assets/img/mejillones.jpg"
+
+
 
 export default function CultivoTab() {
   const especies = [
-    { name: 'Pargo Manchado', desc: 'Especie de alto valor comercial y gastronómico...', img: placeholder  },
-    { name: 'Ostra del Pacífico', desc: 'Molusco bivalvo de rápido crecimiento y alta demanda...' },
-    { name: 'Corvina Aguada', desc: 'Pez de excelente calidad de carne...' },
-    { name: 'Camarón Blanco', desc: 'Sistemas de bajo impacto ambiental y alta eficiencia...' },
-    { name: 'Alga Gracilaria', desc: 'Macroalga con múltiples aplicaciones...' },
-    { name: 'Chuchecas', desc: 'Molusco bivalvo de gran importancia cultural y económica...' },
+    { name: 'Pargo manchado (Lutjanus guttatus)', desc: 'Este es uno de los peces más destacados en los proyectos de cultivo del Parque Marino.', img: pargo  },
+    { name: 'Corvina Aguada', desc: 'Recientemente, se ha informado sobre la entrega de juveniles de corvina para cultivo en granjas marinas.' , img: corvina },
+    { name: 'Ostra japonesa (Crassostrea gigas)', desc: 'El cultivo de la ostra japonesa se ha desarrollado con el apoyo de la UNA y otras instituciones.', img: ostra },
+    { name: 'Molusco Anadara sp. (piangua o cambute)', desc: 'Se menciona la investigación sobre el cultivo del molusco Anadara sp.',
+      img: piangua },
+    { name: 'Mejillones', desc: 'Se ha manifestado el interés futuro en el cultivo de mejillones.', img: mejillones },
+    { name: 'Camarón marino', desc: 'Costa Rica importa larvas de camarón para la mayoría de su acuicultura desarrolló la tecnología base para la producción en masa de juveniles de camarón' },
   ];
 
   return (

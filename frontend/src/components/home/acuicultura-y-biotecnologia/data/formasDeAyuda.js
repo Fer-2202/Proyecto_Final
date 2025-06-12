@@ -2,24 +2,31 @@
 
 export const ayudas = [
     {
-      titulo: 'Donar',
-      descripcion: 'Con tu aporte económico apoyás tratamientos médicos, alimentación y rehabilitación de fauna marina rescatada.',
+      titulo: 'Visitar el Parque',
+      descripcion: 'La forma más directa de apoyo es visitando el parque y comprando tu entrada.',
+      icon: 'Ticket',
+      boton: 'Visitanos',
+      enlace: '/purchase-form/ticketera'
+    },
+    {
+      titulo: 'Donaciones Económicas',
+      descripcion: 'Puedes donar a programas específicos, como la rehabilitación de tortugas o el mantenimiento del laboratorio.',
       icon: 'HeartHandshake',
       boton: 'Donar ahora',
-      enlace: '/donar'
+      enlace: '/apoyo/donaciones#donaciones_economicas'
     },
     {
       titulo: 'Ser Voluntario',
-      descripcion: 'Unite como voluntario/a y participá en actividades de rescate, limpieza de playas, campañas educativas y más.',
+      descripcion: 'La mejor manera de averiguar sobre oportunidades de voluntariado es contactarlos directamente por teléfono o correo electrónico',
       icon: 'Hands',
       boton: 'Postularme',
-      enlace: '/voluntariado'
+      enlace: '/apoyo/donaciones#voluntariado'
     },
     {
-      titulo: 'Apadrinar un Animal',
+      titulo: 'Adopción Simbólica',
       descripcion: 'Podés apadrinar a un animal en rehabilitación y recibir actualizaciones sobre su evolución hasta su liberación.',
       icon: 'PawPrint',
-      boton: 'Apadrinar',
+      boton: 'Adoptar',
       enlace: '/apadrinar'
     },
     {
@@ -27,7 +34,7 @@ export const ayudas = [
       descripcion: 'También podés donar alimentos, insumos médicos, material educativo u otros recursos esenciales.',
       icon: 'PackagePlus',
       boton: 'Ver lista',
-      enlace: '/donaciones-materiales'
+      enlace: '/apoyo/donaciones#donaciones-materiales'
     },
     {
       titulo: 'Difundir nuestro trabajo',
@@ -35,6 +42,7 @@ export const ayudas = [
       icon: 'Share2',
       boton: 'Compartir',
       enlace: '/rrss'
-    }
+    },
+  
   ];
   

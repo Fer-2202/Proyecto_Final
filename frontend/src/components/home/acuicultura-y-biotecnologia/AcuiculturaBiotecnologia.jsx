@@ -16,16 +16,18 @@ import { Link } from 'react-router-dom'
 function AcuiculturaBiotecnologia() {
 
   const paragraphs = [
-    "Nuestro programa de acuicultura y biotecnología se enfoca en el desarrollo de tecnologías y metodologías para el cultivo sostenible de especies marinas nativas del Pacífico costarricense, con énfasis en aquellas con potencial comercial y de repoblamiento.",
-    "Trabajamos bajo un enfoque de economía circular, buscando maximizar la eficiencia en el uso de recursos y minimizar el impacto ambiental de las actividades acuícolas."
+    "La acuicultura es crucial en Costa Rica, donde solo el 2% de los productos marinos consumidos provienen del cultivo, a pesar de que la producción acuícola representa cerca del 50% de la pesca mundial. El trabajo del Parque Marino en biotecnología y acuicultura busca cerrar esta brecha, ofreciendo una alternativa viable y sostenible a la pesca extractiva y contribuyendo a la seguridad alimentaria y al desarrollo económico de las comunidades costeras.", "El Parque Marino del Pacífico, a través de su LABM, se ha consolidado como un referente en acuicultura marina, educación y conservación en Costa Rica, promoviendo la investigación y la transferencia de tecnología para un aprovechamiento sostenible de los recursos marinos."
   ];
 
   const workAreas = [
-    "Reproducción y cultivo de peces marinos",
-    "Cultivo de moluscos bivalvos",
-    "Producción de microalgas y macroalgas",
-    "Biotecnología marina aplicada",
-    "Sistemas de acuicultura multitrófica integrada"
+    "Promoción de la Acuicultura Marina",
+    "Investigación y Desarrollo (I+D)",
+    "Producción de Organismos Marinos",
+    "Cultivo Larval y de Juveniles",
+    "Extensión y Transferencia Tecnológica",
+    "Conservación y Educación Ambiental",
+    "Capacitación y Formación Académica",
+    "Incidencia en Políticas Públicas"
   ];
 
   const handleButtonClick = () => {
@@ -58,8 +60,8 @@ function AcuiculturaBiotecnologia() {
   return (
     <div className='flex flex-col items-center mt-23'>
       <QuienesSomos title={"Acuicultura y Biotecnologia"} description={"Descubre la biodiversidad de Costa Rica "} img={Tanque} />
-      <ExhibitIntro description={"En el Parque Marino Central del Pacífico Sur desarrollamos investigación aplicada en acuicultura y biotecnología marina, con el objetivo de promover la producción sostenible de recursos marinos, contribuir a la seguridad alimentaria y generar alternativas económicas para las comunidades costeras."} title={"Programa de Acuicultura y Biotecnología"} />
-      <div className='ml-70 mr-70'>
+      <ExhibitIntro description={"El Parque Marino del Pacífico cuenta con un Laboratorio de Acuicultura y Biotecnología Marina (LABM) que es fundamental para su misión de sostenibilidad de los recursos marino-costeros. Este laboratorio no es solo un espacio de investigación, sino que tiene un fuerte componente de extensión y transferencia tecnológica hacia las comunidades costeras de Costa Rica."} title={"Programa de Acuicultura y Biotecnología"} />
+      <div className='ml-90 mr-90'>
         <OurApproach title={"Nuestro Enfoque"} paragraphs={paragraphs} imageSrc={Tanque} workAreasTitle={"Áreas de Trabajo:"} workAreas={workAreas} buttonText={"Conocer más"} onButtonClick={handleButtonClick} imageAlt={"Img del programa"}  />
       
       
