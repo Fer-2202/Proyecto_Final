@@ -1,23 +1,23 @@
 
 export const innovaciones = [
     {
-      title: 'Biofiltro de Bajo Costo',
-      desc: 'Diseño de un biofiltro de bajo costo utilizando materiales locales, que permite a pequeños productores implementar sistemas de recirculación básicos con una inversión accesible.',
+      title: 'Reproducción y Cultivo de Pargo Manchado',
+      desc: 'El PMP ha sido pionero y ha logrado dominar el ciclo completo de vida del pargo manchado en cautiverio. Esto significa que pueden reproducir esta especie en sus instalaciones, obtener larvas, alevines y juveniles, y luego engordarlos hasta tamaño comercial.',
       estado: 'Patente en trámite'
     },
     {
-      title: 'Alimento Probiótico para Larvas',
-      desc: 'Formulación de un alimento enriquecido con probióticos específicos para larvas de peces marinos, que mejora la supervivencia y el desarrollo durante las etapas críticas del cultivo.',
+      title: ' Optimización en la Producción de Microalgas',
+      desc: '. La tecnología de producción de microalgas en fotobiorreactores helicoidales está establecida y funcionando de manera eficiente en el PMP.',
       estado: 'Tecnología transferible'
     },
     {
-      title: 'Sistema de Cultivo Flotante',
-      desc: 'Diseño de un sistema flotante modular para el cultivo integrado de peces y algas en zonas costeras protegidas, resistente a condiciones marinas adversas y de fácil manejo.',
+      title: 'Cultivo de Ostra Japonesa',
+      desc: 'El cultivo de ostra japonesa ha sido una actividad exitosa en el Golfo de Nicoya, con el PMP y otras instituciones brindando apoyo técnico y capacitación a las comunidades.',
       estado: 'Prototipo validado'
     },
     {
-      title: 'Kit de Diagnóstico Rápido',
-      desc: 'Desarrollo de un kit de diagnóstico rápido para la detección de patógenos comunes en acuicultura, que permite a los productores identificar problemas sanitarios de forma temprana.',
+      title: 'Bioseguridad y Calidad del Agua',
+      desc: 'Las mejoras en las instalaciones del Laboratorio de Producción de Organismos Marinos (LABM) del PMP, incluyendo inversiones recientes, están destinadas a fortalecer la bioseguridad y la calidad del agua.',
       estado: 'En fase de validación'
     }
   ];

@@ -7,7 +7,7 @@ import corvina from "../../../../../assets/img/corvina_aguada.jpg"
 import ostra from "../../../../../assets/img/original.jpg"
 import piangua from "../../../../../assets/img/piangua.jpeg"
 import mejillones from "../../../../../assets/img/mejillones.jpg"
-
+import camaron from "../../../../../assets/img/camaron_blanco.jpeg"
 
 
 export default function CultivoTab() {
@@ -18,7 +18,7 @@ export default function CultivoTab() {
     { name: 'Molusco Anadara sp. (piangua o cambute)', desc: 'Se menciona la investigación sobre el cultivo del molusco Anadara sp.',
       img: piangua },
     { name: 'Mejillones', desc: 'Se ha manifestado el interés futuro en el cultivo de mejillones.', img: mejillones },
-    { name: 'Camarón marino', desc: 'Costa Rica importa larvas de camarón para la mayoría de su acuicultura desarrolló la tecnología base para la producción en masa de juveniles de camarón' },
+    { name: 'Camarón Blanco', desc: 'Costa Rica importa larvas de camarón para la mayoría de su acuicultura desarrolló la tecnología base para la producción en masa de juveniles de camarón', img: camaron },
   ];
 
   return (
