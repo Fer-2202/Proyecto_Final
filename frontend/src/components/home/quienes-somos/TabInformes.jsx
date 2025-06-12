@@ -1,7 +1,9 @@
-import React from "react";
-import { MapPin } from "lucide-react";
+import React, { useState } from "react";
+import { MapPin, FileText } from "lucide-react";
 
 export default function TabInformes() {
+  const [expanded, setExpanded] = useState(null);
+
   const informes = [
     {
       mes: "Enero",
@@ -48,60 +50,74 @@ export default function TabInformes() {
   ];
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-6 p-6">
+    <section className="grid grid-cols-1 md:grid-cols-2 gap-8 p-8 font-sans">
       {/* Línea de tiempo */}
-      <div className="bg-white rounded-xl shadow p-6">
-        <h3 className="text-teal-600 font-bold text-sm mb-2">Informes Anuales</h3>
-        <p className="text-gray-600 text-sm mb-6">
-          Acceda a nuestros informes anuales, donde detallamos nuestras actividades, logros y desafíos.
-        </p>
+      <article className="bg-white border border-gray-200 rounded-2xl shadow-2xl p-8 hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] transition-all">
+        <header className="mb-6">
+          <h2 className="text-2xl font-bold text-teal-700 mb-2">Informes Anuales</h2>
+          <p className="text-gray-600 text-base leading-relaxed">
+            Acceda a nuestros informes anuales, donde detallamos nuestras actividades, logros y desafíos.
+          </p>
+        </header>
         <div className="border-l-2 border-teal-500 pl-4 space-y-6">
           {informes.map((item, idx) => (
-            <div key={idx} className="relative">
+            <div
+              key={idx}
+              className="relative cursor-pointer"
+              onClick={() => setExpanded(expanded === idx ? null : idx)}
+            >
               <div className="absolute -left-[11px] top-1.5 w-3 h-3 rounded-full bg-teal-500" />
-              <span className="text-teal-600 text-sm font-semibold">
+              <span className="text-teal-600 text-sm font-semibold ml-3">
                 {item.mes} {item.año}
               </span>
-              <h4 className="text-sm font-bold text-gray-800">{item.titulo}</h4>
-              <p className="text-sm text-gray-600">{item.detalle}</p>
+              <h4 className="text-base font-bold text-gray-800 flex items-center gap-2">
+                <FileText size={16} /> {item.titulo}
+              </h4>
+              {expanded === idx && (
+                <p className="text-sm text-gray-600 mt-1 transition-all">
+                  {item.detalle}
+                </p>
+              )}
             </div>
           ))}
         </div>
-      </div>
+      </article>
 
       {/* Mapa de impacto */}
-      <div className="bg-white rounded-xl shadow p-6">
-        <h3 className="text-teal-600 font-bold text-sm mb-2">Mapa de Impacto</h3>
-        <p className="text-gray-600 text-sm mb-4">
-          Visualice geográficamente nuestros proyectos y su impacto en las diferentes regiones.
-        </p>
-        <div className="relative w-full h-64 bg-cyan-50 rounded overflow-hidden">
+      <article className="bg-white border border-gray-200 rounded-2xl shadow-2xl p-8 hover:shadow-[0_20px_40px_rgba(0,0,0,0.1)] transition-all">
+        <header className="mb-6">
+          <h2 className="text-2xl font-bold text-teal-700 mb-2">Mapa de Impacto</h2>
+          <p className="text-gray-600 text-base leading-relaxed">
+            Visualice geográficamente nuestros proyectos y su impacto en las diferentes regiones.
+          </p>
+        </header>
+        <div className="relative w-full h-64 bg-cyan-50 rounded-xl overflow-hidden border border-gray-200">
           {regiones.map((region, idx) => (
             <div
               key={idx}
-              className={`absolute w-6 h-6 rounded-full ${region.color} flex items-center justify-center text-white text-xs font-bold`}
+              className={`absolute w-7 h-7 rounded-full ${region.color} flex items-center justify-center text-white text-xs font-bold shadow-md hover:scale-110 transition-all`}
               style={{ top: region.top, left: region.left }}
-              title={region.nombre}
+              title={`${region.nombre}: ${region.cantidad} proyectos`}
             >
               {region.cantidad}
             </div>
           ))}
-          {/* Fondo decorativo opcional */}
-          <div className="absolute inset-0 flex items-center justify-center text-gray-300 text-2xl">
+          <div className="absolute inset-0 flex items-center justify-center text-gray-300 text-4xl">
             🧭
           </div>
         </div>
 
-        {/* Leyenda */}
-        <div className="mt-4 grid grid-cols-2 gap-2 text-sm">
+        <div className="mt-6 grid grid-cols-2 sm:grid-cols-3 gap-2 text-sm">
           {regiones.map((region, idx) => (
-            <div key={idx} className="flex items-center space-x-2">
+            <div key={idx} className="flex items-center gap-2">
               <div className={`w-3 h-3 rounded-full ${region.color}`} />
-              <span>{region.nombre} ({region.cantidad})</span>
+              <span className="text-gray-700">
+                {region.nombre} <span className="text-gray-500">({region.cantidad})</span>
+              </span>
             </div>
           ))}
         </div>
-      </div>
-    </div>
+      </article>
+    </section>
   );
 }

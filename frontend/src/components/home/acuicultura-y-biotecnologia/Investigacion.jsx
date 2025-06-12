@@ -37,7 +37,7 @@ function Investigacion() {
       {
         value: "proyectos-actuales",
         label: "Proyectos Actuales",
-        component: < proyectos={proyectos} />
+        component: <ProyectosTab proyectos={proyectos} />
       },
       {
         value: "publicaciones",

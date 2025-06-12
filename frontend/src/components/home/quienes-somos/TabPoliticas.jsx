@@ -31,8 +31,8 @@ export default function TabPoliticas() {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow p-6 max-w-4xl mx-auto">
-      <h3 className="text-teal-600 font-bold text-sm mb-2">Políticas Institucionales</h3>
+    <div className="bg-white border border-gray-200 rounded-2xl shadow-lg p-6 max-w-4xl mx-auto hover:shadow-xl transition-all">
+      <h3 className="text-teal-600 font-bold text-lg mb-2">Políticas Institucionales</h3>
       <p className="text-sm text-gray-600 mb-6">
         Conozca nuestras políticas y lineamientos que guían nuestro trabajo diario.
       </p>
@@ -42,7 +42,7 @@ export default function TabPoliticas() {
           <div key={i} className="py-4">
             <button
               onClick={() => toggleIndex(i)}
-              className="w-full text-left font-semibold text-gray-800 text-base flex justify-between items-center"
+              className="w-full text-left font-semibold text-gray-800 text-base flex justify-between items-center hover:text-teal-700 transition-all"
             >
               {p.titulo}
               <span className="text-teal-600 text-xl">
@@ -50,7 +50,9 @@ export default function TabPoliticas() {
               </span>
             </button>
             {activeIndex === i && (
-              <p className="text-sm text-gray-600 mt-2">{p.contenido}</p>
+              <p className="text-sm text-gray-600 mt-2 leading-relaxed">
+                {p.contenido}
+              </p>
             )}
           </div>
         ))}
