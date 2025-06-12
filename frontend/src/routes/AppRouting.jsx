@@ -1,6 +1,7 @@
-import React, { Suspense, useCallback } from 'react';
+import React, { Suspense } from 'react';
 import { Routes, Route, BrowserRouter } from 'react-router-dom';
-import * as api from "../api/api.js"
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 /* Layout Publico */
 const PublicLayout = React.lazy(() => import('../layouts/Public/PublicLayout.jsx'));
@@ -53,131 +54,26 @@ const ConservationStatusForm = React.lazy(() => import('../pages/Admin/forms/Con
 const ProvinceForm = React.lazy(() => import('../pages/Admin/forms/ProvinceForm.jsx'));
 const UserProfileForm = React.lazy(() => import('../pages/Admin/forms/UserProfileForm.jsx'));
 
+
+import AdminHandlers from '../components/admin/AdminHandlers';
+
 function AppRouting() {
-  // --- CREATE HANDLERS ---
-  const handleCreateAnimal = useCallback((animalData) => {
-    api.createAnimal(animalData)
-      .then(response => {
-        console.log('Animal created successfully:', response);
-        // Handle success (e.g., show a success message, redirect)
-      })
-      .catch(error => {
-        console.error('Error creating animal:', error);
-        // Handle error (e.g., show an error message)
-      });
-  }, []);
-
-  const handleCreateHabitat = useCallback((habitatData) => {
-    api.createHabitat(habitatData)
-      .then(response => {
-        console.log('Habitat created successfully:', response);
-        // Handle success (e.g., show a success message, redirect)
-        
-      })
-      .catch(error => {
-        console.error('Error creating habitat:', error);
-        // Handle error (e.g., show an error message)
-      });
-  }, []);
-
-  const handleCreateTicket = useCallback((ticketData) => {
-    api.createTicket(ticketData)
-      .then(response => {
-        console.log('Ticket created successfully:', response);
-        // Handle success (e.g., show a success message, redirect)
-      })
-      .catch(error => {
-        console.error('Error creating ticket:', error);
-        // Handle error (e.g., show an error message)
-      });
-  }, []);
-
-  const handleCreateSection = useCallback((sectionData) => {
-    api.createSection(sectionData)
-      .then(response => {
-        console.log('Section created successfully:', response);
-        // Handle success (e.g., show a success message, redirect)
-      })
-      .catch(error => {
-        console.error('Error creating section:', error);
-        // Handle error (e.g., show an error message)
-      });
-  }, []);
-
-  const handleCreateVisit = useCallback((visitData) => {
-    api.createVisit(visitData)
-      .then(response => {
-        console.log('Visit created successfully:', response);
-        // Handle success (e.g., show a success message, redirect)
-      })
-      .catch(error => {
-        console.error('Error creating visit:', error);
-        // Handle error (e.g., show an error message)
-      });
-  }, []);
-
-  const handleCreatePurchaseOrder = useCallback((purchaseOrderData) => {
-    api.createPurchaseOrder(purchaseOrderData)
-      .then(response => {
-        console.log('Purchase order created successfully:', response);
-        // Handle success (e.g., show a success message, redirect)
-      })
-      .catch(error => {
-        console.error('Error creating purchase order:', error);
-        // Handle error (e.g., show an error message)
-      });
-  }, []);
-
-  const handleCreateSpecies = useCallback((speciesData) => {
-    api.createSpecies(speciesData)
-      .then(response => {
-        console.log('Species created successfully:', response);
-        // Handle success (e.g., show a success message, redirect)
-      })
-      .catch(error => {
-        console.error('Error creating species:', error);
-        // Handle error (e.g., show an error message)
-      });
-  }, []);
-
-  const handleCreateConservationStatus = useCallback((conservationStatusData) => {
-    api.createConservationStatus(conservationStatusData)
-      .then(response => {
-        console.log('Conservation status created successfully:', response);
-        // Handle success (e.g., show a success message, redirect)
-      })
-      .catch(error => {
-        console.error('Error creating conservation status:', error);
-        // Handle error (e.g., show an error message)
-      });
-  }, []);
-
-  const handleCreateProvince = useCallback((provinceData) => {
-    api.createProvince(provinceData)
-      .then(response => {
-        console.log('Province created successfully:', response);
-        // Handle success (e.g., show a success message, redirect)
-      })
-      .catch(error => {
-        console.error('Error creating province:', error);
-        // Handle error (e.g., show an error message)
-      });
-  }, []);
-
-  const handleCreateUserProfile = useCallback((userProfileData) => {
-    api.createUserProfile(userProfileData)
-      .then(response => {
-        console.log('User profile created successfully:', response);
-        // Handle success (e.g., show a success message, redirect)
-      })
-      .catch(error => {
-        console.error('Error creating user profile:', error);
-        // Handle error (e.g., show an error message)
-      });
-  }, []);
+  const { 
+    handleCreateAnimal,
+    handleCreateHabitat,
+    handleCreateTicket,
+    handleCreateSection,
+    handleCreateVisit,
+    handleCreatePurchaseOrder,
+    handleCreateSpecies,
+    handleCreateConservationStatus,
+    handleCreateProvince,
+    handleCreateUserProfile
+  } = AdminHandlers();
 
   return (
     <BrowserRouter>
+      <ToastContainer position="top-right" autoClose={5000} />
       <Suspense fallback={<Loading />}>
         <Routes>
 
@@ -243,56 +139,6 @@ function AppRouting() {
             <Route path="/admin/conservation-status/:id/edit" element={<ConservationStatusForm mode="edit" />} />
             <Route path="/admin/provinces/new" element={<ProvinceForm mode="create" onCreate={handleCreateProvince} />} />
             <Route path="/admin/provinces/:id/edit" element={<ProvinceForm mode="edit" />} />
-            <Route
-              path="/admin/animals/new"
-              element={<AnimalForm mode="create" onCreate={handleCreateAnimal} />}
-            />
-            <Route path="/admin/animals/:id/edit" element={<AnimalForm mode="edit" />} />
-            <Route
-              path="/admin/habitats/new"
-              element={<HabitatForm mode="create" onCreate={handleCreateHabitat} />}
-            />
-            <Route path="/admin/habitats/:id/edit" element={<HabitatForm mode="edit" />} />
-            <Route
-              path="/admin/tickets/new"
-              element={<TicketForm mode="create" onCreate={handleCreateTicket} />}
-            />
-            <Route path="/admin/tickets/:id/edit" element={<TicketForm mode="edit" />} />
-            <Route
-              path="/admin/sections/new"
-              element={<SectionForm mode="create" onCreate={handleCreateSection} />}
-            />
-            <Route path="/admin/sections/:id/edit" element={<SectionForm mode="edit" />} />
-            <Route
-              path="/admin/visits/new"
-              element={<VisitForm mode="create" onCreate={handleCreateVisit} />}
-            />
-            <Route path="/admin/visits/:id/edit" element={<VisitForm mode="edit" />} />
-            <Route
-              path="/admin/orders/new"
-              element={<PurchaseOrderForm mode="create" onCreate={handleCreatePurchaseOrder} />}
-            />
-            <Route path="/admin/orders/:id/edit" element={<PurchaseOrderForm mode="edit" />} />
-            <Route
-              path="/admin/species/new"
-              element={<SpeciesForm mode="create" onCreate={handleCreateSpecies} />}
-            />
-            <Route path="/admin/species/:id/edit" element={<SpeciesForm mode="edit" />} />
-            <Route
-              path="/admin/conservation-status/new"
-              element={<ConservationStatusForm mode="create" onCreate={handleCreateConservationStatus} />} />
-            />
-            <Route path="/admin/conservation-status/:id/edit" element={<ConservationStatusForm mode="edit" />} />
-            <Route
-              path="/admin/provinces/new"
-              element={<ProvinceForm mode="create" onCreate={handleCreateProvince} />} />
-            />
-            <Route path="/admin/provinces/:id/edit" element={<ProvinceForm mode="edit" />} />
-            <Route
-              path="/admin/user-profiles/new"
-              element={<UserProfileForm mode="create" onCreate={handleCreateUserProfile} />}
-            />
-            <Route path="/admin/user-profiles/:id/edit" element={<UserProfileForm mode="edit" />} />
           </Route>
 
           {/* Loading */}

@@ -22,6 +22,8 @@ import {
 import { Link } from "react-router-dom";
 import { useAuth } from "../../context/AuthContext";
 import * as api from "../../api/api";
+import { ToastContainer, toast } from "react-toastify";
+import ToastNotifications from "../../components/auth/forms/ToastNotifications";
 
 const CRUD_TABS = [
   { name: "Entradas", key: "tickets", icon: <Ticket size={16} /> },
@@ -70,8 +72,15 @@ export default function DashboardAdmin() {
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
 
+  // {{change 1}}
+  useEffect(() => {
+    toast.info("DashboardAdmin component mounted");
+  }, []);
+
   useEffect(() => {
     const fetchData = async () => {
+      // {{change 2}}
+      toast.info("Fetching data...");
       try {
         const [
           sections, 
@@ -112,8 +121,12 @@ export default function DashboardAdmin() {
           "user-profiles": userProfiles,
           "audit-log": auditLog
         });
+        // {{change 3}}
+        toast.success("Data fetched successfully");
       } catch (error) {
         console.error("Error fetching data:", error);
+        toast.error(`Error fetching data: ${error.message}`);
+
       } finally {
         setLoading(false);
       }
@@ -125,6 +138,8 @@ export default function DashboardAdmin() {
   const handleDelete = async (tabKey, id) => {
     const type = typeMap[tabKey];
     try {
+      // {{change 4}}
+      toast.info(`Deleting ${type}...`);
       switch(type) {
         case 'section': await api.deleteSection(id); break;
         case 'habitat': await api.deleteHabitat(id); break;
@@ -138,19 +153,24 @@ export default function DashboardAdmin() {
         case 'userProfile': await api.deleteUser(id); break;
         default: console.error("Delete not implemented for:", type);
       }
-
+      
       setData(prev => ({
         ...prev,
         [tabKey]: prev[tabKey].filter(item => item.id !== id)
       }));
+      // {{change 5}}
+      toast.success(`${type} deleted successfully`);
     } catch (error) {
       console.error(`Error deleting ${type}:`, error);
+      toast.error(`Error deleting ${type}: ${error.message}`);
     }
   };
 
   const filteredData = () => {
     const currentData = data[activeTab];
     if (!searchTerm) return currentData;
+    // {{change 6}}
+    toast.info("Filtering data...");
     
     return currentData.filter(item => 
       Object.values(item).some(
@@ -166,7 +186,9 @@ export default function DashboardAdmin() {
   );
 
   return (
+    
     <div className="flex min-h-screen bg-gray-50">
+      <ToastNotifications/>
       <aside className="w-64 bg-white border-r px-6 py-8 flex flex-col justify-between">
         <div>
           <h2 className="text-xl font-bold mb-6">Panel de Control</h2>
