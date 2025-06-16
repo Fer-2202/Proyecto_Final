@@ -35,6 +35,7 @@ export default function Profile() {
   };
 
   const handleChangeImg = async () => {
+   console.log("Cambiar imagen de perfil");
     try {
       const updatedImg = {
         profile_picture: profileData.profile_picture
@@ -219,7 +220,8 @@ export default function Profile() {
                   <form className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {[
                       { label: 'Nombre completo', value: `${user.first_name} ${user.last_name || ''}`, disabled: true },
-                      { label: 'Nombre', value: profileData.first_name || '', disabled: isCliente || !isEditing },
+                      { label: 'Nombre', value: profileData.first_name || '', disabled: isCliente || !isEditing,  },
+                      { label: 'Apellido', value: profileData.last_name || '', disabled: isCliente || !isEditing, field: 'last_name' },
                       { label: 'Email', value: user.email, disabled: true },
                       { label: 'Teléfono', value: profileData.phone || '', disabled: isCliente || !isEditing, field: 'phone' },
                       { label: 'Fecha de nacimiento', value: profileData.birth_date ? new Date(profileData.birth_date).toLocaleDateString('es-ES') : '', disabled: isCliente || !isEditing, field: 'birth_date' },

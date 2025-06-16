@@ -49,9 +49,20 @@ export const deleteVisit = async (id) => {
   }
 };
 
+export const getAvailableVisits = async () => {
+  try {
+    const response = await axiosInstance.get('/api/visits/available/');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching available visits:', error);
+    throw error;
+  }
+};
+
 export default {
   getVisits,
   getVisitById,
+  getAvailableVisits,
   createVisit,
   updateVisit,
   deleteVisit,

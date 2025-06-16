@@ -9,15 +9,14 @@ from .permissions import IsAuthenticatedAndRole
 # Models
 from django.contrib.auth.models import User, Group
 from .models import (
-    Sections, Provinces, Species, ConservationStatus,
+      Species, ConservationStatus,
     Tickets, Visits, PurchaseOrders, TicketsPurchaseOrder,
     Habitats, Animals, UserProfile, Payment, AuditLog
 )
 
 # Serializers
 from .serializers import (
-    RegisterSerializer, UserProfileSerializer, Sections_Serializer,
-    Provinces_Serializer, Species_Serializer, Conservation_Status_Serializer,
+    RegisterSerializer, UserProfileSerializer, Species_Serializer, Conservation_Status_Serializer,
     Tickets_Serializer, Visits_Serializer, Purchase_Orders_Serializer,
     Tickets_Purchase_Orders_Serializer, Habitats_Serializer, Animals_Serializer,
     GroupSerializer, PaymentSerializer, GroupPermissionsSerializer, AuditLogSerializer
@@ -128,24 +127,8 @@ class GroupPermissionsView(generics.UpdateAPIView):
 # SECTIONS / PROVINCES / SPECIES / STATUS
 # ==================
 
-class Sections_LisCreateView(generics.ListCreateAPIView):
-    queryset = Sections.objects.all()
-    serializer_class = Sections_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
 
-class Section_DetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Sections.objects.all()
-    serializer_class = Sections_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
 
-class Provinces_ListCreateView(generics.ListCreateAPIView):
-    queryset = Provinces.objects.all()
-    serializer_class = Provinces_Serializer
-
-class Provinces_DetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Provinces.objects.all()
-    serializer_class = Provinces_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
 
 class Species_ListCreateView(generics.ListCreateAPIView):
     queryset = Species.objects.all()

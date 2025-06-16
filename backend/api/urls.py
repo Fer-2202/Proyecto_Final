@@ -1,4 +1,4 @@
-from django.urls import path
+from django.urls import path, include
 from .views import *
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .serializers import CustomTokenObtainPairSerializer
@@ -6,12 +6,10 @@ from .serializers import CustomTokenObtainPairSerializer
 urlpatterns = [
 
     # Secciones
-    path('sections/', Sections_LisCreateView.as_view(), name='sections-lista'),
-    path('sections/<int:pk>/', Section_DetailView.as_view(), name='sections-actualizar-editar'),
+    path('sections/', include('api.sections.urls')),
 
     # Provincias
-    path('provinces/', Provinces_ListCreateView.as_view(), name='provinces-lista'),
-    path('provinces/<int:pk>/', Provinces_DetailView.as_view(), name='provinces-actualizar-editar'),
+    path('provinces/', include('api.provinces.urls')),
 
     # Especies
     path('species/', Species_ListCreateView.as_view(), name='species-lista'),

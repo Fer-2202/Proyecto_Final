@@ -1,9 +1,11 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import get_user_model
-from .models import (Sections, Provinces, Species, ConservationStatus,
+from .models import ( Species, ConservationStatus,
                          Tickets, Visits, PurchaseOrders, TicketsPurchaseOrder,
                          Habitats, Animals, UserProfile)
+from .sections.models import Sections
+from .provinces.models import Provinces
 
 User = get_user_model()
 

@@ -49,9 +49,20 @@ export const deleteTicket = async (id) => {
   }
 };
 
+export const getAvailableTickets = async (eventId) => {
+  try {
+    const response = await axiosInstance.get('/api/tickets/available/');
+    return response.data;
+  } catch (error) {
+    console.error(`Error fetching available tickets for event ID ${eventId}:`, error);
+    throw error;
+  }
+};
+
 export default {
   getTickets,
   getTicketById,
+  getAvailableTickets,
   createTicket,
   updateTicket,
   deleteTicket,

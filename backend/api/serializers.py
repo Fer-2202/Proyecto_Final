@@ -3,20 +3,14 @@ from rest_framework import serializers
 from django.contrib.auth import get_user_model
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.models import Group, Permission
+from .sections.models import Sections
+from .provinces.models import Provinces
 
 User = get_user_model()
 
 # Sections
-class Sections_Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = Sections
-        fields = '__all__'
 
-# Provinces
-class Provinces_Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = Provinces
-        fields = '__all__'
+
 
 # Species
 class Species_Serializer(serializers.ModelSerializer):
