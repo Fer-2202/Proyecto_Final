@@ -1,5 +1,7 @@
 from django.urls import path
-from api.sections.views import SectionsListCreateView, SectionDetailView
+from .views import SectionsListCreateView, SectionDetailView  # Importamos las vistas dentro de la carpeta sections
+
+""" URLs para la aplicación Sections """
 
 urlpatterns = [
     path('lista/', SectionsListCreateView.as_view(), name='sections-lista'),

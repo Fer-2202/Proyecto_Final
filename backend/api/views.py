@@ -5,20 +5,22 @@ from rest_framework import generics
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.permissions import IsAuthenticated
 from .permissions import IsAuthenticatedAndRole
+from .species.models import Species
+from .sections.models import Sections
 
 # Models
 from django.contrib.auth.models import User, Group
 from .models import (
-      Species, ConservationStatus,
+       ConservationStatus,
     Tickets, Visits, PurchaseOrders, TicketsPurchaseOrder,
-    Habitats, Animals, UserProfile, Payment, AuditLog
+    Habitats,  UserProfile, Payment, AuditLog
 )
 
 # Serializers
 from .serializers import (
-    RegisterSerializer, UserProfileSerializer, Species_Serializer, Conservation_Status_Serializer,
+    RegisterSerializer, UserProfileSerializer, Conservation_Status_Serializer,
     Tickets_Serializer, Visits_Serializer, Purchase_Orders_Serializer,
-    Tickets_Purchase_Orders_Serializer, Habitats_Serializer, Animals_Serializer,
+    Tickets_Purchase_Orders_Serializer, Habitats_Serializer, 
     GroupSerializer, PaymentSerializer, GroupPermissionsSerializer, AuditLogSerializer
 )
 
@@ -124,21 +126,9 @@ class GroupPermissionsView(generics.UpdateAPIView):
         return Response(GroupSerializer(group).data)
 
 # ==================
-# SECTIONS / PROVINCES / SPECIES / STATUS
+#  / STATUS
 # ==================
 
-
-
-
-class Species_ListCreateView(generics.ListCreateAPIView):
-    queryset = Species.objects.all()
-    serializer_class = Species_Serializer
-    #permission_classes = [IsAuthenticatedAndRole]
-
-class Species_DetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Species.objects.all()
-    serializer_class = Species_Serializer
-    #permission_classes = [IsAuthenticatedAndRole]
 
 class Conservation_Status_ListCreateView(generics.ListCreateAPIView):
     queryset = ConservationStatus.objects.all()
@@ -239,15 +229,6 @@ class Habitats_DetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = Habitats_Serializer
     permission_classes = [IsAuthenticatedAndRole]
 
-class Animals_ListCreateView(generics.ListCreateAPIView):
-    queryset = Animals.objects.all()
-    serializer_class = Animals_Serializer
-    #permission_classes = [IsAuthenticatedAndRole]
-
-class Animals_DetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Animals.objects.all()
-    serializer_class = Animals_Serializer
-    #permission_classes = [IsAuthenticatedAndRole]
 
 # ==================
 # PASSWORD RESET VIEWS (FUNCIONALES)

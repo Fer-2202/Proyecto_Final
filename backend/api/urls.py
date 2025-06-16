@@ -4,6 +4,9 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .serializers import CustomTokenObtainPairSerializer
 
 urlpatterns = [
+ 
+    # Animales
+    path('animals/', include('api.animales.urls')),
 
     # Secciones
     path('sections/', include('api.sections.urls')),
@@ -12,8 +15,7 @@ urlpatterns = [
     path('provinces/', include('api.provinces.urls')),
 
     # Especies
-    path('species/', Species_ListCreateView.as_view(), name='species-lista'),
-    path('species/<int:pk>/', Species_DetailView.as_view(), name='species-actualizar-editar'),
+    path('species/', include('api.species.urls')),
 
     # Estado de conservacion
     path('conservation_status/', Conservation_Status_ListCreateView.as_view(), name='conservation_status-lista'),
@@ -52,10 +54,6 @@ urlpatterns = [
     # Habitats
     path('habitats/', Habitats_ListCreateView.as_view(), name='habitats-lista'),
     path('habitats/<int:pk>/', Habitats_DetailView.as_view(), name='habitats-actualizar-editar'),
-
-    # Animales
-    path('animals/', Animals_ListCreateView.as_view(), name='animals-lista'),
-    path('animals/<int:pk>/', Animals_DetailView.as_view(), name='animals-actualizar-editar'),
 
     # Perfil de usuario
     path('user_profile/', UserProfileListCreateView.as_view(), name='user_profile-list-create'),

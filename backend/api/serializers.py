@@ -5,6 +5,7 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from django.contrib.auth.models import Group, Permission
 from .sections.models import Sections
 from .provinces.models import Provinces
+from .species.models import Species
 
 User = get_user_model()
 
@@ -13,10 +14,7 @@ User = get_user_model()
 
 
 # Species
-class Species_Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = Species
-        fields = '__all__'
+
 
 # Conservation Status
 class Conservation_Status_Serializer(serializers.ModelSerializer):
@@ -68,10 +66,7 @@ class Habitats_Serializer(serializers.ModelSerializer):
         fields = '__all__'
 
 # Animals
-class Animals_Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = Animals
-        fields = '__all__'
+
 
 # UserProfile Serializer
 class UserProfileSerializer(serializers.ModelSerializer):
