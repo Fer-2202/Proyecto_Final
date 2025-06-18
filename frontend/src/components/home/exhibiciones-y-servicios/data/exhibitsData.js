@@ -33,7 +33,7 @@ const exhibitsData = [
     ],
     images: [Cocodrilo, Caiman, Tortuga_T],
     buttons: [
-      { label: 'Visita nuestra exhicion de reptiles', link: '/horario-alimento' }
+      { label: 'Visita nuestra exhicion de reptiles', link: '/' }
     ],
   },
   {
@@ -125,3 +125,4 @@ const exhibitsData = [
 ];
 
 export default exhibitsData;
+

@@ -14,6 +14,7 @@ import { Link } from "react-router-dom"
 
 
 
+
 function Home() {
   return (
     <>
@@ -45,8 +46,16 @@ function Home() {
                   <span className="text-gray-700 font-medium">₡1600</span>
                 </li>
                 <li className="flex justify-between items-center">
-                  <span>Extranjeros:</span>
-                  <span className="text-gray-700 font-medium">$10 / $5</span>
+                  <span>Adulto mayor / Discapacitado:</span>
+                  <span className="text-gray-700 font-medium">₡1600</span>
+                </li>
+                <li className="flex justify-between items-center">
+                  <span>Extranjeros adultos:</span>
+                  <span className="text-gray-700 font-medium">$10</span>
+                </li>
+                <li className="flex justify-between items-center">
+                  <span>Extranjeros niños (4-11):</span>
+                  <span className="text-gray-700 font-medium">$5</span>
                 </li>
               </ul>
             </>} 

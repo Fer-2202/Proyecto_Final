@@ -1,9 +1,26 @@
 // src/components/tabs/EspeciesTab.jsx
 
-import React from 'react';
-import { especies as especiesDefault, estadisticas as estadisticasDefault } from '../../data/especiesData.js';
+import React, { useEffect, useState } from 'react';
+import {  estadisticas as estadisticasDefault } from '../../data/especiesData.js';
+import { getSpecies } from '../../../../../api/species.js';
 
-export default function EspeciesTab({ data = especiesDefault, stats = estadisticasDefault }) {
+export default function EspeciesTab({ stats = estadisticasDefault }) {
+  const [data, setData] = useState([]);
+  const fetchSpecies = async () => {
+    try {
+      const speciesData = await getSpecies();
+      setData(speciesData);
+    } catch (error) {
+      console.error('Error fetching species:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchSpecies();
+  }, []);
+
+  console.log(data);
+
   return (
     <div className="space-y-12">
       {/* Sección de especies */}
@@ -17,12 +34,12 @@ export default function EspeciesTab({ data = especiesDefault, stats = estadistic
             <div className="w-full h-32 mb-3 flex items-center justify-center rounded overflow-hidden bg-gray-100">
               <img
                 src={item.img}
-                alt={item.nombre}
+                alt={item.name}
                 className="object-cover w-full h-full "
               />
             </div>
-            <h3 className="text-teal-600 font-semibold mb-2">{item.nombre}</h3>
-            <p className="text-sm text-gray-700">{item.descripcion}</p>
+            <h3 className="text-teal-600 font-semibold mb-2">{item.name}</h3>
+            <p className="text-sm text-gray-700">{item.description}</p>
           </div>
         ))}
       </div>

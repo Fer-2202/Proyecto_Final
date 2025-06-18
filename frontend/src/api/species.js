@@ -2,7 +2,7 @@ import axiosInstance from './axiosInstance';
 
 export const getSpecies = async () => {
   try {
-    const response = await axiosInstance.get('/api/species/');
+    const response = await axiosInstance.get('/api/species/lista/');
     return response.data;
   } catch (error) {
     console.error('Error fetching species:', error);

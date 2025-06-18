@@ -175,7 +175,7 @@ class AvailableVisitsView(APIView):
 
 # Available Tickets View (puedes personalizarlo si agregas stock en el futuro)
 class AvailableTicketsView(APIView):
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
 
     def get(self, request):
         tickets = Tickets.objects.all()
@@ -186,34 +186,34 @@ class AvailableTicketsView(APIView):
 class Purchase_Order_ListCreateView(generics.ListCreateAPIView):
     queryset = PurchaseOrders.objects.all()
     serializer_class = Purchase_Orders_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
 
 class Purchase_Order_DetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = PurchaseOrders.objects.all()
     serializer_class = Purchase_Orders_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
 
 # Payments
 class Payment_ListCreateView(generics.ListCreateAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
 
 class Payment_DetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
 
 # Tickets Purchase Order
 class Tickets_Purchase_Order_ListCreateView(generics.ListCreateAPIView):
     queryset = TicketsPurchaseOrder.objects.all()
     serializer_class = Tickets_Purchase_Orders_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
 
 class Tickets_Purchase_Order_DetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = TicketsPurchaseOrder.objects.all()
     serializer_class = Tickets_Purchase_Orders_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
 
 # ==================
 # HABITATS / ANIMALS

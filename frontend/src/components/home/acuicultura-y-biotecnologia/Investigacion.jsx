@@ -38,7 +38,6 @@ function Investigacion() {
         value: "proyectos-actuales",
         label: "Proyectos Actuales",
         component: <ProyectosTab proyectos={proyectos} />
-
       },
       {
         value: "publicaciones",
@@ -49,7 +48,8 @@ function Investigacion() {
         value: "colaboraciones",
         label: "Colaboraciones",
         component: <ColaboracionesTab colaboradores={colaboradores} redes={redes} />
-      }
+      },
+      
     ];
   
   return (

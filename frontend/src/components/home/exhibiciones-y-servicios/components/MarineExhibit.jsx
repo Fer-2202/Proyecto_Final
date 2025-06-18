@@ -24,7 +24,7 @@ export default function MarineExhibit({ data }) {
           <Tabs.Content key={item.value} value={item.value}>
             <Section
               title={item.title}
-              description={item.description}
+              descriptions={item.descriptions}
               facts={item.facts}
               images={item.images}
               buttons={item.buttons}
@@ -36,13 +36,13 @@ export default function MarineExhibit({ data }) {
   );
 }
 
-function Section({ title, description, facts, images, buttons }) {
+function Section({ title, descriptions, facts, images, buttons }) {
   const imgs = Array.isArray(images) ? images : [images];
 
   return (
     <div className="flex flex-col lg:flex-row gap-8">
       {/* Image or Carousel */}
-      <div className="flex-1 rounded-md border border-gray-300 overflow-hidden">
+      <div className="flex-1 rounded-md border border-gray-300 overflow-hidden h-[100%]">
         <div className="aspect-[16/9] bg-gray-100">
           {imgs.length > 1 ? (
             <Carousel showThumbs={false} autoPlay infiniteLoop showStatus={false}>
@@ -60,7 +60,7 @@ function Section({ title, description, facts, images, buttons }) {
             <img
               src={imgs[0]}
               alt={title}
-              className="object-cover w-full h-full"
+              className="object-cover w-full h-100"
             />
           )}
         </div>
@@ -69,7 +69,7 @@ function Section({ title, description, facts, images, buttons }) {
       {/* Text content */}
       <div className="flex-1 space-y-4 text-gray-700">
         <h2 className="text-2xl font-semibold text-teal-700">{title}</h2>
-        {description?.map((para, idx) => (
+        {descriptions?.map((para, idx) => (
           <p key={idx}>{para}</p>
         ))}
 

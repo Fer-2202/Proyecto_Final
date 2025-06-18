@@ -11,7 +11,16 @@ import CultivoTab from './components/tabs/CultivoTab'
 import InvestigacionTab from './components/tabs/InvestigacionTab'
 import TecnologiaTab from './components/tabs/TecnologiaTab'
 import ExtensionTab from './components/tabs/ExtensionTab'
+import ProyectosTab from './components/tabs/investigacion/ProyectosTab'
 import { Link } from 'react-router-dom'
+import InvestigationTabs from './components/tabs/investigacion/InvestigacionTab'
+import { lineasDeInvestigacion, areas } from './data/lineasDeInvestigacion';
+import { proyectos } from './data/proyectosData.js';
+import { publicaciones, publicacionesStats  } from './data/publicacionesData.js';
+import { colaboradores, redes  } from './data/colaboradoresData.js';
+import PublicacionesTab from './components/tabs/investigacion/PublicacionesTab';
+import ColaboracionesTab from './components/tabs/investigacion/ColaboracionesTab';
+
 
 function AcuiculturaBiotecnologia() {
 
@@ -54,7 +63,27 @@ function AcuiculturaBiotecnologia() {
       value: "extension",
       label: "Extensión y Capacitación",
       component: <ExtensionTab />
+    },
+    {
+      value: "proyectos-actuales",
+      label: "Proyectos Actuales",
+      component: <ProyectosTab proyectos={proyectos} />
+    },
+    {
+      value: "publicaciones",
+      label: "Publicaciones",
+      component: <PublicacionesTab publicaciones={publicaciones} stats={publicacionesStats} />
+    },
+    {
+      value: "colaboraciones",
+      label: "Colaboraciones",
+      component: <ColaboracionesTab colaboradores={colaboradores} redes={redes} />
     }
+/*         {
+      value: "investigacion-programa",
+      label: "Investigación",
+      component: <InvestigationTabs lineas={lineasDeInvestigacion} areas={areas} image={Tanque} /> 
+    } */
   ];
 
   return (

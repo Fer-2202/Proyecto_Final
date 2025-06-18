@@ -44,7 +44,7 @@ const links = [
     sublinks: [
       { name: "Acuicultura y Biotecnología Marina", href: "/investigacion-y-conservacion/acuicultura-y-biotecnologia-marina" },
       { name: "Centro de Rescate y Rehabilitación", href: "/investigacion-y-conservacion/centro-de-rescate-y-rehabilitacion" },
-      { name: "Investigación", href: "/investigacion-y-conservacion/investigacion" },
+      /* { name: "Investigación", href: "/investigacion-y-conservacion/investigacion" }, */
       /* { name: "Proyectos", href: "/investigacion-y-conservacion/proyectos" }, */
     ],
   }
@@ -100,7 +100,7 @@ export default function Navbar() {
           <img src={logo} alt="Logo" className="h-10 w-auto drop-shadow" />
           <div className="leading-tight flex flex-col">
             <span className="text-base font-extrabold text-gray-800 uppercase">Parque Marino</span>
-            <span className="text-xs text-gray-600">Del Pacífico Sur</span>
+            <span className="text-xs text-gray-600">Del Pacífico</span>
           </div>
         </Link>
 

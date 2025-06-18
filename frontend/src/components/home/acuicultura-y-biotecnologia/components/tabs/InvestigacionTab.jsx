@@ -42,7 +42,7 @@ export default function InvestigacionTab() {
         <div className="flex flex-col md:flex-row gap-6 mb-6">
           {/* Imagen */}
           <div className="w-full md:w-1/2 h-64 bg-gray-200 flex items-center justify-center rounded">
-            <span className="text-gray-500">[Imagen]</span>
+            <span className="text-gray-500">Imagen</span>
           </div>
 
           {/* Texto */}

@@ -84,7 +84,7 @@ WSGI_APPLICATION = 'parque_marino.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'parque_marino',
+        'NAME': 'parque_marino_test',
         'USER': 'root',
         'PASSWORD': '1234',
         'HOST': 'localhost',
