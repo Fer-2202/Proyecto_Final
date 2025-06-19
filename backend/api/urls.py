@@ -35,8 +35,9 @@ urlpatterns = [
     path('users/<int:pk>/', Users_DetailView.as_view(), name='users-actualizar-editar'),
 
     # Tickets
-    path('tickets/', Tickets_ListCreateView.as_view(), name='tickets-lista'),
-    path('tickets/<int:pk>/', Tickets_DetailView.as_view(), name='tickets-actualizar-editar'),
+    #path('tickets/', Tickets_ListCreateView.as_view(), name='tickets-lista'),
+    #path('tickets/<int:pk>/', Tickets_DetailView.as_view(), name='tickets-actualizar-editar'),
+    path('tickets/', include('api.tickets.urls')),
 
     # Available Tickets
     path('tickets/available/', AvailableTicketsView.as_view(), name='tickets-available'),

@@ -12,14 +12,14 @@ from .sections.models import Sections
 from django.contrib.auth.models import User, Group
 from .models import (
        ConservationStatus,
-    Tickets, Visits, PurchaseOrders, TicketsPurchaseOrder,
+     Visits, PurchaseOrders, TicketsPurchaseOrder,
     Habitats,  UserProfile, Payment, AuditLog
 )
 
 # Serializers
 from .serializers import (
     RegisterSerializer, UserProfileSerializer, Conservation_Status_Serializer,
-    Tickets_Serializer, Visits_Serializer, Purchase_Orders_Serializer,
+    Visits_Serializer, Purchase_Orders_Serializer,
     Tickets_Purchase_Orders_Serializer, Habitats_Serializer, 
     GroupSerializer, PaymentSerializer, GroupPermissionsSerializer, AuditLogSerializer
 )
@@ -144,15 +144,7 @@ class Conservation_Status_DetailView(generics.RetrieveUpdateDestroyAPIView):
 # TICKETS / VISITS / PURCHASE ORDERS / PAYMENTS
 # ==================
 
-class Tickets_ListCreateView(generics.ListCreateAPIView):
-    queryset = Tickets.objects.all()
-    serializer_class = Tickets_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
 
-class Tickets_DetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Tickets.objects.all()
-    serializer_class = Tickets_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
 
 class Visits_ListCreateView(generics.ListCreateAPIView):
     queryset = Visits.objects.all()
@@ -166,12 +158,15 @@ class Visits_DetailView(generics.RetrieveUpdateDestroyAPIView):
 
 # Available Visits View (solo visitas con cupos)
 class AvailableVisitsView(APIView):
-    permission_classes = [IsAuthenticated]
+ permission_classes = [IsAuthenticated]
 
-    def get(self, request):
-        visits = Visits.objects.filter(occupied_slots__lt=models.F('total_slots'))
-        serializer = Visits_Serializer(visits, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+ def get(self, request):
+  visits = []
+  for visit in Visits.objects.all():
+   if visit.occupied_slots < visit.total_slots:
+    visits.append(visit)
+  serializer = Visits_Serializer(visits, many=True)
+  return Response(serializer.data, status=status.HTTP_200_OK)
 
 # Available Tickets View (puedes personalizarlo si agregas stock en el futuro)
 class AvailableTicketsView(APIView):

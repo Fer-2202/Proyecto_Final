@@ -14,7 +14,7 @@ import ExtensionTab from './components/tabs/ExtensionTab'
 import ProyectosTab from './components/tabs/investigacion/ProyectosTab'
 import { Link } from 'react-router-dom'
 import InvestigationTabs from './components/tabs/investigacion/InvestigacionTab'
-import { lineasDeInvestigacion, areas } from './data/lineasDeInvestigacion';
+/* import { lineasDeInvestigacion, areas } from './data/lineasDeInvestigacion'; */
 import { proyectos } from './data/proyectosData.js';
 import { publicaciones, publicacionesStats  } from './data/publicacionesData.js';
 import { colaboradores, redes  } from './data/colaboradoresData.js';
@@ -50,14 +50,14 @@ function AcuiculturaBiotecnologia() {
       component: <CultivoTab />
     },
     {
-      value: "investigacion",
-      label: "Investigación",
-      component: <InvestigacionTab />
-    },
-    {
       value: "tecnologia",
       label: "Tecnología e Innovación",
       component: <TecnologiaTab />
+    },
+    {
+      value: "investigacion",
+      label: "Investigación",
+      component: <InvestigacionTab />
     },
     {
       value: "extension",

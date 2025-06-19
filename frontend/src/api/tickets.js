@@ -2,7 +2,7 @@ import axiosInstance from './axiosInstance';
 
 export const getTickets = async () => {
   try {
-    const response = await axiosInstance.get('/api/tickets/');
+    const response = await axiosInstance.get('/api/tickets/lista/');
     return response.data;
   } catch (error) {
     console.error('Error fetching tickets:', error);

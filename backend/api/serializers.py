@@ -7,6 +7,7 @@ from .sections.models import Sections
 from .provinces.models import Provinces
 from .species.models import Species
 
+
 User = get_user_model()
 
 # Sections
@@ -23,10 +24,7 @@ class Conservation_Status_Serializer(serializers.ModelSerializer):
         fields = '__all__'
 
 # Tickets
-class Tickets_Serializer(serializers.ModelSerializer):
-    class Meta:
-        model = Tickets
-        fields = '__all__'
+
 
 # Visits
 class Visits_Serializer(serializers.ModelSerializer):
