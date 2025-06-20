@@ -31,11 +31,11 @@ function CentroDeRescate() {
       label: "Especies Atendidas",
       component: <EspeciesTab />
     },
-    {
+/*     {
       value: "instalaciones",
       label: "Nuestras Instalaciones",
       component: <InstalacionesTab />
-    },
+    }, */
     {
       value: "casos-exito",
       label: "Casos de Exito",
@@ -50,7 +50,11 @@ function CentroDeRescate() {
 
   return (
     <div className='mt-23'>
+<<<<<<< HEAD
       <QuienesSomos title={"Centro de Rescate"} description={"Salvando la vida marina del Pacifico Sur"} />
+=======
+    <QuienesSomos title={"Centro de Rescate"} description={"Salvando la vida marina del Pacifico"} />
+>>>>>>> a448edf3276c0b9ea21c6bdf8378b9cc26a16c95
 
       <ExhibitIntro description={"El CRRAM inició gracias a donaciones de Florida Bebidas y Pesquera Cannavo de Venezuela, y al apoyo de Fundación CRUSA, construyéndose una pequeña instalación para albergar tortugas marinas.  El centro de rescate se encuentra debidamente inscrito ante el SINAC cumpliendo así con la normativa vigente, por lo cual se cuenta con un regente, biólogos de planta y un veterinario."} title={"Programa Centro de Rescate y Rehabilitación"} />
 

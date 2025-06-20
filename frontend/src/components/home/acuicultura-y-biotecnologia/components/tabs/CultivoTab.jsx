@@ -13,7 +13,7 @@ import camaron from "../../../../../assets/img/camaron_blanco.jpeg"
 export default function CultivoTab() {
   const especies = [
     { name: 'Pargo manchado (Lutjanus guttatus)', desc: 'Este es uno de los peces más destacados en los proyectos de cultivo del Parque Marino.', img: pargo  },
-    { name: 'Corvina Aguada', desc: 'Recientemente, se ha informado sobre la entrega de juveniles de corvina para cultivo en granjas marinas.' , img: corvina },
+    { name: 'Corvina Reina', desc: 'Recientemente, se ha informado sobre la entrega de juveniles de corvina para cultivo en granjas marinas.' , img: corvina },
     { name: 'Ostra japonesa (Crassostrea gigas)', desc: 'El cultivo de la ostra japonesa se ha desarrollado con el apoyo de la UNA y otras instituciones.', img: ostra },
     { name: 'Molusco Anadara sp. (piangua o cambute)', desc: 'Se menciona la investigación sobre el cultivo del molusco Anadara sp.',
       img: piangua },

@@ -30,9 +30,9 @@ export const publicaciones = [
     {
       autores: "Carvajal-Oses, M. D. M., Campos-Rodríguez, R., & Herrera-Ulloa, Á.",
       anio: "2016",
-      titulo: "Technical and economic feasibility of adding pure oxygen for rotifer production (Brachionus plicatilis) spotted snapper (Lutjanus guttatus) larvae feeding.",
+      titulo: "Technical and economic feasibility of adding pure oxygen for rotifer production (𝓑𝓻𝓪𝓬𝓱𝓲𝓸𝓷𝓾𝓼 𝓹𝓵𝓲𝓬𝓪𝓽𝓲𝓵𝓲𝓼) spotted snapper (Lutjanus guttatus) larvae feeding.",
       revista: "Tecnología en Marcha, 29(2), 14-24.",
-      enlace: "http://dx.doi.org/10.18845/tm.v29i2.2688"
+      enlace: "https://www.scielo.sa.cr/scielo.php?pid=S0379-39822016000200014&script=sci_arttext&tlng=en"
     },
     {
       autores: "Carvajal, M. D. M., Chacón-Guzmán, J., & Herrera-Ulloa, Á.",

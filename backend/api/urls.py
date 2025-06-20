@@ -4,6 +4,9 @@ from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .serializers import CustomTokenObtainPairSerializer
 
 urlpatterns = [
+ 
+    # Animales
+    path('animals/', include('api.animales.urls')),
 
     # Secciones
     path('sections/', include('api.sections.urls')),
@@ -12,8 +15,16 @@ urlpatterns = [
     path('provinces/', include('api.provinces.urls')),
 
     # Especies
-    path('species/', Species_ListCreateView.as_view(), name='species-lista'),
-    path('species/<int:pk>/', Species_DetailView.as_view(), name='species-actualizar-editar'),
+    path('species/', include('api.species.urls')),
+    
+    # Exhibiciones
+    path('exhibiciones/', include('api.exhibiciones.urls')),
+    
+    # Servicios Educativos
+    path('servicios-educativos/', include('api.servicios-educativos.urls')),
+    
+    # Programas Educativos
+    path('programas-educativos/', include('api.programas-educativos.urls')),
 
     # Estado de conservacion
     path('conservation_status/', Conservation_Status_ListCreateView.as_view(), name='conservation_status-lista'),
@@ -24,8 +35,9 @@ urlpatterns = [
     path('users/<int:pk>/', Users_DetailView.as_view(), name='users-actualizar-editar'),
 
     # Tickets
-    path('tickets/', Tickets_ListCreateView.as_view(), name='tickets-lista'),
-    path('tickets/<int:pk>/', Tickets_DetailView.as_view(), name='tickets-actualizar-editar'),
+    #path('tickets/', Tickets_ListCreateView.as_view(), name='tickets-lista'),
+    #path('tickets/<int:pk>/', Tickets_DetailView.as_view(), name='tickets-actualizar-editar'),
+    path('tickets/', include('api.tickets.urls')),
 
     # Available Tickets
     path('tickets/available/', AvailableTicketsView.as_view(), name='tickets-available'),
@@ -52,10 +64,6 @@ urlpatterns = [
     # Habitats
     path('habitats/', Habitats_ListCreateView.as_view(), name='habitats-lista'),
     path('habitats/<int:pk>/', Habitats_DetailView.as_view(), name='habitats-actualizar-editar'),
-
-    # Animales
-    path('animals/', Animals_ListCreateView.as_view(), name='animals-lista'),
-    path('animals/<int:pk>/', Animals_DetailView.as_view(), name='animals-actualizar-editar'),
 
     # Perfil de usuario
     path('user_profile/', UserProfileListCreateView.as_view(), name='user_profile-list-create'),

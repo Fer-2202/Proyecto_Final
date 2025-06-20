@@ -1,23 +1,7 @@
 from django.db import models
 from django.conf import settings
 from django.contrib.auth.models import Group, User
-
-
-# Provinces
-
-
-# Species
-class Species(models.Model):
-    name = models.CharField(max_length=30, unique=True, null=False, verbose_name="Species Name")
-
-    class Meta:
-        verbose_name = "Species"
-        verbose_name_plural = "Species"
-        ordering = ["name"]
-
-    def __str__(self):
-        return self.name
-
+from api.tickets.models import Tickets
 
 # Conservation Status
 class ConservationStatus(models.Model):
@@ -41,19 +25,7 @@ class ConservationStatus(models.Model):
         return self.get_name_display()
 
 
-# Tickets
-class Tickets(models.Model):
-    price = models.DecimalField(max_digits=10, decimal_places=2, null=False, verbose_name="Ticket Price")
-    name = models.CharField(max_length=30, unique=True, null=False, verbose_name="Ticket Name")
-    description = models.CharField(max_length=100, null=False, verbose_name="Description")
 
-    class Meta:
-        verbose_name = "Ticket"
-        verbose_name_plural = "Tickets"
-        ordering = ["name"]
-
-    def __str__(self):
-        return self.name
 
 
 # Visits
@@ -173,21 +145,7 @@ class Habitats(models.Model):
         return self.name
 
 
-# Animals
-class Animals(models.Model):
-    name = models.CharField(max_length=30, null=False, verbose_name="Animal Name")
-    age = models.PositiveIntegerField(null=False, verbose_name="Age")
-    species = models.ForeignKey('Species', on_delete=models.CASCADE, related_name='animals')
-    conservation_status = models.ForeignKey('ConservationStatus', on_delete=models.CASCADE, related_name='animals')
-    habitat = models.ForeignKey('Habitats', on_delete=models.CASCADE, related_name='animals')
 
-    class Meta:
-        verbose_name = "Animal"
-        verbose_name_plural = "Animals"
-        ordering = ["name"]
-
-    def __str__(self):
-        return self.name
 
 
 class AuditLog(models.Model):

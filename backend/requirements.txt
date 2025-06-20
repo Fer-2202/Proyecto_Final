@@ -8,3 +8,4 @@ Pillow==11.2.1
 qrcode==8.2
 django-reversion==5.1.0
 decouple==0.0.7
+python-decouple==3.8

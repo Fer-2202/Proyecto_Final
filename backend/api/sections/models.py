@@ -14,4 +14,5 @@ class Sections(models.Model):
 
     @property
     def num_habitats(self):
+        
         return self.habitats.count()

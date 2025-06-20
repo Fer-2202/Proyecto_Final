@@ -5,20 +5,22 @@ from rest_framework import generics
 from django.contrib.auth import authenticate, login, logout
 from rest_framework.permissions import IsAuthenticated
 from .permissions import IsAuthenticatedAndRole
+from .species.models import Species
+from .sections.models import Sections
 
 # Models
 from django.contrib.auth.models import User, Group
 from .models import (
-      Species, ConservationStatus,
-    Tickets, Visits, PurchaseOrders, TicketsPurchaseOrder,
-    Habitats, Animals, UserProfile, Payment, AuditLog
+       ConservationStatus,
+     Visits, PurchaseOrders, TicketsPurchaseOrder,
+    Habitats,  UserProfile, Payment, AuditLog
 )
 
 # Serializers
 from .serializers import (
-    RegisterSerializer, UserProfileSerializer, Species_Serializer, Conservation_Status_Serializer,
-    Tickets_Serializer, Visits_Serializer, Purchase_Orders_Serializer,
-    Tickets_Purchase_Orders_Serializer, Habitats_Serializer, Animals_Serializer,
+    RegisterSerializer, UserProfileSerializer, Conservation_Status_Serializer,
+    Visits_Serializer, Purchase_Orders_Serializer,
+    Tickets_Purchase_Orders_Serializer, Habitats_Serializer, 
     GroupSerializer, PaymentSerializer, GroupPermissionsSerializer, AuditLogSerializer
 )
 
@@ -124,21 +126,9 @@ class GroupPermissionsView(generics.UpdateAPIView):
         return Response(GroupSerializer(group).data)
 
 # ==================
-# SECTIONS / PROVINCES / SPECIES / STATUS
+#  / STATUS
 # ==================
 
-
-
-
-class Species_ListCreateView(generics.ListCreateAPIView):
-    queryset = Species.objects.all()
-    serializer_class = Species_Serializer
-    #permission_classes = [IsAuthenticatedAndRole]
-
-class Species_DetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Species.objects.all()
-    serializer_class = Species_Serializer
-    #permission_classes = [IsAuthenticatedAndRole]
 
 class Conservation_Status_ListCreateView(generics.ListCreateAPIView):
     queryset = ConservationStatus.objects.all()
@@ -154,15 +144,7 @@ class Conservation_Status_DetailView(generics.RetrieveUpdateDestroyAPIView):
 # TICKETS / VISITS / PURCHASE ORDERS / PAYMENTS
 # ==================
 
-class Tickets_ListCreateView(generics.ListCreateAPIView):
-    queryset = Tickets.objects.all()
-    serializer_class = Tickets_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
 
-class Tickets_DetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Tickets.objects.all()
-    serializer_class = Tickets_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
 
 class Visits_ListCreateView(generics.ListCreateAPIView):
     queryset = Visits.objects.all()
@@ -176,16 +158,19 @@ class Visits_DetailView(generics.RetrieveUpdateDestroyAPIView):
 
 # Available Visits View (solo visitas con cupos)
 class AvailableVisitsView(APIView):
-    permission_classes = [IsAuthenticated]
+ permission_classes = [IsAuthenticated]
 
-    def get(self, request):
-        visits = Visits.objects.filter(occupied_slots__lt=models.F('total_slots'))
-        serializer = Visits_Serializer(visits, many=True)
-        return Response(serializer.data, status=status.HTTP_200_OK)
+ def get(self, request):
+  visits = []
+  for visit in Visits.objects.all():
+   if visit.occupied_slots < visit.total_slots:
+    visits.append(visit)
+  serializer = Visits_Serializer(visits, many=True)
+  return Response(serializer.data, status=status.HTTP_200_OK)
 
 # Available Tickets View (puedes personalizarlo si agregas stock en el futuro)
 class AvailableTicketsView(APIView):
-    permission_classes = [IsAuthenticated]
+    #permission_classes = [IsAuthenticated]
 
     def get(self, request):
         tickets = Tickets.objects.all()
@@ -196,34 +181,34 @@ class AvailableTicketsView(APIView):
 class Purchase_Order_ListCreateView(generics.ListCreateAPIView):
     queryset = PurchaseOrders.objects.all()
     serializer_class = Purchase_Orders_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
 
 class Purchase_Order_DetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = PurchaseOrders.objects.all()
     serializer_class = Purchase_Orders_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
 
 # Payments
 class Payment_ListCreateView(generics.ListCreateAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
 
 class Payment_DetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Payment.objects.all()
     serializer_class = PaymentSerializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
 
 # Tickets Purchase Order
 class Tickets_Purchase_Order_ListCreateView(generics.ListCreateAPIView):
     queryset = TicketsPurchaseOrder.objects.all()
     serializer_class = Tickets_Purchase_Orders_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
 
 class Tickets_Purchase_Order_DetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = TicketsPurchaseOrder.objects.all()
     serializer_class = Tickets_Purchase_Orders_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
 
 # ==================
 # HABITATS / ANIMALS
@@ -239,15 +224,6 @@ class Habitats_DetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = Habitats_Serializer
     permission_classes = [IsAuthenticatedAndRole]
 
-class Animals_ListCreateView(generics.ListCreateAPIView):
-    queryset = Animals.objects.all()
-    serializer_class = Animals_Serializer
-    #permission_classes = [IsAuthenticatedAndRole]
-
-class Animals_DetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Animals.objects.all()
-    serializer_class = Animals_Serializer
-    #permission_classes = [IsAuthenticatedAndRole]
 
 # ==================
 # PASSWORD RESET VIEWS (FUNCIONALES)

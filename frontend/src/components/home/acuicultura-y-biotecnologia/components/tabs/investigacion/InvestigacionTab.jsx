@@ -1,6 +1,6 @@
 import React from 'react'
 
-function InvestigacionTab({ areas = [], lineas = [], image = null, alt = '' }) {
+function InvestigationTabs({ areas = [], lineas = [], image = null, alt = '' }) {
   return (
     <div className="space-y-20 px-4 md:px-16 py-10">
 
@@ -66,4 +66,4 @@ function InvestigacionTab({ areas = [], lineas = [], image = null, alt = '' }) {
   )
 }
 
-export default InvestigacionTab;
+export default InvestigationTabs;

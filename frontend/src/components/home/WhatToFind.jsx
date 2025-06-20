@@ -13,18 +13,6 @@ import placeholder from "../../assets/placeholder.svg";
 
 const exhibits = [
   {
-    title: "Manatíes",
-    description: "Conoce a nuestros manatíes rescatados y aprende sobre su conservación.",
-    image: placeholder,
-    icon: <Fish className="text-[#1CB6B0] w-8 h-8 mb-2" />,
-    links: [
-      {
-        title: "Manatíes",
-        link: "/manaties",
-      },
-    ]
-  },
-  {
     title: "Área de Reptiles",
     description: "Descubre las diferentes especies de reptiles marinos y costeros.",
     image: placeholder,
@@ -42,6 +30,25 @@ const exhibits = [
     image: placeholder,
     icon: <BookOpen className="text-[#1CB6B0] w-8 h-8 mb-2" />, // puedes usar otro ícono si no existe
   },
+  {
+    title: "Acuarios",
+    description: "Descubre el fascinante mundo de los acuarios marinos y costeros.",
+    image: placeholder,
+    icon: <BookOpen className="text-[#1CB6B0] w-8 h-8 mb-2" />, // puedes usar otro ícono si no existe
+  },
+  {
+    title: "Rayario",
+    description: "Aprende sobre los mantarrayas que habitan nuestras aguas.",
+    image: placeholder,
+    icon: <BookOpen className="text-[#1CB6B0] w-8 h-8 mb-2" />, // puedes usar otro ícono si no existe
+  },
+  {
+    title: "Tortugas Marinas",
+    description: "Descubre las diferentes especies de tortugas marinas y costeras.",
+    image: placeholder,
+    icon: <BookOpen className="text-[#1CB6B0] w-8 h-8 mb-2" />, // puedes usar otro ícono si no existe
+  },
+  
 ];
 
 export default function WhatToFindCarousel() {
