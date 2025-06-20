@@ -1,9 +1,12 @@
+import React, { useEffect } from 'react';
 import PayPalButton from './PaypalButtons';
 
 function PayPal() {
     const handleSuccess = (details) => {
         console.log('Detalles del pago:', details);
+        // Handle success logic here, e.g., show a success message
     };
+
     return (
         <div>
             <h2>Pagar con PayPal</h2>
@@ -11,4 +14,5 @@ function PayPal() {
         </div>
     );
 }
+
 export default PayPal;

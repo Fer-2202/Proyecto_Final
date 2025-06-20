@@ -8,46 +8,6 @@ export default function VisitInfoSection() {
     <section className="my-12 px-4 max-w-6xl mx-auto">
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
 
-<<<<<<< HEAD
-        {/* Horarios de Visita */}
-        <div className="border rounded-lg p-6 bg-white shadow-sm">
-          <h3 className="text-lg font-bold text-teal-600 mb-4">Horarios de Visita</h3>
-          <ul className="space-y-2 text-gray-700">
-            <li>
-              <span className="font-medium">Lunes:</span> <span className="text-red-600 font-semibold">Cerrado</span>
-            </li>
-            <li>
-              <span className="font-medium">Martes - Domingo:</span> <span className="font-semibold">9:00 - 16:30</span>
-            </li>
-          </ul>
-        </div>
-
-        {/* Tarifas */}
-        <div className="border rounded-lg p-6 bg-white shadow-sm">
-          <h3 className="text-lg font-bold text-teal-600 mb-4">Tarifas</h3>
-          <ul className="space-y-2 text-gray-700">
-            <li><span className="font-medium">Adultos:</span> ₡2900</li>
-            <li><span className="font-medium">Niños (4 años-11 años):</span> ₡1600</li>
-            <li><span className="font-medium">Estudiantes:</span> ₡1300</li>
-            <li><span className="font-medium">Adultos mayores:</span> ₡700</li>
-            <li><span className="font-medium">Extranjeros:</span> $10 / $5</li>
-          </ul>
-        </div>
-
-        {/* Recomendaciones */}
-        <div className="border rounded-lg p-6 bg-white shadow-sm">
-          <h3 className="text-lg font-bold text-teal-600 mb-4">Recomendaciones</h3>
-          <ul className="list-disc pl-5 space-y-2 text-gray-700">
-            <li>Usar ropa y calzado cómodos</li>
-            <li>Traer protector solar y repelente</li>
-            <li>Traer una botella de agua reutilizable</li>
-            <li>No alimentar a los animales</li>
-            <li>No usar flash en las fotografías</li>
-            <li>Seguir las indicaciones del personal</li>
-          </ul>
-        </div>
-=======
->>>>>>> a448edf3276c0b9ea21c6bdf8378b9cc26a16c95
 
                   <FeatureCard
             icon={<Calendar className="text-teal-500 w-5 h-5"/>}

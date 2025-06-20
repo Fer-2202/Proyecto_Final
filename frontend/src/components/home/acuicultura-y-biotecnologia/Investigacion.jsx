@@ -29,7 +29,6 @@ function Investigacion() {
   ]
 
   const InvestigacionTabs = [
-<<<<<<< HEAD
     {
       value: "area-investigacion",
       label: "Areas de investigacion",
@@ -52,31 +51,6 @@ function Investigacion() {
     }
   ];
 
-=======
-      {
-        value: "area-investigacion",
-        label: "Areas de investigacion",
-        component: <InvestigacionTab lineas={lineasDeInvestigacion} areas={areas} image={Tanque} />
-      },
-      {
-        value: "proyectos-actuales",
-        label: "Proyectos Actuales",
-        component: <ProyectosTab proyectos={proyectos} />
-      },
-      {
-        value: "publicaciones",
-        label: "Publicaciones",
-        component: <PublicacionesTab publicaciones={publicaciones} stats={publicacionesStats} />
-      },
-      {
-        value: "colaboraciones",
-        label: "Colaboraciones",
-        component: <ColaboracionesTab colaboradores={colaboradores} redes={redes} />
-      },
-      
-    ];
-  
->>>>>>> a448edf3276c0b9ea21c6bdf8378b9cc26a16c95
   return (
     <div className='mt-23'>
       <QuienesSomos title={"Investigación"} description={"Generando conocimiento para la conservación marina"} img={Tanque} />
