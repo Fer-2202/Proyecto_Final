@@ -1,4 +1,4 @@
-# Parque Marino del Pacífico Sur  
+# Parque Marino del Pacífico  
 **FWD - COSTA RICA TECH & FREEDOM**
 
 ## 1. Información General

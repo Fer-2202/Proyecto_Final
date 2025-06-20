@@ -9,7 +9,7 @@ function InvestigacionTab({ areas = [], lineas = [], image = null, alt = '' }) {
         {/* Imagen */}
         <div className="w-full h-full md:w-1/2 bg-gray-100 flex justify-center items-center rounded-md shadow-sm">
           {image ? (
-            <img src={image} alt={alt} className="w-[1200px] h-[470px] object-cover rounded-md" />
+            <img src={image} alt={alt} className="w-[1200px] h-[470px] " />
           ) : (
             <span className="text-gray-400 text-sm">📷 Imagen</span>
           )}

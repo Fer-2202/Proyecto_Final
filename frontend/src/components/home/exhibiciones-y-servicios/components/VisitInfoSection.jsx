@@ -15,12 +15,6 @@ export default function VisitInfoSection() {
             <li>
               <span className="font-medium">Martes - Domingo:</span> <span className="font-semibold">9:00 - 16:30</span>
             </li>
-            <li>
-              <span className="font-medium">Alimentación de Manatíes:</span> <span className="font-semibold">11:00 y 14:00</span>
-            </li>
-            <li>
-              <span className="font-medium">Alimentación de Rayas:</span> <span className="font-semibold">10:30 y 15:00</span>
-            </li>
           </ul>
         </div>
 
@@ -29,7 +23,7 @@ export default function VisitInfoSection() {
           <h3 className="text-lg font-bold text-teal-600 mb-4">Tarifas</h3>
           <ul className="space-y-2 text-gray-700">
             <li><span className="font-medium">Adultos:</span> ₡2900</li>
-            <li><span className="font-medium">Niños (4-11):</span> ₡1600</li>
+            <li><span className="font-medium">Niños (4 años-11 años):</span> ₡1600</li>
             <li><span className="font-medium">Estudiantes:</span> ₡1300</li>
             <li><span className="font-medium">Adultos mayores:</span> ₡700</li>
             <li><span className="font-medium">Extranjeros:</span> $10 / $5</li>

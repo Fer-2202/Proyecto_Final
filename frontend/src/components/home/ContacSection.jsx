@@ -1,6 +1,34 @@
 import { MapPin, Mail, Phone, Send } from "lucide-react";
+import emailjs from '@emailjs/browser'
+import React, { useRef } from 'react'
+
 
 export default function ContactSection() {
+  const nombre = useRef('')
+  const correo = useRef('')
+  const asunto = useRef('')
+  const mensaje = useRef('')
+
+  const enviar = () => {
+    const Datos = {
+      nombre: nombre.current.value,
+      correo: correo.current.value,
+      asunto: asunto.current.value,
+      mensaje: mensaje.current.value
+    }
+    emailjs.send('service_4se398a', 'template_lcfs7d3', Datos, '3mQx8AVIUbbufg0BX')
+      .then((response) => {
+        console.log('Éxito:', response.status, response.text);
+        console.log('Datos enviados:', Datos);
+      }, (error) => {
+        console.error('Error:', error);
+        log('Error al enviar el correo:', error);
+      });
+  }
+
+
+
+
   return (
     <section className="bg-[#f8f9fa] py-20 px-4">
       <div className="max-w-7xl mx-auto">
@@ -27,7 +55,7 @@ export default function ContactSection() {
               ></iframe>
             </div>
 
-            
+
 
             <div className="space-y-5 text-gray-800">
               <div className="flex items-start gap-3">
@@ -60,36 +88,40 @@ export default function ContactSection() {
             <h3 className="text-[#1CB6B0] font-semibold text-lg flex items-center gap-2 mb-6">
               <Mail className="w-5 h-5" /> Envíanos un Mensaje
             </h3>
-            <form className="space-y-4">
+            <div className="space-y-4">
               <div className="flex gap-4">
                 <input
                   type="text"
                   placeholder="Nombre"
+                  ref={nombre}
                   className="w-full border rounded-md px-4 py-2 text-sm outline-[#1CB6B0]"
                 />
                 <input
                   type="email"
                   placeholder="Correo Electrónico"
+                  ref={correo}
                   className="w-full border rounded-md px-4 py-2 text-sm outline-[#1CB6B0]"
                 />
               </div>
               <input
                 type="text"
                 placeholder="Asunto"
+                ref={asunto}
                 className="w-full border rounded-md px-4 py-2 text-sm outline-[#1CB6B0]"
               />
               <textarea
                 placeholder="Mensaje"
                 rows="4"
+                ref={mensaje}
                 className="w-full h-60 border rounded-md px-4 py-2 text-sm outline-[#1CB6B0]"
               ></textarea>
               <button
-                type="submit"
+                onClick={enviar}
                 className="w-full bg-[#1CB6B0] text-white py-3 rounded-md hover:bg-[#139a95] font-semibold flex items-center justify-center gap-2"
               >
                 Enviar Mensaje <Send className="w-4 h-4" />
               </button>
-            </form>
+            </div>
           </div>
         </div>
       </div>

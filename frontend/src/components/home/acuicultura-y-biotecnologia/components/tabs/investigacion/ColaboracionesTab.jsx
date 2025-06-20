@@ -2,16 +2,17 @@
 
 import React from 'react';
 
-export default function ColaboracionesTab({ colaboradores = [], redes = [] }) {
+export default function ColaboracionesTab({ colaboradores = [], redes = [], img, alt }) {
   return (
     <div className="space-y-10">
       <div className="flex flex-col md:flex-row gap-6">
         <div className="w-full md:w-1/2 h-64 bg-gray-100 rounded flex items-center justify-center">
+        <img src={img} alt={alt} />
           <span className="text-gray-400">📷 Imagen</span>
         </div>
         <div className="w-full md:w-1/2">
           <h2 className="text-teal-600 text-xl font-bold mb-2">Colaboraciones y Alianzas</h2>
-          <p className="text-gray-700 mb-4">Colaboramos con universidades, gobiernos, ONGs y centros de investigación.</p>
+          <p className="text-gray-700 mb-4">El Parque Marino del Pacífico de Costa Rica cuenta con la colaboración de varias instituciones y organizaciones clave para llevar a cabo su misión de sostenibilidad de los recursos marino-costeros.</p>
           <div className="bg-gray-100 p-4 rounded">
             <p className="text-teal-600 font-semibold mb-2">Principales Colaboradores:</p>
             <ul className="list-disc list-inside text-sm text-gray-700 space-y-1">

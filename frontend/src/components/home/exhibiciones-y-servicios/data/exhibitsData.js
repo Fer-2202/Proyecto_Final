@@ -1,18 +1,20 @@
-// src/components/exhibitsData.js
-
-
 import Cocodrilo from '../../../../assets/img/Figuras_turismo/Figura_turismo_1.jpg';
 import Tortuga_T from '../../../../assets/img/Figuras_turismo/Figura_turismo_2.jpg';
 import Caiman from '../../../../assets/img/Figuras_turismo/Figura_turismo_3.jpg';
+
 import IslaDelCoco from '../../../../assets/img/Figuras_turismo/Figura_turismo_4.jpg';
 import IslaDelCoco2 from '../../../../assets/img/Figuras_turismo/Figura_turismo_5.jpg';
 import IslaDelCoco3 from '../../../../assets/img/Figuras_turismo/Figura_turismo_6.jpg';
+
 import Acuario from '../../../../assets/img/Figuras_turismo/Figura_turismo_7.jpeg';
 import Acuario2 from '../../../../assets/img/Figuras_turismo/Figura_turismo_8.jpeg';
+
 import Raya from '../../../../assets/img/Figuras_turismo/Figura_turismo_9.jpg';
 import Raya2 from '../../../../assets/img/Figuras_turismo/Figura_turismo_10.jpg';
+
 import Tortuga_M from '../../../../assets/img/Figuras_turismo/Figura_turismo_11.jpg';
 import Tortuga_M2 from '../../../../assets/img/Figuras_turismo/Figura_turismo_12.jpg';
+
 import Tiburon from '../../../../assets/img/Figuras_turismo/Figura_turismo_13.jpg';
 import Tiburon2 from '../../../../assets/img/Figuras_turismo/Figura_turismo_14.jpg';
 
@@ -41,7 +43,8 @@ const exhibitsData = [
     label: 'Isla del Coco',
     title: 'Exhibición Isla del Coco',
     description: [
-      'Te invitamos a vivir una experiencia única en nuestra exhibición “Travesía por la Isla del Coco”. Explora la riqueza natural y la historia de esta emblemática isla a través de una detallada maqueta y un vídeo que muestra su impresionante biodiversidad.',
+      'Te invitamos a vivir una experiencia única en nuestra exhibición “Travesía por la Isla del Coco”',
+      'Explora la riqueza natural y la historia de esta emblemática isla a través de una detallada maqueta y un vídeo que muestra su impresionante biodiversidad.',
     ],
     facts: [
       'Te invitamos a conocer la Isla del Coco, uno de los tesoros naturales más valiosos de Costa Rica',
