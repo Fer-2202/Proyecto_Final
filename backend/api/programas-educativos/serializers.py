@@ -7,7 +7,7 @@ class ProgramaItemSerializer(serializers.ModelSerializer):
         fields = [ 'id', 'programa', 'text']
 
 class ProgramaEducativoSerializer(serializers.ModelSerializer):
-    items = ProgramaItemSerializer(many=True)
+    items = ProgramaItemSerializer(many=True, required=False)
 
     class Meta:
         model = ProgramaEducativo

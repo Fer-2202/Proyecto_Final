@@ -54,6 +54,9 @@ const ConservationStatusForm = React.lazy(() => import('../pages/Admin/forms/Con
 const ProvinceForm = React.lazy(() => import('../pages/Admin/forms/ProvinceForm.jsx'));
 const UserProfileForm = React.lazy(() => import('../pages/Admin/forms/UserProfileForm.jsx'));
 
+/* Edit Forms Page */
+const AnimalEditPage = React.lazy(() => import('../pages/Admin/forms-edit/AnimalEditPage.jsx'))
+ const ProvincesEditPage = React.lazy(() => import('../pages/Admin/forms-edit/ProvincesEditPage.jsx'))
 
 import AdminHandlers from '../components/admin/AdminHandlers';
 
@@ -122,7 +125,7 @@ function AppRouting() {
 
             {/* CRUD Routes Admin */}
             <Route path="/admin/animals/new" element={<AnimalForm mode="create" onCreate={handleCreateAnimal} />} />
-            <Route path="/admin/animals/:id/edit" element={<AnimalForm mode="edit"  />} />
+            <Route path="/admin/animals/:id/edit" element={<AnimalEditPage />} />
             <Route path="/admin/habitats/new" element={<HabitatForm mode="create" onCreate={handleCreateHabitat} />} />
             <Route path="/admin/habitats/:id/edit" element={<HabitatForm mode="edit" />} />
             <Route path="/admin/tickets/new" element={<TicketForm mode="create" onCreate={handleCreateTicket} />} />
@@ -138,7 +141,7 @@ function AppRouting() {
             <Route path="/admin/conservation-status/new" element={<ConservationStatusForm mode="create" onCreate={handleCreateConservationStatus} />} />
             <Route path="/admin/conservation-status/:id/edit" element={<ConservationStatusForm mode="edit" />} />
             <Route path="/admin/provinces/new" element={<ProvinceForm mode="create" onCreate={handleCreateProvince} />} />
-            <Route path="/admin/provinces/:id/edit" element={<ProvinceForm mode="edit" />} />
+            <Route path="/admin/provinces/:id/edit" element={<ProvincesEditPage />} />
           </Route>
 
           {/* Loading */}

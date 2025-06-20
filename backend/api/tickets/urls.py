@@ -2,8 +2,15 @@ from .views import Tickets_DetailView, Tickets_ListCreateView, Tickets_DestroyVi
 from django.urls import path
 
 urlpatterns = [
-     # Tickets
-    path('lista/', Tickets_ListCreateView.as_view(), name='tickets-lista'),
-    path('actualizar-editar/<int:pk>/', Tickets_DetailView.as_view(), name='tickets-actualizar-editar'),
-    path('tickets/<int:pk>/delete/', Tickets_DestroyView.as_view(), name='tickets-eliminar'),
+ 
+    # Tickets
+    path('', Tickets_ListCreateView.as_view({'get': 'list'}), name='tickets-lista'),
+    
+    path('create/', Tickets_ListCreateView.as_view({'get': 'list', 'post': 'create'}), name='tickets-crear'),
+    
+    path('<int:pk>/', Tickets_DetailView.as_view({'get': 'retrieve'}), name='tickets-detalle'),
+    
+    path('<int:pk>/update/', Tickets_DetailView.as_view({'put': 'update', 'get': 'retrieve'}), name='tickets-actualizar-editar'),
+    
+    path('<int:pk>/delete/', Tickets_DestroyView.as_view({'delete': 'destroy'}), name='tickets-eliminar'),
 ]

@@ -21,10 +21,10 @@ urlpatterns = [
     path('exhibiciones/', include('api.exhibiciones.urls')),
     
     # Servicios Educativos
-    path('servicios-educativos/', include('api.servicios-educativos.urls')),
+    path('servicios_educativos/', include('api.servicios-educativos.urls')),
     
     # Programas Educativos
-    path('programas-educativos/', include('api.programas-educativos.urls')),
+    path('programas_educativos/', include('api.programas-educativos.urls')),
 
     # Estado de conservacion
     path('conservation_status/', Conservation_Status_ListCreateView.as_view(), name='conservation_status-lista'),

@@ -22,7 +22,7 @@ export const getSectionById = async (id) => {
 
 export const createSection = async (sectionData) => {
   try {
-    const response = await axiosInstance.post('/api/sections/', sectionData);
+    const response = await axiosInstance.post('/api/sections/crear/', sectionData);
     return response.data;
   } catch (error) {
     console.error('Error creating section:', error);
@@ -32,7 +32,7 @@ export const createSection = async (sectionData) => {
 
 export const updateSection = async (id, sectionData) => {
   try {
-    const response = await axiosInstance.put(`/api/sections/${id}/`, sectionData);
+    const response = await axiosInstance.put(`/api/sections/${id}/actualizar-editar/`, sectionData);
     return response.data;
   } catch (error) {
     console.error(`Error updating section with ID ${id}:`, error);

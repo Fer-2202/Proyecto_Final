@@ -7,6 +7,8 @@ from rest_framework.permissions import IsAuthenticated
 from .permissions import IsAuthenticatedAndRole
 from .species.models import Species
 from .sections.models import Sections
+from .provinces.models import Provinces
+from .tickets.models import Tickets
 
 # Models
 from django.contrib.auth.models import User, Group
@@ -133,12 +135,12 @@ class GroupPermissionsView(generics.UpdateAPIView):
 class Conservation_Status_ListCreateView(generics.ListCreateAPIView):
     queryset = ConservationStatus.objects.all()
     serializer_class = Conservation_Status_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
 
 class Conservation_Status_DetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = ConservationStatus.objects.all()
     serializer_class = Conservation_Status_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
 
 # ==================
 # TICKETS / VISITS / PURCHASE ORDERS / PAYMENTS
@@ -217,12 +219,12 @@ class Tickets_Purchase_Order_DetailView(generics.RetrieveUpdateDestroyAPIView):
 class Habitats_ListCreateView(generics.ListCreateAPIView):
     queryset = Habitats.objects.all()
     serializer_class = Habitats_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
 
 class Habitats_DetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Habitats.objects.all()
     serializer_class = Habitats_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
 
 
 # ==================

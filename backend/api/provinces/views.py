@@ -1,7 +1,7 @@
-from rest_framework import generics # Importa las vistas genéricas de Django REST Framework
-from .models import Provinces # Importa el modelo Provinces del módulo models.py
-from .serializers import Provinces_Serializer # Importa el serializador Provinces_Serializer
-from api.permissions import IsAuthenticatedAndRole # Importa la clase de permisos personalizada IsAuthenticatedAndRole
+from rest_framework import viewsets
+from .models import Provinces
+from .serializers import Provinces_Serializer 
+from api.permissions import IsAuthenticatedAndRole
 
 """ Views para Provinces
     - Provinces_ListCreateView: Vista para listar y crear provincias.
@@ -15,11 +15,11 @@ from api.permissions import IsAuthenticatedAndRole # Importa la clase de permiso
     
     Se puede utilizar required_role en las vistas para especificar el rol requerido para acceder a ellas.
 """
-class Provinces_ListCreateView(generics.ListCreateAPIView):
+class Provinces_GetView(viewsets.ModelViewSet):
     queryset = Provinces.objects.all()
     serializer_class = Provinces_Serializer
 
-class Provinces_DetailView(generics.RetrieveUpdateDestroyAPIView):
+class Provinces_DetailView(viewsets.ModelViewSet):
     queryset = Provinces.objects.all()
     serializer_class = Provinces_Serializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]

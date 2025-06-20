@@ -75,7 +75,7 @@ function Servicios_Educativos() {
            {ticketsData.map((ticket, idx) => (
             <li key={idx} className="flex justify-between items-center">
              <span>{ticket.name}:</span>
-             <span className="text-gray-700 font-medium">{ticket.price}</span>
+             <span className="text-gray-700 font-medium">₡{ticket.price}</span>
             </li>
            ))}
           </ul>
