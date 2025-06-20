@@ -12,7 +12,7 @@ import camaron from "../../../../../assets/img/camaron_blanco.jpeg"
 
 export default function CultivoTab() {
   const especies = [
-    { name: 'Pargo manchado (Lutjanus guttatus)', desc: 'Este es uno de los peces más destacados en los proyectos de cultivo del Parque Marino.', img: pargo  },
+    { name: 'Pargo manchado', name_cientific: "𝐿𝓊𝓉𝒿𝒶𝓃𝓊𝓈 𝑔𝓊𝓉𝓉𝒶𝓉𝓊𝓈", desc: 'Este es uno de los peces más destacados en los proyectos de cultivo del Parque Marino.', img: pargo  },
     { name: 'Corvina Reina', desc: 'Recientemente, se ha informado sobre la entrega de juveniles de corvina para cultivo en granjas marinas.' , img: corvina },
     { name: 'Ostra japonesa (Crassostrea gigas)', desc: 'El cultivo de la ostra japonesa se ha desarrollado con el apoyo de la UNA y otras instituciones.', img: ostra },
     { name: 'Molusco Anadara sp. (piangua o cambute)', desc: 'Se menciona la investigación sobre el cultivo del molusco Anadara sp.',
@@ -33,7 +33,8 @@ export default function CultivoTab() {
             <div className="w-full h-32 bg-gray-200 mb-2 flex items-center justify-center rounded">
               {especie.img ? (<img src={especie.img} alt="" className='w-full h-full object-cover' />):(<span className=''>undefined</span>)}
             </div>
-            <h3 className="font-semibold text-teal-600 mb-1">{especie.name}</h3>
+            <h3 className="font-semibold text-teal-600">{especie.name} </h3>
+            <span className='font-light mb-1 text-teal-600'>({especie.name_cientific})</span>
             <p className="text-gray-700 text-sm">{especie.desc}</p>
           </div>
         ))}
@@ -41,3 +42,4 @@ export default function CultivoTab() {
     </div>
   );
 }
+/* Malo */

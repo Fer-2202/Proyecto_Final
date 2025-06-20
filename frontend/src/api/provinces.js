@@ -3,7 +3,7 @@ import axiosInstance from './axiosInstance';
 /* Get all provinces */
 export const getProvinces = async () => {
   try {
-    const response = await axiosInstance.get('/api/provinces/');
+    const response = await axiosInstance.get('/api/provinces/lista/');
     return response.data;
   } catch (error) {
     console.error('Error fetching provinces:', error);

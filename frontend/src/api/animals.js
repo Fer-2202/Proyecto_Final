@@ -2,7 +2,7 @@ import axiosInstance from './axiosInstance';
 
 export const getAnimals = async () => {
   try {
-    const response = await axiosInstance.get('/api/animals/');
+    const response = await axiosInstance.get('/api/animals/lista/');
     return response.data;
   } catch (error) {
     console.error('Error fetching animals:', error);
@@ -22,7 +22,7 @@ export const getAnimalById = async (id) => {
 
 export const createAnimal = async (animalData) => {
   try {
-    const response = await axiosInstance.post('/api/animals/', animalData);
+    const response = await axiosInstance.post('/api/animals/lista', animalData);
     return response.data;
   } catch (error) {
     console.error('Error creating animal:', error);
