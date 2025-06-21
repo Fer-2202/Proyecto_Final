@@ -4,7 +4,8 @@ from django.dispatch import receiver
 from django.db.models.signals import post_save, post_delete
 from django.contrib.auth import get_user_model
 from .models import AuditLog
-from django.utils import timezone  # Import timezone
+from django.utils import timezone
+from .purchase_orders.models import PurchaseOrders
 
 User = get_user_model()
 
@@ -43,7 +44,7 @@ def audit_log_delete(sender, instance, **kwargs):
                 details=f'Action deleted on {sender._meta.model_name} with id {instance.pk}'
             )
 from django.contrib.auth.models import User
-from .models import PurchaseOrders, UserProfile
+from .models import UserProfile
 from .utils import generate_qr_code
 
 # Generar código QR después de crear una orden de compra

@@ -9,21 +9,25 @@ from .species.models import Species
 from .sections.models import Sections
 from .provinces.models import Provinces
 from .tickets.models import Tickets
+from .purchase_orders.models import PurchaseOrders
+
+from .purchase_orders.serializers import Purchase_Orders_Serializer
+from .tickets.serializers import Tickets_Serializer
 
 # Models
 from django.contrib.auth.models import User, Group
 from .models import (
        ConservationStatus,
-     Visits, PurchaseOrders, TicketsPurchaseOrder,
-    Habitats,  UserProfile, Payment, AuditLog
+     Visits, TicketsPurchaseOrder,
+    Habitats,  UserProfile, AuditLog
 )
 
 # Serializers
 from .serializers import (
     RegisterSerializer, UserProfileSerializer, Conservation_Status_Serializer,
-    Visits_Serializer, Purchase_Orders_Serializer,
+    Visits_Serializer,
     Tickets_Purchase_Orders_Serializer, Habitats_Serializer, 
-    GroupSerializer, PaymentSerializer, GroupPermissionsSerializer, AuditLogSerializer
+    GroupSerializer,  GroupPermissionsSerializer, AuditLogSerializer
 )
 
 # ==================
@@ -190,16 +194,6 @@ class Purchase_Order_DetailView(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = Purchase_Orders_Serializer
     #permission_classes = [IsAuthenticatedAndRole]
 
-# Payments
-class Payment_ListCreateView(generics.ListCreateAPIView):
-    queryset = Payment.objects.all()
-    serializer_class = PaymentSerializer
-    #permission_classes = [IsAuthenticatedAndRole]
-
-class Payment_DetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Payment.objects.all()
-    serializer_class = PaymentSerializer
-    #permission_classes = [IsAuthenticatedAndRole]
 
 # Tickets Purchase Order
 class Tickets_Purchase_Order_ListCreateView(generics.ListCreateAPIView):

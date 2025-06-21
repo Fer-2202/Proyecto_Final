@@ -32,24 +32,10 @@ class Visits_Serializer(serializers.ModelSerializer):
         model = Visits
         fields = '__all__'
 
-# Payment (nuevo serializer)
-class PaymentSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Payment
-        fields = '__all__'
+
 
 # Purchase Orders (actualizado con Payment anidado)
-class Purchase_Orders_Serializer(serializers.ModelSerializer):
-    payment = serializers.SerializerMethodField()
 
-    class Meta:
-        model = PurchaseOrders
-        fields = '__all__'
-
-    def get_payment(self, obj):
-        if hasattr(obj, 'payment'):
-            return PaymentSerializer(obj.payment).data
-        return None
 
 # Tickets Purchase Order
 class Tickets_Purchase_Orders_Serializer(serializers.ModelSerializer):

@@ -48,17 +48,14 @@ urlpatterns = [
     path('visits/available/', AvailableVisitsView.as_view(), name='visits-available'),
 
     # Ordenes de Compra
-    path('purchase_order/', Purchase_Order_ListCreateView.as_view(), name='purchase_order-lista'),
-    path('purchase_order/<int:pk>/', Purchase_Order_DetailView.as_view(), name='purchase_order-actualizar-editar'),
+    path('purchase_orders/', include('api.purchase_orders.urls')),
 
     # Tickets Orden de Compra
     path('tickets_purchase_order/', Tickets_Purchase_Order_ListCreateView.as_view(), name='tickets_purchase_order-lista'),
     path('tickets_purchase_order/<int:pk>/', Tickets_Purchase_Order_DetailView.as_view(), name='tickets_purchase_order-actualizar-editar'),
 
     # Pagos
-    path('payments/', Payment_ListCreateView.as_view(), name='payment-lista'),
-    path('payments/<int:pk>/', Payment_DetailView.as_view(), name='payment-detalle'),
-
+    path('payments/', include('api.payments.urls')),
     # Habitats
     path('habitats/', Habitats_ListCreateView.as_view(), name='habitats-lista'),
     path('habitats/<int:pk>/', Habitats_DetailView.as_view(), name='habitats-actualizar-editar'),

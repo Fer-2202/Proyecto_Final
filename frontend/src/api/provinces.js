@@ -3,7 +3,7 @@ import axiosInstance from './axiosInstance';
 /* Get all provinces */
 export const getProvinces = async () => {
   try {
-    const response = await axiosInstance.get('/api/provinces/lista/');
+    const response = await axiosInstance.get('/api/provinces/');
     return response.data;
   } catch (error) {
     console.error('Error fetching provinces:', error);
@@ -25,7 +25,7 @@ export const getProvinceById = async (id) => {
 /* Create a new province */
 export const createProvince = async (provinceData) => {
   try {
-    const response = await axiosInstance.post('/api/provinces/', provinceData);
+    const response = await axiosInstance.post('/api/provinces/create/', provinceData);
     return response.data;
   } catch (error) {
     console.error('Error creating province:', error);
@@ -36,7 +36,7 @@ export const createProvince = async (provinceData) => {
 /* Update an existing province */
 export const updateProvince = async (id, provinceData) => {
   try {
-    const response = await axiosInstance.put(`/api/provinces/${id}/`, provinceData);
+    const response = await axiosInstance.put(`/api/provinces/${id}/update/`, provinceData);
     return response.data;
   } catch (error) {
     console.error(`Error updating province with ID ${id}:`, error);
@@ -47,7 +47,7 @@ export const updateProvince = async (id, provinceData) => {
 /* Delete a province */
 export const deleteProvince = async (id) => {
   try {
-    await axiosInstance.delete(`/api/provinces/${id}/`);
+    await axiosInstance.delete(`/api/provinces/${id}/delete/`);
   } catch (error) {
     console.error(`Error deleting province with ID ${id}:`, error);
     throw error;

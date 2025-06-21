@@ -2,13 +2,15 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import get_user_model
 from .models import (  ConservationStatus,
-                          Visits, PurchaseOrders, TicketsPurchaseOrder,
+                          Visits,  TicketsPurchaseOrder,
                          Habitats, UserProfile)
 from .sections.models import Sections
 from .provinces.models import Provinces
 from .species.models import Species
 from .animales.models import Animals
 from .tickets.models import Tickets
+from .purchase_orders.models import PurchaseOrders
+from .payments.models import Payments
 
 User = get_user_model()
 
@@ -38,4 +40,5 @@ admin.site.register(PurchaseOrders)
 admin.site.register(TicketsPurchaseOrder)
 admin.site.register(Habitats)
 admin.site.register(Animals)
-admin.site.register(UserProfile) # Also register the UserProfile model itself
+admin.site.register(UserProfile) 
+admin.site.register(Payments)
