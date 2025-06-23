@@ -12,6 +12,18 @@ import provinceFormConfig from "./forms/ProvinceFormConfig";
 import userProfileFormConfig from "./forms/UserProfileFormConfig";
 import { useEffect, useState } from "react";
 import * as api from "../../../api/api";
+import {
+  YupTicketSchema,
+  YupSectionSchema,
+  YupHabitatSchema,
+  YupAnimalSchema,
+  YupVisitSchema,
+  YupOrderSchema,
+  YupSpeciesSchema,
+  YupConservationStatusSchema,
+  YupProvinceSchema,
+  YupUserProfileSchema,
+} from "./schemas";
 
 const { Dragger } = Upload;
 

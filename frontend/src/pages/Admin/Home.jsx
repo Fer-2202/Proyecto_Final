@@ -7,6 +7,18 @@ import Loading from "../Loading";
 import * as api from "../../api/api";
 import { useAuth } from "../../context/AuthContext";
 import ToastNotifications from "../../components/auth/forms/ToastNotifications";
+import {
+  YupTicketSchema,
+  YupSectionSchema,
+  YupHabitatSchema,
+  YupAnimalSchema,
+  YupVisitSchema,
+  YupOrderSchema,
+  YupSpeciesSchema,
+  YupConservationStatusSchema,
+  YupProvinceSchema,
+  YupUserProfileSchema,
+} from "./../../components/admin/ui/schemas";
 
 import AdminSidebar from "../../components/admin/ui/AdminSidebar";
 import AdminHeader from "../../components/admin/ui/AdminHeader";
@@ -144,25 +156,78 @@ export default function DashboardAdmin() {
  const handleSubmit = async () => {
     try {
       const values = await form.validateFields();
-      console.log("Form values:", values);
+       console.log("Form values:", values);
 
-      const hasFile = Object.values(values).some(v => v?.file);
-
-      const formData = new FormData();
-      const plain = {};
-      for (const [k, v] of Object.entries(values)) {
-        if (v?.file) formData.append(k, v.file.originFileObj);
-        else plain[k] = v, formData.append(k, v);
+      // Select schema based on active tab
+      let schema;
+      const { item, tabKey } = editItem
+      switch (tabKey) {
+        case "tickets":
+          schema = YupTicketSchema;
+          break;
+        case "sections":
+          schema = YupSectionSchema;
+          break;
+        case "habitats":
+          schema = YupHabitatSchema;
+          break;
+        case "animals":
+          schema = YupAnimalSchema;
+          break;
+        case "visits":
+          schema = YupVisitSchema;
+          break;
+        case "orders":
+          schema = YupOrderSchema;
+          break;
+        case "species":
+          schema = YupSpeciesSchema;
+          break;
+        case "conservation-status":
+          schema = YupConservationStatusSchema;
+          break;
+        case "provinces":
+          schema = YupProvinceSchema;
+          break;
+        case "user-profiles":
+          schema = YupUserProfileSchema;
+          break;
+        default:
+          schema = null;
       }
 
-      const { item, tabKey } = editItem;
-      const type = typeMap[tabKey];
+      if (schema) {
+        try {
+          await schema.validate(values, { abortEarly: false });
+        } catch (yupError) {
+          console.error("Yup validation error:", yupError);
+          yupError.inner.forEach(error => {
+            console.log("Errorpath:", error.message);
+            console.log("Error message:", error.message);
+            form.setFields([{ name: error.path, errors: [error.message] }]);
+          });
+          return;
+        }
+      }
 
+      const hasFile = Object.values(values).some(v => v?.file);
+      const formData = new FormData();
+      const plain = {};
+
+      for (const [k, v] of Object.entries(values)) {
+        if (v?.file) {
+          formData.append(k, v.file.originFileObj);
+        } else {
+          plain[k] = v;
+        }
+      }
+
+      const type = typeMap[tabKey];
       let apiCall;
       let payload = hasFile ? formData : plain;
 
       if (item?.id) {
-        console.log(`Updating ${type} with ID:`, item.id, "and payload:", payload);
+        console.log(`Updating ${type} with ID: ${item.id} and payload:`, payload);
         apiCall = updateMap[type](item.id, payload);
       } else {
         console.log(`Creating ${type} with payload:`, payload);
@@ -172,34 +237,37 @@ export default function DashboardAdmin() {
       console.log("Calling API:", apiCall);
 
       try {
-          const result = await apiCall;
-          console.log("API call successful, result:", result);
+        const result = await apiCall;
+        console.log("API call successful, result:", result);
 
-          setData(prev => {
-              const updatedTab = prev[tabKey] ? [...prev[tabKey]] : [];
-              if (item?.id) {
-                  const itemIndex = updatedTab.findIndex(i => i.id === item.id);
-                  if (itemIndex > -1) {
-                      updatedTab[itemIndex] = { ...item, ...values };
-                  }
-              } else {
-                  updatedTab.push(result);
-              }
-              return { ...prev, [tabKey]: updatedTab };
-          });
+        setData(prev => {
+          let updatedData;
+          if (item?.id) {
+            updatedData = {
+              ...prev,
+              [tabKey]: prev[tabKey].map(i => (i.id === item.id ? { ...i, ...values } : i)),
+            };
+          } else {
+            updatedData = {
+              ...prev,
+              [tabKey]: [...prev[tabKey], result],
+            };
+          }
+          console.log("Updated data:", updatedData);
+          return updatedData;
+        });
 
-          toast.success("Guardado");
-          setFormVisible(false);
-          setEditItem(null);
-          form.resetFields();
-      } catch (error) {
-          console.error("API call failed:", error);
-          toast.error(`Failed to save: ${error?.message || error}`);
+        toast.success("Guardado");
+        setFormVisible(false);
+        setEditItem(null);
+        form.resetFields();
+      } catch (apiError) {
+        console.error("API call failed:", apiError);
+        toast.error(`Failed to save: ${apiError?.message || apiError}`);
       }
-
-    } catch (e) {
-      /* ignored: ya avisa antd */
-        console.error("Validation error:", e)
+    } catch (validationError) {
+      console.error("handleSubmit validation error:", validationError);
+      // handled by Ant Design form
     }
   };
 
