@@ -10,6 +10,10 @@ from .sections.models import Sections
 from .provinces.models import Provinces
 from .tickets.models import Tickets
 from .purchase_orders.models import PurchaseOrders
+from django.contrib.auth.tokens import default_token_generator
+from django.contrib.auth import get_user_model
+
+
 
 from .purchase_orders.serializers import Purchase_Orders_Serializer
 from .tickets.serializers import Tickets_Serializer
@@ -29,6 +33,8 @@ from .serializers import (
     Tickets_Purchase_Orders_Serializer, Habitats_Serializer, 
     GroupSerializer,  GroupPermissionsSerializer, AuditLogSerializer
 )
+
+User = get_user_model()
 
 # ==================
 # AUTHENTICATION VIEWS
@@ -240,10 +246,7 @@ class AuditLogDetailView(generics.RetrieveAPIView):
     #permission_classes = [IsAuthenticatedAndRole]
     #required_role = 'admin'
 
-from django.contrib.auth.tokens import default_token_generator
-from django.contrib.auth import get_user_model
 
-User = get_user_model()
 
 class ForgotPasswordView(APIView):
     def post(self, request):

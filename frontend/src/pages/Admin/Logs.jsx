@@ -17,6 +17,8 @@ const Logs = () => {
     fetchLogs();
   }, []);
 
+  console.log(logs);
+
   return (
     <div>
       <h1>Logs</h1>

@@ -1,316 +1,295 @@
 import { useState, useEffect } from "react";
-import { 
-  LayoutDashboard, 
-  Users, 
-  Ticket, 
-  Calendar, 
-  Settings, 
-  LogOut, 
-  Eye,
-  Plus,
-  Search,
-  Trash2,
-  Edit,
-  Globe,
-  Fish,
-  ShoppingCart,
-  UserRound,
-  Star,
-  Landmark,
-  Logs
-} from "lucide-react";
-import { Link } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
+import { Layout, Form, Button } from "antd";
+import { Edit, Trash2 } from "lucide-react"
+import Swal from "sweetalert2";
+import { toast } from "react-toastify";
+import Loading from "../Loading";
 import * as api from "../../api/api";
-import { ToastContainer, toast } from "react-toastify";
+import { useAuth } from "../../context/AuthContext";
 import ToastNotifications from "../../components/auth/forms/ToastNotifications";
 
-const CRUD_TABS = [
-  { name: "Entradas", key: "tickets", icon: <Ticket size={16} /> },
-  { name: "Secciones", key: "sections", icon: <LayoutDashboard size={16} /> },
-  { name: "Hábitats", key: "habitats", icon: <Globe size={16} /> },
-  { name: "Animales", key: "animals", icon: <Fish size={16} /> },
-  { name: "Visitas", key: "visits", icon: <Calendar size={16} /> },
-  { name: "Órdenes", key: "orders", icon: <ShoppingCart size={16} /> },
-  { name: "Especies", key: "species", icon: <Star size={16} /> },
-  { name: "Estado de conservación", key: "conservation-status", icon: <Settings size={16} /> },
-  { name: "Provincias", key: "provinces", icon: <Landmark size={16} /> },
-  { name: "Perfiles de usuario", key: "user-profiles", icon: <Users size={16} /> },
-  { name: "Log de Auditoria", key: "audit-log", icon: <Logs size={16}/>}
-];
+import AdminSidebar from "../../components/admin/ui/AdminSidebar";
+import AdminHeader from "../../components/admin/ui/AdminHeader";
+import AdminTable from "../../components/admin/ui/AdminTable";
+import AdminModal from "../../components/admin/ui/AdminModal";
 
-const typeMap = {
-  "tickets": "ticket",
-  "sections": "section",
-  "habitats": "habitat",
-  "animals": "animal",
-  "visits": "visit",
-  "orders": "purchaseOrder",
-  "species": "species",
-  "conservation-status": "conservationStatus",
-  "provinces": "province",
-  "user-profiles": "userProfile",
-  "audit-log": "auditLog"
+const { Content } = Layout;
+
+/* ----------------------- MAPS ----------------------- */
+const deleteMap = {
+  section: api.deleteSection,
+  habitat: api.deleteHabitat,
+  animal: api.deleteAnimal,
+  ticket: api.deleteTicket,
+  visit: api.deleteVisit,
+  purchaseOrder: api.deletePurchaseOrder,
+  species: api.deleteSpecies,
+  conservationStatus: api.deleteConservationStatus,
+  province: api.deleteProvince,
+  userProfile: api.deleteUserProfile,
 };
 
+const updateMap = {
+  section: api.updateSection,
+  habitat: api.updateHabitat,
+  animal: api.updateAnimal,
+  ticket: api.updateTicket,
+  visit: api.updateVisit,
+  purchaseOrder: api.updatePurchaseOrder,
+  species: api.updateSpecies,
+  conservationStatus: api.updateConservationStatus,
+  province: api.updateProvince,
+  userProfile: api.updateUserProfile,
+};
+
+const createMap = {
+  section: api.createSection,
+  habitat: api.createHabitat,
+  animal: api.createAnimal,
+  ticket: api.createTicket,
+  visit: api.createVisit,
+  purchaseOrder: api.createPurchaseOrder,
+  species: api.createSpecies,
+  conservationStatus: api.createConservationStatus,
+  province: api.createProvince,
+  userProfile: api.createUserProfile,
+};
+
+const typeMap = {
+  tickets: "ticket",
+  sections: "section",
+  habitats: "habitat",
+  animals: "animal",
+  visits: "visit",
+  orders: "purchaseOrder",
+  species: "species",
+  "conservation-status": "conservationStatus",
+  provinces: "province",
+  "user-profiles": "userProfile",
+  "audit-log": "auditLog",
+};
+
+/* -------------------- COMPONENT -------------------- */
 export default function DashboardAdmin() {
   const { logout, user } = useAuth();
+
+  /* --- state --- */
   const [activeTab, setActiveTab] = useState("tickets");
-  const [data, setData] = useState({
-    sections: [],
-    habitats: [],
-    animals: [],
-    tickets: [],
-    visits: [],
-    orders: [],
-    species: [],
-    "conservation-status": [],
-    provinces: [],
-    "user-profiles": [],
-    "audit-log": []
-  });
+  const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
+  const [formVisible, setFormVisible] = useState(false);
+  const [editItem, setEditItem] = useState(null);
+  const [form] = Form.useForm();
 
-  // {{change 1}}
-  useEffect(() => {
-    toast.info("DashboardAdmin component mounted");
-  }, []);
-
+  /* --- initial data --- */
   useEffect(() => {
     const fetchData = async () => {
-      // {{change 2}}
-      toast.info("Fetching data...");
       try {
         const [
-          sections, 
-          habitats,
-          animals,
-          tickets,
-          visits,
-          orders,
-          species,
-          conservationStatus,
-          provinces,
-          userProfiles,
-          auditLog
+          sections, habitats, animals, tickets, visits, orders,
+          species, conservationStatus, provinces, userProfiles, auditLog,
         ] = await Promise.all([
-          api.getSections(),
-          api.getHabitats(),
-          api.getAnimals(),
-          api.getTickets(),
-          api.getVisits(),
-          api.getPurchaseOrders(),
-          api.getSpecies(),
-          api.getConservationStatuses(),
-          api.getProvinces(),
-          api.getUsersProfiles(),
-          api.getAuditLog()
+          api.getSections(), api.getHabitats(), api.getAnimals(),
+          api.getTickets(), api.getVisits(), api.getPurchaseOrders(),
+          api.getSpecies(), api.getConservationStatuses(),
+          api.getProvinces(), api.getUsersProfiles(), api.getAuditLog(),
         ]);
 
         setData({
-          sections,
-          habitats,
-          animals,
-          tickets,
-          visits,
-          orders,
-          species,
-          "conservation-status": conservationStatus,
-          provinces,
-          "user-profiles": userProfiles,
-          "audit-log": auditLog
+          sections, habitats, animals, tickets, visits, orders,
+          species, "conservation-status": conservationStatus,
+          provinces, "user-profiles": userProfiles, "audit-log": auditLog,
         });
-        // {{change 3}}
-        toast.success("Data fetched successfully");
-      } catch (error) {
-        console.error("Error fetching data:", error);
-        toast.error(`Error fetching data: ${error.message}`);
-
+      } catch (e) {
+        toast.error(`Error al cargar datos: ${e?.message || e}`);
       } finally {
         setLoading(false);
       }
     };
-
     fetchData();
   }, []);
 
+  /* --- helpers --- */
+  const showModal = (item = {}, tabKey = activeTab) => {
+    setEditItem({ item, tabKey });
+    setFormVisible(true);
+    form.setFieldsValue(item);
+  };
+
   const handleDelete = async (tabKey, id) => {
     const type = typeMap[tabKey];
+    const ok = await Swal.fire({
+      title: "¿Eliminar?",
+      text: `Esta acción eliminará el ${type}.`,
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    });
+    if (!ok.isConfirmed) return;
+
     try {
-      // {{change 4}}
-      toast.info(`Deleting ${type}...`);
-      switch(type) {
-        case 'section': await api.deleteSection(id); break;
-        case 'habitat': await api.deleteHabitat(id); break;
-        case 'animal': await api.deleteAnimal(id); break;
-        case 'ticket': await api.deleteTicket(id); break;
-        case 'visit': await api.deleteVisit(id); break;
-        case 'purchaseOrder': await api.deletePurchaseOrder(id); break;
-        case 'species': await api.deleteSpecies(id); break;
-        case 'conservationStatus': await api.deleteConservationStatus(id); break;
-        case 'province': await api.deleteProvince(id); break;
-        case 'userProfile': await api.deleteUser(id); break;
-        default: console.error("Delete not implemented for:", type);
-      }
-      
+      await deleteMap[type](id);
       setData(prev => ({
         ...prev,
-        [tabKey]: prev[tabKey].filter(item => item.id !== id)
+        [tabKey]: prev[tabKey].filter(i => i.id !== id),
       }));
-      // {{change 5}}
-      toast.success(`${type} deleted successfully`);
-    } catch (error) {
-      console.error(`Error deleting ${type}:`, error);
-      toast.error(`Error deleting ${type}: ${error.message}`);
+      toast.success("Eliminado");
+    } catch (e) {
+      toast.error(`No se pudo eliminar: ${e?.message || e}`);
     }
   };
 
-  const filteredData = () => {
-    const currentData = data[activeTab];
-    if (!searchTerm) return currentData;
-    // {{change 6}}
-    toast.info("Filtering data...");
-    
-    return currentData.filter(item => 
-      Object.values(item).some(
-        val => String(val).toLowerCase().includes(searchTerm.toLowerCase())
-      )
-    );
+ const handleSubmit = async () => {
+    try {
+      const values = await form.validateFields();
+      console.log("Form values:", values);
+
+      const hasFile = Object.values(values).some(v => v?.file);
+
+      const formData = new FormData();
+      const plain = {};
+      for (const [k, v] of Object.entries(values)) {
+        if (v?.file) formData.append(k, v.file.originFileObj);
+        else plain[k] = v, formData.append(k, v);
+      }
+
+      const { item, tabKey } = editItem;
+      const type = typeMap[tabKey];
+
+      let apiCall;
+      let payload = hasFile ? formData : plain;
+
+      if (item?.id) {
+        console.log(`Updating ${type} with ID:`, item.id, "and payload:", payload);
+        apiCall = updateMap[type](item.id, payload);
+      } else {
+        console.log(`Creating ${type} with payload:`, payload);
+        apiCall = createMap[type](payload);
+      }
+
+      console.log("Calling API:", apiCall);
+
+      try {
+          const result = await apiCall;
+          console.log("API call successful, result:", result);
+
+          setData(prev => {
+              const updatedTab = prev[tabKey] ? [...prev[tabKey]] : [];
+              if (item?.id) {
+                  const itemIndex = updatedTab.findIndex(i => i.id === item.id);
+                  if (itemIndex > -1) {
+                      updatedTab[itemIndex] = { ...item, ...values };
+                  }
+              } else {
+                  updatedTab.push(result);
+              }
+              return { ...prev, [tabKey]: updatedTab };
+          });
+
+          toast.success("Guardado");
+          setFormVisible(false);
+          setEditItem(null);
+          form.resetFields();
+      } catch (error) {
+          console.error("API call failed:", error);
+          toast.error(`Failed to save: ${error?.message || error}`);
+      }
+
+    } catch (e) {
+      /* ignored: ya avisa antd */
+        console.error("Validation error:", e)
+    }
   };
 
-  if (loading) return (
-    <div className="flex items-center justify-center min-h-screen">
-      <div className="animate-spin rounded-full h-12 w-12 border-t-2 border-b-2 border-teal-600"></div>
-    </div>
-  );
+  const filteredRows =
+    data[activeTab]?.filter(row =>
+      Object.values(row).some(v =>
+        String(v).toLowerCase().includes(searchTerm.toLowerCase()),
+      ),
+    ) || [];
 
-  return (
-    
-    <div className="flex min-h-screen bg-gray-50">
-      <ToastNotifications/>
-      <aside className="w-64 bg-white border-r px-6 py-8 flex flex-col justify-between">
-        <div>
-          <h2 className="text-xl font-bold mb-6">Panel de Control</h2>
-          <p className="text-sm text-gray-500 mb-8">Bienvenido, {user?.username || 'Admin'}</p>
-          <nav className="flex flex-col space-y-4">
-            {CRUD_TABS.map(tab => (
-              <button
-                key={tab.key}
-                onClick={() => setActiveTab(tab.key)}
-                className={`flex items-center gap-3 ${activeTab === tab.key ? 'text-teal-600' : 'text-gray-700'} font-medium hover:text-teal-600`}
-              >
-                {tab.icon}
-                {tab.name}
-              </button>
-            ))}
-          </nav>
+  /* --- columns for table --- */
+  const columns = [
+    ...(data[activeTab]?.[0]
+      ? Object.keys(data[activeTab][0]).map(key => ({
+          title: key,
+          dataIndex: key,
+          render: val =>
+            typeof val === "string" || typeof val === "number"
+              ? val
+              : JSON.stringify(val),
+        }))
+      : []),
+    {
+      title: "Acciones",
+      key: "actions",
+      render: (_, record) => (
+        <div className="flex gap-2">
+          <Button
+            icon={<Edit size={14} />}
+            size="small"
+            onClick={() => showModal(record, activeTab)}
+          />
+          <Button
+            icon={<Trash2 size={14} />}
+            size="small"
+            danger
+            onClick={() => handleDelete(activeTab, record.id)}
+          />
         </div>
-        <div className="flex flex-col space-y-3">
-          <Link to="/" className="flex items-center gap-3 text-gray-700 font-medium hover:text-teal-600">
-            <Eye size={18} /> Ver sitio
-          </Link>
-          <button 
-            onClick={logout}
-            className="flex items-center gap-3 text-red-500 font-medium hover:text-red-600"
-          >
-            <LogOut size={18} /> Cerrar sesión
-          </button>
-        </div>
+      ),
+    },
+  ];
+
+  if (loading) return <Loading text="Cargando datos..." />;
+
+  /* --------------------------- JSX --------------------------- */
+ return (
+  <Layout className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
+    <ToastNotifications />
+    <div className="flex min-h-screen">
+      <aside className="bg-white shadow-lg border-r border-blue-100 w-64 p-0 flex flex-col">
+        <AdminSidebar
+          activeTab={activeTab}
+          setActiveTab={setActiveTab}
+          logout={logout}
+          user={user}
+        />
       </aside>
-
-      <main className="flex-1 p-10">
-        <header className="mb-8">
-          <h1 className="text-3xl font-bold mb-1">Dashboard</h1>
-          <p className="text-gray-500">Gestiona el contenido y las operaciones del Parque Marino</p>
+      <div className="flex-1 flex flex-col">
+        <header className="sticky top-0 z-10 bg-white/80 backdrop-blur border-b border-blue-100 shadow-sm px-8 py-4">
+          <AdminHeader
+            searchTerm={searchTerm}
+            setSearchTerm={setSearchTerm}
+            showModal={showModal}
+          />
         </header>
-
-        <div className="mb-8 flex justify-between items-center">
-          <div className="relative w-64">
-            <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={18} />
-            <input
-              type="text"
-              placeholder="Buscar..."
-              className="pl-10 pr-4 py-2 w-full border rounded-lg focus:outline-none focus:ring-2 focus:ring-teal-500"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
+        <Content className="flex-1 flex flex-col items-center justify-start p-8">
+          <div className="w-full max-w-6xl bg-white rounded-3xl shadow-2xl p-10 mt-8 border border-blue-100">
+            <AdminTable
+              columns={columns}
+              filteredRows={filteredRows}
+              handleDelete={handleDelete}
+              showModal={showModal}
+              actionButtonClassName="rounded-full border border-blue-200 bg-blue-50 hover:bg-blue-100 text-blue-700 shadow-sm transition-all duration-150"
             />
           </div>
-          <Link 
-            to={`/admin/${activeTab}/new`}
-            className="flex items-center gap-2 bg-teal-600 text-white px-4 py-2 rounded-lg hover:bg-teal-700"
-          >
-            <Plus size={18} />
-            Crear nuevo
-          </Link>
-        </div>
-
-        <div className="bg-white rounded-lg shadow overflow-hidden">
-          <table className="min-w-full divide-y divide-gray-200">
-            <thead className="bg-gray-50">
-              <tr>
-              {activeTab !== "audit-log" ? (
-                Object.keys(data[activeTab][0] || {}).map(key => (
-                  <th 
-                    key={key} 
-                    className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider"
-                  >
-                    {key}
-                  </th>
-                ))
-              ) : (
-                // Headers for Audit Log
-                <>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">User</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Action</th>
-                  <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Timestamp</th>
-                </>
-              )}
-                <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
-                  Acciones
-                </th>
-              </tr>
-            </thead>
-            <tbody className="bg-white divide-y divide-gray-200">
-            {activeTab !== "audit-log" ? (
-              filteredData().map(item => (
-                <tr key={item.id}>
-                  {Object.entries(item).map(([key, value]) => (
-                    <td key={key} className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                      {String(value)}
-                    </td>
-                  ))}
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium">
-                    <Link 
-                      to={`/admin/${activeTab}/${item.id}/edit`}
-                      className="text-indigo-600 hover:text-indigo-900 mr-4"
-                    >
-                      <Edit size={16} />
-                    </Link>
-                    <button 
-                      onClick={() => handleDelete(activeTab, item.id)}
-                      className="text-red-600 hover:text-red-900"
-                    >
-                      <Trash2 size={16} />
-                    </button>
-                  </td>
-                </tr>
-              ))
-            ) : (
-              // Render Audit Log Data
-              data["audit-log"].map(log => (
-                <tr key={log.id}>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{log.user}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{log.action}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{log.timestamp}</td>
-                  <td className="px-6 py-4 whitespace-nowrap text-sm font-medium"></td>
-                </tr>
-              ))
-            )}
-            </tbody>
-          </table>
-        </div>
-      </main>
+        </Content>
+      </div>
     </div>
-  );
-}
+    <AdminModal
+      formVisible={formVisible}
+      setFormVisible={setFormVisible}
+      editItem={editItem}
+      handleSubmit={handleSubmit}
+      form={form}
+      data={data}
+        modalClassName="bg-white rounded-2xl shadow-2xl p-8 border border-blue-100"
+        overlayClassName="bg-blue-900/40 fixed inset-0 z-40 flex items-center justify-center"
+        buttonClassName="rounded-lg bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 font-semibold shadow transition-all duration-150"
+    />
+  </Layout>
+);
+};

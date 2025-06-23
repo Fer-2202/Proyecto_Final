@@ -42,37 +42,13 @@ const Ticketera = React.lazy(() => import('../pages/Public/pages/Ticketera.jsx')
 const Terminos = React.lazy(() => import('../pages/Public/pages/Termino_Y_Condiciones.jsx'));
 const PoliticaDePrivacidad = React.lazy(() => import('../pages/Public/pages/Politica_De_Privacidad.jsx'));
 
-/* Admin Forms */
-const AnimalForm = React.lazy(() => import('../pages/Admin/forms/AnimalForm.jsx'));
-const HabitatForm = React.lazy(() => import('../pages/Admin/forms/HabitatForm.jsx'));
-const TicketForm = React.lazy(() => import('../pages/Admin/forms/TicketForm.jsx'));
-const SectionForm = React.lazy(() => import('../pages/Admin/forms/SectionForm.jsx'));
-const VisitForm = React.lazy(() => import('../pages/Admin/forms/VisitForm.jsx'));
-const PurchaseOrderForm = React.lazy(() => import('../pages/Admin/forms/PurchaseOrderForm.jsx'));
-const SpeciesForm = React.lazy(() => import('../pages/Admin/forms/SpeciesForm.jsx'));
-const ConservationStatusForm = React.lazy(() => import('../pages/Admin/forms/ConservationStatusForm.jsx'));
-const ProvinceForm = React.lazy(() => import('../pages/Admin/forms/ProvinceForm.jsx'));
-const UserProfileForm = React.lazy(() => import('../pages/Admin/forms/UserProfileForm.jsx'));
 
-/* Edit Forms Page */
-const AnimalEditPage = React.lazy(() => import('../pages/Admin/forms-edit/AnimalEditPage.jsx'))
- const ProvincesEditPage = React.lazy(() => import('../pages/Admin/forms-edit/ProvincesEditPage.jsx'))
 
-import AdminHandlers from '../components/admin/AdminHandlers';
+
+
 
 function AppRouting() {
-  const { 
-    handleCreateAnimal,
-    handleCreateHabitat,
-    handleCreateTicket,
-    handleCreateSection,
-    handleCreateVisit,
-    handleCreatePurchaseOrder,
-    handleCreateSpecies,
-    handleCreateConservationStatus,
-    handleCreateProvince,
-    handleCreateUserProfile
-  } = AdminHandlers();
+  
 
   return (
     <BrowserRouter>
@@ -121,27 +97,9 @@ function AppRouting() {
             </PrivateRoute>
           }>
             <Route path="/admin/dashboard" element={<DashboardAdmin />} />
-            <Route path="/admin/logs" element={<LogsAdmin />} />
+            
 
-            {/* CRUD Routes Admin */}
-            <Route path="/admin/animals/new" element={<AnimalForm mode="create" onCreate={handleCreateAnimal} />} />
-            <Route path="/admin/animals/:id/edit" element={<AnimalEditPage />} />
-            <Route path="/admin/habitats/new" element={<HabitatForm mode="create" onCreate={handleCreateHabitat} />} />
-            <Route path="/admin/habitats/:id/edit" element={<HabitatForm mode="edit" />} />
-            <Route path="/admin/tickets/new" element={<TicketForm mode="create" onCreate={handleCreateTicket} />} />
-            <Route path="/admin/tickets/:id/edit" element={<TicketForm mode="edit" />} />
-            <Route path="/admin/sections/new" element={<SectionForm mode="create" onCreate={handleCreateSection} />} />
-            <Route path="/admin/sections/:id/edit" element={<SectionForm mode="edit"  />} />
-            <Route path="/admin/visits/new" element={<VisitForm mode="create" onCreate={handleCreateVisit} />} />
-            <Route path="/admin/visits/:id/edit" element={<VisitForm mode="edit" />} />
-            <Route path="/admin/orders/new" element={<PurchaseOrderForm mode="create" onCreate={handleCreatePurchaseOrder} />} />
-            <Route path="/admin/orders/:id/edit" element={<PurchaseOrderForm mode="edit"  />} />
-            <Route path="/admin/species/new" element={<SpeciesForm mode="create" onCreate={handleCreateSpecies}  />} />
-            <Route path="/admin/species/:id/edit" element={<SpeciesForm mode="edit" />} />
-            <Route path="/admin/conservation-status/new" element={<ConservationStatusForm mode="create" onCreate={handleCreateConservationStatus} />} />
-            <Route path="/admin/conservation-status/:id/edit" element={<ConservationStatusForm mode="edit" />} />
-            <Route path="/admin/provinces/new" element={<ProvinceForm mode="create" onCreate={handleCreateProvince} />} />
-            <Route path="/admin/provinces/:id/edit" element={<ProvincesEditPage />} />
+           
           </Route>
 
           {/* Loading */}

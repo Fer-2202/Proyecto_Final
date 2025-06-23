@@ -1,8 +1,10 @@
 import axiosInstance from './axiosInstance';
 
+
+
 export const getPayments = async () => {
   try {
-    const response = await axiosInstance.get("/payments");
+    const response = await axiosInstance.get("/api/payments/");
     return response.data;
   } catch (error) {
     console.error("Error fetching payments:", error);
@@ -12,7 +14,7 @@ export const getPayments = async () => {
 
 export const createPayment = async (paymentData) => {
   try {
-    const response = await axiosInstance.post("/payments", paymentData);
+    const response = await axiosInstance.post("/api/payments/create/", paymentData);
     return response.data;
   } catch (error) {
     console.error("Error creating payment:", error);
@@ -22,7 +24,7 @@ export const createPayment = async (paymentData) => {
 
 export const updatePayment = async (paymentId, paymentData) => {
   try {
-    const response = await axiosInstance.put(`/payments/${paymentId}`, paymentData);
+    const response = await axiosInstance.put(`/api/payments/${paymentId}/update`, paymentData);
     return response.data;
   } catch (error) {
     console.error("Error updating payment:", error);
@@ -32,7 +34,7 @@ export const updatePayment = async (paymentId, paymentData) => {
 
 export const deletePayment = async (paymentId) => {
   try {
-    const response = await axiosInstance.delete(`/payments/${paymentId}`);
+    const response = await axiosInstance.delete(`/api/payments/${paymentId}/delete`);
     return response.data;
   } catch (error) {
     console.error("Error deleting payment:", error);
@@ -50,15 +52,6 @@ export const getPaymentById = async (paymentId) => {
   }
 }
 
-export const getPaymentMethods = async () => {
-  try {
-    const response = await axiosInstance.get("/payments");
-    return response.data;
-  } catch (error) {
-    console.error("Error fetching payment methods:", error);
-    throw error;
-  }
-}
 
 export default {
   getPayments,

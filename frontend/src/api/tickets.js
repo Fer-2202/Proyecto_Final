@@ -22,10 +22,13 @@ export const getTicketById = async (id) => {
 
 export const createTicket = async (ticketData) => {
   try {
+    console.log("Creating ticket with data:", ticketData);
     const response = await axiosInstance.post('/api/tickets/create/', ticketData);
+    console.log("Create ticket response:", response);
     return response.data;
   } catch (error) {
-    console.error('Error creating ticket:', error);
+    console.error("Error creating ticket:", error);
+    console.error("Error details:", error.response);
     throw error;
   }
 };

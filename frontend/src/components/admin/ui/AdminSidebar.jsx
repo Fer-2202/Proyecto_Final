@@ -1,89 +1,72 @@
-// AdminSidebar.jsx
-import { motion } from 'framer-motion';
-import { TooltipProvider, Tooltip, TooltipTrigger, TooltipContent } from '@radix-ui/react-tooltip';
-import { LayoutDashboard, Users, FileText, Image, Calendar, Settings, LogOut, Menu } from 'lucide-react';
-import { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from "react-router-dom";
+import { Button, Menu } from "antd";
+import {
+  LayoutDashboard, Users, Ticket, Calendar, Settings,
+  LogOut, Eye, Globe,
+  Fish, ShoppingCart, Star, Landmark, Logs
+} from "lucide-react";
 
-const items = [
-  { label: 'Dashboard', icon: LayoutDashboard, href: '/admin' },
-  { label: 'Usuarios', icon: Users, href: '/admin/usuarios' },
-  { label: 'Entradas', icon: FileText, href: '/admin/entradas' },
-  { label: 'Contenido', icon: Image, href: '/admin/contenido' },
-  { label: 'Eventos', icon: Calendar, href: '/admin/eventos' },
-  { label: 'Configuración', icon: Settings, href: '/admin/configuracion' }
+const CRUD_TABS = [
+  { name: "Entradas", key: "tickets", icon: <Ticket size={16} /> },
+  { name: "Secciones", key: "sections", icon: <LayoutDashboard size={16} /> },
+  { name: "Hábitats", key: "habitats", icon: <Globe size={16} /> },
+  { name: "Animales", key: "animals", icon: <Fish size={16} /> },
+  { name: "Visitas", key: "visits", icon: <Calendar size={16} /> },
+  { name: "Órdenes", key: "orders", icon: <ShoppingCart size={16} /> },
+  { name: "Especies", key: "species", icon: <Star size={16} /> },
+  { name: "Estado de conservación", key: "conservation-status", icon: <Settings size={16} /> },
+  { name: "Provincias", key: "provinces", icon: <Landmark size={16} /> },
+  { name: "Perfiles de usuario", key: "user-profiles", icon: <Users size={16} /> },
+  { name: "Log de Auditoria", key: "audit-log", icon: <Logs size={16} /> },
 ];
 
-export default function AdminSidebar() {
-  const [collapsed, setCollapsed] = useState(false);
-  const location = useLocation();
-
+function AdminSidebar({ activeTab, setActiveTab, logout, user }) {
   return (
-    <TooltipProvider>
-      <motion.aside
-        animate={{ width: collapsed ? 64 : 220 }}
-        className="h-screen bg-white border-r border-gray-200 shadow-md flex flex-col items-start px-2 py-4 transition-all duration-300"
+    <div className="bg-gray-100 border-r border-gray-200">
+      <div className="p-6">
+        <h2 className="text-xl font-bold mb-4">Panel de Control</h2>
+        <p className="text-sm text-gray-600 mb-6">
+          Bienvenido, {user?.username || "Admin"}
+        </p>
+      </div>
+
+      <Menu
+        mode="inline"
+        selectedKeys={[activeTab]}
+        className="px-2"
+        itemClassName="rounded-md"
       >
-        {/* Sidebar Header */}
-        <div className="flex items-center justify-between w-full px-3 mb-6">
-          {!collapsed && (
-            <div>
-              <h2 className="text-xl font-semibold">Panel de Admin</h2>
-              <p className="text-sm text-gray-500">Bienvenido, Admin User</p>
-            </div>
-          )}
-          <button
-            onClick={() => setCollapsed((prev) => !prev)}
-            className="flex items-center justify-center"
+        {CRUD_TABS.map(tab => (
+          <Menu.Item
+            key={tab.key}
+            icon={tab.icon}
+            className="hover:!bg-teal-100 rounded-md"
+            onClick={() => setActiveTab(tab.key)}
           >
-            <Menu className="w-6 h-6 text-gray-600" />
-          </button>
-        </div>
+            {tab.name}
+          </Menu.Item>
+        ))}
+      </Menu>
 
-        {/* Nav Links */}
-        <nav className="space-y-1 w-full">
-          {items.map(({ label, icon: Icon, href }) => {
-            const active = location.pathname === href;
-            return (
-              <Tooltip key={label} delayDuration={300}>
-                <TooltipTrigger asChild>
-                  <Link
-                    to={href}
-                    className={`flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-gray-100 transition-colors ${
-                      active ? 'bg-gray-100 font-semibold' : ''
-                    }`}
-                  >
-                    <Icon className="w-5 h-5 text-gray-700" />
-                    {!collapsed && <span className="text-gray-800">{label}</span>}
-                  </Link>
-                </TooltipTrigger>
-                {collapsed && (
-                  <TooltipContent
-                    side="right"
-                    className="z-50 bg-black text-white text-sm px-2 py-1 rounded shadow"
-                  >
-                    {label}
-                  </TooltipContent>
-                )}
-              </Tooltip>
-            );
-          })}
-        </nav>
-
-        {/* Spacer */}
-        <div className="border-t my-4 w-full"></div>
-
-        {/* Logout Link */}
-        <div className="mt-auto w-full">
-          <Link
-            to="/logout"
-            className="flex items-center gap-3 px-3 py-2 rounded-lg hover:bg-red-100 text-red-600"
-          >
-            <LogOut className="w-5 h-5" />
-            {!collapsed && <span>Cerrar sesión</span>}
-          </Link>
-        </div>
-      </motion.aside>
-    </TooltipProvider>
+      <div className="p-6 space-y-3">
+        <Link
+          to="/"
+          className="flex items-center gap-2 text-gray-700 hover:text-teal-600"
+        >
+          <Eye size={16} /> Ver sitio
+        </Link>
+        <Button
+          icon={<LogOut size={16} />}
+          danger
+          type="text"
+          onClick={logout}
+        >
+          Cerrar sesión
+        </Button>
+      </div>
+    </div>
   );
 }
+
+export { AdminSidebar as default };
+

@@ -20,3 +20,7 @@ class Payments(models.Model):
         super().save(*args, **kwargs)
         if self.status == "SUCCESS":
             self.purchase_order.mark_as_paid()
+
+        if self.status == "FAILED":
+            self.purchase_order.mark_as_cancelled()
+            self.purchase_order.visit.free_slots()

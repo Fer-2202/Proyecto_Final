@@ -2,3 +2,7 @@
 	height: 1px;
 	width: 50%;
 }
+
+@import "tailwindcss";
+@import 'flowbite';
+import "antd/dist/reset.css"
