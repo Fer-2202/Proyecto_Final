@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, Button, Drawer } from "antd";
+import { Menu, Button, Drawer, Divider } from "antd";
 import {
   MenuFoldOutlined,
   MenuUnfoldOutlined,
@@ -15,6 +15,7 @@ const CRUD_TABS = [
   {
     name: "Crud",
     key: "submenu",
+    icon: <LayoutDashboard size={18} />,
     children: [
       { name: "Entradas", key: "tickets", icon: <Ticket size={18} /> },
       { name: "Secciones", key: "sections", icon: <LayoutDashboard size={18} /> },
@@ -124,7 +125,7 @@ export default function AdminSidebar({ activeTab, setActiveTab, logout, user }) 
           )
         )}
       </Menu>
-
+      <Divider />
       <div className="p-4 border-t border-gray-200">
         <Link
           to="/"

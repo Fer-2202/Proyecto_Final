@@ -6,33 +6,87 @@ from django.conf import settings
 urlpatterns = [
     # Endpoints para Exhibiciones
    
-    
-    
-    # Endpoints para crear, actualizar y eliminar exhibiciones
+    # Ruta para listar
+    path('', ExhibicionViewSet.as_view({'get': 'list'}), name='exhibition-list'),
 
-    path('lista/', ExhibicionViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-list'),
+    # Ruta para crear
+    path('create/', ExhibicionViewSet.as_view({ 'get': 'list', 'post': 'create' }), name='exhibition-crear'),
 
-    path('actualizar-editar/<int:pk>/', ExhibicionViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-detail'),
-    
-    path('eliminar/<int:pk>/', ExhibicionViewSet.as_view({'delete': 'destroy'}), name='exhibition-delete'),
-    
-    # Endpoints para manejar imágenes de exhibiciones
-    path('imagenes/', ExhibicionImageViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-image-list'),
-    path('imagenes/<int:pk>/', ExhibicionImageViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-image-detail'),
-    path('imagenes/eliminar/<int:pk>/', ExhibicionImageViewSet.as_view({'delete': 'destroy'}), name='exhibition-image-delete'),
+    # Ruta para detalle
+    path('<int:pk>/', ExhibicionViewSet.as_view({ 'get': 'list' }), name='exhibition-detail'),
+
+    # Ruta para actualizar-editar
+    path('<int:pk>/update/', ExhibicionViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-actualizar-update'),
+
+    #Ruta para eliminar
+    path('<int:pk>/delete/', ExhibicionViewSet.as_view({'delete': 'destroy'}), name='exhibition-delete'),
+
+  
+    #Aqui van la endpoints de las imagenes
+    # Ruta para listar
+    path('imagenes/', ExhibicionImageViewSet.as_view({'get': 'list'}), name='exhibition-image-list'),
+
+    # Ruta para crear
+    path('create/', ExhibicionImageViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-image-crear'),
+
+    # Ruta para detalle
+    path('<int:pk>/', ExhibicionImageViewSet.as_view({ 'get': 'retrieve' }), name='exhibition-image-detail'),
+
+    # Ruta para actualizar o editar
+    path('<int:pk>/update/', ExhibicionImageViewSet.as_view({ 'get': 'retrieve', 'put': 'update', 'delete': 'destroy' }), name='exhibition-actualizar-update'),
+
+    # Ruta para eliminar
+    path('<int:pk>/delete/', ExhibicionImageViewSet.as_view({ 'delete': 'destroy' }), name='exhibition-image-delete'),
+
     
     # Endpoints para facts
-    path('facts/', ExhibicionFactsViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-fact-list'),
-    path('facts/<int:pk>/', ExhibicionFactsViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-fact-detail'),
-    path('facts/eliminar/<int:pk>/', ExhibicionFactsViewSet.as_view({'delete': 'destroy'}), name='exhibition-fact-delete'),
+    # Ruta para listar
+    path('facts/', ExhibicionFactsViewSet.as_view({'get': 'list'}), name='exhibition-fact-list'),
+
+    # Ruta para crear
+    path('create/', ExhibicionFactsViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-fact-crear'),
+
+    # Ruta para detalle
+    path('<int:pk>/', ExhibicionFactsViewSet.as_view({'get': 'retrieve'}), name='exhibition-fact-detail'),
+
+    # Ruta para actualizar o editar
+    path('<int:pk>/update/', ExhibicionImageViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-fact-update'),
+
+    # Ruta para eliminar
+    path('<int:pk>/delete/', ExhibicionFactsViewSet.as_view({'delete': 'destroy'}), name='exhibition-fact-delete'),
     
+
+
     # Endpoints para manejar descripciones de exhibiciones
-    path('description/', ExhibicionDescriptionViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-description-list'),
-    path('description/<int:pk>/', ExhibicionDescriptionViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-description-detail'),
-    path('description/eliminar/<int:pk>/', ExhibicionDescriptionViewSet.as_view({'delete': 'destroy'}), name='exhibition-description-delete'),
+    #Ruta para listar
+    path('description/', ExhibicionDescriptionViewSet.as_view({'get': 'list'}), name='exhibition-description-list'),
+
+    # Ruta para crear
+    path('create/', ExhibicionDescriptionViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-description-crear'),
+
+    # Ruta para detalle
+    path('<int:pk>/', ExhibicionDescriptionViewSet.as_view({'get': 'retrieve'}), name='exhibition-description-detail'),
+
+    # Ruta para actualizar o editar
+    path('<int:pk>/update/', ExhibicionDescriptionViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-description-update'),
     
-    path('buttons/', ExhibicionButtonsViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-button-list'),
-    path('buttons/<int:pk>/', ExhibicionButtonsViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-button-detail'),
-    path('buttons/eliminar/<int:pk>/', ExhibicionButtonsViewSet.as_view({'delete': 'destroy'}), name='exhibition-button-delete'),
+    # Ruta para eliminar
+    path('<int:pk>/delete/', ExhibicionDescriptionViewSet.as_view({'delete': 'destroy'}), name='exhibition-description-delete'), 
+
+
+    #Ruta para listar
+    path('buttons/', ExhibicionButtonsViewSet.as_view({'get': 'list'}), name='exhibition-button-list'),
+
+    # Ruta para crear
+    path('create/', ExhibicionButtonsViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-button-crear'),
+
+    # Ruta para detalle
+    path('<int:pk>/', ExhibicionButtonsViewSet.as_view({'get': 'retrieve'}), name='exhibition-button-detail'),
+
+    # Ruta para actualizar o editar
+    path('<int:pk>/update/', ExhibicionButtonsViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-button-update'),
+
+    # Ruta para eliminar
+    path('<int:pk>/delete/', ExhibicionButtonsViewSet.as_view({'delete': 'destroy'}), name='exhibition-button-delete'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

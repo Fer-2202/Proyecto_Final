@@ -4,9 +4,19 @@ from .views import SectionsListCreateView, SectionDetailView  # Importamos las v
 """ URLs para la aplicación Sections """
 
 urlpatterns = [
+    # Ruta para listar
     path('', SectionsListCreateView.as_view(), name='sections-lista'),
+
+    # Ruta para crear
     path('crear/', SectionsListCreateView.as_view(), name='sections-crear'),
-    path('<int:pk>/', SectionDetailView.as_view(), name='sections-detalle'),
-    path('<int:pk>/eliminar/', SectionDetailView.as_view(), name='sections-eliminar'),
-    path('<int:pk>/actualizar-editar/', SectionDetailView.as_view(), name='sections-actualizar-editar'),
+
+    # Ruta para detalle
+    path('<int:pk>/', SectionDetailView.as_view(), name='sections-detail'),
+
+    # Ruta para actualizar o editar
+    path('<int:pk>/update/', SectionDetailView.as_view(), name='sections-actualizar-update'),
+
+    # Ruta para eliminar
+    path('<int:pk>/delete/',SectionDetailView.as_view(), name='sections-delete'),
+    
 ]

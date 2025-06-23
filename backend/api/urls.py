@@ -1,5 +1,5 @@
 from django.urls import path, include
-from .views import *
+from .views import Conservation_Status_DetailView, Conservation_Status_ListCreateView, UserProfileListCreateView, UserProfileDetailView, Users_ListCreateView, Users_DetailView, AvailableTicketsView, Visits_ListCreateView, Visits_DetailView, AvailableVisitsView, Tickets_Purchase_Order_ListCreateView,  Tickets_Purchase_Order_DetailView, Habitats_ListCreateView, Habitats_DetailView, RegisterView, LoginView, LogoutView, ForgotPasswordView, ResetPasswordConfirmView, GroupListCreateView, GroupDetailView, GroupPermissionsView, AuditLogListView, AuditLogDetailView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .serializers import CustomTokenObtainPairSerializer
 

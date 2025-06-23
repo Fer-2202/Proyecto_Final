@@ -59,7 +59,7 @@ const createMap = {
   habitat: api.createHabitat,
   animal: api.createAnimal,
   ticket: api.createTicket,
-  visit: api.createVisit,
+  visit: api.createTicket,
   purchaseOrder: api.createPurchaseOrder,
   species: api.createSpecies,
   conservationStatus: api.createConservationStatus,
@@ -78,7 +78,7 @@ const typeMap = {
   "conservation-status": "conservationStatus",
   provinces: "province",
   "user-profiles": "userProfile",
-  auditLog: "auditLog",
+  "auditLog": "auditLog",
 };
 
 /* -------------------- COMPONENT -------------------- */
@@ -122,7 +122,7 @@ export default function DashboardAdmin() {
     fetchData();
   }, []);
 
-  console.log()
+  /* console.log() */
 
   /* --- helpers --- */
   const showModal = (item = {}, tabKey = activeTab) => {
@@ -150,6 +150,20 @@ export default function DashboardAdmin() {
         [tabKey]: prev[tabKey].filter(i => i.id !== id),
       }));
       toast.success("Eliminado");
+
+      // Create audit log entry for delete
+      try {
+        await api.createAuditLog({
+          action: "delete",
+          table_name: type,
+          record_id: id,
+          user: user.id, // Assuming user object has an 'id' property
+        });
+      } catch (auditLogError) {
+        console.error("Error creating audit log entry:", auditLogError);
+        toast.error(`Error creating audit log entry: ${auditLogError?.message || auditLogError}`);
+      }
+
     } catch (e) {
       toast.error(`No se pudo eliminar: ${e?.message || e}`);
     }
@@ -263,6 +277,22 @@ export default function DashboardAdmin() {
         setFormVisible(false);
         setEditItem(null);
         form.resetFields();
+
+        // Create audit log entry for create/update
+        try {
+          await api.createAuditLog({
+            action: item?.id ? "update" : "create",
+            table_name: type,
+            record_id: item?.id || result.id,
+            user: user.id, // Assuming user object has an 'id' property
+            old_values: item?.id ? item : null,
+            new_values: values,
+          });
+        } catch (auditLogError) {
+          console.error("Error creating audit log entry:", auditLogError);
+          toast.error(`Error creating audit log entry: ${auditLogError?.message || auditLogError}`);
+        }
+
       } catch (apiError) {
         console.error("API call failed:", apiError);
         toast.error(`Failed to save: ${apiError?.message || apiError}`);
