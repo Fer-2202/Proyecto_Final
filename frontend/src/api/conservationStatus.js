@@ -10,6 +10,8 @@ export const getConservationStatuses = async () => {
   }
 };
 
+
+
 export const getConservationStatusById = async (id) => {
   try {
     const response = await axiosInstance.get(`/api/conservation_status/${id}/`);
@@ -49,10 +51,21 @@ export const deleteConservationStatus = async (id) => {
   }
 };
 
+export const getConservationStatusChoices = async () => {
+  try {
+    const response = await axiosInstance.get('/api/conservation-status-choices/');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching conservation status choices:', error);
+    throw error;
+  }
+};
+
 export default {
   getConservationStatuses,
   getConservationStatusById,
   createConservationStatus,
   updateConservationStatus,
   deleteConservationStatus,
+  getConservationStatusChoices,
 };

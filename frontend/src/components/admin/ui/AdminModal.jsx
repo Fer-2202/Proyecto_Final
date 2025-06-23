@@ -31,33 +31,48 @@ function AdminModal({ formVisible, setFormVisible, editItem, handleSubmit, form,
   const { item: initialValues, tabKey } = editItem || {};
 
   const activeTab = tabKey;
-  const [animalFormOptions, setAnimalFormOptions] = useState({
+  const [formOptions, setFormOptions] = useState({
     species: [],
     habitats: [],
     sections: [],
+    conservationStatuses: [], // Added conservationStatuses
   });
   let formConfig;
 
   useEffect(() => {
-    const fetchAnimalFormOptions = async () => {
+    const fetchData = async () => {
       try {
-        const [species, habitats, sections] = await Promise.all([
-          api.getSpecies(),
-          api.getHabitats(),
-          api.getSections(),
-        ]);
-        setAnimalFormOptions({
+        let species = [];
+        let habitats = [];
+        let sections = [];
+        let conservationStatuses = [];
+
+        if (activeTab === "animals") {
+          [species, habitats, sections] = await Promise.all([
+            api.getSpecies(),
+            api.getHabitats(),
+            api.getSections(),
+          ]);
+        } else if (activeTab === "conservation-status") {
+          conservationStatuses = await api.getConservationStatusChoices();
+        }
+        console.log("conservationStatuses:", conservationStatuses); // Add this line
+
+        setFormOptions(prevOptions => ({
+          ...prevOptions,
           species: species.map(s => ({ value: s.id, label: s.name })),
           habitats: habitats.map(h => ({ value: h.id, label: h.name })),
           sections: sections.map(sec => ({ value: sec.id, label: sec.name })),
-        });
+          conservationStatuses: conservationStatuses.map(status => ({ value: status.value, label: status.label })) // Store conservationStatuses directly
+        }));
       } catch (error) {
-        console.error("Error fetching animal form options:", error);
+        console.error("Error fetching form options:", error);
       }
     };
+    console.log("activeTab:", activeTab, "formVisible:", formVisible);
 
-    if (activeTab === "animals" && formVisible) {
-      fetchAnimalFormOptions();
+    if ((activeTab === "animals" || activeTab === "conservation-status") && formVisible) {
+      fetchData();
     }
   }, [activeTab, formVisible]);
 
@@ -75,13 +90,13 @@ function AdminModal({ formVisible, setFormVisible, editItem, handleSubmit, form,
       // Clone the animalFormConfig to avoid modifying the original
       formConfig = animalFormConfig.map(field => {
         if (field.name === "speciesId") {
-          return { ...field, options: animalFormOptions.species };
+          return { ...field, options: formOptions.species };
         }
         if (field.name === "habitatId") {
-          return { ...field, options: animalFormOptions.habitats };
+          return { ...field, options: formOptions.habitats };
         }
         if (field.name === "sectionId") {
-          return { ...field, options: animalFormOptions.sections };
+          return { ...field, options: formOptions.sections };
         }
         return field;
       });
@@ -96,7 +111,13 @@ function AdminModal({ formVisible, setFormVisible, editItem, handleSubmit, form,
       formConfig = speciesFormConfig;
       break;
     case "conservation-status":
-      formConfig = conservationStatusFormConfig;
+      // Clone the conservationStatusFormConfig to avoid modifying the original
+      formConfig = conservationStatusFormConfig.map(field => {
+        if (field.name === "name") {
+          return { ...field, options: formOptions.conservationStatuses };
+        }
+        return field;
+      });
       break;
     case "provinces":
       formConfig = provinceFormConfig;
@@ -105,7 +126,7 @@ function AdminModal({ formVisible, setFormVisible, editItem, handleSubmit, form,
       formConfig = userProfileFormConfig;
       break;
     default:
-      formConfig = []; // Default to an empty array if no config is found
+      formConfig = [];
       break;
   }
 
@@ -118,7 +139,7 @@ function AdminModal({ formVisible, setFormVisible, editItem, handleSubmit, form,
       okText="Guardar"
       className={`rounded-lg ${modalClassName}`}
       okButtonProps={{ className: buttonClassName }}
-      destroyOnClose
+      destroyOnHidden
     >
       <Form layout="vertical" form={form} initialValues={initialValues}>
         {formConfig.map(field => (

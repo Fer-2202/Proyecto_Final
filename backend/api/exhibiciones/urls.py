@@ -9,8 +9,11 @@ urlpatterns = [
     
     
     # Endpoints para crear, actualizar y eliminar exhibiciones
+
     path('lista/', ExhibicionViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-list'),
+
     path('actualizar-editar/<int:pk>/', ExhibicionViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-detail'),
+    
     path('eliminar/<int:pk>/', ExhibicionViewSet.as_view({'delete': 'destroy'}), name='exhibition-delete'),
     
     # Endpoints para manejar imágenes de exhibiciones
