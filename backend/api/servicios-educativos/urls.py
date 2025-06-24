@@ -6,7 +6,6 @@ from django.conf import settings
 urlpatterns = [
  # Endpoints para Servicios Educativos
     
-    # Endpoints para crear, actualizar y eliminar servicios educativos
     # Ruta para listar
     path('', ServiciosEducativosViewSet.as_view({'get': 'list'}), name='exhibition-list'),
 
@@ -20,9 +19,8 @@ urlpatterns = [
     path('<int:pk>/update/', ServiciosEducativosViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-update'),
 
     # Ruta para eliminar
-    path('<int:pk>/eliminar/', ServiciosEducativosViewSet.as_view({'delete': 'destroy'}), name='exhibition-delete'),
+    path('<int:pk>/delete/', ServiciosEducativosViewSet.as_view({'delete': 'destroy'}), name='exhibition-delete'),
     
-
 
 
     # Endpoints para manejar imágenes de exhibiciones
@@ -33,7 +31,7 @@ urlpatterns = [
     path('create/', ServiciosEducativosImageViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-image-detail'),
 
     # Ruta para detalle
-    path('<int:pk>/', ServiciosEducativosImageViewSet.as_view({'get': 'list'}), name='exhibition-image-delete'),
+    path('<int:pk>/', ServiciosEducativosImageViewSet.as_view({'get': 'list'}), name='exhibition-image-detail'),
     
     # Ruta para actualizar o editar
     path('<int:pk>/update/', ServiciosEducativosImageViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-image-update'),
@@ -45,30 +43,54 @@ urlpatterns = [
 
     # Endpoints para facts
     #Ruta para listar
-    path('facts/', ServiciosEducativosFactsViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-fact-list'),
+    path('facts/', ServiciosEducativosFactsViewSet.as_view({'get': 'list'}), name='exhibition-fact-list'),
 
     # Ruta para crear
-    path('create/', ServiciosEducativosFactsViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-fact-detail'),
+    path('create/', ServiciosEducativosFactsViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-fact-detail'),
 
     # Ruta para detalle
-    path('facts/eliminar/<int:pk>/', ServiciosEducativosFactsViewSet.as_view({'delete': 'destroy'}), name='exhibition-fact-delete'),
+    path('<int:pk>/', ServiciosEducativosFactsViewSet.as_view({'get': 'list'}), name='exhibition-fact-detail'),
     
     # Ruta para actualizar o editar
-    path('facts/<int:pk>/', ServiciosEducativosFactsViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-fact-detail'),
+    path('<int:pk>/update/', ServiciosEducativosFactsViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-fact-update'),
 
     # Ruta para eliminar
-    path('facts/eliminar/<int:pk>/', ServiciosEducativosFactsViewSet.as_view({'delete': 'destroy'}), name='exhibition-fact-delete'),
-
+    path('<int:pk>/delete/', ServiciosEducativosFactsViewSet.as_view({'delete': 'destroy'}), name='exhibition-fact-delete'),
 
 
 
     # Endpoints para manejar descripciones de exhibiciones
-    path('description/', ServiciosEducativosDescriptionViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-description-list'),
-    path('description/<int:pk>/', ServiciosEducativosDescriptionViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-description-detail'),
-    path('description/eliminar/<int:pk>/', ServiciosEducativosDescriptionViewSet.as_view({'delete': 'destroy'}), name='exhibition-description-delete'),
-    
-    path('buttons/', ServiciosEducativosButtonsViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-button-list'),
-    path('buttons/<int:pk>/', ServiciosEducativosButtonsViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-button-detail'),
-    path('buttons/eliminar/<int:pk>/', ServiciosEducativosButtonsViewSet.as_view({'delete': 'destroy'}), name='exhibition-button-delete'),
+    #Ruta para listar
+    path('description/', ServiciosEducativosDescriptionViewSet.as_view({'get': 'list'}), name='exhibition-description-list'),
+
+    # Ruta para crear
+    path('create/', ServiciosEducativosDescriptionViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-description-detail'),
+
+    # Ruta para detalle
+    path('<int:pk>/', ServiciosEducativosDescriptionViewSet.as_view({'get': 'list'}), name='exhibition-description-delete'),
+
+    # Ruta para actualizar o editar
+    path('<int:pk>/update/', ServiciosEducativosDescriptionViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-description-update'),
+
+    # Ruta para eliminar
+    path('<int:pk>/delete/', ServiciosEducativosDescriptionViewSet.as_view({'delete': 'destroy'}), name='exhibition-description-delete'),
+
+
+
+    # Ruta para listar
+    path('buttons/', ServiciosEducativosButtonsViewSet.as_view({'get': 'list'}), name='exhibition-button-list'),
+
+    # Ruta para crear
+    path('create/', ServiciosEducativosButtonsViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-button-list'),
+
+    # Ruta para detalle
+    path('<int:pk>/', ServiciosEducativosButtonsViewSet.as_view({'get': 'list'}), name='exhibition-button-detail'),
+
+    # Ruta para actualizar o editar
+    path('<int:pk>/update/', ServiciosEducativosButtonsViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-button-update'),
+
+    # Ruta para eliminar
+    path('<int:pk>/delete/', ServiciosEducativosButtonsViewSet.as_view({'delete': 'destroy'}), name='exhibition-button-delete'),
+
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

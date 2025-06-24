@@ -3,7 +3,7 @@ import axiosInstance from './axiosInstance';
 export const getUserProfileById = async (id, setLoading) => {
   try {
     if (setLoading) setLoading(true);
-    const response = await axiosInstance.get(`/api/user_profile/${id}/`);
+    const response = await axiosInstance.get(`/api/auth/user_profile/${id}/`);
     return response.data;
   } catch (error) {
     console.error(`Error fetching user profile with ID ${id}:`, error);
@@ -22,7 +22,7 @@ export const updateUserProfile = async (id, profileData, setLoading) => {
       throw new Error('Invalid profile data');
     }
 
-    const response = await axiosInstance.put(`/api/user_profile/${id}/`, profileData);
+    const response = await axiosInstance.put(`/api/auth/user_profile/${id}/update`, profileData);
     return response.data;
   } catch (error) {
     console.error(`Error updating user profile with ID ${id}:`, error);
@@ -39,7 +39,7 @@ export const getUserProfileWithRetry = async (id, setLoading, maxRetries = 3) =>
   while (attempts < maxRetries) {
     try {
       if (setLoading) setLoading(true);
-      const response = await axiosInstance.get(`/api/user_profile/${id}/`);
+      const response = await axiosInstance.get(`/api/auth/user_profile/${id}/`);
       return response.data;
     } catch (error) {
       lastError = error;
@@ -59,7 +59,7 @@ export const getUserProfileWithRetry = async (id, setLoading, maxRetries = 3) =>
 
 export const getUserProfile = async (id) => {
   try {
-    const response = await axiosInstance.get(`/api/user_profile/${id}/`);
+    const response = await axiosInstance.get(`/api/auth/user_profile/${id}/`);
     return response.data;
   } catch (error) {
     console.error(`Error fetching user profile with ID ${id}:`, error);
@@ -69,7 +69,7 @@ export const getUserProfile = async (id) => {
 
 export const createUserProfile = async (profileData) => {
   try {
-    const response = await axiosInstance.post('/api/user_profile/', profileData);
+    const response = await axiosInstance.post('/api/auth/user_profile/', profileData);
     return response.data;
   } catch (error) {
     console.error('Error creating user profile:', error);
@@ -79,7 +79,7 @@ export const createUserProfile = async (profileData) => {
 
 export const getUsersProfiles = async () => {
   try {
-    const response = await axiosInstance.get('/api/user_profile/');
+    const response = await axiosInstance.get('/api/auth/user_profile/');
     return response.data;
   } catch (error) {
     console.error('Error fetching users profiles:', error);
@@ -89,7 +89,7 @@ export const getUsersProfiles = async () => {
 
 export const deleteUserProfile = async (id) => {
   try {
-    await axiosInstance.delete(`/api/user_profile/${id}/`);
+    await axiosInstance.delete(`/api/auth/user_profile/${id}/delete`);
   } catch (error) {
     console.error(`Error deleting user profile with ID ${id}:`, error);
     throw error;

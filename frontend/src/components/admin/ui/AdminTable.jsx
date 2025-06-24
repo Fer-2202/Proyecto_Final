@@ -17,6 +17,7 @@ function AdminTable({
   tableClassName = "",
   rowClassName = "",
 }) {
+  console.log("filteredRows in AdminTable:", filteredRows);
   const [searchTexts, setSearchTexts] = useState({});
   const [visibleColumns, setVisibleColumns] = useState(columns.map(c => c.dataIndex));
   const tableRef = useRef();

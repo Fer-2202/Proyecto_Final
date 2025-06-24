@@ -2,7 +2,7 @@ import axiosInstance from './axiosInstance';
 
 export const getSpecies = async () => {
   try {
-    const response = await axiosInstance.get('/api/species/lista/');
+    const response = await axiosInstance.get('/api/species/');
     return response.data;
   } catch (error) {
     console.error('Error fetching species:', error);
@@ -22,7 +22,7 @@ export const getSpeciesById = async (id) => {
 
 export const createSpecies = async (speciesData) => {
   try {
-    const response = await axiosInstance.post('/api/species/', speciesData);
+    const response = await axiosInstance.post('/api/species/create/', speciesData);
     return response.data;
   } catch (error) {
     console.error('Error creating species:', error);
@@ -32,7 +32,7 @@ export const createSpecies = async (speciesData) => {
 
 export const updateSpecies = async (id, speciesData) => {
   try {
-    const response = await axiosInstance.put(`/api/species/${id}/`, speciesData);
+    const response = await axiosInstance.put(`/api/species/${id}/update/`, speciesData);
     return response.data;
   } catch (error) {
     console.error(`Error updating species with ID ${id}:`, error);
@@ -42,7 +42,7 @@ export const updateSpecies = async (id, speciesData) => {
 
 export const deleteSpecies = async (id) => {
   try {
-    await axiosInstance.delete(`/api/species/${id}/`);
+    await axiosInstance.delete(`/api/species/${id}/delete/`);
   } catch (error) {
     console.error(`Error deleting species with ID ${id}:`, error);
     throw error;

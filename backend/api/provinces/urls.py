@@ -3,6 +3,7 @@ from django.urls import path, include
 
 """ URLs para la aplicación Provinces """
 urlpatterns = [
+ 
     # Ruta para listar
     path('', Provinces_GetView.as_view({'get': 'list'}), name='provinces-lista'),
     
@@ -17,4 +18,5 @@ urlpatterns = [
     
     # Ruta para detalle
     path('<int:pk>/', Provinces_DetailView.as_view({'get': 'retrieve'}), name='provinces-detalle'),
+
 ]

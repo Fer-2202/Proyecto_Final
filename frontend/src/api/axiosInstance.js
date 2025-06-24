@@ -27,7 +27,7 @@ instance.interceptors.response.use(
       const refreshToken = Cookies.get('refreshToken');
       if (refreshToken) {
         try {
-          const response = await axios.post('http://127.0.0.1:8000/api/token/refresh/', {
+          const response = await axios.post('http://127.0.0.1:8000/api/auth/token/refresh/', {
             refresh: refreshToken
           });
           Cookies.set('accessToken', response.data.access, { expires: 1 });

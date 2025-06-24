@@ -2,7 +2,7 @@ import axiosInstance from './axiosInstance';
 
 export const getConservationStatuses = async () => {
   try {
-    const response = await axiosInstance.get('/api/conservation_status/');
+    const response = await axiosInstance.get('api/conservation_status/');
     return response.data;
   } catch (error) {
     console.error('Error fetching conservation statuses:', error);
@@ -14,7 +14,7 @@ export const getConservationStatuses = async () => {
 
 export const getConservationStatusById = async (id) => {
   try {
-    const response = await axiosInstance.get(`/api/conservation_status/${id}/`);
+    const response = await axiosInstance.get(`api/conservation_status/${id}/`);
     return response.data;
   } catch (error) {
     console.error(`Error fetching conservation status with ID ${id}:`, error);
@@ -24,7 +24,7 @@ export const getConservationStatusById = async (id) => {
 
 export const createConservationStatus = async (statusData) => {
   try {
-    const response = await axiosInstance.post('/api/conservation_status/', statusData);
+    const response = await axiosInstance.post('api/conservation_status/', statusData);
     return response.data;
   } catch (error) {
     console.error('Error creating conservation status:', error);
@@ -34,7 +34,7 @@ export const createConservationStatus = async (statusData) => {
 
 export const updateConservationStatus = async (id, statusData) => {
   try {
-    const response = await axiosInstance.put(`/api/conservation_status/${id}/`, statusData);
+    const response = await axiosInstance.put(`api/conservation_status/${id}/`, statusData);
     return response.data;
   } catch (error) {
     console.error(`Error updating conservation status with ID ${id}:`, error);
@@ -44,7 +44,7 @@ export const updateConservationStatus = async (id, statusData) => {
 
 export const deleteConservationStatus = async (id) => {
   try {
-    await axiosInstance.delete(`/api/conservation_status/${id}/`);
+    await axiosInstance.delete(`api/conservation_status/${id}/`);
   } catch (error) {
     console.error(`Error deleting conservation status with ID ${id}:`, error);
     throw error;
@@ -53,7 +53,7 @@ export const deleteConservationStatus = async (id) => {
 
 export const getConservationStatusChoices = async () => {
   try {
-    const response = await axiosInstance.get('/api/conservation-status-choices/');
+    const response = await axiosInstance.get('api/conservation-status-choices/');
     return response.data;
   } catch (error) {
     console.error('Error fetching conservation status choices:', error);

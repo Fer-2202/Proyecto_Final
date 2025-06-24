@@ -17,7 +17,7 @@ urlpatterns = [
     # Ruta para eliminar
     path('<int:pk>/delete/', ProgramaEducativoViewSet.as_view({ 'delete': 'destroy' }), name='programas-educativos-delete'),
     
-    #
+    
 
     # Ruta para listar
     path('items/', ProgramaItemViewSet.as_view({'get': 'list'}), name='programas-educativos-items-lista'),

@@ -1,5 +1,5 @@
 from .views import ExhibicionViewSet, ExhibicionImageViewSet, ExhibicionFactsViewSet, ExhibicionDescriptionViewSet, ExhibicionButtonsViewSet
-from django.urls import path, include
+from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 
@@ -21,6 +21,7 @@ urlpatterns = [
     #Ruta para eliminar
     path('<int:pk>/delete/', ExhibicionViewSet.as_view({'delete': 'destroy'}), name='exhibition-delete'),
 
+
   
     #Aqui van la endpoints de las imagenes
     # Ruta para listar
@@ -39,6 +40,7 @@ urlpatterns = [
     path('<int:pk>/delete/', ExhibicionImageViewSet.as_view({ 'delete': 'destroy' }), name='exhibition-image-delete'),
 
     
+
     # Endpoints para facts
     # Ruta para listar
     path('facts/', ExhibicionFactsViewSet.as_view({'get': 'list'}), name='exhibition-fact-list'),
@@ -72,6 +74,7 @@ urlpatterns = [
     
     # Ruta para eliminar
     path('<int:pk>/delete/', ExhibicionDescriptionViewSet.as_view({'delete': 'destroy'}), name='exhibition-description-delete'), 
+
 
 
     #Ruta para listar

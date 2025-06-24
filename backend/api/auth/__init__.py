@@ -1,0 +1,3 @@
+from .models import UserProfile
+from .serializers import UserProfileSerializer,RegisterSerializer,ProfileSerializer,UserSerializer,CustomTokenObtainPairSerializer,GroupSerializer,GroupPermissionsSerializer
+from .urls import urlpatterns

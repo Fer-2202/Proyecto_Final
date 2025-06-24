@@ -3,6 +3,7 @@ from .views import Purchase_Orders_ViewSet, Purchase_Orders_DetailViewSet
 
 """ URLs para la aplicación Purchase_Orders """
 urlpatterns = [
+ 
  # Ruta para listar
  path('', Purchase_Orders_ViewSet.as_view({'get': 'list'}), name='purchase_orders-lista'),
  

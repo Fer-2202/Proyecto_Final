@@ -1,7 +1,6 @@
 from django.urls import path, include
-from .views import Conservation_Status_DetailView, Conservation_Status_ListCreateView, UserProfileListCreateView, UserProfileDetailView, Users_ListCreateView, Users_DetailView, AvailableTicketsView, Visits_ListCreateView, Visits_DetailView, AvailableVisitsView, Tickets_Purchase_Order_ListCreateView,  Tickets_Purchase_Order_DetailView, Habitats_ListCreateView, Habitats_DetailView, RegisterView, LoginView, LogoutView, ForgotPasswordView, ResetPasswordConfirmView, GroupListCreateView, GroupDetailView, GroupPermissionsView, AuditLogListView, AuditLogDetailView
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
-from .serializers import CustomTokenObtainPairSerializer
+from .views import AvailableTicketsView, Visits_ListCreateView, Visits_DetailView, AvailableVisitsView, Tickets_Purchase_Order_ListCreateView,  Tickets_Purchase_Order_DetailView, Habitats_ListCreateView, Habitats_DetailView
+
 
 urlpatterns = [
  
@@ -27,12 +26,7 @@ urlpatterns = [
     path('programas_educativos/', include('api.programas-educativos.urls')),
 
     # Estado de conservacion
-    path('conservation_status/', Conservation_Status_ListCreateView.as_view(), name='conservation_status-lista'),
-    path('conservation_status/<int:pk>/', Conservation_Status_DetailView.as_view(), name='conservation_status-actualizar-editar'),
-
-    # Usuarios
-    path('users/', Users_ListCreateView.as_view(), name='users-lista'),
-    path('users/<int:pk>/', Users_DetailView.as_view(), name='users-actualizar-editar'),
+    path('conservation_status/', include('api.conservation_status.urls')),
 
     # Tickets
     path('tickets/', include('api.tickets.urls')),
@@ -60,31 +54,12 @@ urlpatterns = [
     path('habitats/', Habitats_ListCreateView.as_view(), name='habitats-lista'),
     path('habitats/<int:pk>/', Habitats_DetailView.as_view(), name='habitats-actualizar-editar'),
 
-    # Perfil de usuario
-    path('user_profile/', UserProfileListCreateView.as_view(), name='user_profile-list-create'),
-    path('user_profile/<int:pk>/', UserProfileDetailView.as_view(), name='user_profile-detail'),
-
-    # Autenticacion y registro
-    path('token/', TokenObtainPairView.as_view(serializer_class=CustomTokenObtainPairSerializer), name='token_obtain_pair'),
-    path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),
-    path('register/', RegisterView.as_view(), name='register'),
-
-    # Login/Logout
-    path('login/', LoginView.as_view(), name='login'),
-    path('logout/', LogoutView.as_view(), name='logout'),
-
-    # Password Reset
-    path('forgot-password/', ForgotPasswordView.as_view(), name='forgot_password'),
-    path('reset-password-confirm/', ResetPasswordConfirmView.as_view(), name='reset_password_confirm'),
+    # Auth
+    path('auth/', include('api.auth.urls')),
 
 
-    # Roles (Groups)
-    path('roles/', GroupListCreateView.as_view(), name='roles-lista'),
-    path('roles/<int:pk>/', GroupDetailView.as_view(), name='roles-detalle'),
-    path('roles/<int:pk>/permissions/', GroupPermissionsView.as_view(), name='roles-permissions'),
 
     # Audit Log
-    path('audit_logs/', AuditLogListView.as_view(), name='audit_log-list'),
-    path('audit_logs/<int:pk>/', AuditLogDetailView.as_view(), name='audit_log-detail'),
+    path('audit_log/', include('api.apiLog.urls'))
 
 ]

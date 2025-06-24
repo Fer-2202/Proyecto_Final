@@ -1,9 +1,7 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import get_user_model
-from .models import (  ConservationStatus,
-                          Visits,  TicketsPurchaseOrder,
-                         Habitats, UserProfile)
+from .models import (Visits, TicketsPurchaseOrder,Habitats,)
 from .sections.models import Sections
 from .provinces.models import Provinces
 from .species.models import Species
@@ -11,6 +9,8 @@ from .animales.models import Animals
 from .tickets.models import Tickets
 from .purchase_orders.models import PurchaseOrders
 from .payments.models import Payments
+from .auth.models import UserProfile
+from .conservation_status.models import ConservationStatus
 
 User = get_user_model()
 

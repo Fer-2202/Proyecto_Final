@@ -21,136 +21,26 @@ from .tickets.serializers import Tickets_Serializer
 # Models
 from django.contrib.auth.models import User, Group
 from .models import (
-       ConservationStatus,
      Visits, TicketsPurchaseOrder,
-    Habitats,  UserProfile, AuditLog
+    Habitats
 )
 
 # Serializers
 from .serializers import (
-    RegisterSerializer, UserProfileSerializer, Conservation_Status_Serializer,
     Visits_Serializer,
-    Tickets_Purchase_Orders_Serializer, Habitats_Serializer, 
-    GroupSerializer,  GroupPermissionsSerializer, AuditLogSerializer
+    Tickets_Purchase_Orders_Serializer, 
+    Habitats_Serializer
 )
 
 User = get_user_model()
 
-# ==================
-# AUTHENTICATION VIEWS
-# ==================
-
-class LoginView(APIView):
-    def post(self, request):
-        identifier = request.data.get('username')
-        password = request.data.get('password')
-        user = None
-
-        try:
-            user = User.objects.get(username=identifier)
-        except User.DoesNotExist:
-            try:
-                user = User.objects.get(email=identifier)
-            except User.DoesNotExist:
-                try:
-                    profile = UserProfile.objects.get(user__email=identifier)
-                    user = profile.user
-                except UserProfile.DoesNotExist:
-                    user = None
-
-        if user and user.check_password(password):
-            login(request, user)
-            return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
-
-        return Response({'error': 'Invalid Credentials'}, status=status.HTTP_400_BAD_REQUEST)
-
-class LogoutView(APIView):
-    def post(self, request):
-        logout(request)
-        return Response({'message': 'Logout successful'}, status=status.HTTP_200_OK)
-
-# ==================
-# USERS / PROFILES
-# ==================
-
-class RegisterView(generics.CreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = RegisterSerializer
-
-    def get_serializer_context(self):
-        context = super().get_serializer_context()
-        context['request'] = self.request
-        return context
-
-class Users_ListCreateView(generics.ListCreateAPIView):
-    queryset = User.objects.all()
-    serializer_class = RegisterSerializer
-    permission_classes = [IsAuthenticatedAndRole]
-    required_role = 'admin'
-
-class Users_DetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = RegisterSerializer
-    permission_classes = [IsAuthenticatedAndRole]
-    required_role = 'admin'
-
-class UserProfileListCreateView(generics.ListCreateAPIView):
-    queryset = UserProfile.objects.all()
-    serializer_class = UserProfileSerializer
-    permission_classes = [IsAuthenticatedAndRole]
-
-class UserProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = UserProfile.objects.all()
-    lookup_field = 'user__id'
-    lookup_url_kwarg = 'pk'
-    serializer_class = UserProfileSerializer
-    permission_classes = [IsAuthenticatedAndRole]
-
-# ==================
-# GROUPS
-# ==================
-
-class GroupListCreateView(generics.ListCreateAPIView):
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-    #permission_classes = [IsAuthenticatedAndRole]
-    #required_role = 'admin'
-
-from django.contrib.auth.models import Permission
-
-class GroupDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-    #permission_classes = [IsAuthenticatedAndRole]
-    #required_role = 'admin'
-
-class GroupPermissionsView(generics.UpdateAPIView):
-    queryset = Group.objects.all()
-    serializer_class = GroupPermissionsSerializer
-    #permission_classes = [IsAuthenticatedAndRole]
-    #required_role = 'admin'
-
-    def update(self, request, *args, **kwargs):
-        group = self.get_object()
-        serializer = self.get_serializer(group, data=request.data)
-        serializer.is_valid(raise_exception=True)
-        group.permissions.set(serializer.validated_data['permissions'])
-        return Response(GroupSerializer(group).data)
 
 # ==================
 #  / STATUS
 # ==================
 
 
-class Conservation_Status_ListCreateView(generics.ListCreateAPIView):
-    queryset = ConservationStatus.objects.all()
-    serializer_class = Conservation_Status_Serializer
-    #permission_classes = [IsAuthenticatedAndRole]
 
-class Conservation_Status_DetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = ConservationStatus.objects.all()
-    serializer_class = Conservation_Status_Serializer
-    #permission_classes = [IsAuthenticatedAndRole]
 
 # ==================
 # TICKETS / VISITS / PURCHASE ORDERS / PAYMENTS
@@ -234,17 +124,6 @@ class Habitats_DetailView(generics.RetrieveUpdateDestroyAPIView):
 from django.utils.http import urlsafe_base64_encode, urlsafe_base64_decode
 from django.utils.encoding import force_bytes
 
-class AuditLogListView(generics.ListAPIView):
-    queryset = AuditLog.objects.all()
-    serializer_class = AuditLogSerializer
-    #permission_classes = [IsAuthenticatedAndRole]
-    #required_role = 'admin'
-
-class AuditLogDetailView(generics.RetrieveAPIView):
-    queryset = AuditLog.objects.all()
-    serializer_class = AuditLogSerializer
-    #permission_classes = [IsAuthenticatedAndRole]
-    #required_role = 'admin'
 
 
 

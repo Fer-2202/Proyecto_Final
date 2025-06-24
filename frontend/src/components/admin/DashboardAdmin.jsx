@@ -27,7 +27,7 @@ import AdminModal from "../../components/admin/ui/AdminModal";
 
 const { Content } = Layout;
 
-/* ----------------------- MAPS ----------------------- */
+/* ----------------------- MAP DELETE ----------------------- */
 const deleteMap = {
   section: api.deleteSection,
   habitat: api.deleteHabitat,
@@ -41,6 +41,7 @@ const deleteMap = {
   userProfile: api.deleteUserProfile,
 };
 
+/* ----------------------- MAP UPDATE ----------------------- */
 const updateMap = {
   section: api.updateSection,
   habitat: api.updateHabitat,
@@ -54,6 +55,7 @@ const updateMap = {
   userProfile: api.updateUserProfile,
 };
 
+/* ----------------------- MAP CREATE ----------------------- */
 const createMap = {
   section: api.createSection,
   habitat: api.createHabitat,
@@ -76,16 +78,16 @@ const typeMap = {
   orders: "purchaseOrder",
   species: "species",
   "conservation-status": "conservationStatus",
-  provinces: "province",
+  provinces: "provinces",
   "user-profiles": "userProfile",
-  "auditLog": "auditLog",
+  Auditorias: "auditoria",
 };
 
-/* -------------------- COMPONENT -------------------- */
+
 export default function DashboardAdmin() {
   const { logout, user } = useAuth();
 
-  /* --- state --- */
+
   const [activeTab, setActiveTab] = useState("tickets");
   const [data, setData] = useState({});
   const [loading, setLoading] = useState(true);
@@ -94,7 +96,6 @@ export default function DashboardAdmin() {
   const [editItem, setEditItem] = useState(null);
   const [form] = Form.useForm();
 
-  /* --- initial data --- */
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -108,11 +109,17 @@ export default function DashboardAdmin() {
           api.getProvinces(), api.getUsersProfiles(), api.getAuditLog(),
         ]);
 
+       
+        
+
         setData({
           sections, habitats, animals, tickets, visits, orders,
-          species, "conservation-status": conservationStatus,
-          provinces, "user-profiles": userProfiles, "auditLog": auditLog,
+          species,  "conservation-status": conservationStatus,
+          provinces, userProfiles, auditLog,
         });
+        console.log("activeTab:", activeTab);
+
+        console.log(auditLog)
       } catch (e) {
         toast.error(`Error al cargar datos: ${e?.message || e}`);
       } finally {
@@ -303,27 +310,34 @@ export default function DashboardAdmin() {
     }
   };
 
+  console.log("data[activeTab] (auditLog):", data["auditLog"]);
   const filteredRows =
-    data[activeTab]?.filter(row =>
+    data[activeTab]?.filter(row => searchTerm ?
       Object.values(row).some(v =>
-        String(v).toLowerCase().includes(searchTerm.toLowerCase()),
-      ),
+        String(v).toLowerCase().includes(searchTerm),
+      ) : true
     ) || [];
 
   /* --- columns for table --- */
-  const columns = [
-    ...(data[activeTab]?.[0]
-      ? Object.keys(data[activeTab][0]).map(key => ({
-          title: key,
-          dataIndex: key,
-          render: val =>
-            typeof val === "string" || typeof val === "number"
-              ? val
-              : JSON.stringify(val),
-        }))
-      : []),
-   
-  ];
+  const columns = data[activeTab]?.[0]
+    ? Object.keys(data[activeTab][0]).map(key => ({
+        title: key,
+        dataIndex: key,
+        render: (val) =>
+          typeof val === "string" || typeof val === "number"
+            ? val
+            : JSON.stringify(val),
+      }))
+    : [
+        { title: "ID", dataIndex: "id" }, // Basic columns as a fallback
+        { title: "Timestamp", dataIndex: "timestamp" },
+        { title: "Action", dataIndex: "action" },
+        { title: "Model", dataIndex: "model" },
+        { title: "Record ID", dataIndex: "record_id" },
+        { title: "Details", dataIndex: "details" },
+        { title: "User", dataIndex: "user" },
+      ];
+  console.log("Columns: ", columns);
 
   if (loading) return <Loading text="Cargando datos..." />;
 
@@ -357,6 +371,7 @@ export default function DashboardAdmin() {
               showModal={showModal}
               actionButtonClassName="rounded-full border border-blue-200 bg-blue-50 hover:bg-blue-100 text-blue-700 shadow-sm transition-all duration-150"
             />
+            {console.log("filteredRows before passing to AdminTable:", filteredRows)}
           </div>
         </Content>
       </div>

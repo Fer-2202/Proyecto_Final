@@ -7,3 +7,5 @@ class ApiConfig(AppConfig):
     
     def ready(self):
         import api.signals
+        import api.apiLog.signals
+        import api.auth.signals

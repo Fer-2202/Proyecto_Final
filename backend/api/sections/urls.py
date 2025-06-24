@@ -1,22 +1,23 @@
 from django.urls import path
-from .views import SectionsListCreateView, SectionDetailView  # Importamos las vistas dentro de la carpeta sections
+from .views import SectionsViewSet
 
 """ URLs para la aplicación Sections """
 
 urlpatterns = [
+ 
     # Ruta para listar
-    path('', SectionsListCreateView.as_view(), name='sections-lista'),
+    path('', SectionsViewSet.as_view({'get': 'list'}), name='sections-lista'),
 
     # Ruta para crear
-    path('crear/', SectionsListCreateView.as_view(), name='sections-crear'),
+    path('crear/', SectionsViewSet.as_view({ 'get': 'list', 'post': 'create' }), name='sections-crear'),
 
     # Ruta para detalle
-    path('<int:pk>/', SectionDetailView.as_view(), name='sections-detail'),
+    path('<int:pk>/', SectionsViewSet.as_view({'get': 'list'}), name='sections-detail'),
 
     # Ruta para actualizar o editar
-    path('<int:pk>/update/', SectionDetailView.as_view(), name='sections-actualizar-update'),
+    path('<int:pk>/update/', SectionsViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='sections-actualizar-update'),
 
     # Ruta para eliminar
-    path('<int:pk>/delete/',SectionDetailView.as_view(), name='sections-delete'),
+    path('<int:pk>/delete/',SectionsViewSet.as_view({'delete': 'destroy'}), name='sections-delete'),
     
 ]
