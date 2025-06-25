@@ -24,12 +24,12 @@ const CRUD_TABS = [
       { name: "Visitas", key: "visits", icon: <Calendar size={18} /> },
       { name: "Órdenes", key: "orders", icon: <ShoppingCart size={18} /> },
       { name: "Especies", key: "species", icon: <Star size={18} /> },
-      { name: "Estado de conservación", key: "conservationStatus", icon: <Settings size={18} /> },
+      { name: "Estado de conservación", key: "conservation-status", icon: <Settings size={18} /> },
       { name: "Provincias", key: "provinces", icon: <Landmark size={18} /> },
     ],
   },
-  { name: "Perfiles de usuario", key: "userProfile", icon: <Users size={18} /> },
-  { name: "Log de Auditoria", key: "auditoria", icon: <Logs size={18} /> },
+  { name: "Perfiles de usuario", key: "user-profiles", icon: <Users size={18} /> },
+  { name: "Log de Auditoria", key: "audit-log", icon: <Logs size={18} /> },
 ];
 
 export default function AdminSidebar({ activeTab, setActiveTab, logout, user }) {

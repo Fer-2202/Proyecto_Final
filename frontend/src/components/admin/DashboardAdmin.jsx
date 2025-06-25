@@ -78,9 +78,9 @@ const typeMap = {
   orders: "purchaseOrder",
   species: "species",
   "conservation-status": "conservationStatus",
-  provinces: "provinces",
+  provinces: "province",
   "user-profiles": "userProfile",
-  Auditorias: "auditoria",
+  "audit-log": "auditLog",
 };
 
 
@@ -115,11 +115,11 @@ export default function DashboardAdmin() {
         setData({
           sections, habitats, animals, tickets, visits, orders,
           species,  "conservation-status": conservationStatus,
-          provinces, userProfiles, auditLog,
+          provinces, "user-profiles": userProfiles, "audit-log": auditLog,
         });
         console.log("activeTab:", activeTab);
 
-        console.log(auditLog)
+        console.log(data)
       } catch (e) {
         toast.error(`Error al cargar datos: ${e?.message || e}`);
       } finally {
@@ -310,7 +310,6 @@ export default function DashboardAdmin() {
     }
   };
 
-  console.log("data[activeTab] (auditLog):", data["auditLog"]);
   const filteredRows =
     data[activeTab]?.filter(row => searchTerm ?
       Object.values(row).some(v =>
