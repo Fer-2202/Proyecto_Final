@@ -6,9 +6,11 @@ import DescriptionSection from './components/DescriptionSection'
 import Tanque from "./../../../assets/img/Logo_CRRAM.JPG"
 import { Link } from 'react-router-dom'
 import EspeciesTab from './components/tabs/EspeciesTab'
-import InstalacionesTab from './components/tabs/InstalacionesTab'
+import PublicacionesTab from './components/tabs/investigacion/PublicacionesTab'
 import HistoriasTab from './components/tabs/HistoriasTab'
 import ComoAyudarTab from './components/tabs/ComoAyudarTab'
+import { publicaciones, publicacionesStats  } from './data/publicacionesCRRAMData';
+import Tenencia_responsable from './components/tabs/Tenencia_responsable'
 
 function CentroDeRescate() {
 
@@ -31,11 +33,11 @@ function CentroDeRescate() {
       label: "Especies Atendidas",
       component: <EspeciesTab />
     },
-/*     {
-      value: "instalaciones",
-      label: "Nuestras Instalaciones",
-      component: <InstalacionesTab />
-    }, */
+    {
+      value: "publicaciones",
+      label: "Publicaciones",
+      component: <PublicacionesTab publicaciones={publicaciones} stats={publicacionesStats} />
+    },
     {
       value: "casos-exito",
       label: "Casos de Exito",
@@ -45,6 +47,11 @@ function CentroDeRescate() {
       value: "como-ayudar",
       label: "Como Ayudar",
       component: <ComoAyudarTab />
+    },
+    {
+      value: "tenencia-responsable",
+      label: "Tenencia Responsable",
+      component: <Tenencia_responsable />
     }
   ];
 

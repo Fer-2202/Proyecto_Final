@@ -4,6 +4,7 @@ from rest_framework import viewsets
 from api.permissions import IsAuthenticatedAndRole
 
 class ExhibicionViewSet(viewsets.ModelViewSet):
+
     """
     ViewSet para manejar las operaciones CRUD de Exhibiciones.
     
@@ -19,6 +20,7 @@ class ExhibicionViewSet(viewsets.ModelViewSet):
     #required_permissions = ['exhibitions.view_exhibition', 'exhibitions.add_exhibition', 'exhibitions.change_exhibition', 'exhibitions.delete_exhibition']
 
 class ExhibicionImageViewSet(viewsets.ModelViewSet):
+
     """
     ViewSet para manejar las operaciones CRUD de imágenes de Exhibiciones.
     
@@ -40,6 +42,7 @@ class ExhibicionImageViewSet(viewsets.ModelViewSet):
         return queryset
 
 class ExhibicionFactsViewSet(viewsets.ModelViewSet):
+
     """
     ViewSet para manejar las operaciones CRUD de facts de Exhibiciones.
     
@@ -55,6 +58,7 @@ class ExhibicionFactsViewSet(viewsets.ModelViewSet):
     #required_permissions = ['exhibitions.view_exhibitionfacts', 'exhibitions.add_exhibitionfacts', 'exhibitions.change_exhibitionfacts', 'exhibitions.delete_exhibitionfacts']
     
 class ExhibicionDescriptionViewSet(viewsets.ModelViewSet):
+
     """
     ViewSet para manejar las operaciones CRUD de descripciones de Exhibiciones.
     
@@ -70,6 +74,7 @@ class ExhibicionDescriptionViewSet(viewsets.ModelViewSet):
     #required_permissions = ['exhibitions.view_exhibitiondescription', 'exhibitions.add_exhibitiondescription', 'exhibitions.change_exhibitiondescription', 'exhibitions.delete_exhibitiondescription']
     
 class ExhibicionButtonsViewSet(viewsets.ModelViewSet):
+    
     """
     ViewSet para manejar las operaciones CRUD de botones de Exhibiciones.
     

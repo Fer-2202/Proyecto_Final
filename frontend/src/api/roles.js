@@ -2,7 +2,7 @@ import axiosInstance from "./axiosInstance";
 
 export const getRoles = async () => {
   try {
-    const response = await axiosInstance.get('/api/roles/');
+    const response = await axiosInstance.get('/api/auth/roles/');
     return response.data;
   } catch (error) {
     console.error('Error fetching roles:', error);
@@ -12,7 +12,7 @@ export const getRoles = async () => {
 
 export const getRoleById = async (id) => {
   try {
-    const response = await axiosInstance.get(`/api/roles/${id}/`);
+    const response = await axiosInstance.get(`/api/auth/roles/${id}/detail/`);
     return response.data;
   } catch (error) {
     console.error(`Error fetching role with ID ${id}:`, error);
@@ -22,7 +22,7 @@ export const getRoleById = async (id) => {
 
 export const createRole = async (roleData) => {
   try {
-    const response = await axiosInstance.post('/api/roles/', roleData);
+    const response = await axiosInstance.post('/api/auth/roles/create/', roleData);
     return response.data;
   } catch (error) {
     console.error('Error creating role:', error);
@@ -32,7 +32,7 @@ export const createRole = async (roleData) => {
 
 export const updateRole = async (id, roleData) => {
   try {
-    const response = await axiosInstance.put(`/api/roles/${id}/`, roleData);
+    const response = await axiosInstance.put(`/api/auth/roles/${id}/update/`, roleData);
     return response.data;
   } catch (error) {
     console.error(`Error updating role with ID ${id}:`, error);
@@ -42,7 +42,7 @@ export const updateRole = async (id, roleData) => {
 
 export const deleteRole = async (id) => {
   try {
-    await axiosInstance.delete(`/api/roles/${id}/`);
+    await axiosInstance.delete(`/api/auth/roles/${id}/delete/`);
   } catch (error) {
     console.error(`Error deleting role with ID ${id}:`, error);
     throw error;

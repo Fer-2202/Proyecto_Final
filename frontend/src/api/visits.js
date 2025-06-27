@@ -22,7 +22,7 @@ export const getVisitById = async (id) => {
 
 export const createVisit = async (visitData) => {
   try {
-    const response = await axiosInstance.post('/api/visits/', visitData);
+    const response = await axiosInstance.post('/api/visits/create/', visitData);
     return response.data;
   } catch (error) {
     console.error('Error creating visit:', error);
@@ -32,7 +32,7 @@ export const createVisit = async (visitData) => {
 
 export const updateVisit = async (id, visitData) => {
   try {
-    const response = await axiosInstance.put(`/api/visits/${id}/`, visitData);
+    const response = await axiosInstance.put(`/api/visits/${id}/update/`, visitData);
     return response.data;
   } catch (error) {
     console.error(`Error updating visit with ID ${id}:`, error);
@@ -42,7 +42,7 @@ export const updateVisit = async (id, visitData) => {
 
 export const deleteVisit = async (id) => {
   try {
-    await axiosInstance.delete(`/api/visits/${id}/`);
+    await axiosInstance.delete(`/api/visits/${id}/delete/`);
   } catch (error) {
     console.error(`Error deleting visit with ID ${id}:`, error);
     throw error;

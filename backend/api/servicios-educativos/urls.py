@@ -1,13 +1,13 @@
 from .views import ServiciosEducativosViewSet, ServiciosEducativosDescriptionViewSet, ServiciosEducativosFactsViewSet,ServiciosEducativosButtonsViewSet, ServiciosEducativosImageViewSet
-from django.urls import path, include
+from django.urls import path
 from django.conf.urls.static import static
 from django.conf import settings
 
 urlpatterns = [
- # Endpoints para Servicios Educativos
     
+    # Endpoints para Servicios Educativos
     # Ruta para listar
-    path('', ServiciosEducativosViewSet.as_view({'get': 'list'}), name='exhibition-list'),
+    path('', ServiciosEducativosViewSet.as_view({'get': 'list'}), name='exhibition-get'),
 
     # Ruta para crear
     path('create/', ServiciosEducativosViewSet.as_view({ 'get': 'list', 'post': 'create' }), name='exhibition-create'),
@@ -22,13 +22,12 @@ urlpatterns = [
     path('<int:pk>/delete/', ServiciosEducativosViewSet.as_view({'delete': 'destroy'}), name='exhibition-delete'),
     
 
-
     # Endpoints para manejar imágenes de exhibiciones
     # Ruta para listar
-    path('imagenes/', ServiciosEducativosImageViewSet.as_view({'get': 'list'}), name='exhibition-image-list'),
+    path('imagenes/', ServiciosEducativosImageViewSet.as_view({'get': 'list'}), name='exhibition-image-get'),
 
     # Ruta para crear
-    path('create/', ServiciosEducativosImageViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-image-detail'),
+    path('create/', ServiciosEducativosImageViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-image-create'),
 
     # Ruta para detalle
     path('<int:pk>/', ServiciosEducativosImageViewSet.as_view({'get': 'list'}), name='exhibition-image-detail'),
@@ -40,13 +39,12 @@ urlpatterns = [
     path('<int:pk>/delete/', ServiciosEducativosImageViewSet.as_view({ 'delete': 'destroy' }), name='exhibition-image-delete'),
 
 
-
     # Endpoints para facts
     #Ruta para listar
-    path('facts/', ServiciosEducativosFactsViewSet.as_view({'get': 'list'}), name='exhibition-fact-list'),
+    path('facts/', ServiciosEducativosFactsViewSet.as_view({'get': 'list'}), name='exhibition-fact-get'),
 
     # Ruta para crear
-    path('create/', ServiciosEducativosFactsViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-fact-detail'),
+    path('create/', ServiciosEducativosFactsViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-fact-create'),
 
     # Ruta para detalle
     path('<int:pk>/', ServiciosEducativosFactsViewSet.as_view({'get': 'list'}), name='exhibition-fact-detail'),
@@ -58,16 +56,15 @@ urlpatterns = [
     path('<int:pk>/delete/', ServiciosEducativosFactsViewSet.as_view({'delete': 'destroy'}), name='exhibition-fact-delete'),
 
 
-
     # Endpoints para manejar descripciones de exhibiciones
     #Ruta para listar
-    path('description/', ServiciosEducativosDescriptionViewSet.as_view({'get': 'list'}), name='exhibition-description-list'),
+    path('description/', ServiciosEducativosDescriptionViewSet.as_view({'get': 'list'}), name='exhibition-description-get'),
 
     # Ruta para crear
-    path('create/', ServiciosEducativosDescriptionViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-description-detail'),
+    path('create/', ServiciosEducativosDescriptionViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-description-create'),
 
     # Ruta para detalle
-    path('<int:pk>/', ServiciosEducativosDescriptionViewSet.as_view({'get': 'list'}), name='exhibition-description-delete'),
+    path('<int:pk>/', ServiciosEducativosDescriptionViewSet.as_view({'get': 'list'}), name='exhibition-description-detail'),
 
     # Ruta para actualizar o editar
     path('<int:pk>/update/', ServiciosEducativosDescriptionViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-description-update'),
@@ -76,12 +73,11 @@ urlpatterns = [
     path('<int:pk>/delete/', ServiciosEducativosDescriptionViewSet.as_view({'delete': 'destroy'}), name='exhibition-description-delete'),
 
 
-
     # Ruta para listar
-    path('buttons/', ServiciosEducativosButtonsViewSet.as_view({'get': 'list'}), name='exhibition-button-list'),
+    path('buttons/', ServiciosEducativosButtonsViewSet.as_view({'get': 'list'}), name='exhibition-button-get'),
 
     # Ruta para crear
-    path('create/', ServiciosEducativosButtonsViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-button-list'),
+    path('create/', ServiciosEducativosButtonsViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-button-create'),
 
     # Ruta para detalle
     path('<int:pk>/', ServiciosEducativosButtonsViewSet.as_view({'get': 'list'}), name='exhibition-button-detail'),

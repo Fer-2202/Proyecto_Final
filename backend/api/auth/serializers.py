@@ -55,25 +55,41 @@ class UserProfileSerializer(serializers.ModelSerializer):
 # Register Serializer
 class RegisterSerializer(serializers.ModelSerializer):
     profile = UserProfileSerializer(required=False)
+    roles = serializers.PrimaryKeyRelatedField(
+     many=True,
+     queryset=Group.objects.all(),
+     required=False
+     )
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'password', 'first_name', 'last_name', 'profile']
+        fields = ['username', 'email', 'password', 'first_name', 'last_name', 'roles', 'profile']
         extra_kwargs = {'password': {'write_only': True}}
 
     def create(self, validated_data):
         profile_data = validated_data.pop('profile', None)
         first_name = validated_data.pop('first_name', '')
         last_name = validated_data.pop('last_name', '')
+        roles = validated_data.pop('roles', [])
 
         user = User.objects.create_user(**validated_data)
         user.first_name = first_name
         user.last_name = last_name
         user.save()
+        
+        if roles:
+            for role in roles:
+                user.groups.add(role)
+                user.save()
 
         if profile_data:
             user_profile, created = UserProfile.objects.get_or_create(user=user)
-            profile_serializer = UserProfileSerializer(instance=user_profile, data=profile_data, partial=True, context={'request': self.context.get('request')})
+            profile_serializer = UserProfileSerializer(
+             instance=user_profile,
+             data=profile_data,
+             partial=True,
+             context={'request': self.context.get('request')}
+            )
             if not profile_serializer.is_valid():
                 raise serializers.ValidationError({'profile': profile_serializer.errors})
             profile_serializer.save()

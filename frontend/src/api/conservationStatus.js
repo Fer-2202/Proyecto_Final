@@ -24,7 +24,7 @@ export const getConservationStatusById = async (id) => {
 
 export const createConservationStatus = async (statusData) => {
   try {
-    const response = await axiosInstance.post('api/conservation_status/', statusData);
+    const response = await axiosInstance.post('api/conservation_status/create/', statusData);
     return response.data;
   } catch (error) {
     console.error('Error creating conservation status:', error);
@@ -34,7 +34,7 @@ export const createConservationStatus = async (statusData) => {
 
 export const updateConservationStatus = async (id, statusData) => {
   try {
-    const response = await axiosInstance.put(`api/conservation_status/${id}/`, statusData);
+    const response = await axiosInstance.put(`api/conservation_status/${id}/update/`, statusData);
     return response.data;
   } catch (error) {
     console.error(`Error updating conservation status with ID ${id}:`, error);
@@ -44,7 +44,7 @@ export const updateConservationStatus = async (id, statusData) => {
 
 export const deleteConservationStatus = async (id) => {
   try {
-    await axiosInstance.delete(`api/conservation_status/${id}/`);
+    await axiosInstance.delete(`api/conservation_status/${id}/delete/`);
   } catch (error) {
     console.error(`Error deleting conservation status with ID ${id}:`, error);
     throw error;

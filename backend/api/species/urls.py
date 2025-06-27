@@ -4,10 +4,10 @@ from api.species.views import Species_ViewSet
 urlpatterns = [
   
     # Ruta para listar
-    path('', Species_ViewSet.as_view({'get': 'list'}), name='species-listar'),
+    path('', Species_ViewSet.as_view({'get': 'list'}), name='species-get'),
 
     # Ruta para crear
-    path('create/', Species_ViewSet.as_view({ 'get': 'list', 'post': 'create' }), name='species-crate'),
+    path('create/', Species_ViewSet.as_view({ 'get': 'list', 'post': 'create' }), name='species-create'),
 
     # Ruta para detalle
     path('<int:pk>/', Species_ViewSet.as_view({ 'get': 'list'}), name='species-detail'),

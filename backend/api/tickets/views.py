@@ -1,4 +1,5 @@
 from rest_framework.response import Response
+from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework import viewsets
 from api.permissions import IsAuthenticatedAndRole
@@ -23,3 +24,14 @@ class Tickets_DestroyView(viewsets.ModelViewSet):
         instance = self.get_object()
         self.perform_destroy(instance)
         return Response(status=status.HTTP_204_NO_CONTENT)
+   
+class AvailableTicketsView(APIView):
+    # permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+        available_tickets = []
+        for ticket in Tickets.objects.all():
+            if ticket.occupied_slots < ticket.total_slots:
+                available_tickets.append(ticket)
+        serializer = Tickets_Serializer(available_tickets, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)

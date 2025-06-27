@@ -5,4 +5,5 @@
 
 @import "tailwindcss";
 @import 'flowbite';
-import "antd/dist/reset.css"
+@import "antd/dist/reset.css"
+/* @import 'keen-slider/keen-slider.min.css'; */

@@ -4,12 +4,12 @@ from .views import SectionsViewSet
 """ URLs para la aplicación Sections """
 
 urlpatterns = [
- 
+    
     # Ruta para listar
-    path('', SectionsViewSet.as_view({'get': 'list'}), name='sections-lista'),
+    path('', SectionsViewSet.as_view({'get': 'list'}), name='sections-get'),
 
     # Ruta para crear
-    path('crear/', SectionsViewSet.as_view({ 'get': 'list', 'post': 'create' }), name='sections-crear'),
+    path('crear/', SectionsViewSet.as_view({ 'get': 'list', 'post': 'create' }), name='sections-create'),
 
     # Ruta para detalle
     path('<int:pk>/', SectionsViewSet.as_view({'get': 'list'}), name='sections-detail'),

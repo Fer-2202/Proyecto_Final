@@ -8,7 +8,6 @@ import TabsContainer from './components/TabsContainer'
 import SuccessCases from './components/SuccessCases'
 import CallToAction from './components/CallToAction'
 import CultivoTab from './components/tabs/CultivoTab'
-import InvestigacionTab from './components/tabs/InvestigacionTab'
 import TecnologiaTab from './components/tabs/TecnologiaTab'
 import ExtensionTab from './components/tabs/ExtensionTab'
 import ProyectosTab from './components/tabs/investigacion/ProyectosTab'
@@ -20,7 +19,7 @@ import { publicaciones, publicacionesStats  } from './data/publicacionesData.js'
 import { colaboradores, redes  } from './data/colaboradoresData.js';
 import PublicacionesTab from './components/tabs/investigacion/PublicacionesTab';
 import ColaboracionesTab from './components/tabs/investigacion/ColaboracionesTab';
-
+import GranjasTab from './components/tabs/GranjasTab.jsx'
 
 function AcuiculturaBiotecnologia() {
 
@@ -55,42 +54,32 @@ function AcuiculturaBiotecnologia() {
       component: <TecnologiaTab />
     },
     {
-      value: "investigacion",
-      label: "Investigación",
-      component: <InvestigacionTab />
-    },
-    {
-      value: "extension",
-      label: "Extensión y Capacitación",
-      component: <ExtensionTab />
-    },
-    {
       value: "proyectos-actuales",
       label: "Proyectos Actuales",
       component: <ProyectosTab proyectos={proyectos} />
+    },
+    {
+     value: "granjas",
+     label: "Granjas",
+     component: <GranjasTab />
+    },
+    {
+      value: "colaboraciones",
+      label: "Colaboraciones",
+      component: <ColaboracionesTab colaboradores={colaboradores} redes={redes} />
     },
     {
       value: "publicaciones",
       label: "Publicaciones",
       component: <PublicacionesTab publicaciones={publicaciones} stats={publicacionesStats} />
     },
-    {
-      value: "colaboraciones",
-      label: "Colaboraciones",
-      component: <ColaboracionesTab colaboradores={colaboradores} redes={redes} />
-    }
-/*         {
-      value: "investigacion-programa",
-      label: "Investigación",
-      component: <InvestigationTabs lineas={lineasDeInvestigacion} areas={areas} image={Tanque} /> 
-    } */
   ];
 
   return (
     <div className='flex flex-col items-center mt-23'>
       <QuienesSomos title={"Acuicultura y Biotecnologia"} description={"Descubre la biodiversidad de Costa Rica "} img={Tanque} />
       <ExhibitIntro description={"El Parque Marino del Pacífico cuenta con un Laboratorio de Acuicultura y Biotecnología Marina (LABM) que es fundamental para su misión de sostenibilidad de los recursos marino-costeros. Este laboratorio no es solo un espacio de investigación, sino que tiene un fuerte componente de extensión y transferencia tecnológica hacia las comunidades costeras de Costa Rica."} title={"Programa de Acuicultura y Biotecnología"} />
-      <div className='ml-90 mr-90'>
+      <div className=''>
         <OurApproach title={"Nuestro Enfoque"} paragraphs={paragraphs} imageSrc={Tanque} workAreasTitle={"Áreas de Trabajo:"} workAreas={workAreas} buttonText={"Conocer más"} onButtonClick={handleButtonClick} imageAlt={"Img del programa"}  />
       
       

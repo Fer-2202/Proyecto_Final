@@ -2,8 +2,8 @@
 export const innovaciones = [
     {
       title: 'Reproducción y Cultivo de Pargo Manchado',
-      desc: 'El PMP ha sido pionero y ha logrado dominar el ciclo completo de vida del pargo manchado en cautiverio. Esto significa que pueden reproducir esta especie en sus instalaciones, obtener larvas, alevines y juveniles, y luego engordarlos hasta tamaño comercial.',
-      estado: 'Patente en trámite'
+      desc: 'Se desarrolló el paquete biotecnológico para el cultivo del pargo mancha, con transferencia de conocimiento al sector público y privado, así como la generación de numerosas publicaciones científicas.',
+      estado: ''
     },
     {
       title: ' Optimización en la Producción de Microalgas',

@@ -8,6 +8,9 @@ import Dots from "./components/Dots"
 
 
 function Carousel() {
+  const carouselStyle = {
+    /* border: '2px solid blue', */
+  };
   const {
     sliderRef,
     instanceRef,
@@ -19,6 +22,7 @@ function Carousel() {
 
   return (
     <div
+      style={carouselStyle}
       className="relative max-w-full mx-auto overflow-hidden mt-23 h-125"
       onMouseEnter={handlePause}
       onMouseLeave={handleResume}

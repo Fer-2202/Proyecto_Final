@@ -14,7 +14,7 @@ export const getPayments = async () => {
 
 export const createPayment = async (paymentData) => {
   try {
-    const response = await axiosInstance.post("/api/payments/create/", paymentData);
+    const response = await axiosInstance.post("/api/payments/", paymentData);
     return response.data;
   } catch (error) {
     console.error("Error creating payment:", error);

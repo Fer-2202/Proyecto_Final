@@ -1,7 +1,7 @@
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
-from rest_framework import generics
+from rest_framework import generics, viewsets
 from django.contrib.auth import authenticate, login, logout
 from api.permissions import IsAuthenticatedAndRole
 from django.contrib.auth.tokens import default_token_generator
@@ -70,49 +70,35 @@ class RegisterView(generics.CreateAPIView):
         context['request'] = self.request
         return context
 
-class Users_ListCreateView(generics.ListCreateAPIView):
+class Users_ViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = RegisterSerializer
-    permission_classes = [IsAuthenticatedAndRole]
-    required_role = 'admin'
+    #permission_classes = [IsAuthenticatedAndRole]
+    http_method_names = ['get', 'post', 'put', 'delete']
+    #required_role = 'admin'
 
-class Users_DetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = User.objects.all()
-    serializer_class = RegisterSerializer
-    permission_classes = [IsAuthenticatedAndRole]
-    required_role = 'admin'
 
-class UserProfileListCreateView(generics.ListCreateAPIView):
+class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
-    permission_classes = [IsAuthenticatedAndRole]
-
-class UserProfileDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = UserProfile.objects.all()
+    #permission_classes = [IsAuthenticatedAndRole]
+    http_method_names = ['get', 'post', 'put', 'delete']
+    #required_role = 'admin'
     lookup_field = 'user__id'
     lookup_url_kwarg = 'pk'
-    serializer_class = UserProfileSerializer
-    permission_classes = [IsAuthenticatedAndRole]
+
 
 # ==================
 # GROUPS
 # ==================
 
-class GroupListCreateView(generics.ListCreateAPIView):
+class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
     #permission_classes = [IsAuthenticatedAndRole]
     #required_role = 'admin'
 
-
-
-class GroupDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = Group.objects.all()
-    serializer_class = GroupSerializer
-    #permission_classes = [IsAuthenticatedAndRole]
-    #required_role = 'admin'
-
-class GroupPermissionsView(generics.UpdateAPIView):
+class GroupPermissionsViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupPermissionsSerializer
     #permission_classes = [IsAuthenticatedAndRole]

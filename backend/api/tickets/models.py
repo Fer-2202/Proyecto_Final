@@ -6,6 +6,9 @@ class Tickets(models.Model):
     price = models.DecimalField(max_digits=10, decimal_places=2, null=False, verbose_name="Ticket Price")
     name = models.CharField(max_length=30, unique=True, null=False, verbose_name="Ticket Name")
     description = models.CharField(max_length=100, null=False, verbose_name="Description")
+    total_slots = models.PositiveIntegerField(default=1276, null=False, verbose_name="Total Slots")
+    occupied_slots = models.PositiveIntegerField(default=0, verbose_name="Occupied Slots")
+    
 
     class Meta:
         verbose_name = "Ticket"

@@ -22,7 +22,7 @@ export const getPurchaseOrderById = async (id) => {
 
 export const createPurchaseOrder = async (orderData) => {
   try {
-    const response = await axiosInstance.post('/api/purchase_orders/', orderData);
+    const response = await axiosInstance.post('/api/purchase_orders/create/', orderData);
     return response.data;
   } catch (error) {
     console.error('Error creating purchase order:', error);
@@ -32,7 +32,7 @@ export const createPurchaseOrder = async (orderData) => {
 
 export const updatePurchaseOrder = async (id, orderData) => {
   try {
-    const response = await axiosInstance.put(`/api/purchase_orders/${id}/`, orderData);
+    const response = await axiosInstance.put(`/api/purchase_orders/${id}/update/`, orderData);
     return response.data;
   } catch (error) {
     console.error(`Error updating purchase order with ID ${id}:`, error);
@@ -42,7 +42,7 @@ export const updatePurchaseOrder = async (id, orderData) => {
 
 export const deletePurchaseOrder = async (id) => {
   try {
-    await axiosInstance.delete(`/api/purchase_orders/${id}/`);
+    await axiosInstance.delete(`/api/purchase_orders/${id}/delete/`);
   } catch (error) {
     console.error(`Error deleting purchase order with ID ${id}:`, error);
     throw error;

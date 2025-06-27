@@ -32,7 +32,8 @@ export default function RegisterForm() {
     fetchData();
   }, []);
 
-  const handleSubmit = async (values, { setSubmitting, setErrors }) => {
+
+const handleSubmit = async (values, { setSubmitting, setErrors }) => {
     // Construir payload JSON (sin profile_picture porque es un archivo)
     const formData = new FormData();
     formData.append('username', values.username);
@@ -46,9 +47,16 @@ export default function RegisterForm() {
     if (values.profile.address) formData.append('profile.address', values.profile.address);
     if (values.profile.birth_date) formData.append('profile.birth_date', values.profile.birth_date);
     if (values.profile.id_provinces) formData.append('profile.province', values.profile.id_provinces);
-    if (values.profile.roles && values.profile.roles.length > 0) {
-      values.profile.roles.forEach(role => formData.append('profile.roles', role));
+
+    // CORREGIDO: Enviar roles a nivel raíz, no como profile.roles
+    if (values.profile.roles) {
+      if (Array.isArray(values.profile.roles)) {
+        values.profile.roles.forEach(role => formData.append('roles', role));
+      } else {
+        formData.append('roles', values.profile.roles);
+      }
     }
+
     if (values.profile.bio) formData.append('profile.bio', values.profile.bio);
 
     // Append profile picture if available
@@ -56,10 +64,8 @@ export default function RegisterForm() {
       formData.append('profile.profile_picture', values.profile.profile_picture);
     }
 
-
-
     try {
-      const response = await axiosInstance.post('/api/register/', formData, {
+      const response = await axiosInstance.post('/api/auth/register/', formData, {
         headers: {
           'Content-Type': 'multipart/form-data',
         },

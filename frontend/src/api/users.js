@@ -2,7 +2,7 @@ import axiosInstance from './axiosInstance';
 
 export const getUsers = async () => {
   try {
-    const response = await axiosInstance.get('/api/users/');
+    const response = await axiosInstance.get('/api/auth/users/');
     return response.data;
   } catch (error) {
     console.error('Error fetching users:', error);
@@ -12,7 +12,7 @@ export const getUsers = async () => {
 
 export const getUserById = async (id) => {
   try {
-    const response = await axiosInstance.get(`/api/users/${id}/`);
+    const response = await axiosInstance.get(`/api/auth/users/${id}/`);
     return response.data;
   } catch (error) {
     console.error(`Error fetching user with ID ${id}:`, error);
@@ -22,7 +22,7 @@ export const getUserById = async (id) => {
 
 export const updateUser = async (id, userData) => {
   try {
-    const response = await axiosInstance.put(`/api/users/${id}/`, userData);
+    const response = await axiosInstance.put(`/api/auth/users/${id}/update/`, userData);
     return response.data;
   } catch (error) {
     console.error(`Error updating user with ID ${id}:`, error);
@@ -32,7 +32,8 @@ export const updateUser = async (id, userData) => {
 
 export const deleteUser = async (id) => {
   try {
-    await axiosInstance.delete(`/api/users/${id}/`);
+    await axiosInstance.delete(`/api/auth/users/${id}/delete/`);
+    return { success: true, message: 'User deleted successfully' };
   } catch (error) {
     console.error(`Error deleting user with ID ${id}:`, error);
     throw error;
