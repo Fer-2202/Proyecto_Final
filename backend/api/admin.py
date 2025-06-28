@@ -1,11 +1,13 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from django.contrib.auth import get_user_model
+
+# 1
+from .animales.models import Animals
 from .tickets_purchase.models import TicketsPurchaseOrder
 from .sections.models import Sections
 from .provinces.models import Provinces
 from .species.models import Species
-from .animales.models import Animals
 from .tickets.models import Tickets
 from .purchase_orders.models import PurchaseOrders
 from .payments.models import Payments
@@ -13,6 +15,7 @@ from .auth.models import UserProfile
 from .conservation_status.models import ConservationStatus
 from .habitats.models import Habitats
 from .visits.models import Visits
+from .documentos.models import Documents
 
 
 User = get_user_model()
@@ -45,3 +48,4 @@ admin.site.register(Habitats)
 admin.site.register(Animals)
 admin.site.register(UserProfile) 
 admin.site.register(Payments)
+admin.site.register(Documents)

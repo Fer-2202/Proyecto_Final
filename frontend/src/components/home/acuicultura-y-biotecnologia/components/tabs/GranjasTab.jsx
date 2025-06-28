@@ -4,8 +4,12 @@ import GranjaDetails from "./GranjaDetails";
 import GranjasListComponent from "./GranjasListComponent";
 
 import placeholder from "../../../../../assets/placeholder.svg";
+import granja_Venado from "../../../../../assets/img/Figuras_Acuicultura/Granja_Isla_Venado.JPG"
+import granja_Paquera from "../../../../../assets/img/Figuras_Acuicultura/Granja_Paquera.JPG"
 
-const placeholderArray = [placeholder, placeholder, placeholder];
+
+
+const placeholderArray = [granja_Paquera, placeholder, granja_Venado];
 
 const intro = [
   {
@@ -21,7 +25,7 @@ const granjas = [
     nombre: "Granja Isla Venado",
     descripcion:
       "En Isla Venado, apoyamos a la comunidad local para cultivar peces marinos y camarones en el mar. Esta granja marina está asociada a un restaurante flotante y es un ejemplo de cómo la maricultura puede generar empleo y desarrollo sostenible en zonas costeras.",
-    img: placeholder,
+    img: granja_Venado,
     img_species_cultivadas: placeholderArray,
     abaste: placeholder,
     abaste_desc:
@@ -34,7 +38,7 @@ const granjas = [
     nombre: "Granja Paquera",
     descripcion:
       "Ubicada en el Golfo de Nicoya, esta es una granja que demuestra el potencial de la maricultura comercial responsable en Costa Rica.",
-    img: placeholder,
+    img: granja_Paquera,
     species: ["Pez", "Camarones", "Algas"],
     img_species_cultivadas: placeholderArray,
     abaste: placeholder,

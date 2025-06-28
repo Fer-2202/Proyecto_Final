@@ -1,5 +1,7 @@
 {
   "dependencies": {
-    "@paypal/paypal-js": "^8.2.0"
+    "@paypal/paypal-js": "^8.2.0",
+    "pdfjs-dist": "^5.3.31",
+    "react-pdf": "^10.0.1"
   }
 }

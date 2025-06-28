@@ -18,8 +18,6 @@ import { Link } from "react-router-dom"
 function Home() {
   return (
     <>
-      <header>
-      </header>
       <main>
         <Carousel />
         <section className="flex flex-col md:flex-row gap-4 max-w-5xl mx-auto mt-8 px-4">

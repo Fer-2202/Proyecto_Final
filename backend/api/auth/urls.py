@@ -36,7 +36,7 @@ urlpatterns = [
     path('roles/<int:pk>/update/', GroupViewSet.as_view({'get': 'retrieve', 'put': 'update'}), name='roles-update'),
 
     # Ruta para eliminar
-    path('roles/<int:pk>/delete/', GroupViewSet.as_view({'get': 'retrieve', 'put': 'update'}), name='roles-delete'),
+    path('roles/<int:pk>/delete/', GroupViewSet.as_view({'delete': 'destroy'}), name='roles-delete'),
 
 
     # Permissions
@@ -53,7 +53,7 @@ urlpatterns = [
     path('permissions/<int:pk>/update/', GroupPermissionsViewSet.as_view({'get': 'retrieve', 'put': 'update'}), name='permissions-update'),
 
     # Ruta para eliminar
-    path('permissions/<int:pk>/delete/', GroupPermissionsViewSet.as_view({'get': 'retrieve', 'put': 'update'}), name='permissions-delete'),
+    path('permissions/<int:pk>/delete/', GroupPermissionsViewSet.as_view({'delete': 'destroy'}), name='permissions-delete'),
 
 
     # Usuarios
@@ -70,7 +70,7 @@ urlpatterns = [
     path('users/<int:pk>/update/', Users_ViewSet.as_view({'get': 'retrieve', 'put': 'update'}), name='users-update'),
     
     # Ruta para eliminar
-    path('users/<int:pk>/delete/', Users_ViewSet.as_view({'get': 'retrieve', 'put': 'update'}), name='users-delete'),
+    path('users/<int:pk>/delete/', Users_ViewSet.as_view({'delete': 'destroy'}), name='users-delete'),
     
     # Autenticacion y registro
     path('token/refresh/', TokenRefreshView.as_view(), name='token_refresh'),

@@ -19,7 +19,7 @@ const images = [
       description: "Una descripción clara de esta imagen",
       cta: {
         label: "ver mas",
-        link: "https://www.google.com/"
+        link: "/"
       }
     },
     {

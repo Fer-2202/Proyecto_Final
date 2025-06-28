@@ -15,4 +15,5 @@ export * from './forgotPassword';
 export * from './resetPasswordConfirm';
 export * from './auditLog'
 export * from './exhibits';
+export * from './documents'
 

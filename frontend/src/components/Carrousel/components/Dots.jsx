@@ -1,7 +1,7 @@
 // Dots.jsx
 function Dots({ images, currentSlide, instanceRef }) {
     return (
-      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 space-x-2 flex">
+      <div className="absolute bottom-4 left-1/2 -translate-x-1/2 space-x-2 flex   gap-4">
         {images.map((_, idx) => (
           <button
             key={idx}

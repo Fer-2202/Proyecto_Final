@@ -50,6 +50,9 @@ urlpatterns = [
     path('auth/', include('api.auth.urls')),
 
     # Audit Log
-    path('audit_log/', include('api.apiLog.urls'))
+    path('audit_log/', include('api.apiLog.urls')),
+
+    # Documentos
+    path('documents/', include('api.documentos.urls'))
 
 ]
