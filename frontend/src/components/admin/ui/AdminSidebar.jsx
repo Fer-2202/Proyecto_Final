@@ -1,26 +1,26 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import { Menu, Button, Drawer, Divider } from "antd";
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-} from "@ant-design/icons";
+import { Button } from "antd";
 import {
   LayoutDashboard, Users, Ticket, Calendar, Settings,
-  LogOut, Eye, Globe, Fish, ShoppingCart, Star, Landmark, Logs
+  LogOut, Globe, Fish, ShoppingCart, Star, Landmark, Logs,
+  Home
 } from "lucide-react";
-import { motion } from "framer-motion";
+import { useUserRoles } from "../../../hooks/useUserRoles";
 
-const CRUD_TABS = [
+const NAV_SECTIONS = [
   {
-    name: "Crud",
-    key: "submenu",
-    icon: <LayoutDashboard size={18} />,
-    children: [
+    title: "Gestión Principal",
+    items: [
       { name: "Entradas", key: "tickets", icon: <Ticket size={18} /> },
       { name: "Secciones", key: "sections", icon: <LayoutDashboard size={18} /> },
       { name: "Hábitats", key: "habitats", icon: <Globe size={18} /> },
       { name: "Animales", key: "animals", icon: <Fish size={18} /> },
+    ],
+  },
+  {
+    title: "Gestión Secundaria",
+    items: [
       { name: "Visitas", key: "visits", icon: <Calendar size={18} /> },
       { name: "Órdenes", key: "orders", icon: <ShoppingCart size={18} /> },
       { name: "Especies", key: "species", icon: <Star size={18} /> },
@@ -28,14 +28,17 @@ const CRUD_TABS = [
       { name: "Provincias", key: "provinces", icon: <Landmark size={18} /> },
     ],
   },
-  { name: "Perfiles de usuario", key: "user-profiles", icon: <Users size={18} /> },
-  { name: "Log de Auditoria", key: "audit-log", icon: <Logs size={18} /> },
+  {
+    title: "Administración",
+    items: [
+      { name: "Perfiles de usuario", key: "user-profiles", icon: <Users size={18} /> },
+      { name: "Log de Auditoría", key: "audit-log", icon: <Logs size={18} /> },
+    ],
+  },
 ];
 
 export default function AdminSidebar({ activeTab, setActiveTab, logout, user }) {
-  const [collapsed, setCollapsed] = useState(() => {
-    return localStorage.getItem("sidebar-collapsed") === "true";
-  });
+  const { roleNames } = useUserRoles();
   const [isMobile, setIsMobile] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
@@ -48,132 +51,109 @@ export default function AdminSidebar({ activeTab, setActiveTab, logout, user }) 
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const toggleCollapse = () => {
-    const newCollapsed = !collapsed;
-    setCollapsed(newCollapsed);
-    localStorage.setItem("sidebar-collapsed", newCollapsed.toString());
-  };
-
   const handleSelect = (key) => {
     setActiveTab(key);
     if (isMobile) setIsMobileOpen(false);
   };
 
+  // Detectar si el usuario es admin para el borde del avatar
+  const isAdmin = roleNames.some(r => r.toLowerCase().includes("admin"));
+
   const sidebarContent = (
-    <motion.div
-      initial={{ x: -240, opacity: 0 }}
-      animate={{ x: 0, opacity: 1 }}
-      exit={{ x: -240, opacity: 0 }}
-      transition={{ type: "spring", stiffness: 300, damping: 30 }}
-      className="min-h-screen flex flex-col bg-white shadow-md w-full"
-    >
-      <div className="p-4 border-b border-gray-200">
-        <h2 className="text-xl font-bold text-teal-700">Panel de Control</h2>
-        <p className="text-sm text-gray-500 mb-4">
-          Bienvenido, <span className="font-semibold">{user?.username || "Admin"}</span>
-        </p>
-        {!isMobile && (
-          <Button
-            onClick={toggleCollapse}
-            icon={collapsed ? <MenuUnfoldOutlined /> : <MenuFoldOutlined />}
-            className="w-full"
+    <aside className="admin-sidebar-minimal w-full h-full flex flex-col bg-white border-r border-gray-200">
+      {/* Usuario */}
+      <div className="px-6 pt-8 pb-5 border-b border-gray-100">
+        <div className="flex items-center gap-4 mb-2">
+          <div className={`w-12 h-12 rounded-full flex items-center justify-center text-gray-500 text-xl font-bold bg-gray-100 transition-all duration-200 ${isAdmin ? 'ring-2 ring-blue-500' : ''}`}
+            tabIndex={0}
+            aria-label="Avatar usuario"
           >
-            {collapsed ? "Expandir" : "Colapsar"}
-          </Button>
-        )}
+            {user?.first_name?.charAt(0) || user?.username?.charAt(0) || 'A'}
+          </div>
+          <div className="flex-1 min-w-0">
+            <div className="font-bold text-gray-900 truncate text-base">{user?.first_name} {user?.last_name}</div>
+            <div className="text-xs text-gray-400 truncate">{user?.email}</div>
+            <div className="flex gap-1 mt-2 flex-wrap">
+              {roleNames.map((role, idx) => (
+                <span key={idx} className={`px-2 py-0.5 rounded-full text-xs font-medium ${role.toLowerCase().includes('admin') ? 'bg-blue-100 text-blue-700 border border-blue-200' : 'bg-gray-100 text-gray-600 border border-gray-200'}`}>{role}</span>
+              ))}
+            </div>
+          </div>
+        </div>
       </div>
 
-      <Menu
-        mode="inline"
-        selectedKeys={[activeTab]}
-        inlineCollapsed={!isMobile && collapsed}
-        className="flex-1 border-none font-medium text-gray-700"
-        style={{ background: "white" }}
-      >
-        {CRUD_TABS.map((tab) =>
-          tab.children ? (
-            <Menu.SubMenu
-              key={tab.key}
-              icon={tab.icon}
-              title={tab.name}
-              className="rounded-md font-semibold"
-            >
-              {tab.children.map((child) => (
-                <Menu.Item
-                  key={child.key}
-                  icon={child.icon}
-                  onClick={() => handleSelect(child.key)}
-                  className={`rounded-md hover:!bg-teal-50 ${
-                    activeTab === child.key ? "!text-white !bg-teal-500 font-semibold" : ""
-                  }`}
-                >
-                  {child.name}
-                </Menu.Item>
+      {/* Navegación */}
+      <nav className="flex-1 overflow-y-auto px-2 py-6">
+        {NAV_SECTIONS.map((section, idx) => (
+          <div key={section.title} className="mb-7">
+            <div className="text-xs text-gray-400 font-semibold uppercase tracking-wide px-2 mb-3">{section.title}</div>
+            <ul className="space-y-1">
+              {section.items.map(item => (
+                <li key={item.key}>
+                  <button
+                    onClick={() => handleSelect(item.key)}
+                    className={`w-full flex items-center gap-3 px-3 py-2 rounded-lg text-left transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400
+                      ${activeTab === item.key
+                        ? 'bg-blue-50 text-blue-700 font-semibold border-l-4 border-blue-500 pl-2'
+                        : 'text-gray-700 hover:bg-gray-100 hover:text-blue-600 border-l-4 border-transparent pl-2'}
+                    `}
+                    tabIndex={0}
+                    aria-current={activeTab === item.key ? 'page' : undefined}
+                  >
+                    <span className={`flex items-center justify-center ${activeTab === item.key ? 'text-blue-600' : 'text-gray-400'}`}>{item.icon}</span>
+                    <span className="truncate">{item.name}</span>
+                  </button>
+                </li>
               ))}
-            </Menu.SubMenu>
-          ) : (
-            <Menu.Item
-              key={tab.key}
-              icon={tab.icon}
-              onClick={() => handleSelect(tab.key)}
-              className={`rounded-md hover:!bg-teal-50 ${
-                activeTab === tab.key ? "!text-white !bg-teal-500 font-semibold" : ""
-              }`}
-            >
-              {tab.name}
-            </Menu.Item>
-          )
-        )}
-      </Menu>
-      <Divider />
-      <div className="p-4 border-t border-gray-200">
+            </ul>
+            {idx < NAV_SECTIONS.length - 1 && <div className="my-6 border-b border-gray-100" />}
+          </div>
+        ))}
+      </nav>
+
+      {/* Footer */}
+      <div className="px-6 py-5 border-t border-gray-100 bg-white flex flex-col gap-2">
         <Link
           to="/"
-          className="flex items-center gap-2 text-gray-700 hover:text-teal-600"
+          className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
         >
-          <Eye size={18} />
-          Ver sitio
+          <Home size={17} />
+          <span className="text-sm font-medium">Ver sitio</span>
         </Link>
-        <Button
-          icon={<LogOut size={18} />}
-          danger
-          type="primary"
-          block
+        <button
           onClick={logout}
-          className="mt-3"
+          className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-gray-500 hover:bg-red-50 hover:text-red-600 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400"
         >
-          Cerrar sesión
-        </Button>
+          <LogOut size={17} />
+          <span className="text-sm font-medium">Cerrar sesión</span>
+        </button>
       </div>
-    </motion.div>
+    </aside>
   );
 
   return (
     <>
       {isMobile && (
         <Button
-          icon={<MenuUnfoldOutlined />}
+          icon={<LayoutDashboard size={18} />}
           onClick={() => setIsMobileOpen(true)}
-          className="m-2"
+          className="m-2 bg-blue-600 hover:bg-blue-700 border-0"
+          type="primary"
         />
       )}
-
       {!isMobile && (
-        <div className={`transition-all duration-300 ${collapsed ? "w-[80px]" : "w-[240px]"}`}>
+        <div className="w-[270px] min-h-screen shadow-sm">
           {sidebarContent}
         </div>
       )}
-
-      <Drawer
-        placement="left"
-        closable={false}
-        onClose={() => setIsMobileOpen(false)}
-        open={isMobileOpen}
-        bodyStyle={{ padding: 0 }}
-        width={240}
-      >
-        {sidebarContent}
-      </Drawer>
+      {/* Drawer para móvil */}
+      {isMobile && isMobileOpen && (
+        <div className="fixed inset-0 z-50 bg-black/30" onClick={() => setIsMobileOpen(false)}>
+          <div className="absolute left-0 top-0 w-64 h-full bg-white shadow-xl" onClick={e => e.stopPropagation()}>
+            {sidebarContent}
+          </div>
+        </div>
+      )}
     </>
   );
 }

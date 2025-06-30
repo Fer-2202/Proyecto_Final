@@ -2,6 +2,7 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework import generics, viewsets
+from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth import authenticate, login, logout
 from api.permissions import IsAuthenticatedAndRole
 from django.contrib.auth.tokens import default_token_generator
@@ -87,6 +88,60 @@ class UserProfileViewSet(viewsets.ModelViewSet):
     lookup_field = 'user__id'
     lookup_url_kwarg = 'pk'
 
+    def get_object(self):
+        """Override to get profile by user ID"""
+        user_id = self.kwargs.get('pk')
+        try:
+            user = User.objects.get(id=user_id)
+            profile, created = UserProfile.objects.get_or_create(user=user)
+            return profile
+        except User.DoesNotExist:
+            return None
+
+    def retrieve(self, request, *args, **kwargs):
+        """Get user profile by user ID"""
+        profile = self.get_object()
+        if not profile:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = self.get_serializer(profile)
+        return Response(serializer.data)
+
+    def update(self, request, *args, **kwargs):
+        """Update user profile by user ID"""
+        profile = self.get_object()
+        if not profile:
+            return Response({'error': 'User not found'}, status=status.HTTP_404_NOT_FOUND)
+        
+        serializer = self.get_serializer(profile, data=request.data, partial=True)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(serializer.data)
+
+
+class CurrentUserProfileView(APIView):
+    """View for getting and updating the current user's profile"""
+    permission_classes = [IsAuthenticated]
+    
+    def get(self, request):
+        """Get current user's profile"""
+        try:
+            profile, created = UserProfile.objects.get_or_create(user=request.user)
+            serializer = UserProfileSerializer(profile)
+            return Response(serializer.data)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+    def put(self, request):
+        """Update current user's profile"""
+        try:
+            profile, created = UserProfile.objects.get_or_create(user=request.user)
+            serializer = UserProfileSerializer(profile, data=request.data, partial=True)
+            serializer.is_valid(raise_exception=True)
+            serializer.save()
+            return Response(serializer.data)
+        except Exception as e:
+            return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 # ==================
 # GROUPS

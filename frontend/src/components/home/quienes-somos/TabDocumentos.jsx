@@ -10,6 +10,7 @@ import {
 } from "lucide-react";
 import { getDocuments } from "./../../../api/api";
 import VisorPDF from "../../../components/VisorPDF";
+import { Link } from 'react-router-dom'
 
 
 export default function TabDocumentos() {
@@ -116,19 +117,23 @@ export default function TabDocumentos() {
                 <span>{doc.peso}</span>
               </div>
               <div className="flex gap-3 text-sm">
-                <button
+{/*                 <button
                   className="text-teal-600 hover:underline flex items-center gap-1"
                   onClick={() => setModalDoc(doc)}
                 >
                   <Eye size={16} /> Ver
-                </button>
-                <a
+                </button> */}
+                <a href="http://127.0.0.1:8000/media/documentos/FWD_-_PROYECTO_FINAL.pdf" target="_blank"
+                className="text-teal-600 hover:underline flex items-center gap-1">
+                  <Eye size={16} /> Ver
+                </a>
+                {doc.url && <a
                   href={doc.url}
                   download
                   className="text-teal-600 hover:underline flex items-center gap-1"
                 >
                   <Download size={16} /> Descargar
-                </a>
+                </a>}
                 <button
                   onClick={() => handleCompartir(doc)}
                   className="text-teal-600 hover:underline flex items-center gap-1"

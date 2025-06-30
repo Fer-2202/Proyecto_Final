@@ -21,6 +21,7 @@ const Login = React.lazy(() => import('../pages/Auth/Login.jsx'));
 const Register = React.lazy(() => import('../pages/Auth/Register.jsx'));
 const ForgotPassword = React.lazy(() => import('../pages/Auth/ForgotPassword.jsx'));
 const PrivateRoute = React.lazy(() => import('./PrivateRoute.jsx'));
+const AdminRoute = React.lazy(() => import('./AdminRoute.jsx'));
 
 /* Pages */
 const Profile = React.lazy(() => import('../pages/Profile.jsx'));
@@ -92,9 +93,9 @@ function AppRouting() {
 
           {/* Rutas Privadas Admin */}
           <Route element={
-            <PrivateRoute>
+            <AdminRoute>
               <AdminLayout />
-            </PrivateRoute>
+            </AdminRoute>
           }>
             <Route path="/admin/dashboard" element={<DashboardAdmin />} />
             

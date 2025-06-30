@@ -7,7 +7,14 @@ from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from api.provinces.serializers import Provinces
 
 
-# UserProfile Serializer
+# Role Serializer para mostrar información completa del rol
+class RoleSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Group
+        fields = ['id', 'name']
+
+
+# UserProfile Serializer mejorado
 class UserProfileSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username', read_only=True)
     email = serializers.EmailField(source='user.email', read_only=True)
@@ -19,16 +26,23 @@ class UserProfileSerializer(serializers.ModelSerializer):
     birth_date = serializers.DateField(required=False, allow_null=True)
     profile_picture = serializers.ImageField(required=False, allow_null=True)
     bio = serializers.CharField(required=False, allow_blank=True)
-    roles = serializers.PrimaryKeyRelatedField(many=True, queryset=Group.objects.all(), required=False)
+    roles = RoleSerializer(many=True, read_only=True)  # Cambiado para mostrar nombres
+    user_roles = serializers.SerializerMethodField()  # Roles del User (groups)
     province = serializers.PrimaryKeyRelatedField(queryset=Provinces.objects.all(), required=False, allow_null=True)
 
     class Meta:
         model = UserProfile
-        fields = ['username', 'email', 'first_name', 'last_name', 'phone', 'address', 'birth_date', 'profile_picture', 'bio', 'roles', 'province', 'created_at', 'updated_at']
+        fields = ['username', 'email', 'first_name', 'last_name', 'phone', 'address', 'birth_date', 'profile_picture', 'bio', 'roles', 'user_roles', 'province', 'created_at', 'updated_at']
         extra_kwargs = {
             'created_at': {'read_only': True},
             'updated_at': {'read_only': True}
         }
+
+    def get_user_roles(self, obj):
+        """Obtener los roles del User (groups)"""
+        if obj.user:
+            return [{'id': group.id, 'name': group.name} for group in obj.user.groups.all()]
+        return []
 
     def to_internal_value(self, data):
         ret = super().to_internal_value(data)

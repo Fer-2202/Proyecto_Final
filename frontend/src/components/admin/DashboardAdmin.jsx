@@ -1,11 +1,16 @@
 import { useState, useEffect } from "react";
-import { Layout, Form, Button } from "antd";
-import { Edit, Trash2 } from "lucide-react"
+import { Layout, Form, Button, Card, Statistic, Row, Col, Progress } from "antd";
+import { 
+  Edit, Trash2, Plus, Search, Users, Ticket, Calendar, 
+  TrendingUp, Eye, DollarSign, Activity, Database
+} from "lucide-react";
+import { motion, AnimatePresence } from "framer-motion";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
 import Loading from "../../pages/Loading";
 import * as api from "../../api/api";
 import { useAuth } from "../../context/AuthContext";
+import { useUserRoles } from "../../hooks/useUserRoles";
 import ToastNotifications from "../../components/auth/forms/ToastNotifications";
 import {
   YupTicketSchema,
@@ -18,12 +23,13 @@ import {
   YupConservationStatusSchema,
   YupProvinceSchema,
   YupUserProfileSchema,
-} from "./../admin/ui/schemas";
+} from "./ui/schemas";
 
 import AdminSidebar from "../../components/admin/ui/AdminSidebar";
 import AdminHeader from "../../components/admin/ui/AdminHeader";
 import AdminTable from "../../components/admin/ui/AdminTable";
 import AdminModal from "../../components/admin/ui/AdminModal";
+import DashboardStats from "./DashboardStats";
 
 const { Content } = Layout;
 
@@ -83,10 +89,9 @@ const typeMap = {
   "audit-log": "auditLog",
 };
 
-
 export default function DashboardAdmin() {
   const { logout, user } = useAuth();
-
+  const { roleNames } = useUserRoles();
 
   const [activeTab, setActiveTab] = useState("tickets");
   const [data, setData] = useState({});
@@ -109,17 +114,11 @@ export default function DashboardAdmin() {
           api.getProvinces(), api.getUsersProfiles(), api.getAuditLog(),
         ]);
 
-       
-        
-
         setData({
           sections, habitats, animals, tickets, visits, orders,
           species,  "conservation-status": conservationStatus,
           provinces, "user-profiles": userProfiles, "audit-log": auditLog,
         });
-        console.log("activeTab:", activeTab);
-
-        console.log(data)
       } catch (e) {
         toast.error(`Error al cargar datos: ${e?.message || e}`);
       } finally {
@@ -128,8 +127,6 @@ export default function DashboardAdmin() {
     };
     fetchData();
   }, []);
-
-  /* console.log() */
 
   /* --- helpers --- */
   const showModal = (item = {}, tabKey = activeTab) => {
@@ -164,7 +161,7 @@ export default function DashboardAdmin() {
           action: "delete",
           table_name: type,
           record_id: id,
-          user: user.id, // Assuming user object has an 'id' property
+          user: user.id,
         });
       } catch (auditLogError) {
         console.error("Error creating audit log entry:", auditLogError);
@@ -176,10 +173,9 @@ export default function DashboardAdmin() {
     }
   };
 
- const handleSubmit = async () => {
+  const handleSubmit = async () => {
     try {
       const values = await form.validateFields();
-       console.log("Form values:", values);
 
       // Select schema based on active tab
       let schema;
@@ -225,8 +221,6 @@ export default function DashboardAdmin() {
         } catch (yupError) {
           console.error("Yup validation error:", yupError);
           yupError.inner.forEach(error => {
-            console.log("Errorpath:", error.message);
-            console.log("Error message:", error.message);
             form.setFields([{ name: error.path, errors: [error.message] }]);
           });
           return;
@@ -250,18 +244,13 @@ export default function DashboardAdmin() {
       let payload = hasFile ? formData : plain;
 
       if (item?.id) {
-        console.log(`Updating ${type} with ID: ${item.id} and payload:`, payload);
         apiCall = updateMap[type](item.id, payload);
       } else {
-        console.log(`Creating ${type} with payload:`, payload);
         apiCall = createMap[type](payload);
       }
 
-      console.log("Calling API:", apiCall);
-
       try {
         const result = await apiCall;
-        console.log("API call successful, result:", result);
 
         setData(prev => {
           let updatedData;
@@ -276,7 +265,6 @@ export default function DashboardAdmin() {
               [tabKey]: [...prev[tabKey], result],
             };
           }
-          console.log("Updated data:", updatedData);
           return updatedData;
         });
 
@@ -291,7 +279,7 @@ export default function DashboardAdmin() {
             action: item?.id ? "update" : "create",
             table_name: type,
             record_id: item?.id || result.id,
-            user: user.id, // Assuming user object has an 'id' property
+            user: user.id,
             old_values: item?.id ? item : null,
             new_values: values,
           });
@@ -306,7 +294,6 @@ export default function DashboardAdmin() {
       }
     } catch (validationError) {
       console.error("handleSubmit validation error:", validationError);
-      // handled by Ant Design form
     }
   };
 
@@ -328,7 +315,7 @@ export default function DashboardAdmin() {
             : JSON.stringify(val),
       }))
     : [
-        { title: "ID", dataIndex: "id" }, // Basic columns as a fallback
+        { title: "ID", dataIndex: "id" },
         { title: "Timestamp", dataIndex: "timestamp" },
         { title: "Action", dataIndex: "action" },
         { title: "Model", dataIndex: "model" },
@@ -336,56 +323,167 @@ export default function DashboardAdmin() {
         { title: "Details", dataIndex: "details" },
         { title: "User", dataIndex: "user" },
       ];
-  console.log("Columns: ", columns);
 
   if (loading) return <Loading text="Cargando datos..." />;
 
-  /* --------------------------- JSX --------------------------- */
- return (
-  <Layout className="min-h-screen bg-gradient-to-br from-blue-50 to-blue-100">
-    <ToastNotifications />
-    <div className="flex min-h-screen">
-      <aside className="bg-white shadow-lg border-r border-blue-100 w-64 p-0 flex flex-col">
-        <AdminSidebar
-          activeTab={activeTab}
-          setActiveTab={setActiveTab}
-          logout={logout}
-          user={user}
-        />
-      </aside>
-      <div className="flex-1 flex flex-col">
-        <header className="sticky top-0 z-10 bg-white/80 backdrop-blur border-b border-blue-100 shadow-sm px-8 py-4">
-          <AdminHeader
-            searchTerm={searchTerm}
-            setSearchTerm={setSearchTerm}
-            showModal={showModal}
+  // Calcular estadísticas
+  const stats = {
+    totalUsers: data["user-profiles"]?.length || 0,
+    totalTickets: data.tickets?.length || 0,
+    totalAnimals: data.animals?.length || 0,
+    totalVisits: data.visits?.length || 0,
+  };
+
+  const getTabTitle = (tabKey) => {
+    const titles = {
+      tickets: "Entradas",
+      sections: "Secciones",
+      habitats: "Hábitats",
+      animals: "Animales",
+      visits: "Visitas",
+      orders: "Órdenes",
+      species: "Especies",
+      "conservation-status": "Estado de Conservación",
+      provinces: "Provincias",
+      "user-profiles": "Perfiles de Usuario",
+      "audit-log": "Log de Auditoría"
+    };
+    return titles[tabKey] || tabKey;
+  };
+
+  return (
+    <Layout className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
+      <ToastNotifications />
+      <div className="flex min-h-screen">
+        {/* Sidebar */}
+        <aside className="bg-white shadow-xl border-r border-gray-200 w-64 p-0 flex flex-col">
+          <AdminSidebar
+            activeTab={activeTab}
+            setActiveTab={setActiveTab}
+            logout={logout}
+            user={user}
           />
-        </header>
-        <Content className="flex-1 flex flex-col items-center justify-start p-8">
-          <div className="w-full max-w-6xl bg-white rounded-3xl shadow-2xl p-10 mt-8 border border-blue-100">
-            <AdminTable
-              columns={columns}
-              filteredRows={filteredRows}
-              handleDelete={handleDelete}
+        </aside>
+
+        {/* Main Content */}
+        <div className="flex-1 flex flex-col">
+          {/* Header */}
+          <header className="sticky top-0 z-10 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-sm">
+            <AdminHeader
+              searchTerm={searchTerm}
+              setSearchTerm={setSearchTerm}
               showModal={showModal}
-              actionButtonClassName="rounded-full border border-blue-200 bg-blue-50 hover:bg-blue-100 text-blue-700 shadow-sm transition-all duration-150"
+              user={user}
             />
-            {console.log("filteredRows before passing to AdminTable:", filteredRows)}
-          </div>
-        </Content>
+          </header>
+
+          {/* Content */}
+          <Content className="flex-1 p-6">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="max-w-7xl mx-auto"
+            >
+              {/* Dashboard Stats */}
+              <div className="mb-8">
+                <DashboardStats data={data} activeTab={activeTab} />
+              </div>
+
+              {/* User Info Card */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.2 }}
+                className="mb-8"
+              >
+                <Card className="bg-white shadow-lg border-0 rounded-xl">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-4">
+                      <div className="w-12 h-12 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                        {user?.first_name?.charAt(0) || user?.username?.charAt(0) || 'A'}
+                      </div>
+                      <div>
+                        <h3 className="text-lg font-semibold text-gray-900">
+                          {user?.first_name} {user?.last_name}
+                        </h3>
+                        <p className="text-gray-600">{user?.email}</p>
+                        <div className="flex gap-2 mt-1">
+                          {roleNames.map((role, index) => (
+                            <span
+                              key={index}
+                              className="px-2 py-1 bg-blue-100 text-blue-800 text-xs rounded-full font-medium"
+                            >
+                              {role}
+                            </span>
+                          ))}
+                        </div>
+                      </div>
+                    </div>
+                    <div className="text-right">
+                      <p className="text-sm text-gray-500">Última actividad</p>
+                      <p className="text-sm font-medium text-gray-900">Hace 5 minutos</p>
+                    </div>
+                  </div>
+                </Card>
+              </motion.div>
+
+              {/* Main Content Area */}
+              <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.3 }}
+                className="bg-white rounded-2xl shadow-xl border border-gray-100 overflow-hidden"
+              >
+                <div className="p-6 border-b border-gray-100">
+                  <div className="flex items-center justify-between">
+                    <div>
+                      <h3 className="text-xl font-bold text-gray-900">
+                        {getTabTitle(activeTab)}
+                      </h3>
+                      <p className="text-gray-600 mt-1">
+                        Gestiona los datos de {getTabTitle(activeTab).toLowerCase()}
+                      </p>
+                    </div>
+                    <Button
+                      type="primary"
+                      icon={<Plus size={16} />}
+                      onClick={() => showModal()}
+                      className="bg-blue-600 hover:bg-blue-700 border-0 shadow-lg"
+                      size="large"
+                    >
+                      Crear Nuevo
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="p-6">
+                  <AdminTable
+                    columns={columns}
+                    filteredRows={filteredRows}
+                    handleDelete={handleDelete}
+                    showModal={showModal}
+                    activeTab={activeTab}
+                    actionButtonClassName="rounded-full border border-blue-200 bg-blue-50 hover:bg-blue-100 text-blue-700 shadow-sm transition-all duration-150"
+                  />
+                </div>
+              </motion.div>
+            </motion.div>
+          </Content>
+        </div>
       </div>
-    </div>
-    <AdminModal
-      formVisible={formVisible}
-      setFormVisible={setFormVisible}
-      editItem={editItem}
-      handleSubmit={handleSubmit}
-      form={form}
-      data={data}
-        modalClassName="bg-white rounded-2xl shadow-2xl p-8 border border-blue-100"
-        overlayClassName="bg-blue-900/40 fixed inset-0 z-40 flex items-center justify-center"
-        buttonClassName="rounded-lg bg-blue-600 hover:bg-blue-700 text-white px-6 py-2 font-semibold shadow transition-all duration-150"
-    />
-  </Layout>
-);
-};
+
+      {/* Modal */}
+      <AdminModal
+        formVisible={formVisible}
+        setFormVisible={setFormVisible}
+        editItem={editItem}
+        handleSubmit={handleSubmit}
+        form={form}
+        data={data}
+        modalClassName="bg-white rounded-2xl shadow-2xl p-8 border border-gray-100"
+        overlayClassName="bg-black/50 fixed inset-0 z-50 flex items-center justify-center backdrop-blur-sm"
+        buttonClassName="rounded-lg bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 font-semibold shadow-lg transition-all duration-150"
+      />
+    </Layout>
+  );
+}

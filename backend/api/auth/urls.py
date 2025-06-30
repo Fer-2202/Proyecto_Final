@@ -1,9 +1,12 @@
 from django.urls import path
-from .views import UserProfileViewSet, GroupViewSet, GroupPermissionsViewSet, LoginView, LogoutView, ForgotPasswordView, ResetPasswordConfirmView, RegisterView, Users_ViewSet
+from .views import UserProfileViewSet, GroupViewSet, GroupPermissionsViewSet, LoginView, LogoutView, ForgotPasswordView, ResetPasswordConfirmView, RegisterView, Users_ViewSet, CurrentUserProfileView
 from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView
 from .serializers import CustomTokenObtainPairSerializer
 
 urlpatterns = [
+
+    # Perfil de usuario actual
+    path('profile/', CurrentUserProfileView.as_view(), name='current-user-profile'),
 
     # Perfil de usuario
     # Ruta para listar
@@ -13,13 +16,13 @@ urlpatterns = [
     path('user_profile/create/', UserProfileViewSet.as_view({'get': 'list', 'post': 'create'}), name='user_profile-list-create'),
 
     # Ruta para detalle
-    path('user_profile/<int:pk>/', UserProfileViewSet.as_view({'get': 'list'}), name='user_profile-list-detail'),
+    path('user_profile/<int:pk>/', UserProfileViewSet.as_view({'get': 'retrieve'}), name='user_profile-detail'),
 
     # Ruta para actualizar o editar
-    path('user_profile/<int:pk>/update/', UserProfileViewSet.as_view({'get': 'retrieve', 'put': 'update'}), name='user_profile-list-update'),
+    path('user_profile/<int:pk>/update/', UserProfileViewSet.as_view({'put': 'update'}), name='user_profile-update'),
 
     # Ruta para eliminar
-    path('user_profile/<int:pk>/delete/', UserProfileViewSet.as_view({'delete': 'destroy'}), name='user_profile-list-delete'),
+    path('user_profile/<int:pk>/delete/', UserProfileViewSet.as_view({'delete': 'destroy'}), name='user_profile-delete'),
 
 
     # Roles

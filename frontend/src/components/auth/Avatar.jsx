@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { User, LogOut, LayoutDashboard } from "lucide-react";
 import { useAuth } from "../../context/AuthContext";
+import { useUserRoles } from "../../hooks/useUserRoles";
 
 function stringToColor(str) {
   let hash = 0;
@@ -20,6 +21,7 @@ function stringToColor(str) {
 
 export default function Avatar({ user, size = 40, className = "", onLogout }) {
   const { logout } = useAuth();
+  const { isAdmin, loading: rolesLoading } = useUserRoles();
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
   const initials = `${user?.first_name?.[0] || ""}${user?.last_name?.[0] || ""}`.toUpperCase();
@@ -75,11 +77,15 @@ export default function Avatar({ user, size = 40, className = "", onLogout }) {
             transition={{ duration: 0.15 }}
             className="absolute right-0 mt-2 w-60 bg-white border border-gray-200 rounded-xl shadow-lg z-50 overflow-hidden"
           >
-            <Link
-              to="/admin/dashboard"
-             className="flex items-center px-5 py-3 text-sm text-gray-800 hover:bg-[#e6f7f6] hover:text-[#1cb6b0] transition">
-              <LayoutDashboard className="w-4 h-4 mr-2" /> Dashboard
-            </Link>
+            {!rolesLoading && isAdmin() && (
+              <Link
+                to="/admin/dashboard"
+                className="flex items-center px-5 py-3 text-sm text-gray-800 hover:bg-[#e6f7f6] hover:text-[#1cb6b0] transition"
+                onClick={() => setShowDropdown(false)}
+              >
+                <LayoutDashboard className="w-4 h-4 mr-2" /> Dashboard
+              </Link>
+            )}
             <Link
               to="/profile"
               className="flex items-center px-5 py-3 text-sm text-gray-800 hover:bg-[#e6f7f6] hover:text-[#1cb6b0] transition"

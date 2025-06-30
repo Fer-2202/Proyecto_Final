@@ -1,5 +1,39 @@
 import axiosInstance from './axiosInstance';
 
+// Get current user's profile
+export const getCurrentUserProfile = async (setLoading) => {
+  try {
+    if (setLoading) setLoading(true);
+    const response = await axiosInstance.get('/api/auth/profile/');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching current user profile:', error);
+    throw new Error(`Failed to load profile: ${error.message}`);
+  } finally {
+    if (setLoading) setLoading(false);
+  }
+};
+
+// Update current user's profile
+export const updateCurrentUserProfile = async (profileData, setLoading) => {
+  try {
+    if (setLoading) setLoading(true);
+    
+    // Validate required fields
+    if (!profileData || typeof profileData !== 'object') {
+      throw new Error('Invalid profile data');
+    }
+
+    const response = await axiosInstance.put('/api/auth/profile/', profileData);
+    return response.data;
+  } catch (error) {
+    console.error('Error updating current user profile:', error);
+    throw new Error(`Failed to update profile: ${error.message}`);
+  } finally {
+    if (setLoading) setLoading(false);
+  }
+};
+
 export const getUserProfileById = async (id, setLoading) => {
   try {
     if (setLoading) setLoading(true);
@@ -22,13 +56,13 @@ export const updateUserProfile = async (id, profileData, setLoading) => {
       throw new Error('Invalid profile data');
     }
 
-    const response = await axiosInstance.put(`/api/auth/user_profile/${id}/update`, profileData);
+    const response = await axiosInstance.put(`/api/auth/user_profile/${id}/update/`, profileData);
     return response.data;
   } catch (error) {
     console.error(`Error updating user profile with ID ${id}:`, error);
     throw new Error(`Failed to update profile: ${error.message}`);
   } finally {
-    if (!setLoading) setLoading(false);
+    if (setLoading) setLoading(false);
   }
 };
 

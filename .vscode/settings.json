@@ -6,5 +6,21 @@
   "**/.DS_Store": true,
   "**/Thumbs.db": true,
   "**/node_modules": true
- }
+},
+"piny.project_settings": {
+  "open-pages": [
+    "pinyfakepage.html"
+  ],
+  "component-settings": {
+    "frontend/src/components/home/FeatureCard.jsx:::Temp": {
+      "route": "/"
+    }
+  },
+  "app-routes": {
+    "routes": [
+      "/"
+    ],
+    "current_route": "/"
+  }
+}
 }
