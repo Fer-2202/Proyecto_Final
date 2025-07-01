@@ -1,7 +1,7 @@
 import { useCarousel } from "../Carrousel/hooks/useCarousel";
 import { ChevronLeft, ChevronRight, Quote } from "lucide-react";
 import "keen-slider/keen-slider.min.css";
-import placeholder from "../../assets/placeholder.svg";
+import placeholder from "@assets/placeholder.svg";
 
 const testimonials = [
   {
@@ -40,9 +40,13 @@ export default function TestimonialsCarousel() {
   return (
     <section className="bg-[#f8f9fa] py-20 text-center">
       <div className="max-w-4xl mx-auto px-4">
-        <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 uppercase">Lo que dicen nuestros visitantes</h2>
+        <h2 className="text-3xl md:text-4xl font-extrabold text-gray-900 uppercase">
+          Lo que dicen nuestros visitantes
+        </h2>
         <div className="w-20 h-1 bg-[#1CB6B0] mx-auto my-4 rounded"></div>
-        <p className="text-gray-600 mb-10">Experiencias de quienes han disfrutado del Parque Marino</p>
+        <p className="text-gray-600 mb-10">
+          Experiencias de quienes han disfrutado del Parque Marino
+        </p>
 
         <div ref={sliderRef} className="keen-slider relative">
           {testimonials.map((item, index) => (
@@ -59,7 +63,9 @@ export default function TestimonialsCarousel() {
                 className="w-20 h-20 rounded-full border-4 border-[#1CB6B0] mb-6 object-cover"
               />
               <p className="italic text-gray-700 mb-6">{item.text}</p>
-              <h3 className="text-lg font-semibold text-gray-900">{item.name}</h3>
+              <h3 className="text-lg font-semibold text-gray-900">
+                {item.name}
+              </h3>
               <p className="text-gray-500 text-sm">{item.role}</p>
               <div className="flex mt-2 justify-center">
                 {Array.from({ length: 5 }).map((_, i) => (

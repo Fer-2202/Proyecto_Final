@@ -7,11 +7,13 @@ from django.shortcuts import render
 import os
 import PyPDF2
 import openpyxl
+from api.permissions import IsAuthenticatedAndRole
+
 
 class DocumentsViewSet(viewsets.ModelViewSet):
     queryset = Documents.objects.all()
     serializer_class = DocumentsSerializer
-    #permission_classes = [IsAuthenticatedAndRole]
+    permission_classes = [IsAuthenticatedAndRole]
     http_method_names = ['get', 'post', 'put', 'delete']
     #required_role = 'admin'
 

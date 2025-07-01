@@ -1,9 +1,9 @@
-import React from 'react';
-import { Navigate } from 'react-router-dom';
-import { useAuth } from '../context/AuthContext';
-import { useUserRoles } from '../hooks/useUserRoles';
-import Loading from '../pages/Loading';
-import AccessDenied from '../pages/AccessDenied';
+import React from "react";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "@context/AuthContext";
+import { useUserRoles } from "@hooks/useUserRoles";
+import Loading from "@pages/Loading";
+import AccessDenied from "@pages/AccessDenied";
 
 export default function AdminRoute({ children }) {
   const { isAuthenticated } = useAuth();
@@ -22,4 +22,4 @@ export default function AdminRoute({ children }) {
   }
 
   return children;
-} 
+}

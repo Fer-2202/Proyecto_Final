@@ -1,7 +1,7 @@
 import React from 'react'
 import QuienesSomos from '../quienes-somos/QuienesSomos'
 import ExhibitIntro from '../exhibiciones-y-servicios/components/ExhibitIntro'
-import placeholder from "../../../assets/placeholder.svg";
+import placeholder from "@assets/placeholder.svg";
 
 function Donar() {
   return (

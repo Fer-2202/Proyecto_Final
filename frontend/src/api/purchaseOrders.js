@@ -1,11 +1,11 @@
-import axiosInstance from './axiosInstance';
+import axiosInstance from "./axiosInstance";
 
 export const getPurchaseOrders = async () => {
   try {
-    const response = await axiosInstance.get('/api/purchase_orders/');
+    const response = await axiosInstance.get("/api/purchase_orders/");
     return response.data;
   } catch (error) {
-    console.error('Error fetching purchase orders:', error);
+    console.error("Error fetching purchase orders:", error);
     throw error;
   }
 };
@@ -22,17 +22,23 @@ export const getPurchaseOrderById = async (id) => {
 
 export const createPurchaseOrder = async (orderData) => {
   try {
-    const response = await axiosInstance.post('/api/purchase_orders/create/', orderData);
+    const response = await axiosInstance.post(
+      "/api/purchase_orders/create/",
+      orderData
+    );
     return response.data;
   } catch (error) {
-    console.error('Error creating purchase order:', error);
+    console.error("Error creating purchase order:", error);
     throw error;
   }
 };
 
 export const updatePurchaseOrder = async (id, orderData) => {
   try {
-    const response = await axiosInstance.put(`/api/purchase_orders/${id}/update/`, orderData);
+    const response = await axiosInstance.put(
+      `/api/purchase_orders/${id}/update/`,
+      orderData
+    );
     return response.data;
   } catch (error) {
     console.error(`Error updating purchase order with ID ${id}:`, error);

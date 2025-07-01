@@ -1,13 +1,23 @@
-import React, { useState, useEffect } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
-import { 
-  Menu, X, Home, User, Ticket, Info, Phone, 
-  ChevronDown, LogOut, Settings, Bell, Search
-} from 'lucide-react';
-import { useAuth } from '../context/AuthContext';
-import { useLocation, Link } from 'react-router-dom';
-import Button from '../components/ui/Button';
-import LoadingSpinner from '../pages/Loading';
+import React, { useState, useEffect } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import {
+  Menu,
+  X,
+  Home,
+  User,
+  Ticket,
+  Info,
+  Phone,
+  ChevronDown,
+  LogOut,
+  Settings,
+  Bell,
+  Search,
+} from "lucide-react";
+import { useAuth } from "@context/AuthContext";
+import { useLocation, Link } from "react-router-dom";
+import Button from "@components/ui/Button";
+import LoadingSpinner from "@pages/Loading";
 
 const ModernLayout = ({ children }) => {
   const { user, isAuthenticated, logout } = useAuth();
@@ -21,22 +31,22 @@ const ModernLayout = ({ children }) => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
     };
-    window.addEventListener('scroll', handleScroll);
-    return () => window.removeEventListener('scroll', handleScroll);
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
   const navigation = [
-    { name: 'Inicio', href: '/', icon: Home },
-    { name: 'Animales', href: '/animals', icon: Info },
-    { name: 'Exhibiciones', href: '/exhibits', icon: Info },
-    { name: 'Tickets', href: '/tickets', icon: Ticket },
-    { name: 'Contacto', href: '/contact', icon: Phone },
+    { name: "Inicio", href: "/", icon: Home },
+    { name: "Animales", href: "/animals", icon: Info },
+    { name: "Exhibiciones", href: "/exhibits", icon: Info },
+    { name: "Tickets", href: "/tickets", icon: Ticket },
+    { name: "Contacto", href: "/contact", icon: Phone },
   ];
 
   const userMenuItems = [
-    { name: 'Mi Perfil', href: '/profile', icon: User },
-    { name: 'Configuración', href: '/settings', icon: Settings },
-    { name: 'Notificaciones', href: '/notifications', icon: Bell },
+    { name: "Mi Perfil", href: "/profile", icon: User },
+    { name: "Configuración", href: "/settings", icon: Settings },
+    { name: "Notificaciones", href: "/notifications", icon: Bell },
   ];
 
   const handleLogout = () => {
@@ -51,9 +61,9 @@ const ModernLayout = ({ children }) => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled 
-            ? 'bg-white/95 backdrop-blur-md shadow-lg' 
-            : 'bg-transparent'
+          isScrolled
+            ? "bg-white/95 backdrop-blur-md shadow-lg"
+            : "bg-transparent"
         }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -66,7 +76,9 @@ const ModernLayout = ({ children }) => {
               <div className="w-8 h-8 bg-gradient-to-br from-blue-600 to-purple-600 rounded-lg flex items-center justify-center">
                 <span className="text-white font-bold text-sm">PM</span>
               </div>
-              <span className="text-xl font-bold text-gray-900">Parque Marino</span>
+              <span className="text-xl font-bold text-gray-900">
+                Parque Marino
+              </span>
             </motion.div>
 
             {/* Desktop Navigation */}
@@ -79,8 +91,8 @@ const ModernLayout = ({ children }) => {
                     to={item.href}
                     className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 ${
                       isActive
-                        ? 'text-blue-600 bg-blue-50'
-                        : 'text-gray-600 hover:text-blue-600 hover:bg-gray-50'
+                        ? "text-blue-600 bg-blue-50"
+                        : "text-gray-600 hover:text-blue-600 hover:bg-gray-50"
                     }`}
                   >
                     <item.icon size={16} />
@@ -110,7 +122,9 @@ const ModernLayout = ({ children }) => {
                     className="flex items-center space-x-2 p-2 rounded-lg hover:bg-gray-100 transition-colors"
                   >
                     <div className="w-8 h-8 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center text-white text-sm font-medium">
-                      {user?.first_name?.charAt(0) || user?.username?.charAt(0) || 'U'}
+                      {user?.first_name?.charAt(0) ||
+                        user?.username?.charAt(0) ||
+                        "U"}
                     </div>
                     <span className="hidden sm:block text-sm font-medium text-gray-700">
                       {user?.first_name || user?.username}
@@ -154,9 +168,7 @@ const ModernLayout = ({ children }) => {
                   <Button variant="outline" size="sm">
                     Iniciar sesión
                   </Button>
-                  <Button size="sm">
-                    Registrarse
-                  </Button>
+                  <Button size="sm">Registrarse</Button>
                 </div>
               )}
 
@@ -176,7 +188,7 @@ const ModernLayout = ({ children }) => {
           {isMobileMenuOpen && (
             <motion.div
               initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: 'auto' }}
+              animate={{ opacity: 1, height: "auto" }}
               exit={{ opacity: 0, height: 0 }}
               className="md:hidden bg-white border-t border-gray-200"
             >
@@ -190,8 +202,8 @@ const ModernLayout = ({ children }) => {
                       onClick={() => setIsMobileMenuOpen(false)}
                       className={`flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors ${
                         isActive
-                          ? 'text-blue-600 bg-blue-50'
-                          : 'text-gray-600 hover:text-blue-600 hover:bg-gray-50'
+                          ? "text-blue-600 bg-blue-50"
+                          : "text-gray-600 hover:text-blue-600 hover:bg-gray-50"
                       }`}
                     >
                       <item.icon size={20} />
@@ -229,19 +241,72 @@ const ModernLayout = ({ children }) => {
             <div>
               <h4 className="font-semibold mb-4">Enlaces</h4>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li><Link to="/" className="hover:text-white transition-colors">Inicio</Link></li>
-                <li><Link to="/animals" className="hover:text-white transition-colors">Animales</Link></li>
-                <li><Link to="/exhibits" className="hover:text-white transition-colors">Exhibiciones</Link></li>
-                <li><Link to="/tickets" className="hover:text-white transition-colors">Tickets</Link></li>
+                <li>
+                  <Link to="/" className="hover:text-white transition-colors">
+                    Inicio
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/animals"
+                    className="hover:text-white transition-colors"
+                  >
+                    Animales
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/exhibits"
+                    className="hover:text-white transition-colors"
+                  >
+                    Exhibiciones
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/tickets"
+                    className="hover:text-white transition-colors"
+                  >
+                    Tickets
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Información</h4>
               <ul className="space-y-2 text-sm text-gray-400">
-                <li><Link to="/about" className="hover:text-white transition-colors">Sobre nosotros</Link></li>
-                <li><Link to="/contact" className="hover:text-white transition-colors">Contacto</Link></li>
-                <li><Link to="/privacy" className="hover:text-white transition-colors">Privacidad</Link></li>
-                <li><Link to="/terms" className="hover:text-white transition-colors">Términos</Link></li>
+                <li>
+                  <Link
+                    to="/about"
+                    className="hover:text-white transition-colors"
+                  >
+                    Sobre nosotros
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/contact"
+                    className="hover:text-white transition-colors"
+                  >
+                    Contacto
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/privacy"
+                    className="hover:text-white transition-colors"
+                  >
+                    Privacidad
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/terms"
+                    className="hover:text-white transition-colors"
+                  >
+                    Términos
+                  </Link>
+                </li>
               </ul>
             </div>
             <div>
@@ -262,4 +327,4 @@ const ModernLayout = ({ children }) => {
   );
 };
 
-export default ModernLayout; 
+export default ModernLayout;

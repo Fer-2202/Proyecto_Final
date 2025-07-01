@@ -1,8 +1,8 @@
-import { Outlet } from 'react-router-dom';
-import Navbar from '../../components/Navbar/Navbar';
-import Loading from '../../pages/Loading';
-import { useEffect } from 'react';
-import { useLayoutTransition } from '../../context/LayoutTransitionContext';
+import { Outlet } from "react-router-dom";
+import Navbar from "@components/Navbar/Navbar";
+import Loading from "@pages/Loading";
+import { useEffect } from "react";
+import { useLayoutTransition } from "@context/LayoutTransitionContext";
 
 function ClientLayout() {
   const { isTransitioning, startTransition } = useLayoutTransition();

@@ -11,7 +11,7 @@ import conservationStatusFormConfig from "./forms/ConservationStatusFormConfig";
 import provinceFormConfig from "./forms/ProvinceFormConfig";
 import userProfileFormConfig from "./forms/UserProfileFormConfig";
 import { useEffect, useState } from "react";
-import * as api from "../../../api/api";
+import * as api from "@api/api";
 import {
   YupTicketSchema,
   YupSectionSchema,
@@ -28,15 +28,15 @@ import {
 const { Dragger } = Upload;
 const { TextArea } = Input;
 
-function AdminModal({ 
-  formVisible, 
-  setFormVisible, 
-  editItem, 
-  handleSubmit, 
-  form, 
-  data, 
-  modalClassName = "", 
-  buttonClassName = "" 
+function AdminModal({
+  formVisible,
+  setFormVisible,
+  editItem,
+  handleSubmit,
+  form,
+  data,
+  modalClassName = "",
+  buttonClassName = "",
 }) {
   const { item: initialValues, tabKey } = editItem || {};
   const activeTab = tabKey;
@@ -53,7 +53,7 @@ function AdminModal({
   useEffect(() => {
     const fetchData = async () => {
       if (!formVisible || !activeTab) return;
-      
+
       setLoading(true);
       try {
         let species = [];
@@ -86,17 +86,17 @@ function AdminModal({
           }
         }
 
-        setFormOptions(prevOptions => ({
+        setFormOptions((prevOptions) => ({
           ...prevOptions,
-          species: species.map(s => ({ value: s.id, label: s.name })),
-          habitats: habitats.map(h => ({ value: h.id, label: h.name })),
-          sections: sections.map(sec => ({ value: sec.id, label: sec.name })),
-          conservationStatuses: conservationStatuses.map(status => ({ 
-            value: status.value, 
-            label: status.label 
+          species: species.map((s) => ({ value: s.id, label: s.name })),
+          habitats: habitats.map((h) => ({ value: h.id, label: h.name })),
+          sections: sections.map((sec) => ({ value: sec.id, label: sec.name })),
+          conservationStatuses: conservationStatuses.map((status) => ({
+            value: status.value,
+            label: status.label,
           })),
-          provinces: provinces.map(p => ({ value: p.id, label: p.name })),
-          users: users.map(u => ({ value: u.id, label: u.username })),
+          provinces: provinces.map((p) => ({ value: p.id, label: p.name })),
+          users: users.map((u) => ({ value: u.id, label: u.username })),
         }));
       } catch (error) {
         console.error("Error fetching form options:", error);
@@ -118,7 +118,7 @@ function AdminModal({
       case "habitats":
         return habitatFormConfig;
       case "animals":
-        return animalFormConfig.map(field => {
+        return animalFormConfig.map((field) => {
           if (field.name === "speciesId") {
             return { ...field, options: formOptions.species };
           }
@@ -137,7 +137,7 @@ function AdminModal({
       case "species":
         return speciesFormConfig;
       case "conservation-status":
-        return conservationStatusFormConfig.map(field => {
+        return conservationStatusFormConfig.map((field) => {
           if (field.name === "name") {
             return { ...field, options: formOptions.conservationStatuses };
           }
@@ -146,7 +146,7 @@ function AdminModal({
       case "provinces":
         return provinceFormConfig;
       case "user-profiles":
-        return userProfileFormConfig.map(field => {
+        return userProfileFormConfig.map((field) => {
           if (field.name === "province") {
             return { ...field, options: formOptions.provinces };
           }
@@ -174,31 +174,33 @@ function AdminModal({
             loading={loading}
             showSearch
             filterOption={(input, option) =>
-              (option?.label ?? '').toLowerCase().includes(input.toLowerCase())
+              (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
             }
           />
         );
       case "textarea":
-        return <TextArea rows={4} placeholder={`Ingrese ${label.toLowerCase()}`} />;
+        return (
+          <TextArea rows={4} placeholder={`Ingrese ${label.toLowerCase()}`} />
+        );
       case "date":
         return <DatePicker className="w-full" />;
       case "switch":
         return <Switch />;
       case "file":
         return (
-          <Dragger
-            name="file"
-            multiple={false}
-            beforeUpload={() => false}
-          >
+          <Dragger name="file" multiple={false} beforeUpload={() => false}>
             <p className="ant-upload-drag-icon">
               <InboxOutlined />
             </p>
-            <p className="ant-upload-text">Haga clic o arrastre el archivo aquí</p>
+            <p className="ant-upload-text">
+              Haga clic o arrastre el archivo aquí
+            </p>
           </Dragger>
         );
       default:
-        return <Input type={type} placeholder={`Ingrese ${label.toLowerCase()}`} />;
+        return (
+          <Input type={type} placeholder={`Ingrese ${label.toLowerCase()}`} />
+        );
     }
   };
 
@@ -215,23 +217,23 @@ function AdminModal({
       okText="Guardar"
       cancelText="Cancelar"
       className={`admin-modal ${modalClassName}`}
-      okButtonProps={{ 
+      okButtonProps={{
         className: `admin-btn admin-btn-primary ${buttonClassName}`,
-        loading: loading
+        loading: loading,
       }}
-      cancelButtonProps={{ 
-        className: "admin-btn border-gray-300 text-gray-700"
+      cancelButtonProps={{
+        className: "admin-btn border-gray-300 text-gray-700",
       }}
       destroyOnClose
       width={600}
     >
-      <Form 
-        layout="vertical" 
-        form={form} 
+      <Form
+        layout="vertical"
+        form={form}
         initialValues={initialValues}
         className="mt-4"
       >
-        {formConfig.map(field => (
+        {formConfig.map((field) => (
           <Form.Item
             key={field.name}
             name={field.name}
@@ -242,10 +244,10 @@ function AdminModal({
               </span>
             }
             rules={[
-              { 
-                required: field.required, 
-                message: `Por favor, complete el campo ${field.label}` 
-              }
+              {
+                required: field.required,
+                message: `Por favor, complete el campo ${field.label}`,
+              },
             ]}
           >
             {renderFormField(field)}

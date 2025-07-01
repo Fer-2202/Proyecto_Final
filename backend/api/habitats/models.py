@@ -1,6 +1,5 @@
 from django.db import models
 
-
 # Habitats
 class Habitats(models.Model):
     name = models.CharField(max_length=30, unique=True, null=False, verbose_name="Habitat Name")

@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useEffect, useState } from 'react';
+import React, { createContext, useContext, useEffect, useState } from "react";
 
 const LayoutTransitionContext = createContext();
 
@@ -13,11 +13,12 @@ export const LayoutTransitionProvider = ({ children }) => {
   };
 
   return (
-    <LayoutTransitionContext.Provider value={{ isTransitioning, startTransition }}>
+    <LayoutTransitionContext.Provider
+      value={{ isTransitioning, startTransition }}
+    >
       {children}
     </LayoutTransitionContext.Provider>
   );
 };
 
 export const useLayoutTransition = () => useContext(LayoutTransitionContext);
-

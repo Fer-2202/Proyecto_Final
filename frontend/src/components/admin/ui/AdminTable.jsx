@@ -1,5 +1,5 @@
-import { Table, Button, Tooltip, Input, Dropdown, Menu, Badge, Tag, Avatar } from "antd";
-import { Edit, Trash2, Download, Filter, MoreHorizontal, Eye, Copy } from "lucide-react";
+import {Table, Button, Tooltip, Input, Dropdown, Menu, Badge, Tag, Avatar,} from "antd";
+import {Edit, Trash2, Download, Filter, MoreHorizontal, Eye, Copy,} from "lucide-react";
 import { useRef, useState } from "react";
 import { motion } from "framer-motion";
 import * as XLSX from "xlsx";
@@ -10,10 +10,13 @@ const isImageUrl = (url) =>
 
 const getStatusColor = (status) => {
   const statusLower = String(status).toLowerCase();
-  if (statusLower.includes('activo') || statusLower.includes('active')) return 'green';
-  if (statusLower.includes('inactivo') || statusLower.includes('inactive')) return 'red';
-  if (statusLower.includes('pendiente') || statusLower.includes('pending')) return 'orange';
-  return 'default';
+  if (statusLower.includes("activo") || statusLower.includes("active"))
+    return "green";
+  if (statusLower.includes("inactivo") || statusLower.includes("inactive"))
+    return "red";
+  if (statusLower.includes("pendiente") || statusLower.includes("pending"))
+    return "orange";
+  return "default";
 };
 
 function AdminTable({
@@ -27,7 +30,9 @@ function AdminTable({
   rowClassName = "",
 }) {
   const [searchTexts, setSearchTexts] = useState({});
-  const [visibleColumns, setVisibleColumns] = useState(columns.map(c => c.dataIndex));
+  const [visibleColumns, setVisibleColumns] = useState(
+    columns.map((c) => c.dataIndex)
+  );
   const [selectedRowKeys, setSelectedRowKeys] = useState([]);
   const tableRef = useRef();
 
@@ -41,26 +46,33 @@ function AdminTable({
 
   /* ---- Search por columna ---- */
   const getColumnSearchProps = (dataIndex) => ({
-    filterDropdown: ({ setSelectedKeys, selectedKeys, confirm, clearFilters }) => (
+    filterDropdown: ({
+      setSelectedKeys,
+      selectedKeys,
+      confirm,
+      clearFilters,
+    }) => (
       <div className="p-3 bg-white rounded-lg shadow-lg border border-gray-200">
         <Input
           placeholder={`Buscar en ${dataIndex}...`}
           value={selectedKeys[0]}
-          onChange={(e) => setSelectedKeys(e.target.value ? [e.target.value] : [])}
+          onChange={(e) =>
+            setSelectedKeys(e.target.value ? [e.target.value] : [])
+          }
           onPressEnter={() => confirm()}
           className="mb-3"
         />
         <div className="flex gap-2">
-          <Button 
-            onClick={() => confirm()} 
-            size="small" 
+          <Button
+            onClick={() => confirm()}
+            size="small"
             type="primary"
             className="bg-blue-600 hover:bg-blue-700 border-0"
           >
             Buscar
           </Button>
-          <Button 
-            onClick={() => clearFilters()} 
+          <Button
+            onClick={() => clearFilters()}
             size="small"
             className="border-gray-300"
           >
@@ -70,7 +82,10 @@ function AdminTable({
       </div>
     ),
     filterIcon: (filtered) => (
-      <Filter size={14} className={filtered ? 'text-blue-600' : 'text-gray-400'} />
+      <Filter
+        size={14}
+        className={filtered ? "text-blue-600" : "text-gray-400"}
+      />
     ),
     onFilter: (value, record) =>
       String(record[dataIndex]).toLowerCase().includes(value.toLowerCase()),
@@ -79,31 +94,31 @@ function AdminTable({
   /* ---- Columnas con filtros y render inteligente ---- */
   const enhancedColumns = [
     ...columns
-      .filter(col => visibleColumns.includes(col.dataIndex))
-      .map(col => ({
+      .filter((col) => visibleColumns.includes(col.dataIndex))
+      .map((col) => ({
         ...col,
         ...getColumnSearchProps(col.dataIndex),
         render: (val, record) => {
           // Renderizado especial para diferentes tipos de datos
           if (isImageUrl(val)) {
             return (
-              <Avatar 
-                src={val} 
+              <Avatar
+                src={val}
                 size={40}
                 className="border-2 border-gray-200"
               />
             );
           }
-          
+
           if (typeof val === "boolean") {
             return (
-              <Badge 
-                status={val ? "success" : "error"} 
+              <Badge
+                status={val ? "success" : "error"}
                 text={val ? "Sí" : "No"}
               />
             );
           }
-          
+
           if (typeof val === "object" && val !== null) {
             return (
               <Tag color="blue" className="text-xs">
@@ -111,34 +126,30 @@ function AdminTable({
               </Tag>
             );
           }
-          
+
           // Para campos que podrían ser estados
-          if (col.dataIndex.toLowerCase().includes('status') || 
-              col.dataIndex.toLowerCase().includes('estado')) {
-            return (
-              <Tag color={getStatusColor(val)}>
-                {String(val)}
-              </Tag>
-            );
+          if (
+            col.dataIndex.toLowerCase().includes("status") ||
+            col.dataIndex.toLowerCase().includes("estado")
+          ) {
+            return <Tag color={getStatusColor(val)}>{String(val)}</Tag>;
           }
-          
+
           // Para campos de fecha
-          if (col.dataIndex.toLowerCase().includes('date') || 
-              col.dataIndex.toLowerCase().includes('fecha') ||
-              col.dataIndex.toLowerCase().includes('created') ||
-              col.dataIndex.toLowerCase().includes('updated')) {
+          if (
+            col.dataIndex.toLowerCase().includes("date") ||
+            col.dataIndex.toLowerCase().includes("fecha") ||
+            col.dataIndex.toLowerCase().includes("created") ||
+            col.dataIndex.toLowerCase().includes("updated")
+          ) {
             return (
               <span className="text-sm text-gray-600">
-                {new Date(val).toLocaleDateString('es-ES')}
+                {new Date(val).toLocaleDateString("es-ES")}
               </span>
             );
           }
-          
-          return (
-            <span className="text-gray-900">
-              {String(val)}
-            </span>
-          );
+
+          return <span className="text-gray-900">{String(val)}</span>;
         },
       })),
     {
@@ -157,7 +168,7 @@ function AdminTable({
               <Eye size={14} />
             </motion.button>
           </Tooltip>
-          
+
           <Tooltip title="Editar">
             <motion.button
               whileHover={{ scale: 1.1 }}
@@ -168,7 +179,7 @@ function AdminTable({
               <Edit size={14} />
             </motion.button>
           </Tooltip>
-          
+
           <Tooltip title="Eliminar">
             <motion.button
               whileHover={{ scale: 1.1 }}
@@ -196,7 +207,7 @@ function AdminTable({
               onChange={(e) => {
                 const newCols = e.target.checked
                   ? [...visibleColumns, col.dataIndex]
-                  : visibleColumns.filter(c => c !== col.dataIndex);
+                  : visibleColumns.filter((c) => c !== col.dataIndex);
                 setVisibleColumns(newCols);
               }}
               className="rounded border-gray-300"
@@ -224,14 +235,14 @@ function AdminTable({
             {filteredRows.length} registros encontrados
           </h3>
           {selectedRowKeys.length > 0 && (
-            <Badge 
-              count={selectedRowKeys.length} 
+            <Badge
+              count={selectedRowKeys.length}
               className="bg-blue-600"
               text={`${selectedRowKeys.length} seleccionados`}
             />
           )}
         </div>
-        
+
         <div className="flex items-center gap-3">
           <motion.button
             whileHover={{ scale: 1.02 }}
@@ -242,8 +253,12 @@ function AdminTable({
             <Download size={16} />
             Exportar
           </motion.button>
-          
-          <Dropdown overlay={columnMenu} trigger={["click"]} placement="bottomRight">
+
+          <Dropdown
+            overlay={columnMenu}
+            trigger={["click"]}
+            placement="bottomRight"
+          >
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
@@ -268,15 +283,15 @@ function AdminTable({
             pageSize: 10,
             showSizeChanger: true,
             showQuickJumper: true,
-            showTotal: (total, range) => 
+            showTotal: (total, range) =>
               `${range[0]}-${range[1]} de ${total} registros`,
-            className: "px-4 py-2"
+            className: "px-4 py-2",
           }}
           rowSelection={rowSelection}
           className="admin-table"
-          rowClassName={(record, index) => 
+          rowClassName={(record, index) =>
             `hover:bg-blue-50 transition-colors ${rowClassName} ${
-              selectedRowKeys.includes(record.id) ? 'bg-blue-50' : ''
+              selectedRowKeys.includes(record.id) ? "bg-blue-50" : ""
             }`
           }
           size="middle"

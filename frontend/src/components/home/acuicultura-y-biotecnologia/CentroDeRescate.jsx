@@ -1,16 +1,16 @@
 import React from 'react'
 import QuienesSomos from '../quienes-somos/QuienesSomos'
-import ExhibitIntro from '../../../components/home/exhibiciones-y-servicios/components/ExhibitIntro'
+import ExhibitIntro from '@components/home/exhibiciones-y-servicios/components/ExhibitIntro'
 import TabsContainer from './components/TabsContainer'
 import DescriptionSection from './components/DescriptionSection'
-import Tanque from "./../../../assets/img/Logo_CRRAM.JPG"
+import Tanque from "@/assets/img/Logo_CRRAM.JPG"
 import { Link } from 'react-router-dom'
 import EspeciesTab from './components/tabs/EspeciesTab'
 import PublicacionesTab from './components/tabs/investigacion/PublicacionesTab'
 import HistoriasTab from './components/tabs/HistoriasTab'
 import ComoAyudarTab from './components/tabs/ComoAyudarTab'
 import { publicaciones, publicacionesStats  } from './data/publicacionesCRRAMData';
-import Tenencia_responsable from './components/tabs/Tenencia_responsable'
+import TenenciaResponsableTab from './components/tabs/TenenciaResponsableTab'
 
 function CentroDeRescate() {
 
@@ -51,7 +51,7 @@ function CentroDeRescate() {
     {
       value: "tenencia-responsable",
       label: "Tenencia Responsable",
-      component: <Tenencia_responsable />
+      component: <TenenciaResponsableTab />
     }
   ];
 

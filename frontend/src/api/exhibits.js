@@ -1,15 +1,15 @@
-import axiosInstance from './axiosInstance';
+import axiosInstance from "./axiosInstance";
 
 export const getExhibits = async () => {
-   try {
-    const response = await axiosInstance.get('/api/exhibiciones/');
+  try {
+    const response = await axiosInstance.get("/api/exhibiciones/");
     return response.data;
   } catch (error) {
-    console.error('Error fetching exhibits:', error);
+    console.error("Error fetching exhibits:", error);
     throw error;
   }
-}
- 
+};
+
 export const getExhibitById = async (id) => {
   try {
     const response = await axiosInstance.get(`/api/exhibiciones/${id}/`);
@@ -22,17 +22,23 @@ export const getExhibitById = async (id) => {
 
 export const createExhibit = async (exhibitData) => {
   try {
-    const response = await axiosInstance.post('/api/exhibiciones/create/', exhibitData);
+    const response = await axiosInstance.post(
+      "/api/exhibiciones/create/",
+      exhibitData
+    );
     return response.data;
   } catch (error) {
-    console.error('Error creating exhibit:', error);
+    console.error("Error creating exhibit:", error);
     throw error;
   }
 };
 
 export const updateExhibit = async (id, exhibitData) => {
   try {
-    const response = await axiosInstance.put(`/api/exhibiciones/${id}/update/`, exhibitData);
+    const response = await axiosInstance.put(
+      `/api/exhibiciones/${id}/update/`,
+      exhibitData
+    );
     return response.data;
   } catch (error) {
     console.error(`Error updating exhibit with ID ${id}:`, error);
@@ -56,4 +62,3 @@ export default {
   updateExhibit,
   deleteExhibit,
 };
-

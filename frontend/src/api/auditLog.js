@@ -1,11 +1,11 @@
-import axiosInstance from './axiosInstance';
+import axiosInstance from "./axiosInstance";
 
 export const getAuditLog = async () => {
   try {
-    const response = await axiosInstance.get('/api/audit_log/');
+    const response = await axiosInstance.get("/api/audit_log/");
     return response.data;
   } catch (error) {
-    console.error('Error obtener  audit logs:', error);
+    console.error("Error obtener  audit logs:", error);
     throw error;
   }
 };

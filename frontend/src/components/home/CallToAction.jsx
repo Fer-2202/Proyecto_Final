@@ -8,8 +8,8 @@ export default function CallToAction() {
         ¡Ayúdanos a conservar nuestros océanos!
       </h2>
       <p className="text-lg max-w-3xl mx-auto mb-8">
-        Tu apoyo es fundamental para continuar con nuestra labor de conservación,
-        investigación y educación ambiental.
+        Tu apoyo es fundamental para continuar con nuestra labor de
+        conservación, investigación y educación ambiental.
       </p>
       <div className="flex justify-center gap-4 flex-wrap">
         <Link

@@ -1,9 +1,12 @@
 import React, { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Loader2 } from "lucide-react";
-import logo from "./../assets/img/LOGO.webp";
+import logo from "@assets/img/LOGO.webp";
 
-export default function Loading({ isVisible = true, text = "Preparando tu experiencia marina..." }) {
+export default function Loading({
+  isVisible = true,
+  text = "Preparando tu experiencia marina...",
+}) {
   // Bloquear scroll mientras está visible
   useEffect(() => {
     if (isVisible) {
@@ -58,7 +61,11 @@ export default function Loading({ isVisible = true, text = "Preparando tu experi
               animate={{ x: ["0%", "-50%"] }}
               transition={{ repeat: Infinity, duration: 12, ease: "linear" }}
             >
-              <svg viewBox="0 0 1440 320" className="w-full h-full" preserveAspectRatio="none">
+              <svg
+                viewBox="0 0 1440 320"
+                className="w-full h-full"
+                preserveAspectRatio="none"
+              >
                 <path
                   fill="#1CB6B0"
                   fillOpacity="0.2"
@@ -73,7 +80,11 @@ export default function Loading({ isVisible = true, text = "Preparando tu experi
               animate={{ x: ["0%", "-50%"] }}
               transition={{ repeat: Infinity, duration: 6, ease: "linear" }}
             >
-              <svg viewBox="0 0 1440 320" className="w-full h-full" preserveAspectRatio="none">
+              <svg
+                viewBox="0 0 1440 320"
+                className="w-full h-full"
+                preserveAspectRatio="none"
+              >
                 <path
                   fill="#1CB6B0"
                   fillOpacity="0.4"

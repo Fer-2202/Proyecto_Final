@@ -1,9 +1,8 @@
 .Horizontal[data-orientation="horizontal"] {
-	height: 1px;
-	width: 50%;
+  height: 1px;
+  width: 50%;
 }
 
 @import "tailwindcss";
-@import 'flowbite';
-@import "antd/dist/reset.css"
-/* @import 'keen-slider/keen-slider.min.css'; */
+@import "flowbite";
+@import "antd/dist/reset.css"; /* @import 'keen-slider/keen-slider.min.css'; */

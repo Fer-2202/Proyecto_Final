@@ -1,5 +1,5 @@
 // ProgressIndicators.jsx
-import { motion } from "framer-motion"
+import { motion } from "framer-motion";
 
 function ProgressIndicators({ progress }) {
   return (
@@ -18,7 +18,7 @@ function ProgressIndicators({ progress }) {
         </div>
       ))}
     </div>
-  )
+  );
 }
 
-export default ProgressIndicators
+export default ProgressIndicators;

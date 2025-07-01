@@ -1,4 +1,4 @@
-import placeholder from "../../../../../assets/placeholder.svg";
+import placeholder from "@assets/placeholder.svg";
 
 function GranjaDetails({ granja, onClose }) {
   return (

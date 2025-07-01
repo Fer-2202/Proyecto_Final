@@ -39,5 +39,3 @@ class Purchase_Orders_DetailViewSet(viewsets.ModelViewSet):
         if instance.user != self.request.user:
             raise serializers.ValidationError("No tienes permiso para eliminar esta orden de compra")
         return super().perform_destroy(instance) """
-
-

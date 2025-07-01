@@ -4,7 +4,6 @@ const userProfileFormConfig = [
   { name: "last_name", label: "Apellido", type: "text", required: true },
   { name: "email", label: "Correo Electrónico", type: "email", required: true },
   { name: "phone", label: "Número de telefono", type: "number", requiered: true },
-
 ];
 
 export default userProfileFormConfig;

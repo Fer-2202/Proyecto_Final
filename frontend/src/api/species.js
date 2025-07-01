@@ -1,11 +1,11 @@
-import axiosInstance from './axiosInstance';
+import axiosInstance from "./axiosInstance";
 
 export const getSpecies = async () => {
   try {
-    const response = await axiosInstance.get('/api/species/');
+    const response = await axiosInstance.get("/api/species/");
     return response.data;
   } catch (error) {
-    console.error('Error fetching species:', error);
+    console.error("Error fetching species:", error);
     throw error;
   }
 };
@@ -22,17 +22,23 @@ export const getSpeciesById = async (id) => {
 
 export const createSpecies = async (speciesData) => {
   try {
-    const response = await axiosInstance.post('/api/species/create/', speciesData);
+    const response = await axiosInstance.post(
+      "/api/species/create/",
+      speciesData
+    );
     return response.data;
   } catch (error) {
-    console.error('Error creating species:', error);
+    console.error("Error creating species:", error);
     throw error;
   }
 };
 
 export const updateSpecies = async (id, speciesData) => {
   try {
-    const response = await axiosInstance.put(`/api/species/${id}/update/`, speciesData);
+    const response = await axiosInstance.put(
+      `/api/species/${id}/update/`,
+      speciesData
+    );
     return response.data;
   } catch (error) {
     console.error(`Error updating species with ID ${id}:`, error);

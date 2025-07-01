@@ -6,5 +6,5 @@ from api.permissions import IsAuthenticatedAndRole
 class Animals_ViewSet(viewsets.ModelViewSet):
     queryset = Animals.objects.all()
     serializer_class = Animals_Serializer
-    #permission_classes = [IsAuthenticatedAndRole]
+    permission_classes = [IsAuthenticatedAndRole]
     #required_role = 'admin'

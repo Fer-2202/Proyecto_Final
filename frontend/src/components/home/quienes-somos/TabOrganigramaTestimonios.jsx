@@ -1,6 +1,6 @@
 import React from "react";
 import { Star } from "lucide-react";
-import organigramaImg from "../../../assets/placeholder.svg"; // Cambia la ruta según tu estructura
+import organigramaImg from "@assets/placeholder.svg"; // Cambia la ruta según tu estructura
 
 const testimonios = [
   {

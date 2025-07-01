@@ -8,6 +8,7 @@ class Tickets(models.Model):
     description = models.CharField(max_length=100, null=False, verbose_name="Description")
     total_slots = models.PositiveIntegerField(default=1276, null=False, verbose_name="Total Slots")
     occupied_slots = models.PositiveIntegerField(default=0, verbose_name="Occupied Slots")
+    currency = models.CharField(max_length=3, choices=[('CRC', 'Colones'), ('USD', 'Dólares')], default='CRC')
     
 
     class Meta:
@@ -17,4 +18,3 @@ class Tickets(models.Model):
 
     def __str__(self):
         return self.name
-       

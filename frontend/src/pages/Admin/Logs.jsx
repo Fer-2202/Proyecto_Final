@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import axiosInstance from '../../api/axiosInstance';
+import React, { useState, useEffect } from "react";
+import axiosInstance from "@api/axiosInstance";
 
 const Logs = () => {
   const [logs, setLogs] = useState([]);
@@ -7,10 +7,10 @@ const Logs = () => {
   useEffect(() => {
     const fetchLogs = async () => {
       try {
-        const response = await axiosInstance.get('/api/admin/audit-logs/');
+        const response = await axiosInstance.get("/api/admin/audit-logs/");
         setLogs(response.data);
       } catch (error) {
-        console.error('Error fetching logs:', error);
+        console.error("Error fetching logs:", error);
       }
     };
 
@@ -32,7 +32,7 @@ const Logs = () => {
           </tr>
         </thead>
         <tbody>
-          {logs.map(log => (
+          {logs.map((log) => (
             <tr key={log.id}>
               <td>{log.id}</td>
               <td>{log.user}</td>

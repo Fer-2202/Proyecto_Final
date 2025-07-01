@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react';
-import axiosInstance from '../api/axiosInstance';
-import { useAuth } from './../context/AuthContext';
+import axiosInstance from '@api/axiosInstance';
+import { useAuth } from '@context/AuthContext';
 import { toast } from 'react-toastify';
 
 const SessionTimeoutHandler = () => {

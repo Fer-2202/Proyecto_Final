@@ -9,7 +9,7 @@ from .serializers import Tickets_Serializer
 class Tickets_ListCreateView(viewsets.ModelViewSet):
     queryset = Tickets.objects.all()
     serializer_class = Tickets_Serializer
-    """ permission_classes = [IsAuthenticatedAndRole] """
+    #permission_classes = [IsAuthenticatedAndRole]
 
 class Tickets_DetailView(viewsets.ModelViewSet):
     queryset = Tickets.objects.all()
@@ -26,7 +26,7 @@ class Tickets_DestroyView(viewsets.ModelViewSet):
         return Response(status=status.HTTP_204_NO_CONTENT)
    
 class AvailableTicketsView(APIView):
-    # permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticatedAndRole]
 
     def get(self, request):
         available_tickets = []

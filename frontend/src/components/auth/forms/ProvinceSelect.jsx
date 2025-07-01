@@ -1,6 +1,6 @@
 // components/ProvinceSelect.jsx
-import * as Select from '@radix-ui/react-select';
-import { ChevronDownIcon } from '@radix-ui/react-icons';
+import * as Select from "@radix-ui/react-select";
+import { ChevronDownIcon } from "@radix-ui/react-icons";
 
 function ProvinceSelect({ provinces, value, onChange }) {
   return (

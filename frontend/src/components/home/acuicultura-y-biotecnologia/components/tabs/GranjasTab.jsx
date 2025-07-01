@@ -3,9 +3,9 @@ import Intro from "./Intro";
 import GranjaDetails from "./GranjaDetails";
 import GranjasListComponent from "./GranjasListComponent";
 
-import placeholder from "../../../../../assets/placeholder.svg";
-import granja_Venado from "../../../../../assets/img/Figuras_Acuicultura/Granja_Isla_Venado.JPG"
-import granja_Paquera from "../../../../../assets/img/Figuras_Acuicultura/Granja_Paquera.JPG"
+import placeholder from "@assets/placeholder.svg";
+import granja_Venado from "@assets/img/Figuras_Acuicultura/Granja_Isla_Venado.JPG"
+import granja_Paquera from "@assets/img/Figuras_Acuicultura/Granja_Paquera.JPG"
 
 
 

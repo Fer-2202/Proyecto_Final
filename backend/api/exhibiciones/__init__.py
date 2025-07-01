@@ -2,4 +2,3 @@ from .models import Exhibicion, ExhibicionImage, ExhibicionFacts, ExhibicionDesc
 from .serializers import ExhibicionSerializer, ExhibicionImageSerializer, ExhibicionFactsSerializer, ExhibicionDescriptionSerializer, ExhibicionButtonsSerializer
 from .views import ExhibicionViewSet, ExhibicionImageViewSet, ExhibicionFactsViewSet, ExhibicionDescriptionViewSet
 from .urls import urlpatterns
-

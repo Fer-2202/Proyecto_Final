@@ -1,5 +1,5 @@
 import React from 'react';
-import placeholderImage from '../../../assets/img/_MG_0086.jpg';
+import placeholderImage from '@assets/img/_MG_0086.jpg';
 
 export default function AboutSection() {
   return (

@@ -1,16 +1,15 @@
-import placeholder from "../../assets/placeholder.svg";
-import visitas from "../../assets/img/monitoreo.jpg"
-import charla from "../../assets/img/pul.jpg"
-import taller from "../../assets/img/massi.jpg"
+import placeholder from "@assets/placeholder.svg";
+import visitas from "@assets/img/monitoreo.jpg";
+import charla from "@assets/img/pul.jpg";
+import taller from "@assets/img/massi.jpg";
 import { Link } from "react-router-dom";
-
-
 
 const services = [
   {
     img: visitas,
     title: "Visitas Guiadas",
-    description: "Recorridos educativos con guías especializados en biología marina.",
+    description:
+      "Recorridos educativos con guías especializados en biología marina.",
     tag: "Popular",
     tagColor: "bg-[#1CB6B0] text-white",
     action: "Reservar",
@@ -43,17 +42,22 @@ export default function EducationalServices() {
         </h2>
         <div className="w-24 h-1 bg-[#1CB6B0] mx-auto my-4 rounded"></div>
         <p className="text-gray-600 mb-12 max-w-xl mx-auto">
-          Programas diseñados para todas las edades que promueven la educación ambiental y la conservación marina
+          Programas diseñados para todas las edades que promueven la educación
+          ambiental y la conservación marina
         </p>
 
         <div className="grid md:grid-cols-3 gap-8">
           {services.map((s, i) => (
             <div
               key={i}
-              className="rounded-2xl overflow-hidden bg-white shadow-lg hover:shadow-xl transition border"
+              className="rounded-2xl overflow-hidden bg-white shadow-sm hover:shadow-xl transition"
             >
               <div className="relative">
-                <img src={s.img} alt={s.title} className="w-full h-48 object-cover" />
+                <img
+                  src={s.img}
+                  alt={s.title}
+                  className="w-full h-48 object-cover"
+                />
                 {s.tag && (
                   <span
                     className={`absolute top-3 right-3 text-xs px-3 py-1 rounded-full font-semibold ${s.tagColor}`}
@@ -63,12 +67,16 @@ export default function EducationalServices() {
                 )}
               </div>
               <div className="p-6 text-left">
-                <h3 className="text-[#1CB6B0] font-bold text-lg mb-1">{s.title}</h3>
+                <h3 className="text-[#1CB6B0] font-bold text-lg mb-1">
+                  {s.title}
+                </h3>
                 <p className="text-gray-600 text-sm mb-4">{s.description}</p>
                 <button className="bg-[#1CB6B0] hover:bg-[#139a95] text-white text-sm px-4 py-2 rounded-md font-medium mb-4">
                   {s.action}
                 </button>
-                <p className="font-semibold text-gray-800 text-sm">{s.detail}</p>
+                <p className="font-semibold text-gray-800 text-sm">
+                  {s.detail}
+                </p>
               </div>
             </div>
           ))}
@@ -87,7 +95,12 @@ export default function EducationalServices() {
               viewBox="0 0 24 24"
               stroke="currentColor"
             >
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
             </svg>
           </Link>
         </div>

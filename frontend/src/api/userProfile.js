@@ -1,13 +1,13 @@
-import axiosInstance from './axiosInstance';
+import axiosInstance from "./axiosInstance";
 
 // Get current user's profile
 export const getCurrentUserProfile = async (setLoading) => {
   try {
     if (setLoading) setLoading(true);
-    const response = await axiosInstance.get('/api/auth/profile/');
+    const response = await axiosInstance.get("/api/auth/profile/");
     return response.data;
   } catch (error) {
-    console.error('Error fetching current user profile:', error);
+    console.error("Error fetching current user profile:", error);
     throw new Error(`Failed to load profile: ${error.message}`);
   } finally {
     if (setLoading) setLoading(false);
@@ -18,16 +18,23 @@ export const getCurrentUserProfile = async (setLoading) => {
 export const updateCurrentUserProfile = async (profileData, setLoading) => {
   try {
     if (setLoading) setLoading(true);
-    
-    // Validate required fields
-    if (!profileData || typeof profileData !== 'object') {
-      throw new Error('Invalid profile data');
+
+    let config = {};
+    // Si es FormData, no pongas Content-Type manualmente
+    if (profileData instanceof FormData) {
+      config = {};
+    } else {
+      config = { headers: { "Content-Type": "application/json" } };
     }
 
-    const response = await axiosInstance.put('/api/auth/profile/', profileData);
+    const response = await axiosInstance.put(
+      "/api/auth/profile/",
+      profileData,
+      config
+    );
     return response.data;
   } catch (error) {
-    console.error('Error updating current user profile:', error);
+    console.error("Error updating current user profile:", error);
     throw new Error(`Failed to update profile: ${error.message}`);
   } finally {
     if (setLoading) setLoading(false);
@@ -50,13 +57,16 @@ export const getUserProfileById = async (id, setLoading) => {
 export const updateUserProfile = async (id, profileData, setLoading) => {
   try {
     if (setLoading) setLoading(true);
-    
+
     // Validate required fields
-    if (!profileData || typeof profileData !== 'object') {
-      throw new Error('Invalid profile data');
+    if (!profileData || typeof profileData !== "object") {
+      throw new Error("Invalid profile data");
     }
 
-    const response = await axiosInstance.put(`/api/auth/user_profile/${id}/update/`, profileData);
+    const response = await axiosInstance.put(
+      `/api/auth/user_profile/${id}/update/`,
+      profileData
+    );
     return response.data;
   } catch (error) {
     console.error(`Error updating user profile with ID ${id}:`, error);
@@ -66,7 +76,11 @@ export const updateUserProfile = async (id, profileData, setLoading) => {
   }
 };
 
-export const getUserProfileWithRetry = async (id, setLoading, maxRetries = 3) => {
+export const getUserProfileWithRetry = async (
+  id,
+  setLoading,
+  maxRetries = 3
+) => {
   let attempts = 0;
   let lastError;
 
@@ -79,10 +93,11 @@ export const getUserProfileWithRetry = async (id, setLoading, maxRetries = 3) =>
       lastError = error;
       attempts++;
       console.error(`Attempt ${attempts} failed for user ${id}:`, error);
-      
+
       // Exponential backoff
-      await new Promise(resolve => 
-        setTimeout(resolve, 1000 * Math.pow(2, attempts)));
+      await new Promise((resolve) =>
+        setTimeout(resolve, 1000 * Math.pow(2, attempts))
+      );
     } finally {
       if (setLoading) setLoading(false);
     }
@@ -103,20 +118,23 @@ export const getUserProfile = async (id) => {
 
 export const createUserProfile = async (profileData) => {
   try {
-    const response = await axiosInstance.post('/api/auth/user_profile/', profileData);
+    const response = await axiosInstance.post(
+      "/api/auth/user_profile/",
+      profileData
+    );
     return response.data;
   } catch (error) {
-    console.error('Error creating user profile:', error);
+    console.error("Error creating user profile:", error);
     throw error;
   }
 };
 
 export const getUsersProfiles = async () => {
   try {
-    const response = await axiosInstance.get('/api/auth/user_profile/');
+    const response = await axiosInstance.get("/api/auth/user_profile/");
     return response.data;
   } catch (error) {
-    console.error('Error fetching users profiles:', error);
+    console.error("Error fetching users profiles:", error);
     throw error;
   }
 };

@@ -18,9 +18,8 @@ class RoleSerializer(serializers.ModelSerializer):
 class UserProfileSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username', read_only=True)
     email = serializers.EmailField(source='user.email', read_only=True)
-    first_name = serializers.CharField(source='user.first_name', read_only=True)
-    last_name = serializers.CharField(source='user.last_name', read_only=True)
-    
+    first_name = serializers.CharField(source='user.first_name', required=False)
+    last_name = serializers.CharField(source='user.last_name', required=False)
     phone = serializers.CharField(required=False, allow_blank=True)
     address = serializers.CharField(required=False, allow_blank=True)
     birth_date = serializers.DateField(required=False, allow_null=True)
@@ -64,6 +63,30 @@ class UserProfileSerializer(serializers.ModelSerializer):
             ret['province'] = None
 
         return ret
+
+    def update(self, instance, validated_data):
+        # Actualizar campos del perfil
+        user_data = validated_data.pop('user', {})
+        first_name = validated_data.pop('first_name', None)
+        last_name = validated_data.pop('last_name', None)
+        if first_name is not None:
+            instance.user.first_name = first_name
+        if last_name is not None:
+            instance.user.last_name = last_name
+        instance.user.save()
+
+        # --- FIX para province ---
+        province = validated_data.get('province')
+        if province is not None:
+            from api.provinces.models import Provinces
+            if not isinstance(province, Provinces):
+                try:
+                    validated_data['province'] = Provinces.objects.get(pk=int(province))
+                except Exception:
+                    validated_data['province'] = None
+        # --- FIN FIX ---
+
+        return super().update(instance, validated_data)
 
 
 # Register Serializer
@@ -181,7 +204,6 @@ class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = ['id', 'name', 'permissions']
-
 
 
 # Group Permissions Serializer

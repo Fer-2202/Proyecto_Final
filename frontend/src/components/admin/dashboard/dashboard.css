@@ -1,0 +1,171 @@
+/* Dashboard Components CSS */
+
+/* Z-index fixes for dropdowns and modals */
+.ant-dropdown {
+  z-index: 1050 !important;
+}
+
+.ant-select-dropdown {
+  z-index: 1050 !important;
+}
+
+.ant-picker-dropdown {
+  z-index: 1050 !important;
+}
+
+.ant-modal {
+  z-index: 1000 !important;
+}
+
+.ant-drawer {
+  z-index: 1000 !important;
+}
+
+/* Prevent event bubbling issues */
+.dashboard-dropdown-trigger {
+  position: relative;
+  z-index: 1;
+}
+
+.dashboard-dropdown-trigger * {
+  pointer-events: auto;
+}
+
+/* Fix for motion components interfering with dropdowns */
+.motion-dropdown-wrapper {
+  position: relative;
+  z-index: 1;
+}
+
+/* Ensure proper stacking context */
+.dashboard-container {
+  position: relative;
+  z-index: 1;
+}
+
+/* Fix for table filters */
+.ant-table-filter-dropdown {
+  z-index: 1050 !important;
+}
+
+/* Fix for tooltips */
+.ant-tooltip {
+  z-index: 1060 !important;
+}
+
+/* Fix for notifications */
+.ant-notification {
+  z-index: 1070 !important;
+}
+
+/* Fix for message */
+.ant-message {
+  z-index: 1070 !important;
+}
+
+/* Specific fixes for column dropdown */
+.ant-dropdown-menu {
+  max-height: 300px;
+  overflow-y: auto;
+}
+
+.ant-dropdown-menu-item {
+  padding: 0 !important;
+}
+
+.ant-dropdown-menu-item:hover {
+  background-color: transparent !important;
+}
+
+.ant-dropdown-menu-item .column-item {
+  padding: 8px 12px;
+  transition: background-color 0.2s;
+}
+
+.ant-dropdown-menu-item .column-item:hover {
+  background-color: #f5f5f5;
+}
+
+.ant-dropdown-menu-item .ant-checkbox-wrapper {
+  margin-right: 8px;
+}
+
+/* Prevent dropdown from closing when clicking inside */
+.ant-dropdown-menu-item .column-item {
+  pointer-events: auto;
+}
+
+.ant-dropdown-menu-item .column-item * {
+  pointer-events: auto;
+}
+
+/* Custom styles for better UX */
+.dashboard-table .ant-table-thead > tr > th {
+  background: #fafafa;
+  border-bottom: 2px solid #f0f0f0;
+  font-weight: 600;
+}
+
+.dashboard-table .ant-table-tbody > tr:hover > td {
+  background: #f5f5f5;
+}
+
+/* Fix for mobile responsiveness */
+@media (max-width: 768px) {
+  .dashboard-filters {
+    grid-template-columns: 1fr;
+  }
+
+  .dashboard-header {
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .dashboard-header .search-container {
+    order: 3;
+    width: 100%;
+    max-width: none;
+  }
+}
+
+/* Animation fixes */
+.dashboard-fade-in {
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Fix for form validation messages */
+.ant-form-item-explain-error {
+  font-size: 12px;
+  margin-top: 4px;
+}
+
+/* Fix for button hover states */
+.dashboard-button {
+  transition: all 0.2s ease-in-out;
+}
+
+.dashboard-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* Fix for card hover effects */
+.dashboard-card {
+  transition: all 0.3s ease-in-out;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.1);
+}

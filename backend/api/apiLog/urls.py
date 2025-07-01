@@ -4,7 +4,7 @@ from .views import AuditLogViewSet
 urlpatterns = [
 
   # Listar todo las auditorias
-  path('', AuditLogViewSet.as_view({'get': 'list'}), name='AuditLog_list'),
+  path('', AuditLogViewSet.as_view({'get': 'list'}), name='AuditLog_get'),
 
   # Detalles de la auditoria
   path('<int:pk>/', AuditLogViewSet.as_view({'get': 'list'}), name='AuditLog_detail'),

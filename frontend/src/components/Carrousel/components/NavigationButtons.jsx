@@ -1,5 +1,5 @@
 // NavigationButtons.jsx
-import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons"
+import { ChevronLeftIcon, ChevronRightIcon } from "@radix-ui/react-icons";
 
 function NavigationButtons({ instanceRef }) {
   return (
@@ -19,7 +19,7 @@ function NavigationButtons({ instanceRef }) {
         <ChevronRightIcon />
       </button>
     </>
-  )
+  );
 }
 
-export default NavigationButtons
+export default NavigationButtons;

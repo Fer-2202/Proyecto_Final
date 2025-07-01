@@ -3,7 +3,6 @@ from rest_framework import serializers
 from .models import ServiciosEducativos, ServiciosEducativosImage, ServiciosEducativosFacts, ServiciosEducativosDescription, ServiciosEducativosButtons
 
 class ServiciosEducativosImageSerializer(serializers.ModelSerializer):
-    
     class Meta:
         model = ServiciosEducativosImage
         fields = ['id', 'servicios_educativos', 'image', 'created_at', 'updated_at']
@@ -47,4 +46,3 @@ class ServiciosEducativosSerializer(serializers.ModelSerializer):
        
     def get_buttons(self, obj):
         return [{'label': button.label, 'link': button.link} for button in obj.buttons.all()]
-       

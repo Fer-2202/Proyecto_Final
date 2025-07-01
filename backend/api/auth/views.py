@@ -14,7 +14,7 @@ from django.utils.encoding import force_bytes
 # Models
 from django.contrib.auth.models import User, Group
 from .models import (
-      UserProfile
+    UserProfile
 )
 
 # Serializers
@@ -74,7 +74,7 @@ class RegisterView(generics.CreateAPIView):
 class Users_ViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
     serializer_class = RegisterSerializer
-    #permission_classes = [IsAuthenticatedAndRole]
+    permission_classes = [IsAuthenticatedAndRole]
     http_method_names = ['get', 'post', 'put', 'delete']
     #required_role = 'admin'
 
@@ -82,7 +82,7 @@ class Users_ViewSet(viewsets.ModelViewSet):
 class UserProfileViewSet(viewsets.ModelViewSet):
     queryset = UserProfile.objects.all()
     serializer_class = UserProfileSerializer
-    #permission_classes = [IsAuthenticatedAndRole]
+    permission_classes = [IsAuthenticatedAndRole]
     http_method_names = ['get', 'post', 'put', 'delete']
     #required_role = 'admin'
     lookup_field = 'user__id'
@@ -135,28 +135,33 @@ class CurrentUserProfileView(APIView):
     def put(self, request):
         """Update current user's profile"""
         try:
+            print('request.data:', request.data)
+            print('request.FILES:', request.FILES)
             profile, created = UserProfile.objects.get_or_create(user=request.user)
             serializer = UserProfileSerializer(profile, data=request.data, partial=True)
             serializer.is_valid(raise_exception=True)
             serializer.save()
             return Response(serializer.data)
         except Exception as e:
+            import traceback
+            print('ERROR EN PERFIL:')
+            traceback.print_exc()  # Esto imprime el traceback completo en la terminal
             return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
 # ==================
 # GROUPS
 # ==================
-
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    #permission_classes = [IsAuthenticatedAndRole]
+    permission_classes = [IsAuthenticatedAndRole]
     #required_role = 'admin'
 
 class GroupPermissionsViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupPermissionsSerializer
-    #permission_classes = [IsAuthenticatedAndRole]
+    permission_classes = [IsAuthenticatedAndRole]
     #required_role = 'admin'
 
     def update(self, request, *args, **kwargs):
@@ -167,12 +172,9 @@ class GroupPermissionsViewSet(viewsets.ModelViewSet):
         return Response(GroupSerializer(group).data)
 
 
-
 # ==================
 # PASSWORD RESET VIEWS (FUNCIONALES)
 # ==================
-
-
 class ForgotPasswordView(APIView):
     def post(self, request):
         email = request.data.get('email')

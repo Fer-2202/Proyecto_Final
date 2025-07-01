@@ -8,8 +8,8 @@ import {
   File,
   X,
 } from "lucide-react";
-import { getDocuments } from "./../../../api/api";
-import VisorPDF from "../../../components/VisorPDF";
+import { getDocuments } from "@api/api";
+import VisorPDF from "@components/VisorPDF";
 import { Link } from 'react-router-dom'
 
 

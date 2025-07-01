@@ -1,6 +1,6 @@
 import { useKeenSlider } from "keen-slider/react";
 import "keen-slider/keen-slider.min.css";
-import placeholder from "../../../../../assets/placeholder.svg";
+import placeholder from "@assets/placeholder.svg";
 import { useEffect, useRef } from "react";
 
 const placeholderArray = [placeholder, placeholder, placeholder];

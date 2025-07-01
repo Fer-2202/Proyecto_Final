@@ -3,8 +3,9 @@ import { Link } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
 import { ChevronDownIcon } from "@radix-ui/react-icons";
 import { User, LogOut, LayoutDashboard } from "lucide-react";
-import { useAuth } from "../../context/AuthContext";
-import { useUserRoles } from "../../hooks/useUserRoles";
+import { useAuth } from "@context/AuthContext";
+import { useUserRoles } from "@hooks/useUserRoles";
+import { getAbsoluteMediaUrl } from "@utils/getAbsoluteMediaUrl";
 
 function stringToColor(str) {
   let hash = 0;
@@ -24,7 +25,8 @@ export default function Avatar({ user, size = 40, className = "", onLogout }) {
   const { isAdmin, loading: rolesLoading } = useUserRoles();
   const [showDropdown, setShowDropdown] = useState(false);
   const dropdownRef = useRef(null);
-  const initials = `${user?.first_name?.[0] || ""}${user?.last_name?.[0] || ""}`.toUpperCase();
+  const initials =
+    `${user?.first_name?.[0] || ""}${user?.last_name?.[0] || ""}`.toUpperCase();
   const bgColor = stringToColor(user?.email || user?.username || "avatar");
 
   const handleLogout = () => {
@@ -51,7 +53,7 @@ export default function Avatar({ user, size = 40, className = "", onLogout }) {
       >
         {user?.profile_picture ? (
           <img
-            src={user.profile_picture}
+            src={getAbsoluteMediaUrl(user.profile_picture)}
             alt={user.first_name || user.username}
             className="rounded-full object-cover border-2 border-white shadow"
             style={{ width: size, height: size }}
@@ -65,7 +67,6 @@ export default function Avatar({ user, size = 40, className = "", onLogout }) {
             {initials || <span>U</span>}
           </div>
         )}
-        
       </button>
 
       <AnimatePresence>
@@ -91,7 +92,6 @@ export default function Avatar({ user, size = 40, className = "", onLogout }) {
               className="flex items-center px-5 py-3 text-sm text-gray-800 hover:bg-[#e6f7f6] hover:text-[#1cb6b0] transition"
               onClick={() => setShowDropdown(false)}
             >
-              
               <User className="w-4 h-4 mr-2" /> Perfil de usuario
             </Link>
             <button

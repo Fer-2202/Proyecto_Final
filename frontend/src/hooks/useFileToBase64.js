@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 
 export default function useFileToBase64() {
   const [base64, setBase64] = useState(null);
@@ -14,7 +14,7 @@ export default function useFileToBase64() {
       setLoading(false);
     };
     reader.onerror = () => {
-      setError('Failed to convert file');
+      setError("Failed to convert file");
       setLoading(false);
     };
     if (file) {

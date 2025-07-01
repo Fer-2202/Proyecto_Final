@@ -13,8 +13,6 @@ class ServiciosEducativosImage(models.Model):
     image = models.ImageField(upload_to='servicios-educativos/')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    
-    
 
 
 class ServiciosEducativosFacts(models.Model):
@@ -29,4 +27,3 @@ class ServiciosEducativosButtons(models.Model):
     servicios_educativos = models.ForeignKey(ServiciosEducativos, related_name='buttons', on_delete=models.CASCADE)
     label = models.CharField(max_length=255, unique=True, null=False)
     link = models.CharField(max_length=255, unique=True, null=False, blank=True, default='')
-    

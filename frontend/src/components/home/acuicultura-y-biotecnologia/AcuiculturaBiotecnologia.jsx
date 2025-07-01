@@ -1,6 +1,6 @@
 import React from 'react'
 import QuienesSomos from '../quienes-somos/QuienesSomos'
-import Tanque from "./../../../assets/img/fotos.verticales_(1).jpg"
+import Tanque from "@assets/img/fotos.verticales_(1).jpg"
 import AboutSection from '../quienes-somos/AboutSection'
 import ExhibitIntro from '../exhibiciones-y-servicios/components/ExhibitIntro'
 import OurApproach from './components/DescriptionSection'

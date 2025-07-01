@@ -2,7 +2,7 @@
 
 import React, { useEffect, useState } from 'react';
 import {  estadisticas as estadisticasDefault } from '../../data/especiesData.js';
-import { getSpecies } from '../../../../../api/species.js';
+import { getSpecies } from '@api/species.js';
 
 export default function EspeciesTab({ stats = estadisticasDefault }) {
   const [data, setData] = useState([]);

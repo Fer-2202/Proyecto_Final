@@ -1,11 +1,11 @@
-import axiosInstance from './axiosInstance';
+import axiosInstance from "./axiosInstance";
 
 export const getVisits = async () => {
   try {
-    const response = await axiosInstance.get('/api/visits/');
+    const response = await axiosInstance.get("/api/visits/");
     return response.data;
   } catch (error) {
-    console.error('Error fetching visits:', error);
+    console.error("Error fetching visits:", error);
     throw error;
   }
 };
@@ -22,17 +22,20 @@ export const getVisitById = async (id) => {
 
 export const createVisit = async (visitData) => {
   try {
-    const response = await axiosInstance.post('/api/visits/create/', visitData);
+    const response = await axiosInstance.post("/api/visits/create/", visitData);
     return response.data;
   } catch (error) {
-    console.error('Error creating visit:', error);
+    console.error("Error creating visit:", error);
     throw error;
   }
 };
 
 export const updateVisit = async (id, visitData) => {
   try {
-    const response = await axiosInstance.put(`/api/visits/${id}/update/`, visitData);
+    const response = await axiosInstance.put(
+      `/api/visits/${id}/update/`,
+      visitData
+    );
     return response.data;
   } catch (error) {
     console.error(`Error updating visit with ID ${id}:`, error);
@@ -51,10 +54,10 @@ export const deleteVisit = async (id) => {
 
 export const getAvailableVisits = async () => {
   try {
-    const response = await axiosInstance.get('/api/visits/available/');
+    const response = await axiosInstance.get("/api/visits/available/");
     return response.data;
   } catch (error) {
-    console.error('Error fetching available visits:', error);
+    console.error("Error fetching available visits:", error);
     throw error;
   }
 };

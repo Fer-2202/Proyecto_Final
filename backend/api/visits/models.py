@@ -1,5 +1,6 @@
 from django.db import models
 
+
 # Visits
 class Visits(models.Model):
     day = models.DateField(null=False, verbose_name="Visit Day")

@@ -3,11 +3,11 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper/modules";
 import { motion } from "framer-motion";
 import { Fish, Turtle, Globe, BookOpen } from "lucide-react";
-import * as api from "../../api/api";
+import * as api from "@api/api";
 import { Link } from "react-router-dom";
 import "swiper/css";
 import "swiper/css/navigation";
-import placeholder from "../../assets/placeholder.svg";
+import placeholder from "@assets/placeholder.svg";
 
 // Puedes ajustar este mapeo según los datos que recibas de la API
 const iconMap = {
@@ -42,7 +42,7 @@ export default function WhatToFindCarousel() {
   console.log(exhibits);
 
   return (
-    <section className="py-16 bg-white overflow-visible">
+    <section className="py-16 bg-white">
       <div className="max-w-6xl mx-auto px-4 text-center">
         {/* Título */}
         <h2 className="text-3xl md:text-4xl font-extrabold text-gray-800 uppercase mb-2">
@@ -50,8 +50,8 @@ export default function WhatToFindCarousel() {
         </h2>
         <div className="w-24 h-1 bg-[#1CB6B0] mx-auto my-4 rounded"></div>
         <p className="text-gray-600 max-w-xl mx-auto mb-10">
-          Descubre la increíble biodiversidad marina de Costa Rica a través de nuestras
-          exhibiciones interactivas y educativas
+          Descubre la increíble biodiversidad marina de Costa Rica a través de
+          nuestras exhibiciones interactivas y educativas
         </p>
 
         {/* Carrusel */}
@@ -61,7 +61,7 @@ export default function WhatToFindCarousel() {
           <Swiper
             modules={[Navigation]}
             spaceBetween={20}
-            slidesPerView={1}
+            slidesPerView={3}
             loop={true}
             onInit={() => setNavReady(true)}
             navigation={
@@ -85,7 +85,7 @@ export default function WhatToFindCarousel() {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.6, delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="bg-white rounded-xl shadow-2xl hover:shadow-[0_10px_40px_rgba(0,0,0,0.2)] transition-all overflow-visible text-left"
+                  className="bg-white rounded-xl shadow-xl transition-all overflow-visible text-left"
                 >
                   <img
                     src={item.images[0] || placeholder}
@@ -94,9 +94,14 @@ export default function WhatToFindCarousel() {
                   />
                   <div className="p-5 mb-4">
                     {iconMap[item.icon] || iconMap.default}
-                    <h3 className="text-[#1CB6B0] font-bold text-lg mb-1">{item.title}</h3>
-                    <p className="text-gray-600 text-sm mb-4">{item.description}</p>
-                    {item.links && item.links.length > 0 && (
+                    <h3 className="text-[#1CB6B0] font-bold text-lg mb-1">
+                      {item.title}
+                    </h3>
+                    <p className="text-gray-600 text-sm mb-4">
+                      {item.description}
+                    </p>
+                    {item.links &&
+                      item.links.length > 0 &&
                       item.links.map((link, linkIndex) => (
                         <Link
                           key={linkIndex}
@@ -105,8 +110,7 @@ export default function WhatToFindCarousel() {
                         >
                           {link.title}
                         </Link>
-                      ))
-                    )}
+                      ))}
                   </div>
                 </motion.div>
               </SwiperSlide>

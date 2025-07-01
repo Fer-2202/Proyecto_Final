@@ -1,11 +1,11 @@
-import axiosInstance from './axiosInstance';
+import axiosInstance from "./axiosInstance";
 
 export const getSections = async () => {
   try {
-    const response = await axiosInstance.get('/api/sections/');
+    const response = await axiosInstance.get("/api/sections/");
     return response.data;
   } catch (error) {
-    console.error('Error fetching sections:', error);
+    console.error("Error fetching sections:", error);
     throw error;
   }
 };
@@ -22,17 +22,23 @@ export const getSectionById = async (id) => {
 
 export const createSection = async (sectionData) => {
   try {
-    const response = await axiosInstance.post('/api/sections/crear/', sectionData);
+    const response = await axiosInstance.post(
+      "/api/sections/crear/",
+      sectionData
+    );
     return response.data;
   } catch (error) {
-    console.error('Error creating section:', error);
+    console.error("Error creating section:", error);
     throw error;
   }
 };
 
 export const updateSection = async (id, sectionData) => {
   try {
-    const response = await axiosInstance.put(`/api/sections/${id}/actualizar-editar/`, sectionData);
+    const response = await axiosInstance.put(
+      `/api/sections/${id}/actualizar-editar/`,
+      sectionData
+    );
     return response.data;
   } catch (error) {
     console.error(`Error updating section with ID ${id}:`, error);

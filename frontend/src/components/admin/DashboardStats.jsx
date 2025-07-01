@@ -1,10 +1,18 @@
-import React from 'react';
-import { Card, Row, Col, Progress, Statistic, Badge } from 'antd';
-import { motion } from 'framer-motion';
-import { 
-  TrendingUp, TrendingDown, Users, Ticket, Calendar, 
-  Activity, DollarSign, Eye, ShoppingCart, Star
-} from 'lucide-react';
+import React from "react";
+import { Card, Row, Col, Progress, Statistic, Badge } from "antd";
+import { motion } from "framer-motion";
+import {
+  TrendingUp,
+  TrendingDown,
+  Users,
+  Ticket,
+  Calendar,
+  Activity,
+  DollarSign,
+  Eye,
+  ShoppingCart,
+  Star,
+} from "lucide-react";
 
 const DashboardStats = ({ data, activeTab }) => {
   // Calcular estadísticas
@@ -19,7 +27,7 @@ const DashboardStats = ({ data, activeTab }) => {
     totalSections: data.sections?.length || 0,
   };
 
-  // Calcular porcentajes de crecimiento (simulado)
+  // Calcular porcentajes de crecimiento (SIMULADO)
   const growthRates = {
     users: 12.5,
     tickets: 8.3,
@@ -40,9 +48,9 @@ const DashboardStats = ({ data, activeTab }) => {
   };
 
   const getGrowthColor = (rate) => {
-    if (rate > 0) return 'text-green-600';
-    if (rate < 0) return 'text-red-600';
-    return 'text-gray-600';
+    if (rate > 0) return "text-green-600";
+    if (rate < 0) return "text-red-600";
+    return "text-gray-600";
   };
 
   const statCards = [
@@ -54,7 +62,7 @@ const DashboardStats = ({ data, activeTab }) => {
       bgColor: "bg-blue-50",
       textColor: "text-blue-600",
       growth: growthRates.users,
-      description: "Usuarios registrados"
+      description: "Usuarios registrados",
     },
     {
       title: "Total Entradas",
@@ -64,7 +72,7 @@ const DashboardStats = ({ data, activeTab }) => {
       bgColor: "bg-green-50",
       textColor: "text-green-600",
       growth: growthRates.tickets,
-      description: "Tickets vendidos"
+      description: "Tickets vendidos",
     },
     {
       title: "Total Animales",
@@ -74,7 +82,7 @@ const DashboardStats = ({ data, activeTab }) => {
       bgColor: "bg-purple-50",
       textColor: "text-purple-600",
       growth: growthRates.animals,
-      description: "Animales en el parque"
+      description: "Animales en el parque",
     },
     {
       title: "Total Visitas",
@@ -84,7 +92,7 @@ const DashboardStats = ({ data, activeTab }) => {
       bgColor: "bg-orange-50",
       textColor: "text-orange-600",
       growth: growthRates.visits,
-      description: "Visitas registradas"
+      description: "Visitas registradas",
     },
     {
       title: "Total Órdenes",
@@ -94,7 +102,7 @@ const DashboardStats = ({ data, activeTab }) => {
       bgColor: "bg-indigo-50",
       textColor: "text-indigo-600",
       growth: growthRates.orders,
-      description: "Órdenes de compra"
+      description: "Órdenes de compra",
     },
     {
       title: "Total Especies",
@@ -104,7 +112,7 @@ const DashboardStats = ({ data, activeTab }) => {
       bgColor: "bg-yellow-50",
       textColor: "text-yellow-600",
       growth: growthRates.species,
-      description: "Especies catalogadas"
+      description: "Especies catalogadas",
     },
     {
       title: "Total Hábitats",
@@ -114,7 +122,7 @@ const DashboardStats = ({ data, activeTab }) => {
       bgColor: "bg-teal-50",
       textColor: "text-teal-600",
       growth: growthRates.habitats,
-      description: "Hábitats disponibles"
+      description: "Hábitats disponibles",
     },
     {
       title: "Total Secciones",
@@ -124,8 +132,8 @@ const DashboardStats = ({ data, activeTab }) => {
       bgColor: "bg-pink-50",
       textColor: "text-pink-600",
       growth: growthRates.sections,
-      description: "Secciones del parque"
-    }
+      description: "Secciones del parque",
+    },
   ];
 
   return (
@@ -158,18 +166,20 @@ const DashboardStats = ({ data, activeTab }) => {
               <Card className="h-full border-0 shadow-lg hover:shadow-xl transition-all duration-300">
                 <div className="flex items-center justify-between mb-4">
                   <div className={`p-3 rounded-xl ${card.bgColor}`}>
-                    <div className={card.textColor}>
-                      {card.icon}
-                    </div>
+                    <div className={card.textColor}>{card.icon}</div>
                   </div>
                   <div className="text-right">
                     <div className="flex items-center gap-1">
                       {getGrowthIcon(card.growth)}
-                      <span className={`text-sm font-medium ${getGrowthColor(card.growth)}`}>
+                      <span
+                        className={`text-sm font-medium ${getGrowthColor(card.growth)}`}
+                      >
                         {Math.abs(card.growth)}%
                       </span>
                     </div>
-                    <span className="text-xs text-gray-500">vs mes anterior</span>
+                    <span className="text-xs text-gray-500">
+                      vs mes anterior
+                    </span>
                   </div>
                 </div>
 
@@ -177,12 +187,8 @@ const DashboardStats = ({ data, activeTab }) => {
                   <h3 className="text-2xl font-bold text-gray-900 mb-1">
                     {card.value.toLocaleString()}
                   </h3>
-                  <p className="text-sm text-gray-600 mb-3">
-                    {card.title}
-                  </p>
-                  <p className="text-xs text-gray-500">
-                    {card.description}
-                  </p>
+                  <p className="text-sm text-gray-600 mb-3">{card.title}</p>
+                  <p className="text-xs text-gray-500">{card.description}</p>
                 </div>
 
                 {/* Barra de progreso */}
@@ -190,8 +196,8 @@ const DashboardStats = ({ data, activeTab }) => {
                   <Progress
                     percent={Math.min((card.value / 100) * 100, 100)}
                     strokeColor={{
-                      '0%': '#3b82f6',
-                      '100%': '#8b5cf6',
+                      "0%": "#3b82f6",
+                      "100%": "#8b5cf6",
                     }}
                     showInfo={false}
                     strokeWidth={4}
@@ -220,11 +226,11 @@ const DashboardStats = ({ data, activeTab }) => {
               Densidad de Población
             </h4>
             <p className="text-2xl font-bold text-blue-600 mb-2">
-              {stats.totalAnimals > 0 ? (stats.totalAnimals / stats.totalHabitats).toFixed(1) : 0}
+              {stats.totalAnimals > 0
+                ? (stats.totalAnimals / stats.totalHabitats).toFixed(1)
+                : 0}
             </p>
-            <p className="text-sm text-gray-600">
-              Animales por hábitat
-            </p>
+            <p className="text-sm text-gray-600">Animales por hábitat</p>
           </div>
         </Card>
 
@@ -238,11 +244,12 @@ const DashboardStats = ({ data, activeTab }) => {
               Tasa de Ocupación
             </h4>
             <p className="text-2xl font-bold text-green-600 mb-2">
-              {stats.totalVisits > 0 ? ((stats.totalVisits / stats.totalTickets) * 100).toFixed(1) : 0}%
+              {stats.totalVisits > 0
+                ? ((stats.totalVisits / stats.totalTickets) * 100).toFixed(1)
+                : 0}
+              %
             </p>
-            <p className="text-sm text-gray-600">
-              Visitas vs Entradas
-            </p>
+            <p className="text-sm text-gray-600">Visitas vs Entradas</p>
           </div>
         </Card>
 
@@ -258,9 +265,7 @@ const DashboardStats = ({ data, activeTab }) => {
             <p className="text-2xl font-bold text-purple-600 mb-2">
               {stats.totalSpecies}
             </p>
-            <p className="text-sm text-gray-600">
-              Especies únicas
-            </p>
+            <p className="text-sm text-gray-600">Especies únicas</p>
           </div>
         </Card>
 
@@ -274,11 +279,12 @@ const DashboardStats = ({ data, activeTab }) => {
               Eficiencia Operativa
             </h4>
             <p className="text-2xl font-bold text-orange-600 mb-2">
-              {stats.totalSections > 0 ? ((stats.totalHabitats / stats.totalSections) * 100).toFixed(1) : 0}%
+              {stats.totalSections > 0
+                ? ((stats.totalHabitats / stats.totalSections) * 100).toFixed(1)
+                : 0}
+              %
             </p>
-            <p className="text-sm text-gray-600">
-              Hábitats por sección
-            </p>
+            <p className="text-sm text-gray-600">Hábitats por sección</p>
           </div>
         </Card>
       </motion.div>
@@ -290,19 +296,19 @@ const DashboardStats = ({ data, activeTab }) => {
         transition={{ delay: 1 }}
         className="flex flex-wrap gap-3 justify-center"
       >
-        <Badge 
-          status="success" 
-          text="Sistema Operativo" 
+        <Badge
+          status="success"
+          text="Sistema Operativo"
           className="text-sm font-medium"
         />
-        <Badge 
-          status="processing" 
-          text="Datos Actualizados" 
+        <Badge
+          status="processing"
+          text="Datos Actualizados"
           className="text-sm font-medium"
         />
-        <Badge 
-          status="default" 
-          text={`${new Date().toLocaleDateString('es-ES')}`} 
+        <Badge
+          status="default"
+          text={`${new Date().toLocaleDateString("es-ES")}`}
           className="text-sm font-medium"
         />
       </motion.div>
@@ -310,4 +316,4 @@ const DashboardStats = ({ data, activeTab }) => {
   );
 };
 
-export default DashboardStats; 
+export default DashboardStats;

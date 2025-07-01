@@ -2,10 +2,10 @@ import axiosInstance from "./axiosInstance";
 
 export const getRoles = async () => {
   try {
-    const response = await axiosInstance.get('/api/auth/roles/');
+    const response = await axiosInstance.get("/api/auth/roles/");
     return response.data;
   } catch (error) {
-    console.error('Error fetching roles:', error);
+    console.error("Error fetching roles:", error);
     throw error;
   }
 };
@@ -22,17 +22,23 @@ export const getRoleById = async (id) => {
 
 export const createRole = async (roleData) => {
   try {
-    const response = await axiosInstance.post('/api/auth/roles/create/', roleData);
+    const response = await axiosInstance.post(
+      "/api/auth/roles/create/",
+      roleData
+    );
     return response.data;
   } catch (error) {
-    console.error('Error creating role:', error);
+    console.error("Error creating role:", error);
     throw error;
-  } 
-}
+  }
+};
 
 export const updateRole = async (id, roleData) => {
   try {
-    const response = await axiosInstance.put(`/api/auth/roles/${id}/update/`, roleData);
+    const response = await axiosInstance.put(
+      `/api/auth/roles/${id}/update/`,
+      roleData
+    );
     return response.data;
   } catch (error) {
     console.error(`Error updating role with ID ${id}:`, error);
@@ -54,6 +60,5 @@ export default {
   getRoleById,
   createRole,
   updateRole,
-  deleteRole 
-}
-
+  deleteRole,
+};

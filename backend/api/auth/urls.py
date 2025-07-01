@@ -27,7 +27,7 @@ urlpatterns = [
 
     # Roles
     # Ruta para listar
-    path('roles/', GroupViewSet.as_view({'get': 'list'}), name='roles-list'),
+    path('roles/', GroupViewSet.as_view({'get': 'list'}), name='roles-get'),
 
     # Ruta para crear
     path('roles/create/', GroupViewSet.as_view({'get': 'list', 'post': 'create'}), name='roles-create'),
@@ -44,7 +44,7 @@ urlpatterns = [
 
     # Permissions
     # Ruta para listar
-    path('permissions/', GroupPermissionsViewSet.as_view({'get': 'list'}), name='permissions-list'),
+    path('permissions/', GroupPermissionsViewSet.as_view({'get': 'list'}), name='permissions-get'),
 
     # Ruta para crear
     path('permissions/<int:pk>/create/', GroupPermissionsViewSet.as_view({'get': 'list', 'post': 'create'}), name='permissions-create'),
@@ -61,7 +61,7 @@ urlpatterns = [
 
     # Usuarios
     # Ruta para listar
-    path('users/', Users_ViewSet.as_view({'get': 'list'}), name='users-list'),
+    path('users/', Users_ViewSet.as_view({'get': 'list'}), name='users-get'),
     
     # Ruta para crear
     path('users/create/', Users_ViewSet.as_view({'get': 'list', 'post': 'create'}), name='users-create'),
@@ -84,7 +84,6 @@ urlpatterns = [
     path('login/', LoginView.as_view(), name='login'),
     path('logout/', LogoutView.as_view(), name='logout'),
     path('register/', RegisterView.as_view(), name='register'),
-
 
     # Password Reset
     path('forgot-password/', ForgotPasswordView.as_view(), name='forgot_password'),

@@ -47,4 +47,3 @@ class ExhibicionSerializer(serializers.ModelSerializer):
        
     def get_buttons(self, obj):
         return [{'label': button.label, 'link': button.link} for button in obj.buttons.all()]
-       

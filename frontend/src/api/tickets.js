@@ -1,11 +1,11 @@
-import axiosInstance from './axiosInstance';
+import axiosInstance from "./axiosInstance";
 
 export const getTickets = async () => {
   try {
-    const response = await axiosInstance.get('/api/tickets/');
+    const response = await axiosInstance.get("/api/tickets/");
     return response.data;
   } catch (error) {
-    console.error('Error fetching tickets:', error);
+    console.error("Error fetching tickets:", error);
     throw error;
   }
 };
@@ -23,7 +23,10 @@ export const getTicketById = async (id) => {
 export const createTicket = async (ticketData) => {
   try {
     console.log("Creating ticket with data:", ticketData);
-    const response = await axiosInstance.post('/api/tickets/create/', ticketData);
+    const response = await axiosInstance.post(
+      "/api/tickets/create/",
+      ticketData
+    );
     console.log("Create ticket response:", response);
     return response.data;
   } catch (error) {
@@ -35,7 +38,10 @@ export const createTicket = async (ticketData) => {
 
 export const updateTicket = async (id, ticketData) => {
   try {
-    const response = await axiosInstance.put(`/api/tickets/${id}/update/`, ticketData);
+    const response = await axiosInstance.put(
+      `/api/tickets/${id}/update/`,
+      ticketData
+    );
     return response.data;
   } catch (error) {
     console.error(`Error updating ticket with ID ${id}:`, error);
@@ -54,10 +60,13 @@ export const deleteTicket = async (id) => {
 
 export const getAvailableTickets = async (eventId) => {
   try {
-    const response = await axiosInstance.get('/api/tickets/available/');
+    const response = await axiosInstance.get("/api/tickets/available/");
     return response.data;
   } catch (error) {
-    console.error(`Error fetching available tickets for event ID ${eventId}:`, error);
+    console.error(
+      `Error fetching available tickets for event ID ${eventId}:`,
+      error
+    );
     throw error;
   }
 };

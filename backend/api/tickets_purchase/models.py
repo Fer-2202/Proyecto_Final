@@ -14,4 +14,3 @@ class TicketsPurchaseOrder(models.Model):
     @property
     def subtotal(self):
         return self.amount * self.ticket.price
-

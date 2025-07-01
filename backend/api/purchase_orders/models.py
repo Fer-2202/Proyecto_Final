@@ -6,6 +6,8 @@ class PurchaseOrders(models.Model):
     order_date = models.DateField(auto_now_add=True)
     purchase_date = models.DateField(auto_now_add=True)
     total_price = models.DecimalField(max_digits=12, decimal_places=2, null=False, default=0.0)
+    total_crc = models.DecimalField(max_digits=12, decimal_places=2, null=False, default=0.0)
+    total_usd = models.DecimalField(max_digits=12, decimal_places=2, null=False, default=0.0)
     email = models.EmailField(max_length=50)
     qr_image = models.ImageField(upload_to='qr_codes/', blank=True, null=True)
     status = models.CharField(
@@ -27,6 +29,8 @@ class PurchaseOrders(models.Model):
     def calculate_total_price(self):
         total = sum([item.subtotal for item in self.tickets_purchase_order.all()])
         self.total_price = total
+        self.total_crc = sum([item.subtotal for item in self.tickets_purchase_order.all() if item.ticket.currency == 'CRC'])
+        self.total_usd = sum([item.subtotal for item in self.tickets_purchase_order.all() if item.ticket.currency == 'USD'])
         self.save()
 
     def occupy_visit_slots(self):

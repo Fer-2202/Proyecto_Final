@@ -1,33 +1,33 @@
 import { MapPin, Mail, Phone, Send } from "lucide-react";
-import emailjs from '@emailjs/browser'
-import React, { useRef } from 'react'
-
+import emailjs from "@emailjs/browser";
+import React, { useRef } from "react";
 
 export default function ContactSection() {
-  const nombre = useRef('')
-  const correo = useRef('')
-  const asunto = useRef('')
-  const mensaje = useRef('')
+  const nombre = useRef("");
+  const correo = useRef("");
+  const asunto = useRef("");
+  const mensaje = useRef("");
 
   const enviar = () => {
     const Datos = {
       nombre: nombre.current.value,
       correo: correo.current.value,
       asunto: asunto.current.value,
-      mensaje: mensaje.current.value
-    }
-    emailjs.send('service_4se398a', 'template_lcfs7d3', Datos, '3mQx8AVIUbbufg0BX')
-      .then((response) => {
-        console.log('Éxito:', response.status, response.text);
-        console.log('Datos enviados:', Datos);
-      }, (error) => {
-        console.error('Error:', error);
-        log('Error al enviar el correo:', error);
-      });
-  }
-
-
-
+      mensaje: mensaje.current.value,
+    };
+    emailjs
+      .send("service_4se398a", "template_lcfs7d3", Datos, "3mQx8AVIUbbufg0BX")
+      .then(
+        (response) => {
+          console.log("Éxito:", response.status, response.text);
+          console.log("Datos enviados:", Datos);
+        },
+        (error) => {
+          console.error("Error:", error);
+          log("Error al enviar el correo:", error);
+        }
+      );
+  };
 
   return (
     <section className="bg-[#f8f9fa] py-20 px-4">
@@ -37,7 +37,8 @@ export default function ContactSection() {
         </h2>
         <div className="w-20 h-1 bg-[#1CB6B0] mx-auto my-4 rounded"></div>
         <p className="text-center text-gray-600 mb-10">
-          Visítanos y descubre la maravilla de la biodiversidad marina de Costa Rica
+          Visítanos y descubre la maravilla de la biodiversidad marina de Costa
+          Rica
         </p>
 
         <div className="grid md:grid-cols-2 gap-8">
@@ -55,15 +56,17 @@ export default function ContactSection() {
               ></iframe>
             </div>
 
-
-
             <div className="space-y-5 text-gray-800">
               <div className="flex items-start gap-3">
                 <MapPin className="text-[#1CB6B0] w-5 h-5 mt-1" />
                 <div>
                   <h4 className="font-bold text-lg">Ubicación</h4>
-                  <p className="text-sm text-gray-600">Puntarenas, Costa Rica</p>
-                  <p className="text-sm text-gray-400">A 100 metros del muelle principal</p>
+                  <p className="text-sm text-gray-600">
+                    Puntarenas, Costa Rica
+                  </p>
+                  <p className="text-sm text-gray-400">
+                    A 100 metros del muelle principal
+                  </p>
                 </div>
               </div>
               <div className="flex items-start gap-3">
@@ -77,7 +80,9 @@ export default function ContactSection() {
                 <Mail className="text-[#1CB6B0] w-5 h-5 mt-1" />
                 <div>
                   <h4 className="font-bold text-lg">Correo Electrónico</h4>
-                  <p className="text-sm text-gray-600">info@parquemarino.co.cr</p>
+                  <p className="text-sm text-gray-600">
+                    info@parquemarino.co.cr
+                  </p>
                 </div>
               </div>
             </div>

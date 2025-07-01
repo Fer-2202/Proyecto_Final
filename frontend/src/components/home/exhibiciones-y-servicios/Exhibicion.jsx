@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import QuienesSomos from '../quienes-somos/QuienesSomos'
-import Tanque from "./../../../assets/img/Tanque.jpeg"
+import Tanque from "@assets/img/Tanque.jpeg"
 import MarineExhibit from './components/MarineExhibit.jsx'
 import ExhibitIntro from './components/ExhibitIntro.jsx'
 import WorldSpeciesMap from '../../WorldSpeciesMap.jsx'
 import VisitInfoSection from './components/VisitInfoSection.jsx'
-import { getExhibits } from '../../../api/exhibits.js'
+import { getExhibits } from '@api/exhibits.js'
 
 function Exhibicion() {
   const [exhibits, setExhibits] = useState([]);

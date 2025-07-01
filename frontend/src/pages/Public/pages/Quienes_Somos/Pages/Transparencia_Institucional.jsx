@@ -1,14 +1,14 @@
-import TransparenciaHero from "../../../../../components/home/quienes-somos/TransparenciaHero";
-import ExhibitIntro from "../../../../../components/home/exhibiciones-y-servicios/components/ExhibitIntro";
-import TabsContainer from "../../../../../components/home/acuicultura-y-biotecnologia/components/TabsContainer";
-import TabFinanzas from "../../../../../components/home/quienes-somos/TransparenciaTabs";
-import TabOrganigramaTestimonios from "../../../../../components/home/quienes-somos/TabOrganigramaTestimonios";
-import TabCertificaciones from "../../../../../components/home/quienes-somos/TabCertificaciones";
-import TabPreguntasYFormulario from "../../../../../components/home/quienes-somos/TabPreguntasYFormulario";
-import TabDocumentos from "../../../../../components/home/quienes-somos/TabDocumentos";
-import TabPoliticas from "../../../../../components/home/quienes-somos/TabPoliticas";
-import TabInformes from "../../../../../components/home/quienes-somos/TabInformes";
-import bgImage from "../../../../../assets/placeholder.svg";
+import TransparenciaHero from "@components/home/quienes-somos/TransparenciaHero";
+import ExhibitIntro from "@components/home/exhibiciones-y-servicios/components/ExhibitIntro";
+import TabsContainer from "@components/home/acuicultura-y-biotecnologia/components/TabsContainer";
+import TabFinanzas from "@components/home/quienes-somos/TransparenciaTabs";
+import TabOrganigramaTestimonios from "@components/home/quienes-somos/TabOrganigramaTestimonios";
+import TabCertificaciones from "@components/home/quienes-somos/TabCertificaciones";
+import TabPreguntasYFormulario from "@components/home/quienes-somos/TabPreguntasYFormulario";
+import TabDocumentos from "@components/home/quienes-somos/TabDocumentos";
+import TabPoliticas from "@components/home/quienes-somos/TabPoliticas";
+import TabInformes from "@components/home/quienes-somos/TabInformes";
+import bgImage from "@assets/placeholder.svg";
 
 function Transparencia_Institucional() {
 

@@ -1,8 +1,8 @@
-import React from 'react';
-import { Outlet } from 'react-router-dom';
-import Loading from '../../pages/Loading';
-import { useEffect } from 'react';
-import { useLayoutTransition } from '../../context/LayoutTransitionContext';
+import React from "react";
+import { Outlet } from "react-router-dom";
+import Loading from "@pages/Loading";
+import { useEffect } from "react";
+import { useLayoutTransition } from "@context/LayoutTransitionContext";
 
 function AdminLayout() {
   const { isTransitioning, startTransition } = useLayoutTransition();

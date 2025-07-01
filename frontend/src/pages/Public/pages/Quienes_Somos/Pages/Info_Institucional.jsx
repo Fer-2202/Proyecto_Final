@@ -1,11 +1,11 @@
 import React from 'react'
-import QuienesSomos from '../../../../../components/home/quienes-somos/QuienesSomos'
-import AboutSection from '../../../../../components/home/quienes-somos/AboutSection'
-import TeamMembers from '../../../../../components/home/quienes-somos/TeamMembers'
-import Valores from '../../../../../components/home/quienes-somos/Valores'
-import MissionCTA from '../../../../../components/home/quienes-somos/MissionCTA'
-import IMG_INFO from '../../../../../assets/img/486175245_29175038435443319_583041807967260808_n.jpg'
-import { links, textos } from '../../../../../components/home/quienes-somos/misionData'
+import QuienesSomos from '@components/home/quienes-somos/QuienesSomos'
+import AboutSection from '@components/home/quienes-somos/AboutSection'
+import TeamMembers from '@components/home/quienes-somos/TeamMembers'
+import Valores from '@components/home/quienes-somos/Valores'
+import MissionCTA from '@components/home/quienes-somos/MissionCTA'
+import IMG_INFO from '@assets/img/486175245_29175038435443319_583041807967260808_n.jpg'
+import { links, textos } from '@components/home/quienes-somos/misionData'
 
 function InfoInstitucional() {
   return (

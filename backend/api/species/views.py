@@ -7,6 +7,6 @@ from api.permissions import IsAuthenticatedAndRole
 class Species_ViewSet(viewsets.ModelViewSet):
     queryset = Species.objects.all()
     serializer_class = Species_Serializer
-    #permission_classes = [IsAuthenticatedAndRole]
+    permission_classes = [IsAuthenticatedAndRole]
     http_method_names = ['get', 'post', 'put', 'delete']
     #required_role = 'admin'

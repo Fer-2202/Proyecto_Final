@@ -1,6 +1,8 @@
 from rest_framework import viewsets
 from .serializers import Tickets_Purchase_Orders_Serializer
 from .models import TicketsPurchaseOrder
+from api.permissions import IsAuthenticatedAndRole
+
 
 # Tickets Purchase Order
 class Tickets_Purchase_Order_ViewSet(viewsets.ModelViewSet):
@@ -9,5 +11,3 @@ class Tickets_Purchase_Order_ViewSet(viewsets.ModelViewSet):
     #permission_classes = [IsAuthenticatedAndRole]
     http_method_names = ['get', 'post', 'put', 'delete']
     #required_role = 'admin'
-
-

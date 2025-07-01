@@ -9,9 +9,15 @@ function FeatureCard({ icon, title, description, onClick }) {
       onClick={onClick}
     >
       <div className="flex flex-col items-start">
-        {icon && <div className="bg-teal-50/70 p-4 rounded-lg mb-4 text-teal-600 border border-teal-100/50">{icon}</div>}
+        {icon && (
+          <div className="bg-teal-50/70 p-4 rounded-lg mb-4 text-teal-600 border border-teal-100/50">
+            {icon}
+          </div>
+        )}
         <div className="w-full">
-          <h3 className="text-lg font-semibold text-gray-900 mb-2.5">{title}</h3>
+          <h3 className="text-lg font-semibold text-gray-900 mb-2.5">
+            {title}
+          </h3>
           <div className="text-gray-600 space-y-2 text-sm">{description}</div>
         </div>
       </div>

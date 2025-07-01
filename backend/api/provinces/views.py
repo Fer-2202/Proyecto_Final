@@ -22,4 +22,4 @@ class Provinces_GetView(viewsets.ModelViewSet):
 class Provinces_DetailView(viewsets.ModelViewSet):
     queryset = Provinces.objects.all()
     serializer_class = Provinces_Serializer
-    #permission_classes = [IsAuthenticatedAndRole]
+    permission_classes = [IsAuthenticatedAndRole]

@@ -6,9 +6,12 @@ export default function Newsletter() {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8">
         {/* Texto izquierdo */}
         <div className="text-white max-w-xl">
-          <h3 className="text-2xl md:text-3xl font-bold text-gray-900">Mantente Informado</h3>
+          <h3 className="text-2xl md:text-3xl font-bold text-gray-900">
+            Mantente Informado
+          </h3>
           <p className="text-white mt-2">
-            Suscríbete a nuestro boletín para recibir noticias, eventos y novedades del Parque Marino.
+            Suscríbete a nuestro boletín para recibir noticias, eventos y
+            novedades del Parque Marino.
           </p>
         </div>
 
