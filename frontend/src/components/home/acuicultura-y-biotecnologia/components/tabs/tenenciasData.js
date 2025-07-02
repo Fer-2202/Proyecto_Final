@@ -12,17 +12,17 @@ export const tenencias = [
     img: placeholder,
   },
   {
-    titulo: "Tenencia Responsable 2",
-    descripcion: " Además de que se requieren espacios amplios con condiciones adecuadas de temperatura, humedad y otras variables ambientales difíciles de replicar y controlar.",
+    titulo: "Tenencia Responsable 3",
+    descripcion: "Además de que se requieren espacios amplios con condiciones adecuadas de temperatura, humedad y otras variables ambientales difíciles de replicar y controlar.",
     img: placeholder,
   },
   {
-    titulo: "Tenencia Responsable 2",
+    titulo: "Tenencia Responsable 4",
     descripcion: "En el Parque Marino del Pacífico se recibe gran cantidad de tortugas terrestres especialmente de las especies Rhinoclemmys pulcherrima y Trachemys emolli.",
     img: placeholder,
   },
   {
-    titulo: "Tenencia Responsable 2",
+    titulo: "Tenencia Responsable 5",
     descripcion: "Desde el Parque Marino del Pacífico te pedimos que no adquieras ni regales animales silvestres como mascotas, recuerda que estarías yendo en contra de una Ley. Los animales silvestres como las tortugas pertenecen a los ríos, bosques y lagunas. ¡Se parte del cambio!",
     img: placeholder,
   },

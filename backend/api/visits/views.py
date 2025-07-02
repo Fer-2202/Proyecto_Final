@@ -6,6 +6,8 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import Visits_Serializer
 from rest_framework.response import Response
 from rest_framework import status
+from rest_framework.decorators import action
+from django.utils.dateparse import parse_date
 
 
 class Visits_ViewSet(viewsets.ModelViewSet):
@@ -21,14 +23,27 @@ class Visits_ViewSet(viewsets.ModelViewSet):
             return Response({'detail': f'Ya existe una visita para el día {day}.'}, status=status.HTTP_400_BAD_REQUEST)
         return super().create(request, *args, **kwargs)
 
+    @action(detail=False, methods=['get'])
+    def by_day(self, request):
+        day = request.query_params.get('day')
+        if not day:
+            return Response({'detail': 'El parámetro day es requerido.'}, status=status.HTTP_400_BAD_REQUEST)
+        visit = Visits.objects.filter(day=day).first()
+        if not visit:
+            return Response({'detail': 'No existe visita para ese día.'}, status=status.HTTP_404_NOT_FOUND)
+        serializer = self.get_serializer(visit)
+        return Response(serializer.data)
+
 
 class AvailableVisitsView(APIView):
- permission_classes = [IsAuthenticated]
+    permission_classes = [IsAuthenticated]
 
- def get(self, request):
-  visits = []
-  for visit in Visits.objects.all():
-   if visit.occupied_slots < visit.total_slots:
-    visits.append(visit)
-  serializer = Visits_Serializer(visits, many=True)
-  return Response(serializer.data, status=status.HTTP_200_OK)
+    def get(self, request):
+        visits = []
+        for visit in Visits.objects.all():
+            available_slots = visit.total_slots - visit.occupied_slots
+            if available_slots > 0:
+                v = Visits_Serializer(visit).data
+                v['available_slots'] = available_slots
+                visits.append(v)
+        return Response(visits, status=status.HTTP_200_OK)

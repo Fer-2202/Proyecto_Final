@@ -4,7 +4,7 @@ import * as Tabs from '@radix-ui/react-tabs';
 import { Carousel } from 'react-responsive-carousel';
 import 'react-responsive-carousel/lib/styles/carousel.min.css';
 
-export default function MarineExhibit({ data }) {
+export default function MarineExhibit({ data, onButtonClick }) {
   return (
     <div className="max-w-6xl mx-auto p-6 font-sans">
       <Tabs.Root defaultValue={data[0].value}>
@@ -25,9 +25,12 @@ export default function MarineExhibit({ data }) {
             <Section
               title={item.title}
               descriptions={item.descriptions}
+              title_facts={item.title_facts}
               facts={item.facts}
               images={item.images}
               buttons={item.buttons}
+              item={item}
+              onButtonClick={onButtonClick}
             />
           </Tabs.Content>
         ))}
@@ -36,8 +39,18 @@ export default function MarineExhibit({ data }) {
   );
 }
 
-function Section({ title, descriptions, facts, images, buttons }) {
+function Section({ title, descriptions, title_facts, facts, images, buttons, item, onButtonClick }) {
   const imgs = Array.isArray(images) ? images : [images];
+
+  const handleButtonClick = (btn) => {
+    if (onButtonClick) {
+      onButtonClick(btn, item);
+    } else if (btn.onClick) {
+      btn.onClick();
+    } else if (btn.link) {
+      window.open(btn.link, '_blank', 'noopener,noreferrer');
+    }
+  };
 
   return (
     <div className="flex flex-col lg:flex-row gap-8">
@@ -75,7 +88,7 @@ function Section({ title, descriptions, facts, images, buttons }) {
 
         {/* Datos interesantes */}
         <div className="bg-gray-100 p-4 rounded-md border border-gray-200">
-          <h3 className="font-semibold text-teal-700 mb-2">Datos Interesantes:</h3>
+          <h3 className="font-semibold text-teal-700 mb-2 text-xl">{title_facts || "Datos interesantes:"}</h3>
           <ul className="list-disc list-inside space-y-1 text-sm">
             {facts?.map((fact, idx) => (
               <li key={idx}>{fact}</li>
@@ -87,15 +100,13 @@ function Section({ title, descriptions, facts, images, buttons }) {
         {buttons && buttons.length > 0 && (
           <div className="flex flex-col sm:flex-row gap-4 mt-4">
             {buttons.map((btn, idx) => (
-              <a
+              <button
                 key={idx}
-                href={btn.link}
-                className="bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700 transition-colors text-center"
-                target="_blank"
-                rel="noopener noreferrer"
+                onClick={() => handleButtonClick(btn)}
+                className="bg-teal-600 text-white px-4 py-2 rounded hover:bg-teal-700 transition-colors text-center cursor-pointer"
               >
                 {btn.label}
-              </a>
+              </button>
             ))}
           </div>
         )}

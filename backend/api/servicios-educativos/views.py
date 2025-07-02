@@ -1,19 +1,18 @@
 from .models import ServiciosEducativos, ServiciosEducativosImage, ServiciosEducativosFacts, ServiciosEducativosDescription, ServiciosEducativosButtons
 from .serializers import ServiciosEducativosSerializer, ServiciosEducativosImageSerializer, ServiciosEducativosFactsSerializer, ServiciosEducativosDescriptionSerializer, ServiciosEducativosButtonsSerializer
 from rest_framework import viewsets
-from api.permissions import IsAuthenticatedAndRole
+from api.permissions import IsAuthenticatedAndRole, IsAuthenticatedOrReadOnly
 
 class ServiciosEducativosViewSet(viewsets.ModelViewSet):
     """
-    ViewSet para manejar las operaciones CRUD de Exhibiciones.
+    ViewSet para manejar las operaciones CRUD de Servicios Educativos.
     
-    Permite listar, crear, actualizar y eliminar exhibiciones.
-    Utiliza el serializador ExhibicionSerializer para la validación y transformación de datos.
-    Requiere que el usuario esté autenticado y tenga un rol específico para acceder a las operaciones de actualización y eliminación.
+    Permite listar servicios educativos sin autenticación, pero requiere autenticación para crear, actualizar y eliminar.
+    Utiliza el serializador ServiciosEducativosSerializer para la validación y transformación de datos.
     """
     queryset = ServiciosEducativos.objects.all()
     serializer_class = ServiciosEducativosSerializer
-    permission_classes = [IsAuthenticatedAndRole]
+    permission_classes = [IsAuthenticatedOrReadOnly]
     http_method_names = ['get', 'post', 'put', 'delete']
     #required_role = 'admin'
     #required_permissions = ['exhibitions.view_exhibition', 'exhibitions.add_exhibition', 'exhibitions.change_exhibition', 'exhibitions.delete_exhibition']

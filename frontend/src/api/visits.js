@@ -62,6 +62,19 @@ export const getAvailableVisits = async () => {
   }
 };
 
+export const getVisitByDay = async (day) => {
+  try {
+    const response = await axiosInstance.get(`/api/visits/by_day/?day=${day}`);
+    return response.data;
+  } catch (error) {
+    if (error.response && error.response.status === 404) {
+      return null; // No existe visita para ese día
+    }
+    console.error(`Error fetching visit by day ${day}:`, error);
+    throw error;
+  }
+};
+
 export default {
   getVisits,
   getVisitById,
@@ -69,4 +82,5 @@ export default {
   createVisit,
   updateVisit,
   deleteVisit,
+  getVisitByDay,
 };

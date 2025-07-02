@@ -21,9 +21,10 @@ import CardPayment from '@/components/payments/CardPayment'
 import PaypalPayment from '@/components/payments/PaypalPayment'
 import CashPayment from '@/components/payments/CashPayment'
 import { getTickets, getAvailableTickets } from '@/api/tickets';
-import { getPayments } from '@/api/payments';
-import { getAvailableVisits, createVisit } from '@/api/visits';
+import { getPaymentMethods } from '@/api/payments';
+import { getAvailableVisits, createVisit, getVisitByDay } from '@/api/visits';
 import { createPurchaseOrder } from '@/api/purchaseOrders';
+import { createTicketsPurchaseOrder } from '@/api/ticketsPurchaseOrders';
 
 function TicketeraForm() {
   const [visits, setVisits] = useState([])
@@ -48,11 +49,11 @@ function TicketeraForm() {
     Promise.all([
       getAvailableVisits(),
       getTickets(),
-      getPayments()
-    ]).then(([visitsData, ticketsData, paymentsData]) => {
+      getPaymentMethods()
+    ]).then(([visitsData, ticketsData, paymentMethodsData]) => {
       setVisits(visitsData)
       setTickets(ticketsData)
-      setPaymentMethods(paymentsData)
+      setPaymentMethods(paymentMethodsData)
     }).catch(() => {
       toast.error('Error al cargar datos')
     }).finally(() => setLoading(false))
@@ -90,18 +91,61 @@ function TicketeraForm() {
   const isValidEmail = (email) =>
     /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)
 
+  // Mapeo de visitas por día para acceso rápido
+  const visitsByDay = React.useMemo(() => {
+    const map = {};
+    visits.forEach(v => { map[v.day] = v; });
+    return map;
+  }, [visits]);
+
+  // Función para obtener cupos disponibles de un día
+  const getAvailableSlots = (date) => {
+    const day = date.toISOString().split('T')[0];
+    return visitsByDay[day]?.available_slots ?? null;
+  };
+
+  // Colorea días con cupo bajo o lleno
+  const dayClassName = date => {
+    const slots = getAvailableSlots(date);
+    if (slots === 0) return 'react-datepicker__day--full';
+    if (slots !== null && slots <= 10) return 'react-datepicker__day--almost-full';
+    return '';
+  };
+
+  // Tooltip con cupos disponibles
+  const renderDayContents = (day, date) => {
+    const slots = getAvailableSlots(date);
+    if (slots === 0) return <span title="Sin cupo" style={{ color: '#e53e3e' }}>{day}</span>;
+    if (slots !== null && slots <= 10) return <span title={`¡Casi lleno! (${slots})`} style={{ color: '#f59e42' }}>{day}</span>;
+    if (slots !== null) return <span title={`Cupos: ${slots}`}>{day}</span>;
+    return <span>{day}</span>;
+  };
+
+  // Validación de cupo al seleccionar fecha
   const handleDateSelect = async (date) => {
     setSelectedDate(date)
     setMessage('')
-    try {
-      const day = date instanceof Date ? date.toISOString().split('T')[0] : date;
-      const visit = await createVisit({ day });
-      setSelectedVisitId(visit.id)
-      goToStep(2)
-    } catch (err) {
-      const backendMsg = err?.response?.data?.detail || 'No se pudo crear la visita. Intenta otra fecha/hora.';
-      toast.error(backendMsg)
+    const day = date instanceof Date ? date.toISOString().split('T')[0] : date;
+    const existingVisit = visits.find(v => v.day === day);
+    let visitId;
+    let availableSlots = existingVisit?.available_slots;
+    if (existingVisit) {
+      visitId = existingVisit.id;
+      availableSlots = existingVisit.available_slots;
+    } else {
+      // Si no existe, creamos la visita (asumimos cupo total)
+      const newVisit = await createVisit({ day });
+      visitId = newVisit.id;
+      setVisits(prev => [...prev, newVisit]);
+      availableSlots = newVisit.total_slots - newVisit.occupied_slots;
     }
+    if (availableSlots === 0) {
+      toast.error('No hay cupo disponible para ese día.');
+      setSelectedVisitId(null);
+      return;
+    }
+    setSelectedVisitId(visitId);
+    goToStep(2);
   }
 
   const handleTicketsNext = () => {
@@ -158,24 +202,30 @@ function TicketeraForm() {
       }
     }
 
-    setTimeout(() => {
-      setSuccess(true)
-      setPurchaseOrder({
-        qr_image: 'https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=COMPRA_MOCK',
-        buyer: { ...buyer },
-        tickets: selectedTickets,
-        total: calculateTotal(),
-        date: selectedDate,
-        payment: paymentMethods.find(pm => pm.method === selectedPayment)?.label || '',
-      })
-      goToStep(5)
-      setQuantities({})
-      setBuyer({ name: '', email: '' })
-      setSelectedDate(null)
-      setSelectedPayment('')
-      setSubmitting(false)
-      toast.success('¡Compra realizada con éxito!')
-    }, 1200)
+    // Paso 1: Crear la orden de compra
+    const orderData = {
+      email: buyer.email,
+      visit: selectedVisitId
+    };
+    try {
+      const order = await createPurchaseOrder(orderData);
+      // Paso 2: Crear los tickets asociados
+      for (let { ticket, quantity } of selectedTickets) {
+        await createTicketsPurchaseOrder({
+          ticket,
+          purchase_order: order.id,
+          amount: quantity
+        });
+      }
+      setSuccess(true);
+      setPurchaseOrder(order);
+      goToStep(5);
+      toast.success('¡Compra realizada con éxito!');
+    } catch (err) {
+      toast.error('Error al procesar la compra');
+    } finally {
+      setSubmitting(false);
+    }
   }
 
   // Nueva función para validar datos personales y método de pago antes de avanzar al pago
@@ -196,27 +246,26 @@ function TicketeraForm() {
     setSubmitting(true);
     const selectedTickets = Object.entries(quantities)
       .filter(([_, qty]) => qty > 0)
-      .map(([ticketId, qty]) => {
-        const ticket = tickets.find(t => t.id === Number(ticketId));
-        return {
-          ticket: Number(ticketId),
-          quantity: qty,
-          currency: ticket.currency
-        };
-      });
+      .map(([ticketId, qty]) => ({
+        ticket: Number(ticketId),
+        quantity: qty,
+      }));
+
     const orderData = {
-      buyer_name: buyer.name,
-      buyer_email: buyer.email,
-      visit: selectedVisitId,
-      tickets: selectedTickets,
-      payment_info: {
-        method: selectedPayment,
-        status: 'SUCCESS',
-        ...paymentDetails
-      }
+      email: buyer.email,
+      visit: selectedVisitId
     };
+
     createPurchaseOrder(orderData)
-      .then(order => {
+      .then(async order => {
+        // Crea los tickets asociados
+        for (let { ticket, quantity } of selectedTickets) {
+          await createTicketsPurchaseOrder({
+            ticket,
+            purchase_order: order.id,
+            amount: quantity
+          });
+        }
         setSuccess(true);
         setPurchaseOrder(order);
         goToStep(5);
@@ -277,7 +326,8 @@ function TicketeraForm() {
                   className={inputClass}
                   placeholderText="Selecciona una fecha"
                   dateFormat="yyyy-MM-dd"
-                  includeDates={visits.map(v => new Date(v.day))}
+                  dayClassName={dayClassName}
+                  renderDayContents={renderDayContents}
                   inline
                 />
               </div>
@@ -418,23 +468,40 @@ function TicketeraForm() {
           </form>
         )}
 
-        {/* Paso 4: Pago según método seleccionado */}
+        {/* Paso 4: Resumen de compra antes de confirmar */}
         {step === 4 && (
-          <div className="animate-fade-in">
-            <h3 className="text-xl font-bold mb-4 text-cyan-700 flex items-center gap-2"><CreditCard className="w-6 h-6 text-cyan-500" /> Realiza tu pago</h3>
-            {selectedPayment === 'MASTERCARD' || selectedPayment === 'VISA' ? (
-              <CardPayment amount={calculateTotal()} onPaymentSuccess={handlePaymentSuccess} />
-            ) : selectedPayment === 'PAYPAL' ? (
-              <PaypalPayment amount={calculateTotal()} onPaymentSuccess={handlePaymentSuccess} />
-            ) : selectedPayment === 'CASH' ? (
-              <CashPayment amount={calculateTotal()} onPaymentSuccess={handlePaymentSuccess} />
-            ) : null}
+          <div>
+            <h3 className="text-xl font-bold mb-4 text-cyan-700">Resumen de compra</h3>
+            <ul className="mb-4 space-y-2">
+              <li><b>Nombre:</b> {buyer.name}</li>
+              <li><b>Correo:</b> {buyer.email}</li>
+              <li><b>Fecha:</b> {selectedDate && selectedDate.toISOString().split('T')[0]}</li>
+              <li><b>Método de pago:</b> {paymentMethods.find(pm => pm.method === selectedPayment)?.label}</li>
+              <li><b>Entradas:</b>
+                <ul className="ml-4">
+                  {Object.entries(quantities).filter(([_, qty]) => qty > 0).map(([ticketId, qty]) => {
+                    const ticket = tickets.find(t => t.id === Number(ticketId));
+                    return <li key={ticketId}>{ticket?.name} x {qty} ({ticket?.currency === 'USD' ? '$' : '₡'}{ticket?.price})</li>;
+                  })}
+                </ul>
+              </li>
+              <li><b>Total CRC:</b> ₡{totalCRC}</li>
+              <li><b>Total USD:</b> ${totalUSD}</li>
+            </ul>
             <div className="flex flex-col sm:flex-row justify-between gap-3 mt-8">
               <button
                 className={buttonClass + ' bg-gray-400 text-white'}
                 onClick={() => goToStep(3)}
+                disabled={submitting}
               >
                 <ArrowLeft className="w-5 h-5" /> Atrás
+              </button>
+              <button
+                className={buttonClass + ' bg-cyan-600 text-white'}
+                onClick={handleFinalSubmit}
+                disabled={submitting}
+              >
+                Confirmar compra <CheckCircle className="w-5 h-5" />
               </button>
             </div>
           </div>
@@ -449,7 +516,11 @@ function TicketeraForm() {
               </p>
               {purchaseOrder.qr_image && (
                 <img
-                  src={purchaseOrder.qr_image}
+                  src={
+                    purchaseOrder.qr_image.startsWith('http')
+                      ? purchaseOrder.qr_image
+                      : `${import.meta.env.VITE_BACKEND_URL || 'http://localhost:8000'}/media/${purchaseOrder.qr_image}`
+                  }
                   alt="QR de la compra"
                   className="mx-auto mb-4 rounded-lg border border-gray-200 shadow-lg animate-fade-in"
                   style={{ maxWidth: 200 }}

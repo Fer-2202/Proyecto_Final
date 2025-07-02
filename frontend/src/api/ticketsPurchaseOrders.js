@@ -2,7 +2,7 @@ import axiosInstance from "./axiosInstance";
 
 export const getTicketsPurchaseOrders = async () => {
   try {
-    const response = await axiosInstance.get("/api/tickets_purchase_orders/");
+    const response = await axiosInstance.get("/api/tickets_purchase_order/");
     return response.data;
   } catch (error) {
     console.error("Error fetching tickets-purchase orders:", error);
@@ -13,7 +13,7 @@ export const getTicketsPurchaseOrders = async () => {
 export const getTicketsPurchaseOrderById = async (id) => {
   try {
     const response = await axiosInstance.get(
-      `/api/tickets_purchase_orders/${id}/`
+      `/api/tickets_purchase_order/${id}/`
     );
     return response.data;
   } catch (error) {
@@ -28,7 +28,7 @@ export const getTicketsPurchaseOrderById = async (id) => {
 export const createTicketsPurchaseOrder = async (data) => {
   try {
     const response = await axiosInstance.post(
-      "/api/tickets_purchase_orders/",
+      "/api/tickets_purchase_orders/create/",
       data
     );
     return response.data;
@@ -41,7 +41,7 @@ export const createTicketsPurchaseOrder = async (data) => {
 export const updateTicketsPurchaseOrder = async (id, data) => {
   try {
     const response = await axiosInstance.put(
-      `/api/tickets_purchase_orders/${id}/`,
+      `/api/tickets_purchase_order/${id}/`,
       data
     );
     return response.data;
@@ -56,7 +56,7 @@ export const updateTicketsPurchaseOrder = async (id, data) => {
 
 export const deleteTicketsPurchaseOrder = async (id) => {
   try {
-    await axiosInstance.delete(`/api/tickets_purchase_orders/${id}/`);
+    await axiosInstance.delete(`/api/tickets_purchase_order/${id}/`);
   } catch (error) {
     console.error(
       `Error deleting tickets-purchase order with ID ${id}:`,

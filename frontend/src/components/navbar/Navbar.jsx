@@ -48,21 +48,15 @@ const links = [
       /* { name: "Proyectos", href: "/investigacion-y-conservacion/proyectos" }, */
     ],
   }
-/*   {
-    name: "Apoyo",
-    href: "/apoyo",
-    dropdown: true,
-    sublinks: [
-      { name: "Voluntariado", href: "/apoyo/voluntariado" },
-      { name: "Donaciones", href: "/apoyo/donaciones" },
-    ],
-  }, */
 ];
 
 const ticketLink = {
   name: "Ticketera",
   href: "/purchase-form/ticketera",
-  isButton: true,
+};
+const DonarLink = {
+  name: "Donar",
+  href: "",
 };
 
 
@@ -170,6 +164,13 @@ export default function Navbar() {
         {/* Botón de Ticket y avatar */}
         <div className="hidden md:flex items-center gap-6">
           <span className="h-8 w-px bg-gray-200 mx-2 block rounded-full" />
+          <Link
+            to={DonarLink.href}
+            className="bg-[#26b7ad] hover:bg-[#239e99] transition text-white font-semibold text-sm px-5 py-2.5 rounded-2xl shadow-[0_2px_8px_rgba(38,183,173,0.10)] hover:shadow-[0_8px_32px_0_rgba(38,183,173,0.18)] flex items-center gap-2 focus:ring-2 focus:ring-[#26b7ad] focus:ring-offset-2 focus:outline-none"
+          >
+            <Ticket className="w-4 h-4" />
+            {DonarLink.name}
+          </Link>
           <Link
             to={ticketLink.href}
             className="bg-[#26b7ad] hover:bg-[#239e99] transition text-white font-semibold text-sm px-5 py-2.5 rounded-2xl shadow-[0_2px_8px_rgba(38,183,173,0.10)] hover:shadow-[0_8px_32px_0_rgba(38,183,173,0.18)] flex items-center gap-2 focus:ring-2 focus:ring-[#26b7ad] focus:ring-offset-2 focus:outline-none"

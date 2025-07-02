@@ -19,14 +19,16 @@ import { useLocation, Link } from "react-router-dom";
 import Button from "@components/ui/Button";
 import LoadingSpinner from "@pages/Loading";
 
+// Componente principal del layout moderno
 const ModernLayout = ({ children }) => {
+  // Estados para manejar la autenticación y la interfaz
   const { user, isAuthenticated, logout } = useAuth();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [isScrolled, setIsScrolled] = useState(false);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const location = useLocation();
 
-  // Handle scroll effect
+  // Efecto para detectar el scroll y cambiar el estilo del header
   useEffect(() => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 20);
@@ -35,6 +37,7 @@ const ModernLayout = ({ children }) => {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Configuración de navegación principal
   const navigation = [
     { name: "Inicio", href: "/", icon: Home },
     { name: "Animales", href: "/animals", icon: Info },
@@ -43,12 +46,14 @@ const ModernLayout = ({ children }) => {
     { name: "Contacto", href: "/contact", icon: Phone },
   ];
 
+  // Elementos del menú de usuario
   const userMenuItems = [
     { name: "Mi Perfil", href: "/profile", icon: User },
     { name: "Configuración", href: "/settings", icon: Settings },
     { name: "Notificaciones", href: "/notifications", icon: Bell },
   ];
 
+  // Función para manejar el cierre de sesión
   const handleLogout = () => {
     logout();
     setIsDropdownOpen(false);
@@ -56,19 +61,18 @@ const ModernLayout = ({ children }) => {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-blue-50 to-indigo-100">
-      {/* Header */}
+      {/* Header principal con animaciones */}
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-          isScrolled
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${isScrolled
             ? "bg-white/95 backdrop-blur-md shadow-lg"
             : "bg-transparent"
-        }`}
+          }`}
       >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
-            {/* Logo */}
+            {/* Logo del parque marino */}
             <motion.div
               whileHover={{ scale: 1.05 }}
               className="flex items-center space-x-2"
@@ -81,7 +85,7 @@ const ModernLayout = ({ children }) => {
               </span>
             </motion.div>
 
-            {/* Desktop Navigation */}
+            {/* Navegación de escritorio */}
             <nav className="hidden md:flex items-center space-x-8">
               {navigation.map((item) => {
                 const isActive = location.pathname === item.href;
@@ -89,11 +93,10 @@ const ModernLayout = ({ children }) => {
                   <Link
                     key={item.name}
                     to={item.href}
-                    className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 ${
-                      isActive
+                    className={`flex items-center space-x-1 px-3 py-2 rounded-lg transition-all duration-200 ${isActive
                         ? "text-blue-600 bg-blue-50"
                         : "text-gray-600 hover:text-blue-600 hover:bg-gray-50"
-                    }`}
+                      }`}
                   >
                     <item.icon size={16} />
                     <span>{item.name}</span>
@@ -102,9 +105,9 @@ const ModernLayout = ({ children }) => {
               })}
             </nav>
 
-            {/* Right side */}
+            {/* Lado derecho del header */}
             <div className="flex items-center space-x-4">
-              {/* Search */}
+              {/* Barra de búsqueda */}
               <div className="hidden sm:flex items-center space-x-2 bg-white/80 backdrop-blur-sm rounded-lg px-3 py-2 border border-gray-200">
                 <Search size={16} className="text-gray-400" />
                 <input
@@ -114,7 +117,7 @@ const ModernLayout = ({ children }) => {
                 />
               </div>
 
-              {/* User Menu */}
+              {/* Menú de usuario autenticado */}
               {isAuthenticated ? (
                 <div className="relative">
                   <button
@@ -132,6 +135,7 @@ const ModernLayout = ({ children }) => {
                     <ChevronDown size={16} className="text-gray-400" />
                   </button>
 
+                  {/* Dropdown del menú de usuario */}
                   <AnimatePresence>
                     {isDropdownOpen && (
                       <motion.div
@@ -164,6 +168,7 @@ const ModernLayout = ({ children }) => {
                   </AnimatePresence>
                 </div>
               ) : (
+                // Botones de autenticación para usuarios no autenticados
                 <div className="flex items-center space-x-2">
                   <Button variant="outline" size="sm">
                     Iniciar sesión
@@ -172,7 +177,7 @@ const ModernLayout = ({ children }) => {
                 </div>
               )}
 
-              {/* Mobile menu button */}
+              {/* Botón del menú móvil */}
               <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="md:hidden p-2 rounded-lg hover:bg-gray-100 transition-colors"
@@ -183,7 +188,7 @@ const ModernLayout = ({ children }) => {
           </div>
         </div>
 
-        {/* Mobile Navigation */}
+        {/* Navegación móvil con animaciones */}
         <AnimatePresence>
           {isMobileMenuOpen && (
             <motion.div
@@ -200,11 +205,10 @@ const ModernLayout = ({ children }) => {
                       key={item.name}
                       to={item.href}
                       onClick={() => setIsMobileMenuOpen(false)}
-                      className={`flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors ${
-                        isActive
+                      className={`flex items-center space-x-3 px-3 py-2 rounded-lg transition-colors ${isActive
                           ? "text-blue-600 bg-blue-50"
                           : "text-gray-600 hover:text-blue-600 hover:bg-gray-50"
-                      }`}
+                        }`}
                     >
                       <item.icon size={20} />
                       <span>{item.name}</span>
@@ -217,7 +221,7 @@ const ModernLayout = ({ children }) => {
         </AnimatePresence>
       </motion.header>
 
-      {/* Main Content */}
+      {/* Contenido principal con animación de entrada */}
       <main className="pt-16">
         <motion.div
           initial={{ opacity: 0 }}

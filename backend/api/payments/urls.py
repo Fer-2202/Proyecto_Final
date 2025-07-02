@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import PaymentsViewSet
+from .views import PaymentsViewSet, PaymentMethodsView
 
 """ URLs para la aplicación Payments """
 urlpatterns = [
@@ -18,5 +18,7 @@ urlpatterns = [
     
     # Ruta para eliminar un Payment por su ID
     path('<int:pk>/delete/', PaymentsViewSet.as_view({'delete': 'destroy'}), name='payments-delete'),
+
+    path('methods/', PaymentMethodsView.as_view(), name='payment-methods'),
 
 ]

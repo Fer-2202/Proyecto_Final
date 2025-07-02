@@ -1,20 +1,19 @@
 from .models import Exhibicion, ExhibicionImage, ExhibicionFacts, ExhibicionDescription, ExhibicionButtons
 from .serializers import ExhibicionSerializer, ExhibicionImageSerializer, ExhibicionFactsSerializer, ExhibicionDescriptionSerializer, ExhibicionButtonsSerializer
 from rest_framework import viewsets
-from api.permissions import IsAuthenticatedAndRole
+from api.permissions import IsAuthenticatedAndRole, IsAuthenticatedOrReadOnly
 
 class ExhibicionViewSet(viewsets.ModelViewSet):
 
     """
     ViewSet para manejar las operaciones CRUD de Exhibiciones.
     
-    Permite listar, crear, actualizar y eliminar exhibiciones.
+    Permite listar exhibiciones sin autenticación, pero requiere autenticación para crear, actualizar y eliminar.
     Utiliza el serializador ExhibicionSerializer para la validación y transformación de datos.
-    Requiere que el usuario esté autenticado y tenga un rol específico para acceder a las operaciones de actualización y eliminación.
     """
     queryset = Exhibicion.objects.all()
     serializer_class = ExhibicionSerializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedOrReadOnly]
     http_method_names = ['get', 'post', 'put', 'delete']
     #required_role = 'admin'
     #required_permissions = ['exhibitions.view_exhibition', 'exhibitions.add_exhibition', 'exhibitions.change_exhibition', 'exhibitions.delete_exhibition']
@@ -30,7 +29,7 @@ class ExhibicionImageViewSet(viewsets.ModelViewSet):
     """
     queryset = ExhibicionImage.objects.all()
     serializer_class = ExhibicionImageSerializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
     http_method_names = ['get', 'post', 'put', 'delete']
     #required_role = 'admin'
     #required_permissions = ['exhibitions.view_exhibitionimage', 'exhibitions.add_exhibitionimage', 'exhibitions.change_exhibitionimage', 'exhibitions.delete_exhibitionimage']
@@ -52,7 +51,7 @@ class ExhibicionFactsViewSet(viewsets.ModelViewSet):
     """
     queryset = ExhibicionFacts.objects.all()
     serializer_class = ExhibicionFactsSerializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
     http_method_names = ['get', 'post', 'put', 'delete']
     #required_role = 'admin'
     #required_permissions = ['exhibitions.view_exhibitionfacts', 'exhibitions.add_exhibitionfacts', 'exhibitions.change_exhibitionfacts', 'exhibitions.delete_exhibitionfacts']
@@ -68,7 +67,7 @@ class ExhibicionDescriptionViewSet(viewsets.ModelViewSet):
     """
     queryset = ExhibicionDescription.objects.all()
     serializer_class = ExhibicionDescriptionSerializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
     http_method_names = ['get', 'post', 'put', 'delete']
     #required_role = 'admin'
     #required_permissions = ['exhibitions.view_exhibitiondescription', 'exhibitions.add_exhibitiondescription', 'exhibitions.change_exhibitiondescription', 'exhibitions.delete_exhibitiondescription']
@@ -84,7 +83,7 @@ class ExhibicionButtonsViewSet(viewsets.ModelViewSet):
     """
     queryset = ExhibicionButtons.objects.all()
     serializer_class = ExhibicionButtonsSerializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
     http_method_names = ['get', 'post', 'put', 'delete']
     #required_role = 'admin'
     #required_permissions = ['exhibitions.view_exhibitionbuttons', 'exhibitions.add_exhibitionbuttons', 'exhibitions.change_exhibitionbuttons', 'exhibitions.delete_exhibitionbuttons']

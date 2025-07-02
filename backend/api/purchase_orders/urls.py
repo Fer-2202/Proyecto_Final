@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import Purchase_Orders_ViewSet, Purchase_Orders_DetailViewSet
+from .views import Purchase_Orders_ViewSet, Purchase_Orders_DetailViewSet, validate_qr
 
 """ URLs para la aplicación Purchase_Orders """
 urlpatterns = [
@@ -18,5 +18,8 @@ urlpatterns = [
     
     # Ruta para eliminar
     path('<int:pk>/delete/', Purchase_Orders_DetailViewSet.as_view({'delete': 'destroy'}), name='purchase_orders-delete'),
+    
+    # Endpoint para validar QR
+    path('validate_qr/', validate_qr, name='purchase_orders-validate-qr'),
     
 ]

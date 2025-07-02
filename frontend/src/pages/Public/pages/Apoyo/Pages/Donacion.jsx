@@ -6,7 +6,10 @@ function Donacion() {
   return (
     <div className="mt-23">
       <Donar />
-      <PayPalMetodo />
+
+    
+
+      {/* <PayPalMetodo /> */}
     </div>
   );
 }

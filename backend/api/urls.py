@@ -38,7 +38,7 @@ urlpatterns = [
     path('purchase_orders/', include('api.purchase_orders.urls')),
 
     # Tickets Orden de Compra
-    path('tickets_purchase_order/', include('api.tickets_purchase.urls')),
+    path('tickets_purchase_orders/', include('api.tickets_purchase.urls')),
 
     # Pagos
     path('payments/', include('api.payments.urls')),

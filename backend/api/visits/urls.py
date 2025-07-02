@@ -21,4 +21,7 @@ urlpatterns = [
     # Ruta para visitas disponibles
     path('available/', AvailableVisitsView.as_view(), name='Visits-available'),
     
+    # Ruta para visitas por día
+    path('by_day/', Visits_ViewSet.as_view({'get': 'by_day'}), name='Visits-by-day'),
+    
 ]
