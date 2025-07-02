@@ -5,7 +5,7 @@ export const getConservationStatuses = async () => {
     const response = await axiosInstance.get("api/conservation_status/");
     return response.data;
   } catch (error) {
-    console.error("Error fetching conservation statuses:", error);
+    console.error("Error obtener conservation status:", error);
     throw error;
   }
 };
@@ -15,7 +15,7 @@ export const getConservationStatusById = async (id) => {
     const response = await axiosInstance.get(`api/conservation_status/${id}/`);
     return response.data;
   } catch (error) {
-    console.error(`Error fetching conservation status with ID ${id}:`, error);
+    console.error(`Error obtener conservation status con ID ${id}:`, error);
     throw error;
   }
 };
@@ -28,7 +28,7 @@ export const createConservationStatus = async (statusData) => {
     );
     return response.data;
   } catch (error) {
-    console.error("Error creating conservation status:", error);
+    console.error("Error crear conservation status:", error);
     throw error;
   }
 };
@@ -41,7 +41,7 @@ export const updateConservationStatus = async (id, statusData) => {
     );
     return response.data;
   } catch (error) {
-    console.error(`Error updating conservation status with ID ${id}:`, error);
+    console.error(`Error actualizar conservation status con ID ${id}:`, error);
     throw error;
   }
 };
@@ -50,7 +50,7 @@ export const deleteConservationStatus = async (id) => {
   try {
     await axiosInstance.delete(`api/conservation_status/${id}/delete/`);
   } catch (error) {
-    console.error(`Error deleting conservation status with ID ${id}:`, error);
+    console.error(`Error eliminar conservation status con ID ${id}:`, error);
     throw error;
   }
 };
@@ -62,7 +62,7 @@ export const getConservationStatusChoices = async () => {
     );
     return response.data;
   } catch (error) {
-    console.error("Error fetching conservation status choices:", error);
+    console.error("Error obtener conservation status choices:", error);
     throw error;
   }
 };

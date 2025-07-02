@@ -16,7 +16,7 @@ export default function ContactSection() {
       mensaje: mensaje.current.value,
     };
     emailjs
-      .send("service_4se398a", "template_lcfs7d3", Datos, "3mQx8AVIUbbufg0BX")
+      .send("service_ke9gzcs", "template_cho3xqg", Datos, "3mQx8AVIUbbufg0BX")
       .then(
         (response) => {
           console.log("Éxito:", response.status, response.text);

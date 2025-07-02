@@ -5,7 +5,7 @@ export const getAuditLog = async () => {
     const response = await axiosInstance.get("/api/audit_log/");
     return response.data;
   } catch (error) {
-    console.error("Error obtener  audit logs:", error);
+    console.error("Error obtener audit logs:", error);
     throw error;
   }
 };
@@ -15,7 +15,7 @@ export const getAuditLogById = async (id) => {
     const response = await axiosInstance.get(`/api/audit_log/${id}/`);
     return response.data;
   } catch (error) {
-    console.error(`Error obteniendo auditLog con ID ${id}:`, error);
+    console.error(`Error obtener auditLog con ID ${id}:`, error);
     throw error;
   }
 };

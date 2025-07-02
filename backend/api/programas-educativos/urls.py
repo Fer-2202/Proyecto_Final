@@ -24,15 +24,15 @@ urlpatterns = [
     path('items/', ProgramaItemViewSet.as_view({'get': 'list'}), name='programas-educativos-items-lista'),
     
     # Ruta para crear
-    path('create/', ProgramaItemViewSet.as_view({'get': 'list', 'post': 'create'}), name='programas-educativos-items-registro'),
+    path('items/create/', ProgramaItemViewSet.as_view({'get': 'list', 'post': 'create'}), name='programas-educativos-items-registro'),
     
     # Ruta para detalle
-    path('<int:pk>/detail/', ProgramaItemViewSet.as_view({ 'get': 'retrieve' }), name='programas-educativos-items-actualizar'),
+    path('items/<int:pk>/detail/', ProgramaItemViewSet.as_view({ 'get': 'retrieve' }), name='programas-educativos-items-actualizar'),
 
     # Ruta para actualizar o editar
-    path('<int:pk>/update/', ProgramaItemViewSet.as_view({ 'get': 'retrieve', 'put': 'update' }), name='programas-educativos-items-eliminar'),
+    path('items/<int:pk>/update/', ProgramaItemViewSet.as_view({ 'get': 'retrieve', 'put': 'update' }), name='programas-educativos-items-eliminar'),
 
     # Ruta para eliminar
-    path('<int:pk>/delete/', ProgramaItemViewSet.as_view({'delete': 'destroy'}), name='programas-educativos-items-eliminar'),
+    path('items/<int:pk>/delete/', ProgramaItemViewSet.as_view({'delete': 'destroy'}), name='programas-educativos-items-eliminar'),
 
 ]

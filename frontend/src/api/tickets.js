@@ -5,7 +5,7 @@ export const getTickets = async () => {
     const response = await axiosInstance.get("/api/tickets/");
     return response.data;
   } catch (error) {
-    console.error("Error fetching tickets:", error);
+    console.error("Error obtener tickets:", error);
     throw error;
   }
 };
@@ -15,7 +15,7 @@ export const getTicketById = async (id) => {
     const response = await axiosInstance.get(`/api/tickets/${id}/`);
     return response.data;
   } catch (error) {
-    console.error(`Error fetching ticket with ID ${id}:`, error);
+    console.error(`Error obtener ticket con ID ${id}:`, error);
     throw error;
   }
 };
@@ -44,7 +44,7 @@ export const updateTicket = async (id, ticketData) => {
     );
     return response.data;
   } catch (error) {
-    console.error(`Error updating ticket with ID ${id}:`, error);
+    console.error(`Error actualizar ticket con ID ${id}:`, error);
     throw error;
   }
 };
@@ -53,7 +53,7 @@ export const deleteTicket = async (id) => {
   try {
     await axiosInstance.delete(`/api/tickets/${id}/delete/`);
   } catch (error) {
-    console.error(`Error deleting ticket with ID ${id}:`, error);
+    console.error(`Error eliminar ticket con ID ${id}:`, error);
     throw error;
   }
 };
@@ -64,7 +64,7 @@ export const getAvailableTickets = async (eventId) => {
     return response.data;
   } catch (error) {
     console.error(
-      `Error fetching available tickets for event ID ${eventId}:`,
+      `Error obtener tickets disponibles para evento ID ${eventId}:`,
       error
     );
     throw error;
@@ -72,10 +72,12 @@ export const getAvailableTickets = async (eventId) => {
 };
 
 export default {
+
   getTickets,
   getTicketById,
   getAvailableTickets,
   createTicket,
   updateTicket,
   deleteTicket,
+  
 };

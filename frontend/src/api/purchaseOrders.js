@@ -5,7 +5,7 @@ export const getPurchaseOrders = async () => {
     const response = await axiosInstance.get("/api/purchase_orders/");
     return response.data;
   } catch (error) {
-    console.error("Error fetching purchase orders:", error);
+    console.error("Error obtener purchase orders:", error);
     throw error;
   }
 };
@@ -15,7 +15,7 @@ export const getPurchaseOrderById = async (id) => {
     const response = await axiosInstance.get(`/api/purchase_orders/${id}/`);
     return response.data;
   } catch (error) {
-    console.error(`Error fetching purchase order with ID ${id}:`, error);
+    console.error(`Error obtener purchase order with ID ${id}:`, error);
     throw error;
   }
 };
@@ -28,7 +28,7 @@ export const createPurchaseOrder = async (orderData) => {
     );
     return response.data;
   } catch (error) {
-    console.error("Error creating purchase order:", error);
+    console.error("Error crear purchase order:", error);
     throw error;
   }
 };
@@ -41,7 +41,7 @@ export const updatePurchaseOrder = async (id, orderData) => {
     );
     return response.data;
   } catch (error) {
-    console.error(`Error updating purchase order with ID ${id}:`, error);
+    console.error(`Error actualizar purchase order con ID ${id}:`, error);
     throw error;
   }
 };
@@ -50,7 +50,7 @@ export const deletePurchaseOrder = async (id) => {
   try {
     await axiosInstance.delete(`/api/purchase_orders/${id}/delete/`);
   } catch (error) {
-    console.error(`Error deleting purchase order with ID ${id}:`, error);
+    console.error(`Error eliminar purchase order con ID ${id}:`, error);
     throw error;
   }
 };

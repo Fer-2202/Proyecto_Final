@@ -27,16 +27,16 @@ urlpatterns = [
     path('imagenes/', ExhibicionImageViewSet.as_view({'get': 'list'}), name='exhibition-image-get'),
 
     # Ruta para crear
-    path('create/', ExhibicionImageViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-image-create'),
+    path('imagenes/create/', ExhibicionImageViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-image-create'),
 
     # Ruta para detalle
-    path('<int:pk>/', ExhibicionImageViewSet.as_view({ 'get': 'retrieve' }), name='exhibition-image-detail'),
+    path('imagenes/<int:pk>/', ExhibicionImageViewSet.as_view({ 'get': 'retrieve' }), name='exhibition-image-detail'),
 
     # Ruta para actualizar o editar
-    path('<int:pk>/update/', ExhibicionImageViewSet.as_view({ 'get': 'retrieve', 'put': 'update', 'delete': 'destroy' }), name='exhibition-actualizar-update'),
+    path('imagenes/<int:pk>/update/', ExhibicionImageViewSet.as_view({ 'get': 'retrieve', 'put': 'update', 'delete': 'destroy' }), name='exhibition-actualizar-update'),
 
     # Ruta para eliminar
-    path('<int:pk>/delete/', ExhibicionImageViewSet.as_view({ 'delete': 'destroy' }), name='exhibition-image-delete'),
+    path('imagenes/<int:pk>/delete/', ExhibicionImageViewSet.as_view({ 'delete': 'destroy' }), name='exhibition-image-delete'),
 
 
     # Endpoints para facts
@@ -44,16 +44,16 @@ urlpatterns = [
     path('facts/', ExhibicionFactsViewSet.as_view({'get': 'list'}), name='exhibition-fact-get'),
 
     # Ruta para crear
-    path('create/', ExhibicionFactsViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-fact-create'),
+    path('facts/create/', ExhibicionFactsViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-fact-create'),
 
     # Ruta para detalle
-    path('<int:pk>/', ExhibicionFactsViewSet.as_view({'get': 'retrieve'}), name='exhibition-fact-detail'),
+    path('facts/<int:pk>/', ExhibicionFactsViewSet.as_view({'get': 'retrieve'}), name='exhibition-fact-detail'),
 
     # Ruta para actualizar o editar
-    path('<int:pk>/update/', ExhibicionImageViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-fact-update'),
+    path('facts/<int:pk>/update/', ExhibicionImageViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-fact-update'),
 
     # Ruta para eliminar
-    path('<int:pk>/delete/', ExhibicionFactsViewSet.as_view({'delete': 'destroy'}), name='exhibition-fact-delete'),
+    path('facts/<int:pk>/delete/', ExhibicionFactsViewSet.as_view({'delete': 'destroy'}), name='exhibition-fact-delete'),
     
 
     # Endpoints para manejar descripciones de exhibiciones
@@ -61,16 +61,16 @@ urlpatterns = [
     path('description/', ExhibicionDescriptionViewSet.as_view({'get': 'list'}), name='exhibition-description-get'),
 
     # Ruta para crear
-    path('create/', ExhibicionDescriptionViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-description-create'),
+    path('description/create/', ExhibicionDescriptionViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-description-create'),
 
     # Ruta para detalle
-    path('<int:pk>/', ExhibicionDescriptionViewSet.as_view({'get': 'retrieve'}), name='exhibition-description-detail'),
+    path('description/<int:pk>/', ExhibicionDescriptionViewSet.as_view({'get': 'retrieve'}), name='exhibition-description-detail'),
 
     # Ruta para actualizar o editar
-    path('<int:pk>/update/', ExhibicionDescriptionViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-description-update'),
+    path('description/<int:pk>/update/', ExhibicionDescriptionViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-description-update'),
     
     # Ruta para eliminar
-    path('<int:pk>/delete/', ExhibicionDescriptionViewSet.as_view({'delete': 'destroy'}), name='exhibition-description-delete'), 
+    path('description/<int:pk>/delete/', ExhibicionDescriptionViewSet.as_view({'delete': 'destroy'}), name='exhibition-description-delete'), 
 
 
     # Botones
@@ -78,15 +78,15 @@ urlpatterns = [
     path('buttons/', ExhibicionButtonsViewSet.as_view({'get': 'list'}), name='exhibition-button-get'),
 
     # Ruta para crear
-    path('create/', ExhibicionButtonsViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-button-create'),
+    path('buttons/create/', ExhibicionButtonsViewSet.as_view({'get': 'list', 'post': 'create'}), name='exhibition-button-create'),
 
     # Ruta para detalle
-    path('<int:pk>/', ExhibicionButtonsViewSet.as_view({'get': 'retrieve'}), name='exhibition-button-detail'),
+    path('buttons/<int:pk>/', ExhibicionButtonsViewSet.as_view({'get': 'retrieve'}), name='exhibition-button-detail'),
 
     # Ruta para actualizar o editar
-    path('<int:pk>/update/', ExhibicionButtonsViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-button-update'),
+    path('buttons/<int:pk>/update/', ExhibicionButtonsViewSet.as_view({'get': 'retrieve', 'put': 'update', 'delete': 'destroy'}), name='exhibition-button-update'),
 
     # Ruta para eliminar
-    path('<int:pk>/delete/', ExhibicionButtonsViewSet.as_view({'delete': 'destroy'}), name='exhibition-button-delete'),
+    path('buttons/<int:pk>/delete/', ExhibicionButtonsViewSet.as_view({'delete': 'destroy'}), name='exhibition-button-delete'),
     
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

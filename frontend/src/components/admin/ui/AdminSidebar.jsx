@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { Button, Drawer, Tooltip } from "antd";
-import { LayoutDashboard, Users, Ticket, Calendar, Settings, LogOut, Globe, Fish, ShoppingCart, Star, Landmark, Logs, Home,} from "lucide-react";
+import { LayoutDashboard, Users, Ticket, Calendar, Settings, LogOut, Globe, Fish, ShoppingCart, Star, Landmark, Logs, Home, Book} from "lucide-react";
 import { useUserRoles } from "@hooks/useUserRoles";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -85,6 +85,12 @@ const NAV_SECTIONS = [
         icon: <Logs size={18} />,
         desc: "Registro de actividades",
       },
+      {
+        name: "Exhibiciones",
+        key: "exhibits",
+        icon: <Book/>,
+        desc: "Gestión avanzada de exhiciones"
+      }
     ],
   },
 ];

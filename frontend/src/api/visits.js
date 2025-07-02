@@ -5,7 +5,7 @@ export const getVisits = async () => {
     const response = await axiosInstance.get("/api/visits/");
     return response.data;
   } catch (error) {
-    console.error("Error fetching visits:", error);
+    console.error("Error obtener visits:", error);
     throw error;
   }
 };
@@ -15,7 +15,7 @@ export const getVisitById = async (id) => {
     const response = await axiosInstance.get(`/api/visits/${id}/`);
     return response.data;
   } catch (error) {
-    console.error(`Error fetching visit with ID ${id}:`, error);
+    console.error(`Error obtener visit con ID ${id}:`, error);
     throw error;
   }
 };
@@ -25,7 +25,7 @@ export const createVisit = async (visitData) => {
     const response = await axiosInstance.post("/api/visits/create/", visitData);
     return response.data;
   } catch (error) {
-    console.error("Error creating visit:", error);
+    console.error("Error crear visit:", error);
     throw error;
   }
 };
@@ -38,7 +38,7 @@ export const updateVisit = async (id, visitData) => {
     );
     return response.data;
   } catch (error) {
-    console.error(`Error updating visit with ID ${id}:`, error);
+    console.error(`Error actualizar visit con ID ${id}:`, error);
     throw error;
   }
 };
@@ -47,7 +47,7 @@ export const deleteVisit = async (id) => {
   try {
     await axiosInstance.delete(`/api/visits/${id}/delete/`);
   } catch (error) {
-    console.error(`Error deleting visit with ID ${id}:`, error);
+    console.error(`Error eliminar visit con ID ${id}:`, error);
     throw error;
   }
 };
@@ -57,7 +57,7 @@ export const getAvailableVisits = async () => {
     const response = await axiosInstance.get("/api/visits/available/");
     return response.data;
   } catch (error) {
-    console.error("Error fetching available visits:", error);
+    console.error("Error obtener visits disponible:", error);
     throw error;
   }
 };
@@ -70,12 +70,13 @@ export const getVisitByDay = async (day) => {
     if (error.response && error.response.status === 404) {
       return null; // No existe visita para ese día
     }
-    console.error(`Error fetching visit by day ${day}:`, error);
+    console.error(`Error obtener visit por dia ${day}:`, error);
     throw error;
   }
 };
 
 export default {
+
   getVisits,
   getVisitById,
   getAvailableVisits,
@@ -83,4 +84,5 @@ export default {
   updateVisit,
   deleteVisit,
   getVisitByDay,
+  
 };

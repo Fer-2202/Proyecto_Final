@@ -8,6 +8,9 @@ import Modal from '../../ui/Modal';
 import PaypalPayment from '@/components/payments/PaypalPayment';
 import CardPayment from '@/components/payments/CardPayment';
 import CashPayment from '@/components/payments/CashPayment';
+import { createDonation } from '@/api/donations';
+import ContactDonationForm from './ContactDonationForm';
+import VolunteerContactForm from './VolunteerContactForm';
 
 function Donar() {
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -27,16 +30,22 @@ function Donar() {
           </form>
         </div>
       );
-    } else if (btn.label === 'Ver Guía') {
+    } else if (btn.label === 'Contactar para donar') {
       setModalContent(
         <div className="space-y-4">
-          <h2 className="text-xl font-semibold text-teal-700">Guía de {item.title}</h2>
-          <p>Puedes descargar la guía informativa aquí:</p>
-          <a href="/guia-don-pulpo.pdf" target="_blank" rel="noopener noreferrer" className="text-teal-600 underline">Descargar Guía PDF</a>
+          <h2 className="text-xl font-semibold text-teal-700">Formulario:</h2>
+          <ContactDonationForm />
         </div>
       );
     } else if (btn.label === "Donar Ahora") {
       setModalContent(<PaymentSelector amount={5000} />);
+    } else if (btn.label === "Aplicar como voluntario") {
+      setModalContent(
+        <div className="space-y-4">
+          <h2 className="text-xl font-semibold text-teal-700">Formulario para Voluntariado</h2>
+          <VolunteerContactForm />
+        </div>
+      );
     } else {
       setModalContent(
         <div className="space-y-4">
@@ -54,7 +63,13 @@ function Donar() {
       <ExhibitIntro description={"El Parque Marino Central del Pacífico Sur es una institución sin fines de lucro dedicada a la conservación, investigación y educación sobre los ecosistemas marinos de Costa Rica. Tu donación nos ayuda a continuar con nuestra labor de protección de la biodiversidad marina"} title={"Tu Apoyo Hace la Diferencia"} />
       {donarTabs.length > 0 && (
         <MarineExhibit
-          data={donarTabs}
+          data={donarTabs.map(tab => ({
+            ...tab,
+            descriptions: Array.isArray(tab.description) ? tab.description : [tab.description],
+            title_facts: tab.title_facts || tab.title_facts || "Métodos de Donación:",
+            images: Array.isArray(tab.images) ? tab.images : [tab.images],
+            facts: Array.isArray(tab.facts) ? tab.facts : [tab.facts],
+          }))}
           onButtonClick={handleButtonClick}
         />
       )}
@@ -70,12 +85,29 @@ function PaymentSelector({ amount: initialAmount }) {
   const [success, setSuccess] = useState(false);
   const [currency, setCurrency] = useState('CRC');
   const [amount, setAmount] = useState(initialAmount);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   // Tasa de conversión más precisa
   const EXCHANGE_RATE = 520; // 1 USD = 520 CRC
 
-  const handleSuccess = (details) => {
-    setSuccess(true);
+  const handleDonation = async (paymentDetails = {}) => {
+    setLoading(true);
+    setError(null);
+    try {
+      await createDonation({
+        amount,
+        currency,
+        payment_method: method === 'card' ? 'CARD' : method === 'paypal' ? 'PAYPAL' : 'CASH',
+        status: 'SUCCESS',
+        transaction_id: paymentDetails.transaction_id || '',
+      });
+      setSuccess(true);
+    } catch (err) {
+      setError('No se pudo registrar la donación. Intenta de nuevo.');
+    } finally {
+      setLoading(false);
+    }
   };
 
   const handleCurrencyChange = (newCurrency) => {
@@ -89,6 +121,10 @@ function PaymentSelector({ amount: initialAmount }) {
 
   const handleSuggestedAmount = (suggestedAmount) => {
     setAmount(suggestedAmount);
+  };
+
+  const handleSuccess = (details) => {
+    handleDonation(details);
   };
 
   if (success) {
@@ -234,9 +270,11 @@ function PaymentSelector({ amount: initialAmount }) {
 
       {/* Componente de pago seleccionado */}
       <div className="bg-white rounded-lg border-2 border-gray-200 p-3">
+        {error && <div className="text-red-600 text-sm mb-2">{error}</div>}
         {method === 'paypal' && <PaypalPayment amount={amount} onPaymentSuccess={handleSuccess} />}
         {method === 'card' && <CardPayment amount={amount} onPaymentSuccess={handleSuccess} />}
         {method === 'cash' && <CashPayment amount={amount} onPaymentSuccess={handleSuccess} />}
+        {loading && <div className="text-center text-gray-500 mt-2">Registrando donación...</div>}
       </div>
     </div>
   );

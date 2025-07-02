@@ -74,8 +74,6 @@ function TopBarRedes() {
           <Link to="/register" className="hover:underline">Registrarse</Link>
           <span>|</span>
           <Link to="/login" className="hover:underline">Iniciar Sesión</Link>
-          <span>|</span>
-          <Link to="/apoyo/donaciones" className="hover:underline">Donar</Link>
         </div>
       </div>
     </>

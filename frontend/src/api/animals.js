@@ -5,7 +5,7 @@ export const getAnimals = async () => {
     const response = await axiosInstance.get("/api/animals/");
     return response.data;
   } catch (error) {
-    console.error("Error fetching animals:", error);
+    console.error("Error al obtener animals:", error);
     throw error;
   }
 };
@@ -15,7 +15,7 @@ export const getAnimalById = async (id) => {
     const response = await axiosInstance.get(`/api/animals/${id}/`);
     return response.data;
   } catch (error) {
-    console.error(`Error fetching animal with ID ${id}:`, error);
+    console.error(`Error al obtener animal con ID ${id}:`, error);
     throw error;
   }
 };
@@ -28,7 +28,7 @@ export const createAnimal = async (animalData) => {
     );
     return response.data;
   } catch (error) {
-    console.error("Error creating animal:", error);
+    console.error("Error creando animal:", error);
     throw error;
   }
 };
@@ -36,21 +36,21 @@ export const createAnimal = async (animalData) => {
 export const updateAnimal = async (id, animalData) => {
   try {
     const response = await axiosInstance.put(
-      `/api/animals/${id}/edit/`,
+      `/api/animals/${id}/update/`,
       animalData
     );
     return response.data;
   } catch (error) {
-    console.error(`Error updating animal with ID ${id}:`, error);
+    console.error(`Error actualizando animal con ID ${id}:`, error);
     throw error;
   }
 };
 
 export const deleteAnimal = async (id) => {
   try {
-    await axiosInstance.delete(`/api/animals/${id}/delete`);
+    await axiosInstance.delete(`/api/animals/${id}/delete/`);
   } catch (error) {
-    console.error(`Error deleting animal with ID ${id}:`, error);
+    console.error(`Error eliminando animal con ID ${id}:`, error);
     throw error;
   }
 };

@@ -30,6 +30,7 @@ import DashboardSidebar from "./dashboard/DashboardSidebar";
 import DashboardForm from "./dashboard/DashboardForm";
 import "./dashboard/dashboard.css";
 
+
 const { Content } = Layout;
 
 /* ----------------------- MAP DELETE ----------------------- */
@@ -44,6 +45,9 @@ const deleteMap = {
   conservationStatus: api.deleteConservationStatus,
   province: api.deleteProvince,
   userProfile: api.deleteUserProfile,
+
+  exhibits: api.deleteExhibit,
+  exhibitsImgs: api.deleteImageExhibit,
 };
 
 /* ----------------------- MAP UPDATE ----------------------- */
@@ -58,6 +62,8 @@ const updateMap = {
   conservationStatus: api.updateConservationStatus,
   province: api.updateProvince,
   userProfile: api.updateUserProfile,
+
+  exhibits: api.updateExhibit,
 };
 
 /* ----------------------- MAP CREATE ----------------------- */
@@ -72,6 +78,8 @@ const createMap = {
   conservationStatus: api.createConservationStatus,
   province: api.createProvince,
   userProfile: api.createUserProfile,
+
+  exhibits: api.createExhibit,
 };
 
 const typeMap = {
@@ -86,6 +94,7 @@ const typeMap = {
   provinces: "province",
   "user-profiles": "userProfile",
   "audit-log": "auditLog",
+  exhibits: "exhibit",
 };
 
 export default function DashboardAdmin() {
@@ -115,6 +124,7 @@ export default function DashboardAdmin() {
           provinces,
           userProfiles,
           auditLog,
+          exhibits,
         ] = await Promise.all([
           api.getSections(),
           api.getHabitats(),
@@ -127,6 +137,7 @@ export default function DashboardAdmin() {
           api.getProvinces(),
           api.getUsersProfiles(),
           api.getAuditLog(),
+          api.getExhibits(),
         ]);
 
         setData({
@@ -141,6 +152,7 @@ export default function DashboardAdmin() {
           provinces,
           "user-profiles": userProfiles,
           "audit-log": auditLog,
+          exhibits,
         });
       } catch (e) {
         toast.error(`Error al cargar datos: ${e?.message || e}`);

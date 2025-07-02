@@ -5,6 +5,7 @@ import {
   Cross1Icon,
   ChevronDownIcon
 } from "@radix-ui/react-icons";
+import { BiDonateHeart } from 'react-icons/bi'
 import {
   Ticket,
   User,
@@ -56,7 +57,7 @@ const ticketLink = {
 };
 const DonarLink = {
   name: "Donar",
-  href: "",
+  href: "/apoyo/donaciones",
 };
 
 
@@ -168,7 +169,7 @@ export default function Navbar() {
             to={DonarLink.href}
             className="bg-[#26b7ad] hover:bg-[#239e99] transition text-white font-semibold text-sm px-5 py-2.5 rounded-2xl shadow-[0_2px_8px_rgba(38,183,173,0.10)] hover:shadow-[0_8px_32px_0_rgba(38,183,173,0.18)] flex items-center gap-2 focus:ring-2 focus:ring-[#26b7ad] focus:ring-offset-2 focus:outline-none"
           >
-            <Ticket className="w-4 h-4" />
+            <BiDonateHeart className="w-4 h-4" />
             {DonarLink.name}
           </Link>
           <Link

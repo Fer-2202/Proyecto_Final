@@ -5,7 +5,7 @@ export const getPayments = async () => {
     const response = await axiosInstance.get("/api/payments/");
     return response.data;
   } catch (error) {
-    console.error("Error fetching payments:", error);
+    console.error("Error obtener payments:", error);
     throw error;
   }
 };
@@ -15,7 +15,7 @@ export const createPayment = async (paymentData) => {
     const response = await axiosInstance.post("/api/payments/", paymentData);
     return response.data;
   } catch (error) {
-    console.error("Error creating payment:", error);
+    console.error("Error crear payment:", error);
     throw error;
   }
 };
@@ -28,7 +28,7 @@ export const updatePayment = async (paymentId, paymentData) => {
     );
     return response.data;
   } catch (error) {
-    console.error("Error updating payment:", error);
+    console.error("Error actualizar payment:", error);
     throw error;
   }
 };
@@ -40,7 +40,7 @@ export const deletePayment = async (paymentId) => {
     );
     return response.data;
   } catch (error) {
-    console.error("Error deleting payment:", error);
+    console.error("Error eliminar payment:", error);
     throw error;
   }
 };
@@ -50,7 +50,7 @@ export const getPaymentById = async (paymentId) => {
     const response = await axiosInstance.get(`/payments/${paymentId}`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching payment by ID:", error);
+    console.error("Error obtener payment por ID:", error);
     throw error;
   }
 };
@@ -60,7 +60,7 @@ export const getPaymentMethods = async () => {
     const response = await axiosInstance.get("/api/payments/methods/");
     return response.data;
   } catch (error) {
-    console.error("Error fetching payment methods:", error);
+    console.error("Error obtener payment methods:", error);
     throw error;
   }
 };

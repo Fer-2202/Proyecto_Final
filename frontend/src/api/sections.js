@@ -23,7 +23,7 @@ export const getSectionById = async (id) => {
 export const createSection = async (sectionData) => {
   try {
     const response = await axiosInstance.post(
-      "/api/sections/crear/",
+      "/api/sections/create/",
       sectionData
     );
     return response.data;
@@ -36,7 +36,7 @@ export const createSection = async (sectionData) => {
 export const updateSection = async (id, sectionData) => {
   try {
     const response = await axiosInstance.put(
-      `/api/sections/${id}/actualizar-editar/`,
+      `/api/sections/${id}/update/`,
       sectionData
     );
     return response.data;
@@ -48,7 +48,7 @@ export const updateSection = async (id, sectionData) => {
 
 export const deleteSection = async (id) => {
   try {
-    await axiosInstance.delete(`/api/sections/${id}/`);
+    await axiosInstance.delete(`/api/sections/${id}/delete/`);
   } catch (error) {
     console.error(`Error deleting section with ID ${id}:`, error);
     throw error;
