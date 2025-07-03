@@ -29,6 +29,16 @@ import DashboardModal from "./dashboard/DashboardModal";
 import DashboardSidebar from "./dashboard/DashboardSidebar";
 import DashboardForm from "./dashboard/DashboardForm";
 import "./dashboard/dashboard.css";
+import ticketFormConfig from "./ui/forms/TicketFormConfig";
+import animalFormConfig from "./ui/forms/AnimalFormConfig";
+import habitatFormConfig from "./ui/forms/HabitatFormConfig";
+import sectionFormConfig from "./ui/forms/SectionFormConfig";
+import speciesFormConfig from "./ui/forms/SpeciesFormConfig";
+import conservationStatusFormConfig from "./ui/forms/ConservationStatusFormConfig";
+import visitFormConfig from "./ui/forms/VisitFormConfig";
+import orderFormConfig from "./ui/forms/OrderFormConfig";
+import provinceFormConfig from "./ui/forms/ProvinceFormConfig";
+import userProfileFormConfig from "./ui/forms/UserProfileFormConfig";
 
 
 const { Content } = Layout;
@@ -97,6 +107,100 @@ const typeMap = {
   exhibits: "exhibit",
 };
 
+// Mapeo de config y Yup por tab
+const formConfigMap = {
+  tickets: { config: ticketFormConfig, schema: YupTicketSchema },
+  animals: { config: animalFormConfig, schema: YupAnimalSchema },
+  habitats: { config: habitatFormConfig, schema: YupHabitatSchema },
+  sections: { config: sectionFormConfig, schema: YupSectionSchema },
+  species: { config: speciesFormConfig, schema: YupSpeciesSchema },
+  "conservation-status": { config: conservationStatusFormConfig, schema: YupConservationStatusSchema },
+  visits: { config: visitFormConfig, schema: YupVisitSchema },
+  orders: { config: orderFormConfig, schema: YupOrderSchema },
+  provinces: { config: provinceFormConfig, schema: YupProvinceSchema },
+  "user-profiles": { config: userProfileFormConfig, schema: YupUserProfileSchema },
+};
+
+// --- Normaliza los valores iniciales para selects de FK ---
+function normalizeInitialValues(item, activeTab) {
+  // Configuración local para los campos de cada tab
+  const FORM_CONFIGS = {
+    tickets: [
+      { name: "name", type: "input" },
+      { name: "description", type: "textarea" },
+      { name: "price", type: "number" },
+      { name: "total_slots", type: "number" },
+      { name: "currency", type: "select" },
+    ],
+    sections: [
+      { name: "name", type: "input" },
+    ],
+    habitats: [
+      { name: "name", type: "input" },
+      { name: "nums_animals", type: "number" },
+      { name: "description", type: "textarea" },
+      { name: "section", type: "select" },
+    ],
+    animals: [
+      { name: "name", type: "input" },
+      { name: "age", type: "number" },
+      { name: "species", type: "select" },
+      { name: "conservation_status", type: "select" },
+      { name: "habitat", type: "select" },
+    ],
+    visits: [
+      { name: "day", type: "date" },
+      { name: "total_slots", type: "number" },
+    ],
+    orders: [
+      { name: "email", type: "input" },
+      { name: "status", type: "select" },
+      { name: "visit", type: "select" },
+      { name: "user", type: "select" },
+    ],
+    species: [
+      { name: "name", type: "input" },
+      { name: "scientific_name", type: "input" },
+      { name: "description", type: "textarea" },
+      { name: "img", type: "file" },
+    ],
+    "conservation-status": [
+      { name: "name", type: "select" },
+    ],
+    provinces: [
+      { name: "name", type: "input" },
+    ],
+    "user-profiles": [
+      { name: "user", type: "select" },
+      { name: "province", type: "select" },
+      { name: "phone", type: "input" },
+      { name: "address", type: "input" },
+      { name: "birth_date", type: "date" },
+      { name: "profile_picture", type: "file" },
+      { name: "bio", type: "textarea" },
+    ],
+    exhibits: [
+      { name: "value", type: "input" },
+      { name: "label", type: "input" },
+      { name: "title", type: "input" },
+    ],
+  };
+  const config = FORM_CONFIGS[activeTab] || [];
+  const normalized = { ...item };
+  config.forEach(field => {
+    if (field.type === "select" && item[field.name]) {
+      if (typeof item[field.name] === "object" && item[field.name] !== null && "id" in item[field.name]) {
+        normalized[field.name] = item[field.name].id;
+      }
+      // Si el backend devuelve string pero el select espera número
+      else if (typeof item[field.name] === "string" && !isNaN(Number(item[field.name]))) {
+        normalized[field.name] = Number(item[field.name]);
+      }
+    }
+  });
+  return normalized;
+}
+
 export default function DashboardAdmin() {
   const { logout, user } = useAuth();
   const { roleNames } = useUserRoles();
@@ -107,7 +211,7 @@ export default function DashboardAdmin() {
   const [searchTerm, setSearchTerm] = useState("");
   const [formVisible, setFormVisible] = useState(false);
   const [editItem, setEditItem] = useState(null);
-  const [form] = Form.useForm();
+  const [formValues, setFormValues] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
@@ -167,7 +271,7 @@ export default function DashboardAdmin() {
   const showModal = (item = {}, tabKey = activeTab) => {
     setEditItem({ item, tabKey });
     setFormVisible(true);
-    form.setFieldsValue(item);
+    setFormValues(normalizeInitialValues(item, tabKey));
   };
 
   const handleDelete = async (tabKey, id) => {
@@ -211,8 +315,8 @@ export default function DashboardAdmin() {
 
   const handleSubmit = async () => {
     try {
-      const values = await form.validateFields();
-
+      const values = formValues;
+      console.log("Valores enviados:", values);
       // Select schema based on active tab
       let schema;
       const { item, tabKey } = editItem;
@@ -250,44 +354,35 @@ export default function DashboardAdmin() {
         default:
           schema = null;
       }
-
       if (schema) {
         try {
           await schema.validate(values, { abortEarly: false });
         } catch (yupError) {
           console.error("Yup validation error:", yupError);
-          yupError.inner.forEach((error) => {
-            form.setFields([{ name: error.path, errors: [error.message] }]);
-          });
+          // Aquí puedes mostrar los errores en el UI si lo deseas
           return;
         }
       }
-
-      const hasFile = Object.values(values).some((v) => v?.file);
+      const hasFile = Object.values(values).some((v) => v instanceof File);
       const formData = new FormData();
       const plain = {};
-
       for (const [k, v] of Object.entries(values)) {
-        if (v?.file) {
-          formData.append(k, v.file.originFileObj);
+        if (v instanceof File) {
+          formData.append(k, v);
         } else {
           plain[k] = v;
         }
       }
-
       const type = typeMap[tabKey];
       let apiCall;
       let payload = hasFile ? formData : plain;
-
       if (item?.id) {
         apiCall = updateMap[type](item.id, payload);
       } else {
         apiCall = createMap[type](payload);
       }
-
       try {
         const result = await apiCall;
-
         setData((prev) => {
           let updatedData;
           if (item?.id) {
@@ -305,12 +400,10 @@ export default function DashboardAdmin() {
           }
           return updatedData;
         });
-
         toast.success("Guardado");
         setFormVisible(false);
         setEditItem(null);
-        form.resetFields();
-
+        setFormValues({});
         // Create audit log entry for create/update
         try {
           await api.createAuditLog({
@@ -413,6 +506,11 @@ export default function DashboardAdmin() {
     return titles[tabKey] || tabKey;
   };
 
+  // handleCreate y handleEdit abren el modal
+  const handleCreate = () => showModal({}, activeTab);
+  const handleEdit = (item) => showModal(item, activeTab);
+  const handleView = (item) => showModal(item, activeTab);
+
   if (loading) return <Loading text="Cargando datos..." />;
 
   return (
@@ -435,7 +533,7 @@ export default function DashboardAdmin() {
             <AdminHeader
               searchTerm={searchTerm}
               setSearchTerm={setSearchTerm}
-              showModal={() => showModal()}
+              onCreate={handleCreate}
               user={user}
             />
           </header>
@@ -463,22 +561,21 @@ export default function DashboardAdmin() {
                 columns={columns}
                 data={filteredRows}
                 loading={loading}
-                onEdit={(row) => showModal(row)}
+                onEdit={handleEdit}
                 onDelete={(row) => handleDelete(activeTab, row.id)}
-                onView={(row) => showModal(row)}
+                onView={handleView}
               />
             </motion.div>
           </Content>
         </div>
       </div>
-
-      {/* Modal avanzado */}
+      {/* Modal avanzado restaurado */}
       <DashboardModal
         open={formVisible}
         onClose={() => {
           setFormVisible(false);
           setEditItem(null);
-          form.resetFields();
+          setFormValues({});
         }}
         title={
           editItem?.item?.id
@@ -490,7 +587,8 @@ export default function DashboardAdmin() {
       >
         <DashboardForm
           activeTab={activeTab}
-          form={form}
+          formValues={formValues}
+          setFormValues={setFormValues}
           initialValues={editItem?.item || {}}
         />
       </DashboardModal>

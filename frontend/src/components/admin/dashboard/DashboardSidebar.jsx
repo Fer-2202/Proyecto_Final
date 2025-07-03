@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Link } from "react-router-dom";
-import { Button, Drawer, Menu, Tooltip } from "antd";
 import {
   LayoutDashboard,
   Users,
@@ -16,287 +15,177 @@ import {
   Landmark,
   Logs,
   Home,
+  Menu as MenuIcon,
+  X as CloseIcon,
 } from "lucide-react";
 
-// Fix: Ensure nested menu items are rendered correctly in Ant Design Menu
 const NAV_SECTIONS = [
   {
     title: "Gestión Principal",
     items: [
-      {
-        name: "Entradas",
-        key: "tickets",
-        icon: <Ticket size={18} />,
-        desc: "Gestionar venta de entradas",
-      },
-      {
-        name: "Secciones",
-        key: "sections",
-        icon: <LayoutDashboard size={18} />,
-        desc: "Administrar secciones del parque",
-      },
-      {
-        name: "Hábitats",
-        key: "habitats",
-        icon: <Globe size={18} />,
-        desc: "Gestionar hábitats naturales",
-      },
-      {
-        name: "Animales",
-        key: "animals",
-        icon: <Fish size={18} />,
-        desc: "Catálogo de animales",
-      },
+      { name: "Entradas", key: "tickets", icon: <Ticket size={18} />, desc: "Gestionar venta de entradas" },
+      { name: "Secciones", key: "sections", icon: <LayoutDashboard size={18} />, desc: "Administrar secciones del parque" },
+      { name: "Hábitats", key: "habitats", icon: <Globe size={18} />, desc: "Gestionar hábitats naturales" },
+      { name: "Animales", key: "animals", icon: <Fish size={18} />, desc: "Catálogo de animales" },
     ],
   },
   {
     title: "Gestión Secundaria",
     items: [
-      {
-        name: "Visitas",
-        key: "visits",
-        icon: <Calendar size={18} />,
-        desc: "Registro de visitas",
-      },
-      {
-        name: "Órdenes",
-        key: "orders",
-        icon: <ShoppingCart size={18} />,
-        desc: "Órdenes de compra",
-      },
-      {
-        name: "Especies",
-        key: "species",
-        icon: <Star size={18} />,
-        desc: "Catálogo de especies",
-      },
-      {
-        name: "Estado de conservación",
-        key: "conservation-status",
-        icon: <Settings size={18} />,
-        desc: "Estados de conservación",
-      },
-      {
-        name: "Provincias",
-        key: "provinces",
-        icon: <Landmark size={18} />,
-        desc: "Gestión de provincias",
-      },
+      { name: "Visitas", key: "visits", icon: <Calendar size={18} />, desc: "Registro de visitas" },
+      { name: "Órdenes", key: "orders", icon: <ShoppingCart size={18} />, desc: "Órdenes de compra" },
+      { name: "Especies", key: "species", icon: <Star size={18} />, desc: "Catálogo de especies" },
+      { name: "Estado de conservación", key: "conservation-status", icon: <Settings size={18} />, desc: "Estados de conservación" },
+      { name: "Provincias", key: "provinces", icon: <Landmark size={18} />, desc: "Gestión de provincias" },
       {
         name: "Gestor de Exhibiciones",
         key: "crud-exhibit",
         icon: <Landmark size={18} />,
         desc: "Gestión de exhibiciones",
         children: [
-          {
-            name: "Exhibiciones",
-            key: "exhibits",
-            icon: <Landmark size={18} />,
-            desc: "Estados de conservación",
-          }
-        ]
-      }
+          { name: "Exhibiciones", key: "exhibits", icon: <Landmark size={18} />, desc: "Estados de conservación" },
+        ],
+      },
     ],
   },
   {
     title: "Administración",
     items: [
-      {
-        name: "Perfiles de usuario",
-        key: "user-profiles",
-        icon: <Users size={18} />,
-        desc: "Gestión de usuarios",
-      },
-      {
-        name: "Log de Auditoría",
-        key: "audit-log",
-        icon: <Logs size={18} />,
-        desc: "Registro de actividades",
-      },
+      { name: "Perfiles de usuario", key: "user-profiles", icon: <Users size={18} />, desc: "Gestión de usuarios" },
+      { name: "Log de Auditoría", key: "audit-log", icon: <Logs size={18} />, desc: "Registro de actividades" },
     ],
   },
 ];
 
-// Helper to recursively build menu items, including nested children
-function buildMenuItems(items, activeTab) {
-  return items.map((item) => {
-    if (item.children && Array.isArray(item.children)) {
-      return {
-        key: item.key,
-        icon: (
-          <Tooltip title={item.desc} placement="right" mouseEnterDelay={0.3}>
-            <span className={activeTab === item.key ? "text-blue-600" : "text-gray-400"}>
-              {item.icon}
-            </span>
-          </Tooltip>
-        ),
-        label: <span className="truncate">{item.name}</span>,
-        className:
-          activeTab === item.key
-            ? "bg-blue-50 text-blue-700 font-semibold border-l-4 border-blue-500 pl-2"
-            : "text-gray-700 hover:bg-gray-100 hover:text-blue-600 border-l-4 border-transparent pl-2",
-        children: buildMenuItems(item.children, activeTab),
-      };
-    }
-    return {
-      key: item.key,
-      icon: (
-        <Tooltip title={item.desc} placement="right" mouseEnterDelay={0.3}>
-          <span className={activeTab === item.key ? "text-blue-600" : "text-gray-400"}>
-            {item.icon}
-          </span>
-        </Tooltip>
-      ),
-      label: <span className="truncate">{item.name}</span>,
-      className:
-        activeTab === item.key
-          ? "bg-blue-50 text-blue-700 font-semibold border-l-4 border-blue-500 pl-2"
-          : "text-gray-700 hover:bg-gray-100 hover:text-blue-600 border-l-4 border-transparent pl-2",
-    };
-  });
+function SidebarMenu({ items, activeTab, setActiveTab, level = 0 }) {
+  return (
+    <ul className={level === 0 ? "space-y-2" : "space-y-1 ml-4 border-l border-gray-100 pl-2"}>
+      {items.map((item) => (
+        <li key={item.key}>
+          <button
+            className={`flex items-center w-full gap-3 px-3 py-2 rounded-lg transition font-medium text-left group
+              ${activeTab === item.key
+                ? "bg-gradient-to-r from-blue-100 to-cyan-100 text-blue-700 shadow"
+                : "text-gray-700 hover:bg-cyan-50 hover:text-blue-600"}
+            `}
+            title={item.desc}
+            onClick={() => setActiveTab(item.key)}
+          >
+            <span>{item.icon}</span>
+            <span className="truncate flex-1">{item.name}</span>
+            {item.children && (
+              <span className="ml-2 text-xs text-gray-400">▼</span>
+            )}
+          </button>
+          {item.children && (
+            <SidebarMenu
+              items={item.children}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              level={level + 1}
+            />
+          )}
+        </li>
+      ))}
+    </ul>
+  );
 }
 
-function DashboardSidebar({
-  activeTab,
-  setActiveTab,
-  logout,
-  user,
-  roleNames = [],
-}) {
+function DashboardSidebar({ activeTab, setActiveTab, logout, user, roleNames = [] }) {
   const [isMobile, setIsMobile] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth < 768);
-    };
+    const handleResize = () => setIsMobile(window.innerWidth < 768);
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
 
-  const handleSelect = ({ key }) => {
-    setActiveTab(key);
-    if (isMobile) setIsMobileOpen(false);
-  };
-
-  // Detectar si el usuario es admin para el borde del avatar
-  const isAdmin = roleNames.some((r) => r.toLowerCase().includes("admin"));
-
-  // Fix: Use recursive buildMenuItems to support nested menu items
-  const menuItems = NAV_SECTIONS.map((section) => ({
-    type: "group",
-    label: (
-      <span className="text-xs text-gray-400 font-semibold uppercase tracking-wide">
-        {section.title}
-      </span>
-    ),
-    key: section.title,
-    children: buildMenuItems(section.items, activeTab),
-  }));
-
   // Footer para el sidebar
   const sidebarFooter = (
     <div className="px-6 py-5 border-t border-gray-100 bg-white flex flex-col gap-2">
-      <Link
-        to="/"
-        className="flex items-center gap-2 px-3 py-2 rounded-lg text-gray-600 hover:bg-blue-50 hover:text-blue-700 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-blue-400"
-      >
-        <Home size={17} />
-        <span className="text-sm font-medium">Ver sitio</span>
-      </Link>
+      <div className="flex items-center gap-3">
+        <span className="inline-block w-10 h-10 rounded-full bg-gradient-to-br from-blue-500 to-purple-600 text-white flex items-center justify-center font-bold text-lg">
+          {user?.first_name?.charAt(0) || user?.username?.charAt(0) || "A"}
+        </span>
+        <div>
+          <div className="font-semibold text-gray-900">{user?.first_name} {user?.last_name}</div>
+          <div className="text-xs text-gray-500">{user?.email}</div>
+          <div className="flex gap-1 mt-1">
+            {roleNames.slice(0, 2).map((role, idx) => (
+              <span key={idx} className="px-1.5 py-0.5 bg-blue-100 text-blue-700 text-xs rounded-full">{role}</span>
+            ))}
+            {roleNames.length > 2 && (
+              <span className="px-1.5 py-0.5 bg-gray-100 text-gray-600 text-xs rounded-full">+{roleNames.length - 2}</span>
+            )}
+          </div>
+        </div>
+      </div>
       <button
+        className="mt-4 flex items-center gap-2 px-3 py-2 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 font-semibold transition"
         onClick={logout}
-        className="w-full flex items-center gap-2 px-3 py-2 rounded-lg text-gray-500 hover:bg-red-50 hover:text-red-600 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-red-400"
       >
-        <LogOut size={17} />
-        <span className="text-sm font-medium">Cerrar sesión</span>
+        <LogOut size={16} /> Cerrar sesión
       </button>
     </div>
   );
 
-  // Header de usuario
-  const sidebarHeader = (
-    <div className="px-6 pt-8 pb-5 border-b border-gray-100">
-      <div className="flex items-center gap-4 mb-2">
-        <div
-          className={`w-12 h-12 rounded-full flex items-center justify-center text-gray-500 text-xl font-bold bg-gray-100 transition-all duration-200 ${isAdmin ? "ring-2 ring-blue-500" : ""}`}
-          tabIndex={0}
-          aria-label="Avatar usuario"
-        >
-          {user?.first_name?.charAt(0) || user?.username?.charAt(0) || "A"}
-        </div>
-        <div className="flex-1 min-w-0">
-          <div className="font-bold text-gray-900 truncate text-base">
-            {user?.first_name} {user?.last_name}
-          </div>
-          <div className="text-xs text-gray-400 truncate">{user?.email}</div>
-          <div className="flex gap-1 mt-2 flex-wrap">
-            {roleNames.map((role, idx) => (
-              <span
-                key={idx}
-                className={`px-2 py-0.5 rounded-full text-xs font-medium ${role.toLowerCase().includes("admin") ? "bg-blue-100 text-blue-700 border border-blue-200" : "bg-gray-100 text-gray-600 border border-gray-200"}`}
-              >
-                {role}
-              </span>
-            ))}
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-
+  // Sidebar principal
   const sidebarContent = (
-    <aside className="admin-sidebar-minimal w-full h-full flex flex-col bg-white border-r border-gray-200">
-      {sidebarHeader}
-      <nav className="flex-1 overflow-y-auto px-2 py-6">
-        <Menu
-          mode="inline"
-          selectedKeys={[activeTab]}
-          onClick={handleSelect}
-          items={menuItems}
-          className="admin-sidebar-menu bg-transparent border-0"
-        />
-      </nav>
+    <nav className="flex flex-col h-full">
+      <div className="flex-1 overflow-y-auto px-4 py-6">
+        {NAV_SECTIONS.map((section) => (
+          <div key={section.title} className="mb-6">
+            <div className="text-xs text-gray-400 font-semibold uppercase tracking-wide mb-2 px-2">
+              {section.title}
+            </div>
+            <SidebarMenu
+              items={section.items}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+            />
+          </div>
+        ))}
+      </div>
       {sidebarFooter}
-    </aside>
+    </nav>
   );
 
-  return (
-    <>
-      {isMobile && (
-        <Button
-          icon={<LayoutDashboard size={18} />}
+  // Mobile drawer
+  if (isMobile) {
+    return (
+      <>
+        <button
+          className="fixed top-4 left-4 z-50 p-2 rounded-full bg-white shadow-lg border border-gray-200 text-blue-600 md:hidden"
           onClick={() => setIsMobileOpen(true)}
-          className="m-2 bg-blue-600 hover:bg-blue-700 border-0"
-          type="primary"
-        />
-      )}
-      {!isMobile && (
-        <div className="w-[270px] min-h-screen shadow-sm">{sidebarContent}</div>
-      )}
-      {isMobile && (
-        <Drawer
-          placement="left"
-          closable={false}
-          onClose={() => setIsMobileOpen(false)}
-          open={isMobileOpen}
-          bodyStyle={{ padding: 0, background: "white" }}
-          width={270}
-          className="admin-drawer"
-          maskStyle={{ background: "rgba(0,0,0,0.3)" }}
-          maskClosable={true}
-          destroyOnClose={false}
         >
-          <div
-            className="h-full"
-            onClick={(e) => e.stopPropagation()}
-          >
-            {sidebarContent}
+          <MenuIcon size={24} />
+        </button>
+        {isMobileOpen && (
+          <div className="fixed inset-0 z-40 bg-black/30" onClick={() => setIsMobileOpen(false)} />
+        )}
+        <aside
+          className={`fixed top-0 left-0 z-50 h-full w-72 bg-white shadow-2xl transform transition-transform duration-300 md:hidden
+            ${isMobileOpen ? "translate-x-0" : "-translate-x-full"}`}
+        >
+          <div className="flex items-center justify-between px-6 py-4 border-b border-gray-100">
+            <span className="font-bold text-lg text-blue-700">Menú</span>
+            <button onClick={() => setIsMobileOpen(false)} className="p-2 rounded-full hover:bg-gray-100">
+              <CloseIcon size={20} />
+            </button>
           </div>
-        </Drawer>
-      )}
-    </>
+          {sidebarContent}
+        </aside>
+      </>
+    );
+  }
+
+  // Desktop sidebar
+  return (
+    <aside className="w-72 min-h-screen bg-white border-r border-gray-100 shadow-lg hidden md:flex flex-col">
+      {sidebarContent}
+    </aside>
   );
 }
 
@@ -304,7 +193,7 @@ DashboardSidebar.propTypes = {
   activeTab: PropTypes.string.isRequired,
   setActiveTab: PropTypes.func.isRequired,
   logout: PropTypes.func.isRequired,
-  user: PropTypes.object.isRequired,
+  user: PropTypes.object,
   roleNames: PropTypes.array,
 };
 

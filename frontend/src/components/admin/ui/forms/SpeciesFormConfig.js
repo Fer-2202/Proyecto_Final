@@ -1,8 +1,8 @@
 const speciesFormConfig = [
   { name: "name", label: "Nombre", type: "text", required: true },
-  { name: "scientificName", label: "Nombre Científico", type: "text", required: true },
-  { name: "conservationStatusId", label: "Estado de Conservación ID", type: "number", required: true },
-  { name: "description", label: "Descripción", type: "text", required: false },
+  { name: "description", label: "Descripción", type: "textarea", required: false },
+  { name: "img", label: "Imagen", type: "file", required: false },
+  { name: "scientific_name", label: "Nombre científico", type: "text", required: false },
 ];
 
 export default speciesFormConfig;

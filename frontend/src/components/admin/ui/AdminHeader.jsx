@@ -3,7 +3,7 @@ import { Search, Plus, Bell, Settings, User, LogOut } from "lucide-react";
 import { motion } from "framer-motion";
 import { useUserRoles } from "@hooks/useUserRoles";
 
-function AdminHeader({ searchTerm, setSearchTerm, showModal, user }) {
+function AdminHeader({ searchTerm, setSearchTerm, onCreate, user }) {
   const { roleNames } = useUserRoles();
 
   const userMenuItems = [
@@ -99,7 +99,7 @@ function AdminHeader({ searchTerm, setSearchTerm, showModal, user }) {
             <Button
               type="primary"
               icon={<Plus size={16} />}
-              onClick={() => showModal()}
+              onClick={onCreate}
               className="bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700 border-0 shadow-lg"
               size="large"
             >

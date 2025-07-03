@@ -1,7 +1,13 @@
 const orderFormConfig = [
-  { name: "date", label: "Fecha", type: "date", required: true },
-  { name: "total", label: "Total", type: "number", required: true },
-  { name: "userProfileId", label: "Perfil de Usuario ID", type: "number", required: true },
+  { name: "email", label: "Email", type: "text", required: true },
+  { name: "status", label: "Estado", type: "select", required: true, options: [
+    { value: "PENDING", label: "Pendiente" },
+    { value: "PAID", label: "Pagado" },
+    { value: "CANCELLED", label: "Cancelado" },
+    { value: "FAILED", label: "Fallido" },
+  ] },
+  { name: "visit", label: "Visita", type: "select", required: true, options: [] },
+  { name: "user", label: "Usuario", type: "select", required: true, options: [] },
 ];
 
 export default orderFormConfig;

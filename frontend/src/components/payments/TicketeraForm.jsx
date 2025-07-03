@@ -205,7 +205,10 @@ function TicketeraForm() {
     // Paso 1: Crear la orden de compra
     const orderData = {
       email: buyer.email,
-      visit: selectedVisitId
+      visit: selectedVisitId,
+      total_price: 0,
+      total_crc: 0,
+      total_usd: 0
     };
     try {
       const order = await createPurchaseOrder(orderData);

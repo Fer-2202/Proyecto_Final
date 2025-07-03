@@ -86,9 +86,9 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'parque_marino_test',
         'USER': 'root',
-        'PASSWORD': '1234',
+        'PASSWORD': 'admin',
         'HOST': 'localhost',
-        'PORT': '3306'
+        'PORT': '3305'
     }
 }
 

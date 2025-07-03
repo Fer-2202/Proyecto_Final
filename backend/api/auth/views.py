@@ -155,7 +155,7 @@ class CurrentUserProfileView(APIView):
 class GroupViewSet(viewsets.ModelViewSet):
     queryset = Group.objects.all()
     serializer_class = GroupSerializer
-    permission_classes = [IsAuthenticatedAndRole]
+    #permission_classes = [IsAuthenticatedAndRole]
     #required_role = 'admin'
 
 class GroupPermissionsViewSet(viewsets.ModelViewSet):

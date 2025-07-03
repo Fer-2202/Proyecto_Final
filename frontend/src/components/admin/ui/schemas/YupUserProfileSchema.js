@@ -1,21 +1,19 @@
 import * as Yup from 'yup';
 
 const YupUserProfileSchema = Yup.object().shape({
-  username: Yup.string()
-    .required('Username is required')
-    .min(2, 'Username must be at least 2 characters')
-    .max(50, 'Username cannot exceed 50 characters'),
-  firstName: Yup.string()
-    .required('First Name is required')
-    .min(2, 'First Name must be at least 2 characters')
-    .max(50, 'First Name cannot exceed 50 characters'),
-  lastName: Yup.string()
-    .required('Last Name is required')
-    .min(2, 'Last Name must be at least 2 characters')
-    .max(50, 'Last Name cannot exceed 50 characters'),
-  email: Yup.string()
-    .required('Email is required')
-    .email('Invalid email format'),
+  user: Yup.number()
+    .required('El usuario es requerido')
+    .integer('Debe ser un número entero')
+    .positive('Debe ser positivo'),
+  province: Yup.number()
+    .nullable(),
+  phone: Yup.string()
+    .max(20, 'El teléfono no puede tener más de 20 caracteres'),
+  address: Yup.string()
+    .max(255, 'La dirección no puede tener más de 255 caracteres'),
+  birth_date: Yup.date(),
+  profile_picture: Yup.mixed(),
+  bio: Yup.string(),
 });
 
 export default YupUserProfileSchema;

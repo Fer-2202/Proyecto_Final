@@ -1,7 +1,7 @@
 const ticketFormConfig = [
   {
     name: "name",
-    label: "Título",
+    label: "Nombre",
     type: "text",
     required: true,
   },
@@ -16,6 +16,22 @@ const ticketFormConfig = [
     label: "Precio",
     type: "number",
     required: true,
+  },
+  {
+    name: "total_slots",
+    label: "Cupos totales",
+    type: "number",
+    required: true,
+  },
+  {
+    name: "currency",
+    label: "Moneda",
+    type: "select",
+    required: true,
+    options: [
+      { value: "CRC", label: "Colones" },
+      { value: "USD", label: "Dólares" },
+    ],
   },
 ];
 

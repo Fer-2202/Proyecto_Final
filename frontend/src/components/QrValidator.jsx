@@ -14,8 +14,7 @@ export default function QrValidator() {
       setLoading(true);
       setResult(data);
       try {
-        // Suponiendo que el QR contiene el ID de la orden
-        // O un token único, ajusta la URL según tu backend
+        /* Simulacion falta el ID de o token generado por el backend del qr */
         const response = await axios.get(`${BACKEND_URL}/api/purchase_orders/validate_qr/?data=${encodeURIComponent(data)}`);
         setStatus(response.data.detail || '¡QR válido!');
       } catch (err) {

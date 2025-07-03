@@ -9,7 +9,7 @@ urlpatterns = [
     path('', SectionsViewSet.as_view({'get': 'list'}), name='sections-get'),
 
     # Ruta para crear
-    path('crear/', SectionsViewSet.as_view({ 'get': 'list', 'post': 'create' }), name='sections-create'),
+    path('create/', SectionsViewSet.as_view({ 'get': 'list', 'post': 'create' }), name='sections-create'),
 
     # Ruta para detalle
     path('<int:pk>/', SectionsViewSet.as_view({'get': 'list'}), name='sections-detail'),
