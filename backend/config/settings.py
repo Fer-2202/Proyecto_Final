@@ -58,7 +58,7 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
-ROOT_URLCONF = 'parque_marino.urls'
+ROOT_URLCONF = 'config.urls'
 
 TEMPLATES = [
     {
@@ -75,20 +75,29 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'parque_marino.wsgi.application'
+WSGI_APPLICATION = 'config.wsgi.application'
 
 
 # Database
 # https://docs.djangoproject.com/en/5.2/ref/settings/#databases
 
+# Para produccion usar MySQL
+#DATABASES = { 
+#    'default': {
+#        'ENGINE': 'django.db.backends.mysql',
+#        'NAME': 'parque_marino_db',
+#        'USER': 'root',
+#        'PASSWORD': '1234',
+#        'HOST': 'localhost',
+#        'PORT': '3306'
+#    }
+#}
+
+# Para desarrollo usar SQLite
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'parque_marino_test',
-        'USER': 'root',
-        'PASSWORD': 'admin',
-        'HOST': 'localhost',
-        'PORT': '3305'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'parque_marino_db.sqlite3',
     }
 }
 
@@ -128,6 +137,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
 STATIC_URL = 'static/'
+
+# Media files (img, pdf, excel, etc)
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
