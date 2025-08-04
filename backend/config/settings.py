@@ -91,8 +91,8 @@ WSGI_APPLICATION = "config.wsgi.application"
 # Para desarrollo usar SQLite
 DATABASES = {
     "default": {
-        "ENGINE": os.environ.get("DJANGO_DB_ENGINE"),
-        "NAME": os.environ.get("DJANGO_DB_NAME"),
+        "ENGINE": "django.db.backends.sqlite3",
+        "NAME": BASE_DIR / "db.sqlite3",
     }
 }
 
@@ -129,7 +129,42 @@ MEDIA_ROOT = os.path.join(BASE_DIR, "media")
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 # Configuración de CORS y hosts permitidos
-CORS_ALLOWED_ORIGINS = os.environ.get("DJANGO_CORS_ALLOWED_ORIGINS").split(",")
+# CORS_ALLOWED_ORIGINS: Lista de orígenes permitidos para solicitudes CORS
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:5173",  # Frontend en desarrollo (Vite)
+    "http://127.0.0.1:5173",  # Frontend en desarrollo (alternativo)
+]
+
+# CORS_ALLOW_CREDENTIALS: Permite el envío de credenciales (cookies, headers de auth)
+# IMPORTANTE: Debe ser True para que funcionen las solicitudes con autenticación
+CORS_ALLOW_CREDENTIALS = True
+
+# CORS_ALLOW_ALL_ORIGINS: En desarrollo puede ser útil, pero NO usar en producción
+# CORS_ALLOW_ALL_ORIGINS = True  # Solo para desarrollo
+
+# Headers adicionales permitidos en solicitudes CORS
+CORS_ALLOW_HEADERS = [
+    'accept',
+    'accept-encoding',
+    'authorization',
+    'content-type',
+    'dnt',
+    'origin',
+    'user-agent',
+    'x-csrftoken',
+    'x-requested-with',
+]
+
+# Métodos HTTP permitidos en solicitudes CORS
+CORS_ALLOW_METHODS = [
+    'DELETE',
+    'GET',
+    'OPTIONS',
+    'PATCH',
+    'POST',
+    'PUT',
+]
+
 ALLOWED_HOSTS = os.environ.get("DJANGO_ALLOWED_HOSTS").split(",")
 
 # Configuración de REST Framework

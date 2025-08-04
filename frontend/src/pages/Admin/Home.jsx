@@ -4,7 +4,7 @@ import DashboardAdmin from "@components/admin/DashboardAdmin";
 function Home() {
   return (
     <div>
-      <DashboardAdmin />
+      
     </div>
   );
 }

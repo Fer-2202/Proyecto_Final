@@ -1,25 +1,156 @@
+# Importaciones necesarias para los serializadores
 from .models import *
 from rest_framework import serializers
-from django.contrib.auth import get_user_model
+from django.contrib.auth import get_user_model, authenticate
 from django.contrib.auth.models import Group, Permission
 from .models import UserProfile, User
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 from api.provinces.serializers import Provinces
 
 
-# Role Serializer para mostrar información completa del rol
+# ==================
+# SERIALIZADOR DE LOGIN
+# ==================
+
+class LoginSerializer(serializers.Serializer):
+    """
+    Serializador para el proceso de autenticación/login.
+    
+    Características:
+    - Valida credenciales (username/email y password)
+    - Soporta login con username o email
+    - Proporciona mensajes de error específicos en español
+    - Incluye validación personalizada de credenciales
+    
+    Campos:
+    - username: Puede ser username o email del usuario
+    - password: Contraseña del usuario
+    
+    Uso:
+    serializer = LoginSerializer(data=request.data)
+    if serializer.is_valid():
+        user = serializer.validated_data['user']
+        # Proceder con el login
+    """
+    
+    # Campo que acepta tanto username como email
+    username = serializers.CharField(
+        max_length=150,
+        help_text="Nombre de usuario o email",
+        error_messages={
+            'required': 'El nombre de usuario o email es requerido.',
+            'blank': 'El nombre de usuario o email no puede estar vacío.',
+            'max_length': 'El nombre de usuario o email es demasiado largo.'
+        }
+    )
+    
+    # Campo de contraseña
+    password = serializers.CharField(
+        write_only=True,
+        style={'input_type': 'password'},
+        help_text="Contraseña del usuario",
+        error_messages={
+            'required': 'La contraseña es requerida.',
+            'blank': 'La contraseña no puede estar vacía.'
+        }
+    )
+    
+    def validate(self, attrs):
+        """
+        Validación personalizada para autenticar al usuario.
+        
+        Proceso:
+        1. Extrae username/email y password de los datos
+        2. Busca al usuario por username o email
+        3. Verifica la contraseña
+        4. Retorna el usuario autenticado o lanza error
+        
+        Args:
+            attrs (dict): Datos validados del serializador
+            
+        Returns:
+            dict: Datos validados incluyendo el usuario autenticado
+            
+        Raises:
+            ValidationError: Si las credenciales son inválidas
+        """
+        identifier = attrs.get('username')
+        password = attrs.get('password')
+        user = None
+        
+        if identifier and password:
+            # Intentar encontrar el usuario por username
+            try:
+                user = User.objects.get(username=identifier)
+            except User.DoesNotExist:
+                # Si no se encuentra por username, intentar por email
+                try:
+                    user = User.objects.get(email=identifier)
+                except User.DoesNotExist:
+                    # Último intento: buscar en UserProfile por email
+                    try:
+                        profile = UserProfile.objects.get(user__email=identifier)
+                        user = profile.user
+                    except UserProfile.DoesNotExist:
+                        user = None
+            
+            # Verificar si el usuario existe y la contraseña es correcta
+            if user and user.check_password(password):
+                # Verificar si el usuario está activo
+                if not user.is_active:
+                    raise serializers.ValidationError({
+                        'non_field_errors': ['Esta cuenta está desactivada.']
+                    })
+                
+                # Usuario autenticado exitosamente
+                attrs['user'] = user
+                return attrs
+            else:
+                # Credenciales inválidas
+                raise serializers.ValidationError({
+                    'non_field_errors': ['Credenciales inválidas. Verifica tu usuario/email y contraseña.']
+                })
+        else:
+            # Faltan campos requeridos
+            raise serializers.ValidationError({
+                'non_field_errors': ['Debe proporcionar usuario/email y contraseña.']
+            })
+    
+    def to_representation(self, instance):
+        """
+        Personaliza la representación de salida del serializador.
+        No incluye datos sensibles como la contraseña.
+        """
+        if hasattr(instance, 'user'):
+            user = instance['user']
+            return {
+                'user_id': user.id,
+                'username': user.username,
+                'email': user.email,
+                'first_name': user.first_name,
+                'last_name': user.last_name,
+                'is_staff': user.is_staff,
+                'is_superuser': user.is_superuser,
+                'groups': [group.name for group in user.groups.all()]
+            }
+        return super().to_representation(instance)
+
+
+# ==================
+# SERIALIZADORES DE ROLES Y USUARIOS
+# ==================
+
+# Serializador básico para roles/grupos
 class RoleSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = ['id', 'name']
 
 
-# UserProfile Serializer mejorado
+# Serializador principal para perfiles de usuario con datos extendidos
 class UserProfileSerializer(serializers.ModelSerializer):
     username = serializers.CharField(source='user.username', read_only=True)
     email = serializers.EmailField(source='user.email', read_only=True)
-    first_name = serializers.CharField(source='user.first_name', required=False)
-    last_name = serializers.CharField(source='user.last_name', required=False)
     phone = serializers.CharField(required=False, allow_blank=True)
     address = serializers.CharField(required=False, allow_blank=True)
     birth_date = serializers.DateField(required=False, allow_null=True)
@@ -31,7 +162,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserProfile
-        fields = ['username', 'email', 'first_name', 'last_name', 'phone', 'address', 'birth_date', 'profile_picture', 'bio', 'roles', 'user_roles', 'province', 'created_at', 'updated_at']
+        fields = ['username', 'email', 'phone', 'address', 'birth_date', 'profile_picture', 'bio', 'roles', 'user_roles', 'province', 'created_at', 'updated_at']
         extra_kwargs = {
             'created_at': {'read_only': True},
             'updated_at': {'read_only': True}
@@ -67,12 +198,11 @@ class UserProfileSerializer(serializers.ModelSerializer):
     def update(self, instance, validated_data):
         # Actualizar campos del perfil
         user_data = validated_data.pop('user', {})
-        first_name = validated_data.pop('first_name', None)
-        last_name = validated_data.pop('last_name', None)
-        if first_name is not None:
-            instance.user.first_name = first_name
-        if last_name is not None:
-            instance.user.last_name = last_name
+
+        if 'first_name' in user_data:
+            instance.user.first_name = user_data['first_name']
+        if 'last_name' in user_data:
+            instance.user.last_name = user_data['last_name']
         instance.user.save()
 
         # --- FIX para province ---
@@ -89,7 +219,7 @@ class UserProfileSerializer(serializers.ModelSerializer):
         return super().update(instance, validated_data)
 
 
-# Register Serializer
+# Serializador para el registro de nuevos usuarios
 class RegisterSerializer(serializers.ModelSerializer):
     profile = UserProfileSerializer(required=False)
     roles = serializers.PrimaryKeyRelatedField(
@@ -133,7 +263,7 @@ class RegisterSerializer(serializers.ModelSerializer):
 
         return user
 
-# Profile Serializer
+# Serializador básico para perfiles
 class ProfileSerializer(serializers.ModelSerializer):
     class Meta:
         model = UserProfile
@@ -149,7 +279,7 @@ class ProfileSerializer(serializers.ModelSerializer):
         }
 
 
-# UserSerializer con Profile opcional
+# Serializador para usuarios con perfil opcional
 class UserSerializer(serializers.ModelSerializer):
     profile = ProfileSerializer(required=False)
 
@@ -172,7 +302,7 @@ class UserSerializer(serializers.ModelSerializer):
         return user
     
 
-# Custom Token Serializer
+# Serializador personalizado para tokens JWT
 class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
     def validate(self, attrs):
         username = attrs.get('username')
@@ -198,14 +328,13 @@ class CustomTokenObtainPairSerializer(TokenObtainPairSerializer):
         return token
 
 
-
-# Group Serializer
+# Serializador para grupos/roles
 class GroupSerializer(serializers.ModelSerializer):
     class Meta:
         model = Group
         fields = ['id', 'name', 'permissions']
 
 
-# Group Permissions Serializer
+# Serializador para permisos de grupos
 class GroupPermissionsSerializer(serializers.Serializer):
     permissions = serializers.PrimaryKeyRelatedField(many=True, queryset=Permission.objects.all())

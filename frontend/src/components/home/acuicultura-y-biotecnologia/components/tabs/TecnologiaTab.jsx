@@ -1,7 +1,7 @@
 // src/components/tabs/TecnologiaTab.jsx
 
 import React from 'react';
-import { innovaciones } from './../../data/innovacionesData.js';
+import { innovaciones } from '../../data/innovacionesData.js';
 
 export default function TecnologiaTab() {
   const lineas = [

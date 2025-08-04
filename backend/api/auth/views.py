@@ -19,7 +19,7 @@ from .models import (
 
 # Serializers
 from .serializers import (
-    RegisterSerializer, UserProfileSerializer,
+    LoginSerializer, RegisterSerializer, UserProfileSerializer,
     GroupSerializer,  GroupPermissionsSerializer
 )
 
@@ -30,33 +30,114 @@ User = get_user_model()
 # ==================
 
 class LoginView(APIView):
+    """
+    Vista para autenticación de usuarios usando LoginSerializer.
+    
+    Características:
+    - Utiliza LoginSerializer para validación robusta
+    - Soporta login con username o email
+    - Proporciona respuestas estructuradas
+    - Maneja errores de validación específicos
+    - Incluye información del usuario en la respuesta
+    
+    Endpoints:
+    POST /auth/login/ - Autenticar usuario
+    
+    Datos requeridos:
+    {
+        "username": "usuario_o_email",
+        "password": "contraseña"
+    }
+    
+    Respuesta exitosa:
+    {
+        "message": "Login exitoso",
+        "user": {
+            "user_id": 1,
+            "username": "usuario",
+            "email": "email@ejemplo.com",
+            "first_name": "Nombre",
+            "last_name": "Apellido",
+            "is_staff": false,
+            "is_superuser": false,
+            "groups": ["grupo1", "grupo2"]
+        }
+    }
+    """
+    
+    serializer_class = LoginSerializer
+    
     def post(self, request):
-        identifier = request.data.get('username')
-        password = request.data.get('password')
-        user = None
-
-        try:
-            user = User.objects.get(username=identifier)
-        except User.DoesNotExist:
-            try:
-                user = User.objects.get(email=identifier)
-            except User.DoesNotExist:
-                try:
-                    profile = UserProfile.objects.get(user__email=identifier)
-                    user = profile.user
-                except UserProfile.DoesNotExist:
-                    user = None
-
-        if user and user.check_password(password):
+        """
+        Procesa la solicitud de login usando LoginSerializer.
+        
+        Args:
+            request: Objeto de solicitud HTTP con datos de login
+            
+        Returns:
+            Response: Respuesta con resultado del login
+        """
+        # Crear instancia del serializador con los datos recibidos
+        serializer = LoginSerializer(data=request.data)
+        
+        # Validar los datos usando el serializador
+        if serializer.is_valid():
+            # Obtener el usuario autenticado del serializador
+            user = serializer.validated_data['user']
+            
+            # Realizar el login en Django
             login(request, user)
-            return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
-
-        return Response({'error': 'Invalid Credentials'}, status=status.HTTP_400_BAD_REQUEST)
+            
+            # Obtener información del usuario para la respuesta
+            user_data = serializer.to_representation(serializer.validated_data)
+            
+            # Respuesta exitosa con información del usuario
+            return Response({
+                'message': 'Login exitoso',
+                'user': user_data
+            }, status=status.HTTP_200_OK)
+        else:
+            # Respuesta con errores de validación
+            return Response({
+                'error': 'Credenciales inválidas',
+                'details': serializer.errors
+            }, status=status.HTTP_400_BAD_REQUEST)
 
 class LogoutView(APIView):
+    """
+    Vista para cerrar sesión de usuarios.
+    
+    Características:
+    - Cierra la sesión del usuario actual
+    - No requiere datos adicionales
+    - Proporciona confirmación del logout
+    
+    Endpoints:
+    POST /auth/logout/ - Cerrar sesión
+    
+    Respuesta:
+    {
+        "message": "Logout exitoso"
+    }
+    """
+    
     def post(self, request):
+        """
+        Procesa la solicitud de logout.
+        
+        Args:
+            request: Objeto de solicitud HTTP
+            
+        Returns:
+            Response: Confirmación del logout
+        """
+        # Cerrar sesión del usuario actual
         logout(request)
-        return Response({'message': 'Logout successful'}, status=status.HTTP_200_OK)
+        
+        # Respuesta de confirmación
+        return Response({
+            'message': 'Logout exitoso'
+        }, status=status.HTTP_200_OK)
 
 # ==================
 # USERS / PROFILES

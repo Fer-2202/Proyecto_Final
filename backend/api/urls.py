@@ -46,8 +46,6 @@ urlpatterns = [
     # Habitats
     path('habitats/', include('api.habitats.urls')),
 
-    # Auth
-    path('auth/', include('api.auth.urls')),
 
     # Audit Log
     path('audit_log/', include('api.apiLog.urls')),

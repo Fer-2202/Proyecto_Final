@@ -1,0 +1,24 @@
+{
+  "compilerOptions": {
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"],
+      "@app/*": ["src/app/*"],
+      "@layouts/*": ["src/app/layouts/*"],
+      "@pages/*": ["src/app/pages/*"],
+      "@components/*": ["src/app/components/*"],
+
+      "@config/*": ["src/config/*"],
+      "@context/*": ["src/config/context/*"],
+      "@data/*": ["src/config/data/*"],
+      "@hooks/*": ["src/config/hooks/*"],
+      "@services/*": ["src/config/services/*"],
+
+      "@assets/*": ["src/assets/*"],
+      "@utils/*": ["src/utils/*"],
+
+      "@shadcn/*": ["src/components/ui/*"],
+      "@shadcn": ["src/components/ui/index.js"],
+    }
+  }
+}

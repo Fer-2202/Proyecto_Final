@@ -46,7 +46,7 @@ export const AuthProvider = ({ children }) => {
       }
 
       try {
-        const response = await axiosInstance.post("/api/auth/token/refresh/", {
+        const response = await axiosInstance.post("/auth/token/refresh/", {
           refresh,
         });
         if (response.status === 200) {
@@ -98,7 +98,7 @@ export const AuthProvider = ({ children }) => {
   const login = async (credentials) => {
     try {
       const response = await axiosInstance.post(
-        "/api/auth/token/",
+        "/auth/token/",
         credentials
       );
       if (response.status === 200) {
@@ -125,7 +125,7 @@ export const AuthProvider = ({ children }) => {
 
   const logout = async () => {
     try {
-      await axiosInstance.post("/api/auth/logout/", {
+      await axiosInstance.post("/auth/logout/", {
         refresh_token: Cookies.get("refreshToken"),
       });
     } catch (error) {

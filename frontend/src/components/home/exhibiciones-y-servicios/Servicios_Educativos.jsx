@@ -7,7 +7,7 @@ import { getTickets } from "@api/tickets";
 import EducationPrograms from "./components/EducationPrograms";
 /* import EducationalMaterials from './components/EducationalMaterials' */
 /* import materialsData from './data/materialsData' */
-import FeatureCard from "./../FeatureCard";
+import FeatureCard from "../FeatureCard";
 import { Link } from "react-router-dom";
 import { Calendar, Users, ShoppingCart, Fish, Award, BookOpen,} from "lucide-react";
 import { getServiciosEducativos } from "@api/servicesEducation";
