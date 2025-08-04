@@ -17,6 +17,14 @@ from .habitats.models import Habitats
 from .visits.models import Visits
 from .documentos.models import Documents
 
+from .servicios_educativos.models import ServiciosEducativos, ServiciosEducativosImage, ServiciosEducativosButtons, ServiciosEducativosDescription, ServiciosEducativosFacts
+
+from .exhibiciones.models import Exhibiciones, ExhibicionesImage, ExhibicionesButtons, ExhibicionesDescription, ExhibicionesFacts
+
+from .apiLog import AuditLog
+
+
+
 
 User = get_user_model()
 
@@ -36,7 +44,6 @@ admin.site.register(User, CustomUserAdmin)
 
 # Register other models
 admin.site.register(Sections)
-# admin.site.register(roles) # Removed custom roles model registration
 admin.site.register(Provinces)
 admin.site.register(Species)
 admin.site.register(ConservationStatus)
@@ -49,3 +56,17 @@ admin.site.register(Animals)
 admin.site.register(UserProfile) 
 admin.site.register(Payments)
 admin.site.register(Documents)
+
+admin.site.register(ServiciosEducativos)
+admin.site.register(ServiciosEducativosImage)
+admin.site.register(ServiciosEducativosButtons)
+admin.site.register(ServiciosEducativosDescription)
+admin.site.register(ServiciosEducativosFacts)
+
+admin.site.register(Exhibiciones)
+admin.site.register(ExhibicionesImage)
+admin.site.register(ExhibicionesButtons)
+admin.site.register(ExhibicionesDescription)
+admin.site.register(ExhibicionesFacts)
+
+admin.site.register(AuditLog)
