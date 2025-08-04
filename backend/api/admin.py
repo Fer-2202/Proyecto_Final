@@ -19,7 +19,7 @@ from .documentos.models import Documents
 
 from .servicios_educativos.models import ServiciosEducativos, ServiciosEducativosImage, ServiciosEducativosButtons, ServiciosEducativosDescription, ServiciosEducativosFacts
 
-from .exhibiciones.models import Exhibiciones, ExhibicionesImage, ExhibicionesButtons, ExhibicionesDescription, ExhibicionesFacts
+from .exhibiciones.models import Exhibicion, ExhibicionImage, ExhibicionButtons, ExhibicionDescription, ExhibicionFacts
 
 from .apiLog import AuditLog
 
@@ -63,10 +63,10 @@ admin.site.register(ServiciosEducativosButtons)
 admin.site.register(ServiciosEducativosDescription)
 admin.site.register(ServiciosEducativosFacts)
 
-admin.site.register(Exhibiciones)
-admin.site.register(ExhibicionesImage)
-admin.site.register(ExhibicionesButtons)
-admin.site.register(ExhibicionesDescription)
-admin.site.register(ExhibicionesFacts)
+admin.site.register(Exhibicion)
+admin.site.register(ExhibicionImage)
+admin.site.register(ExhibicionButtons)
+admin.site.register(ExhibicionDescription)
+admin.site.register(ExhibicionFacts)
 
 admin.site.register(AuditLog)
