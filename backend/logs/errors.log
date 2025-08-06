@@ -1,0 +1,4 @@
+2025-08-05 09:45:44 - system_errors - ERROR - config - get_system_status:105 - Error al obtener estado del sistema: No module named 'visits'
+2025-08-05 09:48:15 - system_errors - ERROR - config - get_system_status:105 - Error al obtener estado del sistema: Unsupported lookup 'date' for DateField or join on the field not permitted.
+2025-08-05 09:55:14 - system_errors - ERROR - config - get_system_status:105 - Error al obtener estado del sistema: Unsupported lookup 'date' for DateField or join on the field not permitted.
+2025-08-05 09:56:06 - system_errors - ERROR - config - get_system_status:105 - Error al obtener estado del sistema: Unsupported lookup 'date' for DateField or join on the field not permitted.

@@ -17,13 +17,26 @@ class Payments(models.Model):
         return f"Payment {self.transaction_id} - {self.status}"
 
     def save(self, *args, **kwargs):
+        """
+        Sobrescribe el método save para manejar automáticamente los cambios de estado.
+        
+        - Si el pago es exitoso: marca la orden como pagada
+        - Si el pago falla: marca la orden como cancelada y libera cupos
+        """
+        # Verificar si es una actualización de estado
+        is_status_change = False
+        if self.pk:
+            old_payment = Payments.objects.get(pk=self.pk)
+            is_status_change = old_payment.status != self.status
+        
         super().save(*args, **kwargs)
-        if self.status == "SUCCESS":
-            self.purchase_order.mark_as_paid()
-
-        if self.status == "FAILED":
-            self.purchase_order.mark_as_cancelled()
-            self.purchase_order.visit.free_slots()
+        
+        # Solo ejecutar acciones si hay cambio de estado o es un nuevo pago
+        if not self.pk or is_status_change:
+            if self.status == "SUCCESS":
+                self.purchase_order.mark_as_paid()
+            elif self.status == "FAILED":
+                self.purchase_order.mark_as_cancelled()
 
 # Donation
 class Donation(models.Model):

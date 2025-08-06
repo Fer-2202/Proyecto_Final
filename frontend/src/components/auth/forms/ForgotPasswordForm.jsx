@@ -13,7 +13,7 @@ function ForgotPasswordForm() {
 
       // Assuming a backend endpoint for requesting password reset email
       const response = await axiosInstance.post(
-        "/api/auth/forgot-password/",
+        "/auth/forgot-password/",
         values
       );
 

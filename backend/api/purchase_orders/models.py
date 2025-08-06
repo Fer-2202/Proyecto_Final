@@ -27,6 +27,13 @@ class PurchaseOrders(models.Model):
         return f"Purchase Order by {self.email} on {self.order_date.strftime('%Y-%m-%d')}"
 
     def calculate_total_price(self):
+        """
+        Calcula el precio total de la orden basado en los tickets comprados.
+        Actualiza total_price, total_crc y total_usd automáticamente.
+        
+        Uso:
+            purchase_order.calculate_total_price()
+        """
         total = sum([item.subtotal for item in self.tickets_purchase_order.all()])
         self.total_price = total
         self.total_crc = sum([item.subtotal for item in self.tickets_purchase_order.all() if item.ticket.currency == 'CRC'])
@@ -34,9 +41,52 @@ class PurchaseOrders(models.Model):
         self.save()
 
     def occupy_visit_slots(self):
+        """
+        Ocupa los cupos de la visita basado en la cantidad total de tickets.
+        
+        Returns:
+            bool: True si se ocuparon exitosamente, False si no hay cupos suficientes
+            
+        Uso:
+            if purchase_order.occupy_visit_slots():
+                # Cupos ocupados exitosamente
+        """
         total_tickets = sum([item.amount for item in self.tickets_purchase_order.all()])
         return self.visit.occupy_slots(total_tickets)
 
     def mark_as_paid(self):
+        """
+        Marca la orden como pagada.
+        
+        Uso:
+            purchase_order.mark_as_paid()
+        """
         self.status = "PAID"
         self.save()
+
+    def mark_as_cancelled(self):
+        """
+        Marca la orden como cancelada y libera los cupos ocupados.
+        
+        Uso:
+            purchase_order.mark_as_cancelled()
+        """
+        if self.status in ["PENDING", "PAID"]:
+            # Liberar cupos solo si la orden estaba activa
+            total_tickets = sum([item.amount for item in self.tickets_purchase_order.all()])
+            self.visit.free_slots(total_tickets)
+        
+        self.status = "CANCELLED"
+        self.save()
+
+    def get_total_tickets(self):
+        """
+        Retorna la cantidad total de tickets en esta orden.
+        
+        Returns:
+            int: Cantidad total de tickets
+            
+        Uso:
+            total = purchase_order.get_total_tickets()
+        """
+        return sum([item.amount for item in self.tickets_purchase_order.all()])
